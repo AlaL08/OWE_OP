@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zarządzanie – OWE etap II: tabele do nauki</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1d2330;--mut:#5b6475;--card:#fff;--bd:#dfe2e8;--ac:#1f5fbf;--hi:#e8f0fc;--warn:#fff4d6;--wb:#e0b94a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171d;--fg:#e6e8ee;--mut:#9aa3b5;--card:#1c2029;--bd:#2d3341;--ac:#7fb0ff;--hi:#1f2b42;--warn:#3a321a;--wb:#a8873a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+html{scroll-padding-top:60px}
+header{padding:18px 14px 6px;max-width:900px;margin:auto}h1{font-size:1.5rem;margin:0 0 4px}header p{color:var(--mut);margin:0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--bd);z-index:5;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--ac);text-decoration:none;font-size:.82rem;padding:4px 10px;border:1px solid var(--bd);border-radius:14px;background:var(--card)}
+main{max-width:900px;margin:auto;padding:4px 12px 60px}
+h2{font-size:1.25rem;margin:28px 0 8px;border-left:4px solid var(--ac);padding-left:10px}
+h3{font-size:.98rem;margin:14px 0 4px;color:var(--ac)}
+.tw{overflow-x:auto;margin:4px 0 8px;border:1px solid var(--bd);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.87rem;min-width:520px}
+th,td{border:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--hi);position:sticky;top:0}
+td:first-child{font-weight:600}
+.trap{background:var(--warn);border:1px solid var(--wb);border-left:5px solid var(--wb);padding:8px 12px;border-radius:8px;margin:8px 0;font-size:.88rem}
+.trap b.t{display:block;margin-bottom:2px}.trap ul{margin:3px 0;padding-left:18px}
+.bar{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:.85rem}.bar span{width:150px;flex:none}.bar i{display:block;height:13px;background:var(--ac);border-radius:3px}
+#q{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font-size:1rem;margin:8px 0}
+.hide{display:none}
+.fig{margin:10px 0;text-align:center}.fig svg{max-width:100%;height:auto}.fig figcaption{font-size:.8rem;color:var(--mut)}
+svg text{fill:var(--fg);font:11px system-ui,sans-serif;text-anchor:middle}svg text.m{fill:var(--mut);font-size:10px}svg .b{fill:var(--hi);stroke:var(--ac);stroke-width:1.5}svg .w{fill:var(--warn);stroke:var(--wb);stroke-width:1.5}svg .a{fill:none;stroke:var(--ac);stroke-width:1.5}
+.exp{background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--ac);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:.9rem}.exp b.t{color:var(--ac);display:block;margin-bottom:2px}.exp p{margin:4px 0}
+</style></head><body>
+<header><h1>Zarządzanie – OWE etap II</h1><p>Wszystko w tabelach + ramki z pułapkami z pytań.</p>
+<input id="q" type="search" placeholder="Szukaj w tabelach (np. Kaizen, Maslow)…"></header>
+<nav><a href="#stat">Statystyki</a><a href="#szk">Szkoły</a><a href="#prz">Przywództwo</a><a href="#mot">Motywacja</a><a href="#str">Struktury</a><a href="#kon">Kontrola</a><a href="#stra">Strategia</a><a href="#mar">Marketing</a><a href="#hr">HR</a><a href="#ops">Jakość i operacje</a><a href="#zm">Zmiana i grupy</a><a href="#nau">Nauka</a></nav>
+<main>
+
+<h2 id="stat">Statystyki pytań (ok. 103, szacunkowo)</h2>
+<div class="tw"><table><tr><th>Kategoria</th><th>Liczba</th><th>Wykres</th><th>Priorytet</th></tr>
+<tr><td>Strategia</td><td>~17</td><td><div class="bar"><i style="width:170px"></i></div></td><td>Wysoki</td></tr>
+<tr><td>Motywacja i HR</td><td>~17</td><td><div class="bar"><i style="width:170px"></i></div></td><td>Wysoki</td></tr>
+<tr><td>Przywództwo</td><td>~13</td><td><div class="bar"><i style="width:130px"></i></div></td><td>Wysoki</td></tr>
+<tr><td>Struktury i otoczenie</td><td>~13</td><td><div class="bar"><i style="width:130px"></i></div></td><td>Wysoki</td></tr>
+<tr><td>Szkoły zarządzania</td><td>~11</td><td><div class="bar"><i style="width:110px"></i></div></td><td>Średni</td></tr>
+<tr><td>Jakość, operacje, finanse</td><td>~11</td><td><div class="bar"><i style="width:110px"></i></div></td><td>Średni</td></tr>
+<tr><td>Marketing i e-biznes</td><td>~10</td><td><div class="bar"><i style="width:100px"></i></div></td><td>Średni</td></tr>
+<tr><td>CSR, mobbing, inne</td><td>~7</td><td><div class="bar"><i style="width:70px"></i></div></td><td>Niski</td></tr>
+<tr><td>Kontrola</td><td>~4</td><td><div class="bar"><i style="width:40px"></i></div></td><td>Niski</td></tr></table></div>
+
+<h2 id="szk">1. Szkoły zarządzania</h2>
+<div class="tw"><table><tr><th>Nurt</th><th>Przedstawiciele</th><th>Istota</th><th>Kiedy pasuje</th></tr>
+<tr><td>Naukowe zarządzanie (klasyczne)</td><td>F. W. Taylor, Frank i Lillian Gilbreth, H. Gantt</td><td>Pomiar czasu i ruchów, akord, dobór i szkolenie; wykres Gantta</td><td>Organizacje stabilne i proste</td></tr>
+<tr><td>Zarządzanie administracyjne (klasyczne)</td><td>H. Fayol, M. Weber, Urwick, Gulick</td><td>Cała organizacja, 5 funkcji i 14 zasad Fayola, biurokracja Webera</td><td>Organizacje stabilne i proste</td></tr>
+<tr><td>Behawioralne</td><td>E. Mayo, M. P. Follett, D. McGregor, A. Maslow, C. Barnard</td><td>Człowiek, interakcje, eksperymenty z Hawthorne</td><td>Praca zespołowa</td></tr>
+<tr><td>Ilościowe</td><td>Badania operacyjne</td><td>Modele matematyczne</td><td>Problemy mierzalne</td></tr>
+<tr><td>Systemowe</td><td>Bertalanffy</td><td>Organizacja jako system otwarty; ujemna entropia</td><td>Złożone organizacje</td></tr>
+<tr><td>Sytuacyjne</td><td>Woodward, Burns i Stalker, Lawrence i Lorsch</td><td>„To zależy”; struktury zindywidualizowane i adaptacyjne</td><td>Dynamiczne, złożone</td></tr>
+<tr><td>Prakseologia</td><td>T. Kotarbiński</td><td>Nauka o sprawnym działaniu, usuwanie niesprawności</td><td>–</td></tr>
+<tr><td>Fordyzm / Teoria Z / Toyotyzm</td><td>H. Ford, W. Ouchi, T. Ohno</td><td>Taśma; model japoński (zatrudnienie dożywotnie); lean</td><td>–</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Taylor to Frederick W. (nie „W. Taylor”), Gilbreth to F. i L., obaj w szkole NAUKOWEJ, nie behawioralnej.</li><li>Behawioryści: Mayo, Follett. NIE: Weber, Fayol, Taylor, Gilbreth.</li><li>McGregor to behawiorysta, a nie „główny przedstawiciel klasyki”.</li><li>Klasyka pasuje do organizacji stabilnych i prostych, nie dynamicznych.</li><li>Wykres Gantta = nauka zarządzania (naukowe), ale używany do planowania wszystkich typów działalności.</li></ul></div>
+
+<h2 id="prz">2. Przywództwo</h2>
+<h3>Zarządzanie a przywództwo</h3>
+<div class="tw"><table><tr><th>Cecha</th><th>Zarządzanie</th><th>Przywództwo</th></tr>
+<tr><td>Kierunek</td><td>Planowanie, budżetowanie</td><td>Nadawanie kierunku (mocniej)</td></tr>
+<tr><td>Ludzie</td><td>Zatrudnianie, organizowanie</td><td>Motywowanie, inspirowanie (mocniej)</td></tr>
+<tr><td>Zasoby</td><td>Alokacja zasobów (mocniej)</td><td>Słabszy nacisk</td></tr></table></div>
+<h3>10 ról Mintzberga</h3>
+<div class="tw"><table><tr><th>Grupa</th><th>Role</th></tr>
+<tr><td>Interpersonalne</td><td>Reprezentant, przywódca, łącznik</td></tr>
+<tr><td>Informacyjne</td><td>Obserwator, propagator, rzecznik</td></tr>
+<tr><td>Decyzyjne</td><td>Przedsiębiorca, <b>osoba przeciwdziałająca zakłóceniom</b> (konflikty!), alokator zasobów, negocjator</td></tr></table></div>
+<h3>Teorie przywództwa</h3>
+<figure class="fig"><svg viewBox="0 0 340 200"><rect class="b" x="40" y="10" width="280" height="160"/><text class="m" x="180" y="192">troska o produkcję (zadania) →</text><text class="m" transform="rotate(-90 14 90)" x="14" y="90">troska o ludzi →</text><circle cx="65" cy="150" r="5" class="w"/><text x="80" y="145" style="text-anchor:start">1,1 zubożałe</text><circle cx="65" cy="30" r="5" class="w"/><text x="80" y="25" style="text-anchor:start">1,9 klubowe</text><circle cx="295" cy="150" r="5" class="w"/><text x="290" y="140" style="text-anchor:end">9,1 autorytarne</text><circle cx="295" cy="30" r="5" class="w"/><text x="290" y="25" style="text-anchor:end">9,9 zespołowe</text><circle cx="180" cy="90" r="5" class="w"/><text x="180" y="78">5,5 środka</text></svg><figcaption>Siatka Blake’a i Mouton: oś pozioma = produkcja, pionowa = ludzie</figcaption></figure>
+<figure class="fig"><svg viewBox="0 0 340 90"><line class="a" x1="30" y1="40" x2="310" y2="40"/><circle class="b" cx="30" cy="40" r="9"/><circle class="b" cx="77" cy="40" r="9"/><circle class="b" cx="123" cy="40" r="9"/><circle class="b" cx="170" cy="40" r="9"/><circle class="b" cx="217" cy="40" r="9"/><circle class="b" cx="263" cy="40" r="9"/><circle class="b" cx="310" cy="40" r="9"/><text x="30" y="44">1</text><text x="77" y="44">2</text><text x="123" y="44">3</text><text x="170" y="44">4</text><text x="217" y="44">5</text><text x="263" y="44">6</text><text x="310" y="44">7</text><text class="m" x="60" y="72">władza menedżera</text><text class="m" x="280" y="72">swoboda podwładnych</text></svg><figcaption>Ciągła skala Tannenbauma i Schmidta: 7 szczebli</figcaption></figure>
+<div class="exp"><b class="t">Wyjaśnienie: Vroom–Yetton–Jago</b><p>To model „kogo włączyć w decyzję”. Menedżer odpowiada na pytania (ważność jakości, ilość informacji, czy podwładni zaakceptują decyzję) i dostaje właściwy styl: <b>AI/AII</b> decyduje sam (AII po zebraniu informacji), <b>CI/CII</b> konsultuje się z podwładnymi, ale ostatnie słowo ma on, <b>GII</b> decyduje grupa razem z menedżerem. Żaden styl nie jest dobry zawsze.</p></div>
+<div class="exp"><b class="t">Wyjaśnienie: ścieżka do celu (House)</b><p>Przywódca ma pokazać podwładnym drogę do celów i usunąć przeszkody. Styl dobiera się do podwładnych i zadania: gdy zadanie jest niejasne, daje się styl dyrektywny; gdy nudne i stresujące, wspierający.</p></div>
+<div class="exp"><b class="t">Wyjaśnienie: Likert</b><p>System 1 to organizacja biurokratyczna: decyzje z góry, kontrola z góry, motywuje strach, bezpieczeństwo i pieniądze. System 4 to organizacja partycypacyjna: otwarta komunikacja, zaufanie, samokontrola. Systemy 2 i 3 są pośrednie.</p></div>
+<div class="tw"><table><tr><th>Teoria</th><th>Autor</th><th>Treść</th></tr>
+<tr><td>Siatka kierownicza</td><td>Blake i Mouton</td><td>9,1 autorytarne (mało ludzie, dużo produkcja); 1,9 klubowe; 1,1 zubożałe; 5,5 środka; 9,9 zespołowe</td></tr>
+<tr><td>Ciągła skala</td><td>Tannenbaum i Schmidt</td><td>7 szczebli: od autokratycznego do swobody podwładnych</td></tr>
+<tr><td>LPC</td><td>Fiedler</td><td>Styl stały, dopasowanie sytuacji; „najmniej preferowany współpracownik”</td></tr>
+<tr><td>Ścieżka do celu</td><td>House</td><td>Styl dyrektywny, wspierający, partycypacyjny, zorientowany na osiągnięcia</td></tr>
+<tr><td>Dojrzałość podwładnych</td><td>Hersey i Blanchard</td><td>Styl zależny od dojrzałości</td></tr>
+<tr><td>VYJ</td><td>Vroom, Yetton, Jago</td><td>Ile partycypacji podwładnych; 5 stylów: AI, AII, CI, CII, GII</td></tr>
+<tr><td>Charyzma</td><td>M. Weber</td><td>Typy władzy: tradycyjna, legalna, charyzmatyczna</td></tr>
+<tr><td>4 systemy</td><td>Likert</td><td>1 wyzyskujący-autorytatywny (biurokratyczny); 2 życzliwy-autorytatywny; 3 konsultatywny; 4 partycypacyjny</td></tr>
+<tr><td>Przywództwo transformacyjne</td><td>Burns, Bass</td><td>Wizja i inspiracja, zmiana przekonań</td></tr>
+<tr><td>Teoria X/Y</td><td>McGregor</td><td>X: ludzie unikają pracy; Y: chcą się rozwijać</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Ciągła skala: Tannenbaum i SCHMIDT (nie Taylor, nie Gantt), 7 szczebli.</li><li>VYJ to partycypacja, nie dojrzałość (to Hersey) i nie „ścieżka do celu” (to House). Ma 5 stylów; styl konsultacyjny NIE jest decyzją grupy (to styl grupowy).</li><li>Teorie sytuacyjne: LPC. Teorie X/Y i sprawiedliwości NIE są sytuacyjnymi teoriami przywództwa.</li><li>Autorytarne w siatce = mała troska o ludzi, DUŻA o produkcję.</li><li>Charyzma: Weber (nie Maslow, Taylor).</li></ul></div>
+
+<h2 id="mot">3. Motywacja i projektowanie pracy</h2>
+<figure class="fig"><svg viewBox="0 0 340 190"><polygon class="w" points="170,5 200,40 140,40"/><text x="225" y="27" style="text-anchor:start">5 samorealizacji</text><polygon class="b" points="140,40 200,40 230,75 110,75"/><text x="170" y="62">4 szacunku</text><polygon class="b" points="110,75 230,75 260,110 80,110"/><text x="170" y="97">3 przynależności</text><polygon class="b" points="80,110 260,110 290,145 50,145"/><text x="170" y="132">2 bezpieczeństwa</text><polygon class="b" points="50,145 290,145 320,180 20,180"/><text x="170" y="167">1 fizjologiczne</text></svg><figcaption>Piramida Maslowa (od dołu)</figcaption></figure>
+<div class="exp"><b class="t">Wyjaśnienie: Maslow, ERG, Herzberg</b><p><b>Maslow</b>: dopóki niższa potrzeba nie jest zaspokojona, nie motywuje wyższa. <b>Alderfer (ERG)</b> upraszcza to do trzech grup (egzystencja, kontakty, wzrost) i dopuszcza, że potrzeby działają naraz, a po frustracji człowiek może wrócić do niższej. <b>Herzberg</b>: pensja i warunki pracy tylko zapobiegają niezadowoleniu, a dopiero uznanie, rozwój i odpowiedzialność naprawdę motywują.</p></div>
+<div class="exp"><b class="t">Wyjaśnienie: Vroom a Porter–Lawler</b><p>Vroom: pracownik pracuje więcej, jeśli wierzy, że wysiłek da wynik, wynik da nagrodę, a nagroda jest dla niego cenna. Porter i Lawler dodają, że efekt nie jest skutkiem zadowolenia, lecz odwrotnie: dobry wynik i sprawiedliwa nagroda dają zadowolenie, które wzmacnia następny wysiłek.</p></div>
+<div class="tw"><table><tr><th>Teoria</th><th>Autor</th><th>Najważniejsze</th></tr>
+<tr><td>Hierarchia potrzeb</td><td>Maslow</td><td>Fizjologiczne → bezpieczeństwa → przynależności → szacunku → samorealizacji</td></tr>
+<tr><td>ERG</td><td>Alderfer</td><td>Egzystencja, kontakty społeczne, wzrost; frustracja może cofać do niższych potrzeb</td></tr>
+<tr><td>Dwuczynnikowa</td><td>Herzberg</td><td>Higieny (płaca, warunki) vs motywatory (uznanie, rozwój)</td></tr>
+<tr><td>Potrzeby nabyte</td><td>McClelland</td><td>Osiągnięcia, władza, przynależność</td></tr>
+<tr><td>Oczekiwań</td><td>Vroom</td><td>Wysiłek → wynik → nagroda; walencja</td></tr>
+<tr><td>Porter–Lawler</td><td>Porter, Lawler</td><td>Osiągnięcia → zadowolenie; sprawiedliwa nagroda ważna</td></tr>
+<tr><td>Sprawiedliwości</td><td>Adams</td><td>Porównanie nakładów i efektów z innymi</td></tr>
+<tr><td>Wyznaczanie celów</td><td>Locke</td><td>Cele konkretne i trudne (SMART)</td></tr>
+<tr><td>Wzmocnienia</td><td>Skinner</td><td>Nagrody i kary kształtują zachowanie</td></tr></table></div>
+<div class="tw"><table><tr><th>Narzędzie pracy</th><th>Znaczenie</th></tr>
+<tr><td>Job enlargement</td><td>Więcej zadań na tym samym poziomie, urozmaicenie monotonii</td></tr>
+<tr><td>Job enrichment</td><td>Więcej autonomii i odpowiedzialności, wymiar motywacyjny</td></tr>
+<tr><td>Job rotation</td><td>Zmiana stanowisk</td></tr>
+<tr><td>Podział pracy (nadmierny)</td><td>Alienacja pracowników</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Porter–Lawler: to osiągnięcia prowadzą do zadowolenia (nie odwrotnie); sprawiedliwość MA znaczenie; nie ograniczają się do kar.</li><li>ERG: frustracja może cofać do niższych potrzeb; potrzeby się nakładają. To nie „tylko do wyższych”.</li><li>Maslow: bezpieczeństwo PRZED przynależnością, szacunek PRZED samorealizacją.</li><li>Im bardziej demokratyczny styl, tym większa rola narzędzi perswazji (imperatywne i przymus to autokracja).</li></ul></div>
+
+<h2 id="str">4. Struktury i otoczenie</h2>
+<figure class="fig"><svg viewBox="0 0 340 160"><text class="m" x="55" y="12">U (funkcjonalna)</text><rect class="w" x="30" y="20" width="50" height="20"/><text x="55" y="34">Zarząd</text><rect class="b" x="5" y="70" width="36" height="22"/><text x="23" y="85">Prod.</text><rect class="b" x="47" y="70" width="36" height="22"/><text x="65" y="85">Mkt</text><rect class="b" x="89" y="70" width="30" height="22"/><text x="104" y="85">Fin.</text><path class="a" d="M55 40V55M23 55H104M23 55V70M65 55V70M104 55V70"/><text class="m" x="170" y="12">M (wielowydziałowa)</text><rect class="w" x="145" y="20" width="50" height="20"/><text x="170" y="34">Zarząd</text><rect class="b" x="125" y="70" width="40" height="22"/><text x="145" y="85">Wyrób A</text><rect class="b" x="172" y="70" width="40" height="22"/><text x="192" y="85">Wyrób B</text><path class="a" d="M170 40V55M145 55H192M145 55V70M192 55V70"/><text class="m" x="290" y="12">H / konglomerat</text><rect class="w" x="265" y="20" width="50" height="20"/><text x="290" y="34">Holding</text><rect class="b" x="235" y="70" width="46" height="22"/><text x="258" y="85">Banki</text><rect class="b" x="287" y="70" width="46" height="22"/><text x="310" y="85">Auta</text><path class="a" d="M290 40V55M258 55H310M258 55V70M310 55V70"/><text class="m" x="170" y="125">U: funkcje | M: wyroby, powiązane | H: niezależne branże</text></svg><figcaption>Trzy typy struktur</figcaption></figure>
+<figure class="fig"><svg viewBox="0 0 340 190"><circle class="b" cx="170" cy="95" r="90"/><circle class="w" cx="170" cy="110" r="62"/><circle class="b" cx="170" cy="120" r="34"/><text x="170" y="24">otoczenie ogólne (makro)</text><text x="170" y="84">otoczenie zadaniowe</text><text class="m" x="170" y="98">konkurenci, dostawcy, klienci</text><text x="170" y="118">organizacja</text><text class="m" x="170" y="131">(wewnętrzne)</text></svg><figcaption>Otoczenie zewnętrzne = ogólne + zadaniowe; wewnętrzne to sama organizacja</figcaption></figure>
+<div class="exp"><b class="t">Wyjaśnienie: Thompson, Woodward, Weber</b><p><b>Thompson</b> opisuje otoczenie dwoma wymiarami: jak bardzo się zmienia (stabilne czy dynamiczne) oraz jak jest zróżnicowane (jednorodne czy złożone). <b>Woodward</b> wyróżniła 3 techniki: jednostkową/małoseryjną, masową i ciągłą (procesową), i pokazała, że sukces wymaga dopasowania struktury do techniki. <b>Weber</b> uważał biurokrację (podział pracy, hierarchia, przepisy, awans za kompetencje) za najbardziej racjonalny model dla każdej organizacji.</p></div>
+<div class="tw"><table><tr><th>Struktura</th><th>Grupowanie</th><th>Cechy</th></tr>
+<tr><td>U (funkcjonalna)</td><td>Funkcje</td><td>Specjalizacja, jeden wyrób</td></tr>
+<tr><td>M (wielowydziałowa)</td><td>Wyrób, klient, region</td><td>Dywersyfikacja zależna (powiązana)</td></tr>
+<tr><td>H / konglomeratowa</td><td>Niezależne jednostki, wyrób</td><td>Niepowiązane jednostki; dywersyfikacja niezależna</td></tr>
+<tr><td>Macierzowa</td><td>Funkcja + projekt</td><td>Podwójne podporządkowanie</td></tr></table></div>
+<div class="tw"><table><tr><th>Pojęcie</th><th>Znaczenie</th></tr>
+<tr><td>Rozpiętość kierowania</td><td>Liczba osób podlegających BEZPOŚREDNIO jednemu menedżerowi</td></tr>
+<tr><td>Delegowanie</td><td>Przekazanie kompetencji; decentralizacja władzy</td></tr>
+<tr><td>Biurokracja (Weber)</td><td>Model dla wszystkich; sztywna hierarchia; przeciwieństwo: model organiczny</td></tr>
+<tr><td>Keiretsu</td><td>Japonia</td></tr>
+<tr><td>Czebole</td><td>Korea Południowa</td></tr>
+<tr><td>Otoczenie zewnętrzne</td><td>Ogólne (ekonomiczne, polityczne, technologiczne, społeczne, demograficzne, międzynarodowe) + zadaniowe (konkurenci, dostawcy, klienci)</td></tr>
+<tr><td>Thompson</td><td>Wymiary otoczenia: zmienność i jednorodność</td></tr>
+<tr><td>Woodward</td><td>3 formy techniki: jednostkowa, masowa, ciągła</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Konglomerat i M mają wspólne: grupowanie według wyrobu. Konglomerat to jednostki NIEPOWIĄZANE (nie typ M, nie typ U).</li><li>Otoczenie zewnętrzne = ogólne + zadaniowe (odpowiedzi mieszały te pojęcia).</li><li>Rozpiętość to tylko podwładni bezpośredni, nie pośredni.</li><li>Woodward = 3 formy techniki (nie 4, 5, 6).</li></ul></div>
+
+<h2 id="kon">5. Kontrola</h2>
+<div class="exp"><b class="t">Kontrola – jak to rozumieć</b><p><b>Trzy poziomy</b>: strategiczna (cała organizacja i cele), strukturalna (jak zaprojektowana jest organizacja), operacyjna (procesy, w których zasoby zamieniają się w produkty i usługi).</p><p><b>Dwie formy strukturalne</b>: biurokratyczna (reguły, sztywna hierarchia, formalizacja) oraz z udziałem pracowników (samokontrola, nieformalna szeroka partycypacja, mało formalizacji).</p><p><b>Czasowo</b>: wstępna (przed pracą), bieżąca (w trakcie), końcowa (po). <b>Zarządzanie przez wyjątki</b>: menedżer reaguje tylko na odchylenia od planu.</p></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Formy strukturalne: biurokratyczna + z udziałem pracowników (nie finansowa i operacyjna).</li><li>Samokontrola i nieformalna partycypacja to nie biurokracja.</li></ul></div>
+
+<h2 id="stra">6. Strategia</h2>
+<figure class="fig"><svg viewBox="0 0 340 210"><text class="m" x="190" y="12">udział względny w rynku: duży ← → mały</text><text class="m" transform="rotate(-90 10 105)" x="10" y="105">dynamika rynku: niska ← → wysoka</text><rect class="w" x="40" y="20" width="140" height="85"/><text x="110" y="60">GWIAZDY</text><text class="m" x="110" y="76">duży udział, wysoki wzrost</text><rect class="b" x="180" y="20" width="140" height="85"/><text x="250" y="60">ZNAKI ZAPYTANIA</text><text class="m" x="250" y="76">mały udział, wysoki wzrost</text><rect class="b" x="40" y="105" width="140" height="85"/><text x="110" y="145">DOJNE KROWY</text><text class="m" x="110" y="161">duży udział, niski wzrost</text><rect class="b" x="180" y="105" width="140" height="85"/><text x="250" y="145">PIESKI</text><text class="m" x="250" y="161">mały udział, niski wzrost</text></svg><figcaption>Macierz BCG</figcaption></figure>
+<div class="exp"><b class="t">BCG: co z tym robić</b><p>Gwiazdy: inwestować. Dojne krowy: „doić” (generują gotówkę, finansują resztę). Znaki zapytania: wybrać, w które inwestować, a które porzucić. Pieski: ograniczać lub sprzedać.</p></div>
+<figure class="fig"><svg viewBox="0 0 340 200"><text class="m" x="190" y="12">siła konkurencyjna jednostki: silna ← → słaba</text><text class="m" transform="rotate(-90 10 100)" x="10" y="100">atrakcyjność sektora: niska ← → wysoka</text><rect class="w" x="40" y="20" width="93" height="56"/><text x="86" y="52">Zwycięzcy</text><rect class="b" x="133" y="20" width="93" height="56"/><rect class="b" x="226" y="20" width="93" height="56"/><text x="272" y="52">Znaki zapytania</text><rect class="b" x="40" y="76" width="93" height="56"/><rect class="w" x="133" y="76" width="93" height="56"/><text x="180" y="108">Przeciętniacy</text><rect class="b" x="226" y="76" width="93" height="56"/><rect class="b" x="40" y="132" width="93" height="56"/><text x="86" y="158">Dostarczyciele</text><text x="86" y="171">zysku</text><rect class="b" x="133" y="132" width="93" height="56"/><rect class="b" x="226" y="132" width="93" height="56"/><text x="272" y="164">Przegrani</text></svg><figcaption>Macierz GE (uproszczony układ, pięć typów jednostek)</figcaption></figure>
+<div class="exp"><b class="t">GE i ADL – różnica względem BCG</b><p>BCG patrzy na dwa proste wskaźniki (udział i wzrost). <b>GE</b> bierze wiele czynników (atrakcyjność sektora × siła konkurencyjna) i ma 9 pól. <b>ADL</b> łączy etap życia sektora (embrionalny, wzrostu, dojrzałości, starzenia) z pozycją konkurencyjną (dominująca, silna, korzystna, możliwa do utrzymania, słaba) i podpowiada strategię naturalną dla każdego pola.</p></div>
+<figure class="fig"><svg viewBox="0 0 340 190"><text class="m" x="190" y="12">rynki: istniejące ← → nowe</text><text class="m" transform="rotate(-90 10 100)" x="10" y="100">produkty: istniejące ← → nowe</text><rect class="b" x="40" y="20" width="140" height="80"/><text x="110" y="63">Penetracja rynku</text><rect class="b" x="180" y="20" width="140" height="80"/><text x="250" y="63">Rozwój rynku</text><rect class="b" x="40" y="100" width="140" height="80"/><text x="110" y="143">Rozwój produktu</text><rect class="w" x="180" y="100" width="140" height="80"/><text x="250" y="143">Dywersyfikacja</text></svg><figcaption>Macierz Ansoffa</figcaption></figure>
+<figure class="fig"><svg viewBox="0 0 340 200"><rect class="w" x="110" y="75" width="120" height="50"/><text x="170" y="96">Rywalizacja</text><text x="170" y="110">w sektorze</text><rect class="b" x="110" y="5" width="120" height="34"/><text x="170" y="26">Nowi wchodzący</text><rect class="b" x="110" y="160" width="120" height="34"/><text x="170" y="181">Substytuty</text><rect class="b" x="5" y="83" width="90" height="34"/><text x="50" y="104">Dostawcy</text><rect class="b" x="245" y="83" width="90" height="34"/><text x="290" y="104">Nabywcy</text><path class="a" d="M170 39V75M170 125V160M95 100H110M230 100H245"/></svg><figcaption>5 sił Portera (nie ma w nim rządu ani regulacji)</figcaption></figure>
+<figure class="fig"><svg viewBox="0 0 340 200"><rect class="b" x="70" y="4" width="200" height="26"/><text x="170" y="21">1. Ocena aktualnej misji</text><rect class="b" x="70" y="42" width="200" height="26"/><text x="170" y="59">2. Analiza SWOT</text><rect class="b" x="70" y="80" width="200" height="26"/><text x="170" y="97">3. Zdefiniowanie nowych celów</text><rect class="b" x="70" y="118" width="200" height="26"/><text x="170" y="135">4. Formułowanie strategii</text><rect class="w" x="70" y="156" width="200" height="26"/><text x="170" y="173">5. Realizacja strategii</text><path class="a" d="M170 30V42M170 68V80M170 106V118M170 144V156"/></svg><figcaption>Proces zarządzania strategicznego (kolejność z pytania)</figcaption></figure>
+<div class="exp"><b class="t">Wyjaśnienie: strategiczna karta wyników, agencja, niepisane kontrakty</b><p><b>BSC (Kaplan i Norton)</b> zamienia strategię na mierniki w 4 perspektywach: finansowej, klienta, procesów wewnętrznych oraz uczenia się i rozwoju. Zaleta: także cele niefinansowe są mierzalne.</p><p><b>Teoria agencji</b>: właściciel (zleceniodawca) zatrudnia menedżera (agenta), ale ich interesy się różnią, więc powstają koszty kontroli i motywowania.</p><p><b>Niepisane kontrakty</b>: pracownik ma jedną pracę i mało zdywersyfikowany „portfel”, więc bardziej boi się ryzyka niż pracodawca. Pracodawca więc „ubezpiecza” go stabilną płacą.</p></div>
+<div class="tw"><table><tr><th>BCG</th><th>Udział względny</th><th>Dynamika rynku</th></tr>
+<tr><td>Gwiazda</td><td>Duży</td><td>Wysoka</td></tr><tr><td>Dojna krowa</td><td>Duży</td><td>Niska</td></tr>
+<tr><td>Znak zapytania</td><td>Mały</td><td>Wysoka</td></tr><tr><td>Piesek</td><td>Mały</td><td>Niska</td></tr></table></div>
+<div class="tw"><table><tr><th>Model</th><th>Elementy</th></tr>
+<tr><td>GE</td><td>Dostarczyciele zysku, zwycięzcy, przeciętniacy, znaki zapytania, przegrani</td></tr>
+<tr><td>ADL</td><td>Stadium dojrzałości sektora (embrionalne, wzrostu, dojrzałości, starzenia) × pozycja konkurencyjna</td></tr>
+<tr><td>5 sił Portera</td><td>Rywalizacja, nowi wchodzący, substytuty, dostawcy, nabywcy</td></tr>
+<tr><td>Strategie generyczne Portera</td><td>Przywództwo kosztowe, dyferencjacja, koncentracja (nisza)</td></tr>
+<tr><td>Miles i Snow</td><td>Obrońca (koszty, obecne produkty), poszukiwacz (kreatywność), analizator, reaktor (dryfuje)</td></tr>
+<tr><td>Ansoff</td><td>Penetracja rynku, rozwój rynku, rozwój produktu, dywersyfikacja</td></tr>
+<tr><td>Kaplan i Norton (BSC)</td><td>4 perspektywy: finansowa, klienta, procesów, rozwoju; cele także niefinansowe</td></tr>
+<tr><td>SWOT</td><td>Strengths, Weaknesses, Opportunities, Threats (T = zagrożenia)</td></tr>
+<tr><td>PEST/PESTEL</td><td>Analiza otoczenia ogólnego</td></tr>
+<tr><td>VRIO</td><td>Cenny, rzadki, trudny do skopiowania, zorganizowany</td></tr>
+<tr><td>Błękitny ocean</td><td>Tworzenie nowego rynku bez konkurencji</td></tr></table></div>
+<div class="tw"><table><tr><th>Dywersyfikacja / integracja</th><th>Przykład</th></tr>
+<tr><td>Pozioma (horyzontalna)</td><td>Czajniki w ofercie producenta robotów kuchennych</td></tr>
+<tr><td>Pionowa</td><td>Przejęcie łańcucha dostaw przez hipermarket</td></tr>
+<tr><td>Koncentryczna</td><td>Pokrewna technologia lub rynek</td></tr>
+<tr><td>Konglomeratowa</td><td>Pralnie + drogerie; telewizja + telefonia; samochody + bank</td></tr></table></div>
+<div class="tw"><table><tr><th>Pojęcie</th><th>Treść</th></tr>
+<tr><td>Proces strategiczny</td><td>Ocena misji → SWOT → nowe cele → formułowanie strategii → realizacja</td></tr>
+<tr><td>Dumping</td><td>Wymaga barier wejścia, by konkurenci nie wrócili</td></tr>
+<tr><td>Teoria agencji</td><td>Oddzielenie funkcji właściciela od menedżera</td></tr>
+<tr><td>Niepisane kontrakty</td><td>Pracownicy bardziej niechętni ryzyku i mniej zdywersyfikowani</td></tr>
+<tr><td>Zasoby miękkie</td><td>Know-how, kultura, postawy (dostęp do rynku to NIE)</td></tr>
+<tr><td>Benchmarking</td><td>Porównanie z najlepszymi procesami</td></tr>
+<tr><td>Biznesplan</td><td>Kompetencje, harmonogram, scenariusze; bez źródeł finansowania konkurentów</td></tr>
+<tr><td>CSR</td><td>Oszczędzanie energii, darowizny, wolontariat; maksymalizacja zysku dla podatków to nie CSR</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Porter: nie ma „siły rządu” ani „zmian regulacyjnych”.</li><li>Piesek = mały udział, NISKA dynamika (nie wysoka).</li><li>GE: nie ma „dojnych krów” ani „generatorów strat”.</li><li>Obrońca = obniżanie kosztów (poszukiwacz = kreatywność).</li><li>Koncentracja = wąski segment obsłużony sprawniej niż szerzej działający konkurenci.</li><li>Kolejność strategii zaczyna się od oceny MISJI, nie od SWOT.</li></ul></div>
+
+<h2 id="mar">7. Marketing i e-biznes</h2>
+<div class="tw"><table><tr><th>Pojęcie</th><th>Treść</th></tr>
+<tr><td>4P</td><td>Produkt, cena, dystrybucja, promocja (zysku NIE ma)</td></tr>
+<tr><td>AIDA</td><td>Uwaga, zainteresowanie, pożądanie, działanie</td></tr>
+<tr><td>Segmentacja behawioralna</td><td>Wiedza o produkcie, postawy, sposoby użycia, reakcje</td></tr>
+<tr><td>Inne segmentacje</td><td>Geograficzna, demograficzna, psychograficzna</td></tr>
+<tr><td>Orientacje</td><td>Produkcyjna, produktowa, sprzedażowa, marketingowa (potrzeby klienta), społeczna</td></tr>
+<tr><td>Mystery shopping</td><td>Badanie obsługi klienta</td></tr>
+<tr><td>M-commerce</td><td>Transakcje przez urządzenia bezprzewodowe</td></tr>
+<tr><td>SEO</td><td>Słowa kluczowe, katalogi, kod; ceny to NIE pozycjonowanie</td></tr>
+<tr><td>Sharing economy</td><td>Dzielenie niewykorzystanymi zasobami (zgodne ze zrównoważonym rozwojem, bez przeniesienia własności)</td></tr>
+<tr><td>Access economy</td><td>Dostęp zamiast własności, np. carpooling</td></tr>
+<tr><td>Cykl życia produktu</td><td>Wprowadzenie, wzrost, dojrzałość, spadek</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Reakcja z AIDA to POŻĄDANIE (nie aktywacja, informacja, zamożność).</li><li>Sharing economy ma modele B2C; kluczowy jest dostęp, nie własność.</li></ul></div>
+
+<h2 id="hr">8. Zarządzanie personelem</h2>
+<div class="tw"><table><tr><th>Błąd oceny</th><th>Opis</th></tr>
+<tr><td>Halo (aureola)</td><td>Ocena jednej cechy wpływa na pozostałe (atrakcyjny = solidny)</td></tr>
+<tr><td>Efekt rogów</td><td>Jedna wada obniża całość</td></tr>
+<tr><td>Świeżości</td><td>Tylko ostatnie wyniki</td></tr>
+<tr><td>Hierarchii</td><td>Wyższe oceny dla wyżej postawionych</td></tr>
+<tr><td>Sympatii / projekcji</td><td>Sympatyczni lub podobni do oceniającego dostają więcej</td></tr></table></div>
+<div class="tw"><table><tr><th>Pojęcie</th><th>Treść</th></tr>
+<tr><td>Assessment centre</td><td>Standaryzowane warunki, obserwacja, ocena kompetencji</td></tr>
+<tr><td>Rekrutacja wewnętrzna</td><td>Tylko wśród zatrudnionych (zewnętrzna: ogłoszenia, head hunting)</td></tr>
+<tr><td>Model sita</td><td>Kluczowa selekcja</td></tr>
+<tr><td>Outplacement</td><td>Pomoc zwalnianym, zwykle płaci pracodawca</td></tr>
+<tr><td>Karoshi</td><td>Śmierć z przepracowania</td></tr>
+<tr><td>Typ A</td><td>Poczucie czasu, agresja, niecierpliwość, silne poświęcenie pracy</td></tr>
+<tr><td>Typ B</td><td>Spokojniejszy, mniejsze poświęcenie pracy</td></tr>
+<tr><td>Mobbing</td><td>Uporczywe, długotrwałe nękanie (wyśmiewanie, niewykonalna praca, groźby)</td></tr>
+<tr><td>Poczta pantoflowa</td><td>Nieformalna komunikacja; rodzaj: łańcuch plotki</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Judyta (atrakcyjny brunet = uczciwy) to efekt HALO.</li><li>Nieprzyznanie premii za złą pracę NIE jest mobbingiem.</li><li>Poczta pantoflowa jest nieformalna, nie zawsze niewerbalna.</li><li>Typ B ma mniejsze, A silniejsze poświęcenie pracy.</li></ul></div>
+
+<h2 id="ops">9. Jakość, operacje, finanse</h2>
+<div class="exp"><b class="t">Wyjaśnienie: Kaizen, lean, JIT, Kanban</b><p><b>Lean</b> to filozofia: usuwaj marnotrawstwo (zapasy, braki, czekanie). <b>JIT</b> to narzędzie lean: materiał ma przyjechać dokładnie wtedy, gdy jest potrzebny, więc zapasy są minimalne, a dostawcy blisko i niezawodni. <b>Kanban</b> to karta, która uruchamia dostawę, gdy zapas spada. <b>Kaizen</b> to nawyk ciągłych małych usprawnień przez wszystkich. <b>Six Sigma</b> mierzy jakość statystycznie (3,4 błędu na milion).</p></div>
+<div class="exp"><b class="t">EOQ krok po kroku</b><p>Zamawiając często, płacisz za dostawy (500 zł każda), a zamawiając rzadko za magazyn (10 zł za kg rocznie). Optimum jest tam, gdzie oba koszty się równoważą: Q* = √(2·10 000·500 / 10) = √1 000 000 = 1000 kg, czyli 10 dostaw rocznie.</p></div>
+<div class="tw"><table><tr><th>Pojęcie</th><th>Treść</th></tr>
+<tr><td>Kaizen</td><td>Ciągłe, drobne usprawnienia przez wszystkich pracowników (Japonia)</td></tr>
+<tr><td>Lean management / manufacturing</td><td>Odchudzone zarządzanie, mniej marnotrawstwa i braków, małe zapasy</td></tr>
+<tr><td>Just-in-time</td><td>Dostawy na czas, minimalne zapasy, bliscy dostawcy</td></tr>
+<tr><td>Kanban</td><td>Karty sygnalizujące potrzebę uzupełnienia (system ssący)</td></tr>
+<tr><td>5S</td><td>Porządek w miejscu pracy (sortuj, uporządkuj, czyść, standaryzuj, utrzymuj)</td></tr>
+<tr><td>Poka-yoke</td><td>Zabezpieczenie przed błędem</td></tr>
+<tr><td>TQM</td><td>Zarządzanie przez jakość w całej organizacji</td></tr>
+<tr><td>Cykl Deminga (PDCA)</td><td>Planuj, wykonaj, sprawdź, działaj</td></tr>
+<tr><td>Six Sigma</td><td>Metodyka jakości; DMAIC; ~3,4 defektu na milion</td></tr>
+<tr><td>BPR</td><td>Radykalna przebudowa procesów</td></tr>
+<tr><td>Outsourcing</td><td>Zewnętrzne źródła dotąd wewnętrznych usług</td></tr>
+<tr><td>Offshoring / reshoring / backsourcing</td><td>Za granicę / powrót z zagranicy / powrót z outsourcingu</td></tr>
+<tr><td>EOQ</td><td>Q* = √(2DS/H) = √(2·10000·500/10) = <b>1000 kg</b></td></tr>
+<tr><td>Fotografia dnia roboczego</td><td>Rejestr wszystkich czynności i przerw</td></tr>
+<tr><td>Wykres Gantta</td><td>Harmonogram; uniwersalny w planowaniu</td></tr>
+<tr><td>Metody zarządzania</td><td>Przez cele (MBO), wartości, wyjątki, partycypację</td></tr>
+<tr><td>Koszty</td><td>Techniczny = bezpośrednie + wydziałowe; zakładowy = techniczny + zarządu; własny sprzedaży = zakładowy + sprzedaży</td></tr>
+<tr><td>Ujemna wartość firmy</td><td>Pasywa</td></tr></table></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Lean = „wyszczuplone”, a nie centralizacja czy autokracja; w lean zapasy są małe.</li><li>Reshoring jest odwrotnością offshoringu.</li><li>JIT nie zastępuje zapasów całkowicie i nie zwiększa liczby dostawców.</li><li>Zarządzanie przez wyjątki to tylko odchylenia, nie tylko sprawy strategiczne.</li><li>Zasada Pareta 80/20, diagram Ishikawy (przyczyny i skutki) przydadzą się przy jakości.</li></ul></div>
+
+<h2 id="zm">10. Zmiana, grupy, kultura</h2>
+<div class="exp"><p><b>Lewin</b>: rozmrożenie starych nawyków → zmiana → zamrożenie nowego stanu. <b>Kotter</b>: 8 kroków zmiany (od poczucia pilności po utrwalenie w kulturze).</p><p><b>Tuckman</b>: grupa przechodzi etapy tworzenia, ścierania, normowania i działania. <b>Belbin</b> opisuje role w zespole (lider, kreator, analityk i inne).</p><p><b>Hofstede</b>: kultury różnią się m.in. dystansem władzy i indywidualizmem. <b>Schein</b>: kultura ma 3 poziomy (artefakty, deklarowane wartości, głębokie założenia).</p><p><b>Myślenie grupowe</b> (Janis): presja zgodności zabija krytyczne myślenie. <b>Grupa delficka</b>: niezależni eksperci wypowiadają się pisemnie, a z ich opinii powstaje uśrednione stanowisko. <b>Grupa nominalna</b>: pomysły zapisywane osobno, potem głosowanie. <b>Burza mózgów</b>: swobodne generowanie pomysłów bez oceniania.</p></div>
+<div class="trap"><b class="t">Podchwytliwe w pytaniach</b><ul><li>Grupa delficka to eksperci pisemnie, anonimowo (nie zespół interaktywny).</li><li>Myślenie grupowe to nie skutek podziału pracy (to alienacja).</li></ul></div>
+
+<h2 id="nau">11. Jak się uczyć</h2>
+<div class="exp"><b class="t">Plan 9 dni</b><ul><li><b>Dni 1–2</b>: szkoły i przywództwo (fiszki nazwisko → teoria).</li><li><b>Dni 3–4</b>: motywacja i struktury (tabele porównawcze odtwarzaj z pamięci).</li><li><b>Dni 5–6</b>: strategia i marketing (rysuj od zera BCG, 5 sił, AIDA, proces strategiczny).</li><li><b>Dzień 7</b>: HR i jakość (pary: enlargement/enrichment, offshoring/reshoring).</li><li><b>Dzień 8</b>: pytania z pliku, błędy zapisuj jednym zdaniem.</li><li><b>Dzień 9</b>: przeczytaj wszystkie żółte ramki z pułapkami.</li></ul></div>
+<div class="trap"><b class="t">Podchwytliwe w testach</b><ul><li>Uważaj na słowa „zawsze”, „wyłącznie”, „tylko” oraz „nie” w poleceniu.</li><li>Eliminuj dwie odpowiedzi i wybieraj spośród reszty.</li></ul></div>
+</main>
+<script>
+document.getElementById('q').addEventListener('input',function(e){var v=e.target.value.toLowerCase();document.querySelectorAll('tbody tr, .trap').forEach(function(r){r.classList.toggle('hide',v&&r.textContent.toLowerCase().indexOf(v)<0)})});
+</script></body></html>
