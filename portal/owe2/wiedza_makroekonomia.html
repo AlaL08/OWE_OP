@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="pl" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Makroekonomia — Kompendium OWE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+
+/* =========================================================
+   Kompendium OWE — widok ciągły (jeden plik, bez zakładek)
+   ========================================================= */
+:root{
+  color-scheme:dark;
+  --bg:#0f1628;
+  --bg-top:#1b2236;
+  --card:#151d31;
+  --card-2:#18213a;
+  --inset:#121a2d;
+  --deep:#0d1424;
+  --line:#26314b;
+  --line-2:#33405f;
+  --gold:#e8c46f;
+  --gold-2:#cfa956;
+  --gold-dim:#8b7444;
+  --orange:#d99158;
+  --ink:#e9edf5;
+  --ink-2:#c5ccda;
+  --muted:#8f99b0;
+  --faint:#6a7590;
+  --cyan:#6cc6e6;
+  --red:#ee8678;
+  --green:#78d4a8;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Charter,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --r-lg:18px;
+  --r-md:14px;
+  --r-sm:10px;
+  --gutter:clamp(16px,3.2vw,56px);
+  --topbar-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:var(--bg) linear-gradient(180deg,var(--bg-top) 0,#141b2f 380px,var(--bg) 900px) no-repeat;
+  font-feature-settings:"cv11","ss01";
+}
+[hidden]{display:none!important}
+::selection{background:rgba(232,196,111,.3)}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+b,strong{font-weight:650;color:#f4f6fa}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#1a1405;padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+.wrap{max-width:1760px;margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 34px;max-width:1180px}
+.eyebrow{
+  margin:0 0 18px;color:var(--orange);font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;
+}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(44px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;color:var(--gold);
+}
+.desc{margin:0 0 26px;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;font-size:19px;color:var(--muted);margin-bottom:16px}
+.stats b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.srcline{margin:0 0 30px;color:var(--faint);font-size:15.5px;max-width:80ch}
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pill{
+  display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:17px;font-weight:500;background:rgba(255,255,255,.015);transition:border-color .15s,background .15s,color .15s;
+}
+.pill:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:700}
+
+/* ---------- intro ---------- */
+.intro{
+  max-width:1180px;margin:8px 0 42px;padding:24px 28px;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.015));
+}
+.intro__lead{margin:0;font-size:18.5px;line-height:1.7;color:var(--ink)}
+.intro__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+/* ---------- sticky topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 calc(var(--gutter)*-1);padding:0 var(--gutter);
+  background:rgba(14,21,38,.86);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:18px;min-height:var(--topbar-h)}
+.topbar__name{font-weight:800;color:var(--gold);font-size:17px;white-space:nowrap;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;padding:10px 0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chipnav{
+  flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:14.5px;font-weight:500;white-space:nowrap;transition:all .15s;
+}
+.chipnav i{font-style:normal;color:var(--gold-2);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.chipnav:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.chipnav.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:650}
+.chipnav.on i{color:#4a3a10}
+.filter{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.filter input{
+  width:280px;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font:inherit;font-size:15px;
+  padding:9px 16px;border-radius:999px;transition:border-color .15s,width .2s;
+}
+.filter input::placeholder{color:var(--faint)}
+.filter input:focus{outline:none;border-color:var(--gold-2)}
+.filter output{font-size:13.5px;color:var(--muted);min-width:76px;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.layout{display:block;padding-top:8px}
+.toc{display:none}
+.content{min-width:0}
+
+@media (min-width:1680px){
+  .layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:48px}
+  .toc{display:block}
+  .chips{display:none}
+  .topbar__in{justify-content:space-between}
+}
+.toc__in{position:sticky;top:calc(var(--topbar-h) + 28px);max-height:calc(100vh - var(--topbar-h) - 48px);overflow:auto;padding:4px 6px 24px 0;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.toc__h{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.toc__list{list-style:none;margin:0;padding:0}
+.toc__list>li{margin:0 0 4px}
+.toc__sec{
+  display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:15px;
+}
+.toc__sec i{font-style:normal;color:var(--gold-2);font-size:13px;min-width:14px}
+.toc__sec:hover{text-decoration:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.toc__list>li.on>.toc__sec{background:rgba(232,196,111,.1);color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.toc__list ul{list-style:none;margin:2px 0 8px;padding:0 0 0 22px;display:none}
+.toc__list>li.on ul{display:block}
+.toc__list ul a{display:block;padding:4px 10px;font-size:13.5px;line-height:1.4;color:var(--muted);border-radius:8px}
+.toc__list ul a i{font-style:normal;display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.toc__list ul a:hover{text-decoration:none;color:var(--ink);background:rgba(255,255,255,.03)}
+.toc__list ul a.on{color:var(--ink)}
+.toc__list ul a.on i{color:var(--gold-2)}
+
+/* ---------- sekcje ---------- */
+.sec{scroll-margin-top:calc(var(--topbar-h) + 12px)}
+.sec__head{margin:56px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.sec:first-child .sec__head{margin-top:36px}
+.sec__eyebrow{margin:0 0 8px;font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.6}
+.sec__eyebrow b{color:var(--orange);font-weight:700}
+.sec__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec>p.sub{margin:-6px 0 22px;color:var(--muted);font-size:16px;max-width:90ch}
+
+/* ---------- karty ---------- */
+.card{
+  scroll-margin-top:calc(var(--topbar-h) + 16px);
+  background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 24px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -28px rgba(0,0,0,.6);
+}
+.card:target{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(232,196,111,.12)}
+.card__h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 28px;border-bottom:1px solid var(--line)}
+.chip{
+  display:inline-flex;align-items:center;border:1px solid var(--gold-dim);border-radius:999px;overflow:hidden;
+  background:rgba(232,196,111,.06);font-size:15px;line-height:1;
+}
+.chip b{color:var(--gold);font-weight:700;padding:8px 14px;letter-spacing:.02em}
+.chip span{color:var(--gold-2);padding:8px 14px 8px 13px;border-left:1px solid var(--gold-dim);font-weight:500}
+.card__src{color:var(--muted);font-size:14.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card__b{padding:24px 28px 28px}
+.card__t{
+  margin:0 0 18px;font-family:var(--serif);font-size:clamp(23px,1.9vw,29px);line-height:1.28;font-weight:700;letter-spacing:-.005em;
+  color:#f2f4f8;text-wrap:balance;
+}
+.card__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1240px){
+  .card__grid{grid-template-columns:minmax(0,1fr) minmax(330px,34%);gap:30px;align-items:start}
+}
+.card__main>*:first-child{margin-top:0}
+.card__main>*:last-child{margin-bottom:0}
+.card__main p{max-width:84ch}
+.card__main>p{margin:0 0 14px}
+p.lead{font-size:18.5px;line-height:1.7;color:var(--ink)}
+.card__aside{display:flex;flex-direction:column;gap:18px;min-width:0}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+/* bloki „mechanizm / założenia” */
+.mech,.assume{
+  margin:16px 0;padding:16px 20px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset);
+}
+.mech>*:last-child,.assume>*:last-child{margin-bottom:0}
+.mech h4,.assume h4,.worked h4,.calc h4{
+  margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.mech p,.assume p{margin:0 0 10px}
+.assume{border-color:rgba(232,196,111,.3);background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.02))}
+.assume h4{color:var(--gold)}
+
+code.k{font-family:var(--mono);font-size:14px;background:var(--deep);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- pułapki ---------- */
+.trap{
+  border:1px solid rgba(238,134,120,.28);border-radius:var(--r-md);padding:16px 16px 14px;
+  background:linear-gradient(180deg,rgba(238,134,120,.07),rgba(238,134,120,.02));
+}
+.trap__h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);line-height:1.4}
+.trap__ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--red);color:#2a0f0b;font-size:14px;font-weight:800;letter-spacing:0}
+.trap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.trap li{
+  margin:0;padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(13,20,36,.65);
+  font-size:15.5px;line-height:1.55;color:var(--ink-2);
+}
+.trap li b{color:#f6d7d2;font-weight:600}
+.trap li em{color:var(--green);font-style:normal}
+
+/* ---------- tabele ---------- */
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th+th,td+td{border-left:1px solid rgba(38,49,75,.6)}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:#18213a;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);white-space:nowrap}
+tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+tbody tr:hover{background:rgba(232,196,111,.035)}
+td b{color:var(--gold)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.game{width:auto;margin:0 auto}
+table.game td,table.game th{text-align:center;font-variant-numeric:tabular-nums}
+table.game td.ne{background:rgba(232,196,111,.14);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+
+/* ---------- rysunki ---------- */
+figure{margin:18px 0;padding:20px;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-md);overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figcaption{margin:14px auto 0;font-size:14.5px;color:var(--muted);line-height:1.6;text-align:center;max-width:78ch}
+figcaption b{color:var(--ink-2)}
+figure text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.ax{stroke:#4d6290;stroke-width:1.4}
+.gr{stroke:#26314b;stroke-width:1}
+.c-gold{stroke:var(--gold);stroke-width:2.3;fill:none}
+.c-cyan{stroke:var(--cyan);stroke-width:2.3;fill:none}
+.c-red{stroke:var(--red);stroke-width:2.1;fill:none}
+.c-green{stroke:var(--green);stroke-width:2.1;fill:none}
+.dash{stroke-dasharray:4 4;stroke-width:1.2;stroke:#617aa8;fill:none}
+.fill-gold{fill:rgba(232,196,111,.16)}
+.fill-cyan{fill:rgba(108,198,230,.14)}
+.fill-red{fill:rgba(238,134,120,.2)}
+.fill-green{fill:rgba(120,212,168,.16)}
+.lbl-gold{fill:var(--gold)}
+.lbl-cyan{fill:var(--cyan)}
+.lbl-red{fill:var(--red)}
+.lbl-green{fill:var(--green)}
+.lbl-mut{fill:var(--muted)}
+
+/* ---------- wzory ---------- */
+.fx{
+  margin:16px 0;padding:16px 22px;border:1px solid rgba(108,198,230,.28);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(108,198,230,.06),rgba(108,198,230,.015));overflow-x:auto;
+}
+.fx .katex-display{margin:.4em 0}
+.fx .katex{color:var(--ink);font-size:1.12em}
+.katex{color:inherit}
+.fx .note{display:block;font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* ---------- rozwiązania krok po kroku ---------- */
+.worked{margin:16px 0;padding:16px 20px 18px;border:1px solid rgba(120,212,168,.25);border-radius:var(--r-md);background:var(--inset);overflow-x:auto}
+.worked h4{color:var(--green)}
+.worked ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.worked li{
+  counter-increment:step;position:relative;margin:0;padding:10px 14px 10px 52px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:rgba(13,20,36,.55);font-size:16px;line-height:1.65;
+}
+.worked li::before{
+  content:counter(step);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:var(--gold);color:#1d1606;font-weight:800;font-size:14px;line-height:1;
+}
+.worked li[data-l]::before{content:attr(data-l)}
+
+/* ---------- kalkulatory ---------- */
+.calc{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,#19233c,#141c31)}
+.calc h4{color:var(--gold);margin-bottom:12px;letter-spacing:.1em}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.calc label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;line-height:1.35}
+.calc input{
+  width:100%;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14.5px;
+  padding:8px 10px;border-radius:9px;
+}
+.calc input:focus{outline:none;border-color:var(--gold-2)}
+.calc .out{
+  margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--deep);border:1px solid var(--line);
+  font-family:var(--mono);font-size:13.5px;color:var(--green);white-space:pre-wrap;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.calc svg{display:block;width:100%;height:auto;max-width:560px;margin:14px auto 0}
+.calc svg text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.calc .note{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------- odsyłacze ---------- */
+a.xref{color:var(--cyan);font-weight:600;border-bottom:1px dotted rgba(108,198,230,.5)}
+a.xref:hover{text-decoration:none;border-bottom-style:solid}
+
+/* ---------- stopka / na górę ---------- */
+.empty{margin:48px 0;padding:28px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r-lg);color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:14.5px}
+.totop{
+  position:fixed;right:22px;bottom:22px;z-index:50;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card-2);border:1px solid var(--line-2);color:var(--gold);font-size:20px;font-weight:700;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;
+}
+.totop:hover{text-decoration:none;border-color:var(--gold-dim)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- węższe ekrany ---------- */
+@media (max-width:900px){
+  body{font-size:16px}
+  .topbar__name{display:none}
+  .topbar__in{flex-wrap:wrap;gap:0 12px;padding:4px 0}
+  .chips{order:2;flex-basis:100%;padding:4px 0 10px}
+  .filter{order:1;width:100%;margin:8px 0 0}
+  .filter input{flex:1;width:auto}
+  .card__h,.card__b{padding-left:18px;padding-right:18px}
+  .intro{padding:18px 20px}
+  .sec{scroll-margin-top:130px}
+  .card{scroll-margin-top:130px}
+  .worked li{padding-left:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  .topbar,.toc,.totop,.pills,.skip{display:none!important}
+  .layout{display:block}
+  .card{break-inside:avoid-page}
+}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Kompendium: Makroekonomia</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">Olimpiada Wiedzy Ekonomicznej · Etap okręgowy · Kompendium wiedzy</p>
+<h1>Makroekonomia</h1>
+<p class="desc">Modele, pieniądz, polityka gospodarcza.</p>
+<div class="stats"><span><b>16</b> haseł</span><span><b>6</b> działów</span><span>synteza edycji <b>XXI–XXXIX</b></span></div>
+<p class="srcline">Zawody II stopnia — etap okręgowy.</p>
+<nav aria-label="Moduły kompendium" class="pills">
+<a class="pill" href="wiedza_mikroekonomia.html">Mikroekonomia · 19</a>
+<a aria-current="page" class="pill on" href="wiedza_makroekonomia.html">Makroekonomia · 16</a>
+<a class="pill" href="wiedza_finanse.html">Finanse · 14</a>
+<a class="pill" href="wiedza_zarzadzanie.html">Zarządzanie · 13</a>
+<a class="pill" href="wiedza_obliczeniowe.html">Obliczeniowe · 18</a>
+</nav><nav aria-label="Banki zadań" class="pills" style="margin-top:12px"><span style="color:#94a3b8;font-size:13px;align-self:center">Bank zadań z edycji XXI–XXXIX:</span><a class="pill" href="Zarzadzanie.html">Zarządzanie</a><a class="pill" href="Obliczeniowe.html">Zadania obliczeniowe</a><a class="pill" href="Mikroekonomia.html">Mikroekonomia</a><a class="pill" href="Makroekonomia.html">★ Makroekonomia</a><a class="pill" href="Finanse.html">Finanse</a><a class="pill" href="Analiza_finansowa.html">Analiza finansowa</a></nav>
+</header>
+<section aria-label="O module" class="intro">
+<p class="intro__lead">Moduł opisuje <strong>działanie modeli</strong>: co przesuwa którą krzywą, w jakim kierunku i przy jakich założeniach. Atrybucja doktrynalna („kto to wymyślił”, „co głosi szkoła austriacka”) mieszka w module <a class="xref" href="wiedza_zarzadzanie.html">Zarządzanie</a>, a wszystkie rachunki — mnożniki, agregaty, stopy — w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a>.</p>
+<p class="intro__note">Zasada MECE: każde zagadnienie występuje w dokładnie jednym module. Wszystko, co wymaga rachunku na liczbach, znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a> — także wtedy, gdy pochodzi z mikro- lub makroekonomii.</p>
+</section>
+<div class="topbar" id="topbar"><div class="topbar__in">
+<span class="topbar__name">Makroekonomia</span>
+<nav aria-label="Działy" class="chips">
+<a class="chipnav" data-sec="k1" href="#k1"><i>1</i>Rachunki narodowe</a>
+<a class="chipnav" data-sec="k2" href="#k2"><i>2</i>Popyt globalny i AD–AS</a>
+<a class="chipnav" data-sec="k3" href="#k3"><i>3</i>Pieniądz i bank centralny</a>
+<a class="chipnav" data-sec="k4" href="#k4"><i>4</i>Inflacja i bezrobocie</a>
+<a class="chipnav" data-sec="k5" href="#k5"><i>5</i>Cykl i finanse publiczne</a>
+<a class="chipnav" data-sec="k6" href="#k6"><i>6</i>Gospodarka otwarta</a>
+</nav>
+<label class="filter"><span class="sr">Filtruj hasła</span><input autocomplete="off" id="q" placeholder="Szukaj w module…" type="search"/><output id="qcount">16 haseł</output></label>
+</div></div>
+<div class="layout">
+<aside aria-label="Spis treści" class="toc"><div class="toc__in">
+<p class="toc__h">Spis treści</p><ol class="toc__list">
+<li data-sec="k1"><a class="toc__sec" href="#k1"><i>1</i>Rachunki narodowe</a><ul>
+<li><a data-card="MAK-01" href="#MAK-01"><i>MAK-01</i>Od produktu globalnego do dochodu rozporządzalnego</a></li>
+<li><a data-card="MAK-02" href="#MAK-02"><i>MAK-02</i>Wielkości nominalne, realne i deflator PKB</a></li>
+</ul></li>
+<li data-sec="k2"><a class="toc__sec" href="#k2"><i>2</i>Popyt globalny i AD–AS</a><ul>
+<li><a data-card="MAK-03" href="#MAK-03"><i>MAK-03</i>Model keynesowski: równowaga, mnożnik, paradoks zapobiegliwości</a></li>
+<li><a data-card="MAK-04" href="#MAK-04"><i>MAK-04</i>AD–AS: szoki popytowe i podażowe</a></li>
+<li><a data-card="MAK-05" href="#MAK-05"><i>MAK-05</i>Model IS–LM</a></li>
+</ul></li>
+<li data-sec="k3"><a class="toc__sec" href="#k3"><i>3</i>Pieniądz i bank centralny</a><ul>
+<li><a data-card="MAK-06" href="#MAK-06"><i>MAK-06</i>Funkcje pieniądza i agregaty monetarne</a></li>
+<li><a data-card="MAK-07" href="#MAK-07"><i>MAK-07</i>Instrumenty i stopy procentowe NBP</a></li>
+</ul></li>
+<li data-sec="k4"><a class="toc__sec" href="#k4"><i>4</i>Inflacja i bezrobocie</a><ul>
+<li><a data-card="MAK-08" href="#MAK-08"><i>MAK-08</i>Inflacja: rodzaje, przyczyny i koszty</a></li>
+<li><a data-card="MAK-09" href="#MAK-09"><i>MAK-09</i>Bezrobocie: typologia, stopa naturalna, NAIRU, histereza</a></li>
+</ul></li>
+<li data-sec="k5"><a class="toc__sec" href="#k5"><i>5</i>Cykl i finanse publiczne</a><ul>
+<li><a data-card="MAK-10" href="#MAK-10"><i>MAK-10</i>Fazy cyklu, rodzaje cykli, luka popytowa</a></li>
+<li><a data-card="MAK-11" href="#MAK-11"><i>MAK-11</i>Budżet państwa, deficyty i dług publiczny</a></li>
+<li><a data-card="MAK-12" href="#MAK-12"><i>MAK-12</i>Nierówności dochodowe i ubóstwo</a></li>
+</ul></li>
+<li data-sec="k6"><a class="toc__sec" href="#k6"><i>6</i>Gospodarka otwarta</a><ul>
+<li><a data-card="MAK-13" href="#MAK-13"><i>MAK-13</i>Kurs walutowy: aprecjacja, deprecjacja, dewaluacja, rewaluacja</a></li>
+<li><a data-card="MAK-14" href="#MAK-14"><i>MAK-14</i>Bilans płatniczy i tożsamości gospodarki otwartej</a></li>
+<li><a data-card="MAK-15" href="#MAK-15"><i>MAK-15</i>Teoria handlu: przewaga komparatywna, H–O, Stolper–Samuelson, protekcjonizm</a></li>
+<li><a data-card="MAK-16" href="#MAK-16"><i>MAK-16</i>Wzrost, konwergencja i pułapki rozwojowe</a></li>
+</ul></li>
+</ol></div></aside>
+<main class="content" id="tresc">
+<section class="sec" id="k1">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 1</b> · MIERNIKI AKTYWNOŚCI GOSPODARCZEJ</p><h2>Rachunki narodowe</h2></header>
+<p class="sub">Cała rodzina agregatów wynika z jednej linii przekształceń — warto znać ją w obie strony.</p>
+<article class="card" id="MAK-01">
+<header class="card__h"><span class="chip"><b>MAK-01</b><span>Dział 1</span></span><span class="card__src">Rachunki narodowe</span></header>
+<div class="card__b">
+<h3 class="card__t">Od produktu globalnego do dochodu rozporządzalnego</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$\text{PG} \xrightarrow{-\ \text{zużycie pośrednie}} \text{PKB} \xrightarrow{+\ \text{dochody netto z własności za granicą}} \text{PNB} \xrightarrow{-\ \text{amortyzacja}} \text{PNN} \xrightarrow{-\ \text{podatki pośrednie}} \text{DN} \xrightarrow{-\ \text{podatki bezp.}\ +\ \text{transfery}} \text{DR}$$
+              <span class="note">Uporządkowanie malejąco: PNB &gt; PNN &gt; PNN w cenach czynników produkcji (NNI) &gt; dochód rozporządzalny (DPI).</span>
+</div>
+<div class="mech">
+<h4>Trzy metody liczenia PKB</h4>
+<ul>
+<li><b>Wydatkowa</b>: \(AD = C + I + G + NX\). W gospodarce otwartej muszą wystąpić wszystkie cztery składniki.</li>
+<li><b>Dochodowa</b>: suma wynagrodzeń czynników produkcji.</li>
+<li><b>Wartości dodanej</b>: do PKB wchodzi wyłącznie wartość dodana na każdym etapie, czyli finalna cena dobra — nie suma cen ze wszystkich faz.</li>
+</ul>
+</div>
+<div class="assume">
+<h4>Czego PKB nie obejmuje</h4>
+<ul><li>Produkcji w szarej strefie i gospodarstwie domowym.</li><li>Zmian jakości środowiska i czasu wolnego.</li><li>Rozkładu dochodów w społeczeństwie — nawet w przeliczeniu <em>per capita</em>.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Sumowanie cen ze wszystkich faz obrotu</b> (rolnik 0,90 + młynarz 1,20 + … = 7,20 zł) — do PKB wchodzi wyłącznie cena finalna 2,00 zł. To podwójne liczenie.</li>
+<li><b>„PKB uwzględnia dochody netto z własności za granicą”</b> — nie; to różnica między PKB a PNB.</li>
+<li><b>„PKB per capita według PPP pozwala porównać jakość życia poszczególnych obywateli”</b> — pozwala porównać przeciętną siłę nabywczą, ale milczy o <em>rozkładzie</em> dochodów. To zdanie w OWE jest zawsze fałszywe.</li>
+<li><b>Zwiększenie zapasów zwiększa PKB</b> — niesprzedane wyroby są inwestycją w zapasy, nie stratą statystyczną.</li>
+<li><b>Wzrost PKB per capita o 3% nie przesądza o wzroście gospodarczym</b> — mógł wynikać z ujemnego przyrostu naturalnego przy stagnacji PKB.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-02">
+<header class="card__h"><span class="chip"><b>MAK-02</b><span>Dział 1</span></span><span class="card__src">Rachunki narodowe</span></header>
+<div class="card__b">
+<h3 class="card__t">Wielkości nominalne, realne i deflator PKB</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Deflator PKB to iloraz PKB nominalnego i realnego pomnożony przez 100. Mierzy zmianę cen całej krajowej produkcji, a nie tylko koszyka konsumenta (to robi CPI).</p>
+<div class="mech">
+<h4>Różnice CPI i deflatora</h4>
+<ul>
+<li>CPI: stały koszyk, obejmuje dobra importowane, pomija dobra inwestycyjne.</li>
+<li>Deflator: koszyk zmienny (bieżąca struktura produkcji), obejmuje inwestycje i eksport, pomija import.</li>
+<li>Deflator <b>może przyjąć wartość mniejszą od 100</b> — oznacza to deflację względem roku bazowego.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Deflator to różnica między PKB potencjalnym a rzeczywistym”</b> — to luka PKB, zupełnie inna kategoria.</li>
+<li><b>„Deflator przyjmuje wartości od −1 do 1”</b> — to współczynnik korelacji. Deflator to indeks, zwykle w okolicach 100.</li>
+<li><b>„Ceny stałe oznaczają, że nie było inflacji”</b> — oznaczają, że dokonano urealnienia i wartości są porównywalne w czasie.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="k2">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 2</b> · POPYT GLOBALNY, AD–AS I IS–LM</p><h2>Popyt globalny i AD–AS</h2></header>
+<p class="sub">Rdzeń pytań opisowych o stabilizację gospodarki.</p>
+<article class="card" id="MAK-03">
+<header class="card__h"><span class="chip"><b>MAK-03</b><span>Dział 2</span></span><span class="card__src">Popyt globalny i AD–AS</span></header>
+<div class="card__b">
+<h3 class="card__t">Model keynesowski: równowaga, mnożnik, paradoks zapobiegliwości</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">W ujęciu Keynesa o poziomie produkcji decyduje popyt globalny, a nie zdolności wytwórcze. Równowaga wymaga zrównania odpływów z wtryskami.</p>
+<div class="fx">
+              $$S + T = I + G \qquad\text{(gospodarka zamknięta z udziałem państwa)}$$
+              <span class="note">Planowane oszczędności i podatki netto muszą zrównać się z planowanymi inwestycjami i wydatkami państwa.</span>
+</div>
+<div class="mech">
+<h4>Paradoks zapobiegliwości</h4>
+<p>Wzrost skłonności do oszczędzania obniża popyt globalny, a przez mnożnik — dochód narodowy zapewniający równowagę. Ponieważ oszczędności zależą od dochodu, końcowa suma oszczędności może się w ogóle nie zwiększyć. Zamiar zbiorowy niweczy sam siebie.</p>
+</div>
+<div class="mech">
+<h4>Zasada akceleracji</h4>
+<p>Zmiana popytu konsumpcyjnego wywołuje <strong>wielokrotnie większą</strong> zmianę popytu inwestycyjnego, bo przedsiębiorstwa muszą skokowo dostosować zasób kapitału. Efekt akceleratora wynika z antycypowania przyszłej koniunktury; wygasa, gdy firmy dysponują rezerwami mocy produkcyjnych.</p>
+</div>
+<div class="assume">
+<h4>Założenia modelu</h4>
+<ul><li>Ceny i płace lepkie w krótkim okresie; istnieją niewykorzystane moce produkcyjne.</li><li>Krańcowa skłonność do konsumpcji stała i mniejsza od 1.</li><li>Stopa procentowa i poziom cen traktowane jako dane (w prostym modelu mnożnikowym).</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Paradoks zapobiegliwości to jednoczesny wzrost oszczędności i inwestycji”</b> — to jego przeciwieństwo. Istotą jest <em>spadek dochodu równowagi</em> pod wpływem wzrostu skłonności do oszczędzania.</li>
+<li><b>„Recesja w ujęciu Keynesa wynika ze spadku oszczędności”</b> — odwrotnie; wynika z ubytku popytu, np. spadku eksportu lub inwestycji.</li>
+<li><b>Akcelerator mylony z inflacją płacową</b> lub z reakcją produkcji na cenę — to dwa inne mechanizmy.</li>
+<li><b>Warunek równowagi to zrównanie <em>planowanych</em> wielkości</b>; nieplanowana zmiana zapasów jest właśnie sygnałem braku równowagi.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-04">
+<header class="card__h"><span class="chip"><b>MAK-04</b><span>Dział 2</span></span><span class="card__src">Popyt globalny i AD–AS</span></header>
+<div class="card__b">
+<h3 class="card__t">AD–AS: szoki popytowe i podażowe</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Model AD-AS" role="img" viewbox="0 0 640 330">
+<line class="ax" x1="70" x2="600" y1="290" y2="290"></line>
+<line class="ax" x1="70" x2="70" y1="290" y2="30"></line>
+<line class="c-cyan" x1="95" x2="530" y1="60" y2="270"></line>
+<path class="c-gold" d="M95,275 C230,265 330,220 380,120 L392,40"></path>
+<line class="dash" x1="440" x2="440" y1="40" y2="290"></line>
+<circle cx="337" cy="177" fill="#e2eaf6" r="4.5"></circle>
+<text class="lbl-cyan" x="536" y="274">AD</text>
+<text class="lbl-gold" x="400" y="56">AS krótkookresowa</text>
+<text fill="#7e97bd" x="448" y="60">AS długookresowa</text>
+<text x="20" y="42">poziom cen</text>
+<text x="560" y="312">Y</text>
+<text x="330" y="312">Y równowagi</text>
+</svg>
+<figcaption>Płaski odcinek AS: wolne moce, wzrost AD podnosi produkcję. Odcinek pionowy: pełne wykorzystanie, wzrost AD podnosi wyłącznie ceny.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Szok</th><th>Ruch krzywej</th><th>Produkcja</th><th>Ceny</th></tr></thead>
+<tbody>
+<tr><td>Pozytywny popytowy (wzrost G, eksportu)</td><td>AD w prawo</td><td>rośnie</td><td>rosną</td></tr>
+<tr><td>Negatywny popytowy</td><td>AD w lewo</td><td>spada</td><td>spadają</td></tr>
+<tr><td>Negatywny podażowy (wzrost cen surowców)</td><td>AS krótkookresowa w lewo</td><td>spada</td><td>rosną → <b>stagflacja</b></td></tr>
+<tr><td>Postęp techniczny</td><td>AS w prawo</td><td>rośnie</td><td>spadają, chyba że bank centralny złagodzi politykę</td></tr>
+<tr><td>Wzrost AD przy sztywnej (pionowej) AS</td><td>—</td><td>bez zmian</td><td>rosną</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Przy pionowej AS przeciętny poziom cen jest stały”</b> — fałsz. Pionowa AS oznacza, że <em>realny dochód</em> nie zależy od poziomu cen; same ceny są w pełni elastyczne.</li>
+<li><b>„Stagflacja wynika ze spadku popytu globalnego”</b> — spadek AD obniża ceny. Stagflacja wymaga spadku krótkookresowej AS.</li>
+<li><b>Nowa keynesowska krzywa AS</b> jest doskonale nieelastyczna przy poziomie produkcji odpowiadającym pełnemu zatrudnieniu — tam kończy się jej rosnący odcinek.</li>
+<li><b>Krzywa AD przesuwa się w dół przy spadku eksportu</b>, a nie przy zmianie krańcowej skłonności do konsumpcji (ta zmienia <em>nachylenie</em>).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-05">
+<header class="card__h"><span class="chip"><b>MAK-05</b><span>Dział 2</span></span><span class="card__src">Popyt globalny i AD–AS</span></header>
+<div class="card__b">
+<h3 class="card__t">Model IS–LM</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Model IS-LM" role="img" viewbox="0 0 640 320">
+<line class="ax" x1="70" x2="600" y1="280" y2="280"></line>
+<line class="ax" x1="70" x2="70" y1="280" y2="30"></line>
+<line class="c-gold" x1="95" x2="520" y1="60" y2="250"></line>
+<line class="c-cyan" x1="95" x2="520" y1="250" y2="60"></line>
+<line class="dash" x1="140" x2="565" y1="45" y2="235"></line>
+<circle cx="307" cy="155" fill="#e2eaf6" r="4.5"></circle>
+<text class="lbl-gold" x="528" y="254">IS</text>
+<text class="lbl-cyan" x="528" y="64">LM</text>
+<text fill="#7e97bd" x="470" y="30">IS'</text>
+<text x="16" y="44">stopa %</text>
+<text x="565" y="302">Y</text>
+</svg>
+<figcaption>IS — równowaga rynku dóbr i usług. LM — równowaga rynku pieniężnego. Przecięcie wyznacza jednocześnie dochód i stopę procentową.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Działanie</th><th>Ruch krzywej</th><th>Skutek</th></tr></thead>
+<tbody>
+<tr><td>Zaostrzenie polityki fiskalnej (cięcie G, wzrost T)</td><td>IS w <b>lewo</b></td><td>Spadek Y i stopy procentowej</td></tr>
+<tr><td>Łagodzenie polityki fiskalnej</td><td>IS w prawo</td><td>Wzrost Y i stopy; możliwy efekt wypierania inwestycji</td></tr>
+<tr><td>Zaostrzenie polityki pieniężnej</td><td>LM w <b>lewo</b></td><td>Wzrost stopy, spadek Y</td></tr>
+<tr><td>Łagodzenie polityki pieniężnej</td><td>LM w prawo</td><td>Spadek stopy, wzrost Y</td></tr>
+</tbody>
+</table>
+</div>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Poziom cen stały (model krótkookresowy).</li><li>Inwestycje są malejącą funkcją stopy procentowej, popyt na pieniądz — malejącą funkcją stopy i rosnącą funkcją dochodu.</li><li>Podaż pieniądza kontrolowana przez bank centralny.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Przypisanie IS polityce pieniężnej, a LM fiskalnej</b> — to najczęstszy dystraktor. Zapamiętaj: <em>I</em>S od <em>inwestycji</em> (rynek dóbr), <em>LM</em> od <em>liquidity–money</em>.</li>
+<li><b>„IS pokazuje kombinacje dochodu i stopy przy równowadze rynku pieniądza”</b> — podmiana rynków.</li>
+<li><b>Płynny kurs i swoboda przepływów kapitału</b> (model Mundella–Fleminga): skuteczniejsza staje się polityka <em>monetarna</em>, a fiskalna słabnie. Przy kursie stałym jest odwrotnie.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="k3">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 3</b> · PIENIĄDZ, BANK CENTRALNY, POLITYKA MONETARNA</p><h2>Pieniądz i bank centralny</h2></header>
+<p class="sub">Najgęściej obsadzony blok w testach ostatnich dziesięciu edycji.</p>
+<article class="card" id="MAK-06">
+<header class="card__h"><span class="chip"><b>MAK-06</b><span>Dział 3</span></span><span class="card__src">Pieniądz i bank centralny</span></header>
+<div class="card__b">
+<h3 class="card__t">Funkcje pieniądza i agregaty monetarne</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Funkcje pieniądza: środek wymiany, miernik wartości, środek płatniczy, środek tezauryzacji (przechowywania wartości). „Środek okazywania bogactwa” funkcją nie jest.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Agregat</th><th>Zawartość</th></tr></thead>
+<tbody>
+<tr><td><b>M0 (baza monetarna)</b></td><td>Gotówka w obiegu + rezerwy banków komercyjnych na rachunkach w banku centralnym</td></tr>
+<tr><td><b>M1</b></td><td>Gotówka w obiegu + depozyty bieżące (płatne na żądanie)</td></tr>
+<tr><td><b>M2</b></td><td>M1 + depozyty terminowe do 2 lat</td></tr>
+<tr><td><b>M3</b></td><td>M2 + operacje z przyrzeczeniem odkupu, jednostki funduszy rynku pieniężnego, dłużne papiery do 2 lat — <b>podstawowa kategoria analityczna NBP</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Bilans banku centralnego</h4>
+<p>Po stronie <b>pasywów</b>: gotówka (pieniądz) w obiegu oraz rezerwy obowiązkowe i depozyty banków. Po stronie <b>aktywów</b>: złoto, należności w walutach obcych od nierezydentów, udzielone kredyty refinansowe, zakupione papiery wartościowe.</p>
+</div>
+<div class="mech">
+<h4>Ilościowa teoria pieniądza</h4>
+<div class="fx">$$M \cdot V = P \cdot Y$$<span class="note">Zakłada stabilną szybkość obiegu V oraz realny PKB określony przez czynniki podażowe; stąd wniosek o neutralności pieniądza.</span></div>
+<p>Neutralność pieniądza: zmiana podaży pieniądza zmienia poziom cen (stopę inflacji), lecz nie wpływa na wielkości realne. To wniosek długookresowy.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Baza monetarna to gotówka i wszystkie wkłady w bankach komercyjnych”</b> — nie; wkłady klientów w bankach komercyjnych należą do M1–M3, nie do M0.</li>
+<li><b>„W ilościowej teorii podaż pieniądza ustalają banki komercyjne”</b> — teoria zakłada egzogeniczną podaż kontrolowaną przez bank centralny.</li>
+<li><b>Realny popyt na pieniądz</b> określa ilość dóbr, którą można nabyć danym zasobem pieniądza. Rośnie wraz ze wzrostem gospodarczym i maleje, gdy rośnie koszt utrzymywania pieniądza (stopa procentowa).</li>
+<li><b>Ucieczka od pieniądza</b> to zjawisko hiperinflacyjne, nie deflacyjne; w hiperinflacji przestaje też działać prawo Kopernika–Greshama (nikt nie chce gorszego pieniądza).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-07">
+<header class="card__h"><span class="chip"><b>MAK-07</b><span>Dział 3</span></span><span class="card__src">Pieniądz i bank centralny</span></header>
+<div class="card__b">
+<h3 class="card__t">Instrumenty i stopy procentowe NBP</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Korytarz stóp procentowych" role="img" viewbox="0 0 640 230">
+<line class="ax" x1="90" x2="600" y1="200" y2="200"></line>
+<line class="c-red" x1="110" x2="560" y1="55" y2="55"></line>
+<line class="c-gold" x1="110" x2="560" y1="120" y2="120"></line>
+<line class="c-cyan" x1="110" x2="560" y1="180" y2="180"></line>
+<path class="dash" d="M120,120 C200,80 280,150 360,110 C440,75 500,140 550,118"></path>
+<text class="lbl-red" x="120" y="46">stopa lombardowa — górne ograniczenie O/N</text>
+<text class="lbl-gold" x="120" y="112">stopa referencyjna — rentowność 7-dniowych bonów pieniężnych</text>
+<text class="lbl-cyan" x="120" y="196">stopa depozytowa — dolne ograniczenie O/N</text>
+</svg>
+<figcaption>Stopa depozytowa i lombardowa wyznaczają korytarz, w którym oscylują stawki overnight na rynku międzybankowym (POLONIA).</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Instrument</th><th>Na czym polega</th><th>Efekt</th></tr></thead>
+<tbody>
+<tr><td>Operacje otwartego rynku</td><td>Zakup lub sprzedaż papierów wartościowych przez bank centralny</td><td>Podstawowy instrument sterowania płynnością</td></tr>
+<tr><td><b>Repo</b></td><td>Zakup papierów z przyrzeczeniem odsprzedaży</td><td>Zasilenie sektora w płynność</td></tr>
+<tr><td><b>Reverse repo</b></td><td>Sprzedaż papierów z przyrzeczeniem odkupu</td><td><b>Absorpcja</b> płynności</td></tr>
+<tr><td>Emisja bonów pieniężnych / obligacji własnych BC</td><td>Zaciąganie zobowiązania wobec banków</td><td>Ograniczenie płynności sektora</td></tr>
+<tr><td>Rezerwa obowiązkowa</td><td>Odsetek depozytów blokowany w banku centralnym</td><td>Wpływa na mnożnik kreacji pieniądza</td></tr>
+<tr><td>Operacje depozytowo-kredytowe</td><td>Kredyt lombardowy i depozyt na koniec dnia</td><td>Domykają korytarz stóp</td></tr>
+<tr><td>Luzowanie ilościowe (QE)</td><td>Skup długoterminowych obligacji na rynku <b>wtórnym</b></td><td>Obniżenie długich stóp, gdy krótkie są przy zerze</td></tr>
+<tr><td>Forward guidance</td><td>Komunikowanie przyszłej ścieżki stóp</td><td>Kotwiczenie oczekiwań</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Strategia bezpośredniego celu inflacyjnego (BCI)</h4>
+<p>Kluczowy element: uznanie <strong>stabilności cen za cel nadrzędny</strong> wobec pozostałych celów, publiczne ogłoszenie numerycznego celu inflacyjnego i przejrzystość komunikacji. Cel inflacyjny w Polsce wyznacza <strong>Rada Polityki Pieniężnej</strong>, a nie Sejm, rząd ani Prezes NBP.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Projekcja inflacji to prognoza RPP”</b> — nie. To scenariusz przyszłej ścieżki inflacji przy założeniu <em>niezmienionych stóp procentowych</em>, przygotowywany przez analityków banku, a nie przez Radę.</li>
+<li><b>„Minutes zawiera wyniki głosowania / imienne wnioski”</b> — <em>minutes</em> to opis dyskusji: opinie członków Rady o bieżących i prognozowanych zjawiskach gospodarczych.</li>
+<li><b>Mylenie reverse repo z repo</b> — pytanie o „ograniczenie płynności” rozstrzyga kierunek transakcji: bank centralny <em>sprzedaje</em> papiery.</li>
+<li><b>„Nieprzyjęcie sprawozdania przez Sejm odwołuje Prezesa NBP”</b> — Sejm nie może na tej podstawie zmienić składu organów NBP.</li>
+<li><b>Kadencja Prezesa NBP: 6 lat.</b> Zapamiętaj przez kontrast z 4-letnią kadencją Sejmu.</li>
+<li><b>CBDC to nie bitcoin</b> — to pieniądz banku centralnego w formie elektronicznej, dostępny szerzej niż tylko dla banków; nie oznacza utraty renty menniczej.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="k4">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 4</b> · INFLACJA I BEZROBOCIE</p><h2>Inflacja i bezrobocie</h2></header>
+<p class="sub">Dwa zjawiska połączone krzywą Phillipsa — i jej długookresowym unieważnieniem.</p>
+<article class="card" id="MAK-08">
+<header class="card__h"><span class="chip"><b>MAK-08</b><span>Dział 4</span></span><span class="card__src">Inflacja i bezrobocie</span></header>
+<div class="card__b">
+<h3 class="card__t">Inflacja: rodzaje, przyczyny i koszty</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Kategoria</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td>Inflacja popytowa</td><td>Wzrost podaży pieniądza, boom kredytowy, wzrost wydatków rządowych. <b>Nie</b> wzrost cen towarów importowanych</td></tr>
+<tr><td>Inflacja kosztowa (podażowa)</td><td>Wzrost cen surowców, importu, płac ponad wydajność</td></tr>
+<tr><td>Koszt „zdartych zelówek”</td><td>Koszt częstszych wizyt w banku — utrzymywanie mniejszych zasobów gotówki przy wysokiej inflacji</td></tr>
+<tr><td>Koszt „zmiany jadłospisów”</td><td>Koszt aktualizacji cenników; jego konsekwencją jest <b>lepkość cen</b></td></tr>
+<tr><td>Efekt Tanziego–Olivery</td><td>Realny spadek wpływów podatkowych z powodu opóźnienia między powstaniem zobowiązania a wpłatą — przy wysokiej inflacji <b>zwiększa deficyt</b></td></tr>
+<tr><td>Deflacja długu</td><td>Wzrost <b>realnej</b> wartości zadłużenia przy spadku ogólnego poziomu cen</td></tr>
+<tr><td>Inercyjność inflacji</td><td>Utrwalenie inflacji przez oczekiwania i indeksację; <b>utrudnia</b> prowadzenie polityki pieniężnej</td></tr>
+<tr><td>Iluzja pieniężna</td><td>Podejmowanie decyzji w oparciu o wielkości nominalne, z pominięciem zmian cen</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Inflacja nie wpływa na funkcje pieniądza”</b> — wpływa, i to na wszystkie: psuje miernik wartości i środek tezauryzacji, a w hiperinflacji także środek wymiany.</li>
+<li><b>Konsekwencją deflacji jest odraczanie zakupów</b>, a nie poprawa sytuacji dłużników — dłużnicy tracą, bo realna wartość długu rośnie.</li>
+<li><b>Kwadryliony na Węgrzech (1946)</b> — rekord hiperinflacji XX wieku należy do Węgier, nie do Niemiec ani Polski.</li>
+<li><b>Taksflacja</b> (wzrost realnych obciążeń podatkowych przez brak indeksacji progów) <em>ogranicza</em> deficyt budżetowy — to przeciwieństwo efektu Tanziego–Olivery.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-09">
+<header class="card__h"><span class="chip"><b>MAK-09</b><span>Dział 4</span></span><span class="card__src">Inflacja i bezrobocie</span></header>
+<div class="card__b">
+<h3 class="card__t">Bezrobocie: typologia, stopa naturalna, NAIRU, histereza</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Rodzaj</th><th>Przyczyna</th><th>Lekarstwo</th></tr></thead>
+<tbody>
+<tr><td><b>Frykcyjne</b></td><td>Czas poszukiwania pracy, zmiana miejsca zamieszkania</td><td>Lepsza informacja o rynku pracy i pośrednictwo</td></tr>
+<tr><td><b>Strukturalne</b></td><td>Niedopasowanie kwalifikacji do popytu (np. automatyzacja)</td><td>Przekwalifikowanie, edukacja</td></tr>
+<tr><td><b>Cykliczne (keynesowskie)</b></td><td>Niedostateczny popyt globalny w recesji</td><td>Ekspansja fiskalna lub monetarna</td></tr>
+<tr><td><b>Klasyczne</b></td><td>Płace utrzymywane powyżej poziomu równowagi</td><td>Uelastycznienie płac</td></tr>
+</tbody>
+</table>
+</div>
+<figure>
+<svg aria-label="Krzywa Phillipsa" role="img" viewbox="0 0 640 300">
+<line class="ax" x1="80" x2="600" y1="260" y2="260"></line>
+<line class="ax" x1="80" x2="80" y1="260" y2="30"></line>
+<path class="c-gold" d="M110,60 C190,190 260,230 420,244"></path>
+<path class="c-cyan" d="M160,50 C250,175 320,215 470,232" opacity=".8"></path>
+<line class="c-red" x1="300" x2="300" y1="40" y2="260"></line>
+<text class="lbl-gold" x="430" y="248">SRPC</text>
+<text class="lbl-cyan" x="478" y="236">SRPC przy wyższych oczekiwaniach</text>
+<text class="lbl-red" x="308" y="52">LRPC — naturalna stopa</text>
+<text x="16" y="42">inflacja</text>
+<text x="545" y="282">stopa bezrobocia</text>
+</svg>
+<figcaption>Wzrost oczekiwań inflacyjnych przesuwa krótkookresową krzywą Phillipsa w górę/w prawo. W długim okresie gospodarka wraca do naturalnej stopy bezrobocia niezależnie od tempa inflacji.</figcaption>
+</figure>
+<div class="mech">
+<h4>Pojęcia graniczne</h4>
+<ul>
+<li><b>Pełne zatrudnienie</b> = brak bezrobocia cyklicznego (koniunkturalnego), a nie stopa bezrobocia równa zeru.</li>
+<li><b>Naturalna stopa bezrobocia</b> rośnie wraz z hojnością zasiłków, siłą związków zawodowych i wysokością płacy minimalnej — jest więc zależna od polityki państwa.</li>
+<li><b>NAIRU</b> — stopa bezrobocia niepowodująca przyspieszenia inflacji. Gdy bezrobocie faktyczne jest <em>wyższe</em> od NAIRU, narastają procesy dezinflacyjne.</li>
+<li><b>Prawo Okuna</b> — zależność między stopą bezrobocia przymusowego a luką PKB.</li>
+<li><b>Histereza</b> — trwały wzrost bezrobocia po recesji, bo długotrwale bezrobotni tracą kwalifikacje i pozycję konkurencyjną.</li>
+<li><b>Krzywa Beveridge'a</b> — zależność między liczbą bezrobotnych a liczbą wolnych miejsc pracy.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Prawo Okuna opisuje wymienność inflacji i bezrobocia”</b> — to krzywa Phillipsa. Okun łączy bezrobocie z <em>luką PKB</em>.</li>
+<li><b>„Pełne zatrudnienie oznacza zerową stopę bezrobocia rejestrowanego”</b> — pozostaje bezrobocie frykcyjne i strukturalne.</li>
+<li><b>Histereza mylona z emigracją zarobkową lub pracą poniżej kwalifikacji</b> — istotą jest utrata kwalifikacji przez długotrwale bezrobotnych.</li>
+<li><b>Bezrobocie po automatyzacji jest strukturalne</b>, nie cykliczne ani frykcyjne — pytanie wracało przy temacie czwartej rewolucji przemysłowej.</li>
+<li><b>Poprawa pośrednictwa pracy</b> redukuje bezrobocie <em>frykcyjne</em>, a nie cykliczne.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="k5">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 5</b> · CYKL KONIUNKTURALNY I FINANSE PUBLICZNE</p><h2>Cykl i finanse publiczne</h2></header>
+<article class="card" id="MAK-10">
+<header class="card__h"><span class="chip"><b>MAK-10</b><span>Dział 5</span></span><span class="card__src">Cykl i finanse publiczne</span></header>
+<div class="card__b">
+<h3 class="card__t">Fazy cyklu, rodzaje cykli, luka popytowa</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Cykl koniunkturalny" role="img" viewbox="0 0 640 260">
+<line class="ax" x1="60" x2="600" y1="140" y2="140"></line>
+<path class="c-gold" d="M70,190 C140,60 200,60 270,150 C330,232 400,232 470,120 C520,40 560,60 590,90"></path>
+<line class="dash" x1="60" x2="600" y1="140" y2="140"></line>
+<circle cx="176" cy="74" fill="#e8776d" r="4"></circle>
+<circle cx="368" cy="215" fill="#6fd3a5" r="4"></circle>
+<text class="lbl-red" x="120" y="52">górny punkt zwrotny</text>
+<text class="lbl-green" x="320" y="240">dolny punkt zwrotny</text>
+<text x="96" y="120">ożywienie</text>
+<text x="222" y="120">recesja</text>
+<text x="420" y="120">ożywienie</text>
+<text x="500" y="164">rozkwit</text>
+<text fill="#7e97bd" x="600" y="132">trend</text>
+</svg>
+<figcaption>Ożywienie: produkcja i zatrudnienie rosną szybko. Rozkwit: wzrost wyhamowuje przy wysokim poziomie aktywności. Recesja: spadek. Depresja: dno.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Cykl</th><th>Długość</th><th>Źródło wahań</th></tr></thead>
+<tbody>
+<tr><td>Kitchina</td><td>ok. 3–4 lata</td><td>Zapasy</td></tr>
+<tr><td>Juglara</td><td>ok. 8–10 lat</td><td>Inwestycje w maszyny i urządzenia</td></tr>
+<tr><td>Kuznetsa</td><td>ok. 15–25 lat</td><td>Budownictwo, demografia</td></tr>
+<tr><td><b>Kondratiewa</b></td><td>ok. 50 lat — <b>najdłuższy</b></td><td>Fale innowacji technologicznych</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Luka popytowa i automatyczne stabilizatory</h4>
+<p>Luka <strong>dodatnia</strong> (PKB faktyczny powyżej potencjalnego) sygnalizuje ożywienie i presję inflacyjną; <strong>ujemna</strong> prowadzi do spadku inflacji. Automatyczne stabilizatory to rozwiązania działające bez decyzji rządu: <em>progresywna skala podatkowa</em> i zasiłki dla bezrobotnych. Jednorazowy pakiet inwestycyjny czy obniżka stawki CIT to narzędzia <em>dyskrecjonalne</em>.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie ożywienia z rozkwitem</b> — „produkcja i zatrudnienie rosną <em>szybko</em>” to ożywienie; rozkwit to szczyt aktywności przy wyhamowującej dynamice.</li>
+<li><b>Uznanie obniżki stopy rezerwy obowiązkowej za automatyczny stabilizator</b> — to decyzja banku centralnego, więc narzędzie dyskrecjonalne.</li>
+<li><b>Deficyt cykliczny vs strukturalny</b>: cykliczny wynika z działania automatycznych stabilizatorów w fazie spowolnienia; strukturalny pozostałby nawet przy pełnym wykorzystaniu mocy.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-11">
+<header class="card__h"><span class="chip"><b>MAK-11</b><span>Dział 5</span></span><span class="card__src">Cykl i finanse publiczne</span></header>
+<div class="card__b">
+<h3 class="card__t">Budżet państwa, deficyty i dług publiczny</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Kategoria</th><th>Definicja</th></tr></thead>
+<tbody>
+<tr><td>Saldo pierwotne</td><td>Różnica dochodów i wydatków <b>pomniejszonych o koszty obsługi długu</b></td></tr>
+<tr><td>Deficyt cykliczny</td><td>Część deficytu wynikająca z automatycznych stabilizatorów i fazy cyklu</td></tr>
+<tr><td>Deficyt strukturalny</td><td>Część niezależna od cyklu — wynikająca z konstrukcji systemu</td></tr>
+<tr><td>Limit konstytucyjny długu</td><td><b>3/5 PKB</b> (60%)</td></tr>
+<tr><td>Rezerwa ogólna</td><td>Środki na nieprzewidziane wydatki bieżące — rząd może je wykorzystać w całości</td></tr>
+<tr><td>„Janosikowe”</td><td>Obowiązkowa wpłata najbogatszych samorządów do budżetu państwa na rzecz pozostałych</td></tr>
+<tr><td>Klin podatkowy</td><td>Wyrażona w procentach różnica między całkowitym kosztem pracy a płacą netto</td></tr>
+<tr><td>Abolicja podatkowa</td><td>Darowanie części zatajonych należności w zamian za ujawnienie i wpłatę</td></tr>
+</tbody>
+</table>
+</div>
+<figure>
+<svg aria-label="Krzywa Laffera" role="img" viewbox="0 0 640 260">
+<line class="ax" x1="80" x2="600" y1="220" y2="220"></line>
+<line class="ax" x1="80" x2="80" y1="220" y2="30"></line>
+<path class="c-gold" d="M80,220 C230,20 400,20 560,220"></path>
+<line class="dash" x1="320" x2="320" y1="65" y2="220"></line>
+<text x="290" y="242">t*</text>
+<text x="18" y="42">dochody</text>
+<text x="500" y="242">stawka 100%</text>
+<text fill="#7e97bd" x="340" y="58">maksimum wpływów podatkowych</text>
+</svg>
+<figcaption>Powyżej stawki t* dalszy wzrost opodatkowania obniża wpływy: rośnie szara strefa, maleje aktywność. Krzywa nie wskazuje, gdzie t* leży w konkretnej gospodarce.</figcaption>
+</figure>
+<div class="mech">
+<h4>Podatki bezpośrednie i pośrednie</h4>
+<p>Dochodem budżetu <em>państwa</em> są m.in. akcyza, VAT, cła, PIT i CIT w części niedzielonej z samorządami, opłaty skarbowe. Podatek rolny, leśny i od nieruchomości zasilają <strong>budżety gmin</strong>. Przychody ze sprzedaży obligacji skarbowych <strong>nie są dochodem</strong> — to przychód finansujący deficyt, bo tworzy zobowiązanie.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Emisja obligacji skarbowych to źródło dochodów budżetu”</b> — klasyczny dystraktor: dochód nie tworzy zobowiązania, przychód tworzy.</li>
+<li><b>„Rząd może zaciągnąć kredyt w banku centralnym”</b> — finansowanie deficytu przez bank centralny jest w Polsce zakazane konstytucyjnie.</li>
+<li><b>Podatek katastralny</b> nie tworzy bodźców do inwestowania i podnoszenia wartości nieruchomości — przeciwnie, zwiększa wtedy obciążenie. Pozostałe cechy (progresywność majątkowa, racjonalizacja gospodarki nieruchomościami, konieczność wyceny) są prawdziwe.</li>
+<li><b>Harmonizacja podatkowa w UE</b> obejmuje realnie podatki <em>pośrednie</em> (VAT, akcyza), a nie skalę PIT ani podstawę CIT — stąd w edycji XXII poprawna była odpowiedź „żadna z powyższych”.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-12">
+<header class="card__h"><span class="chip"><b>MAK-12</b><span>Dział 5</span></span><span class="card__src">Cykl i finanse publiczne</span></header>
+<div class="card__b">
+<h3 class="card__t">Nierówności dochodowe i ubóstwo</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Krzywa Lorenza" role="img" viewbox="0 0 640 280">
+<line class="ax" x1="90" x2="420" y1="240" y2="240"></line>
+<line class="ax" x1="90" x2="90" y1="240" y2="30"></line>
+<line class="dash" x1="90" x2="410" y1="240" y2="40"></line>
+<path class="c-gold" d="M90,240 C220,232 330,180 410,40"></path>
+<path class="fill-gold" d="M90,240 C220,232 330,180 410,40 L90,240 Z"></path>
+<text fill="#7e97bd" x="430" y="44">linia równości absolutnej (45°)</text>
+<text class="lbl-gold" x="430" y="150">pole A → współczynnik Giniego</text>
+<text x="120" y="262">skumulowany % gospodarstw</text>
+</svg>
+<figcaption>Im większe pole między linią równości a krzywą Lorenza, tym wyższy współczynnik Giniego. Gini = 0 oznacza równość absolutną, Gini = 1 — skrajną koncentrację.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Miara ubóstwa</th><th>Definicja</th></tr></thead>
+<tbody>
+<tr><td>Minimum egzystencji</td><td>Koszyk zaspokajający wyłącznie potrzeby biologiczne</td></tr>
+<tr><td>Minimum socjalne</td><td>Koszyk pozwalający na uczestnictwo w życiu społecznym</td></tr>
+<tr><td><b>Relatywna granica ubóstwa</b></td><td><b>Połowa średnich wydatków</b> ogółu gospodarstw domowych</td></tr>
+<tr><td>Ustawowa granica ubóstwa</td><td>Próg uprawniający do świadczeń z pomocy społecznej</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Gini = 1 oznacza, że krzywa Lorenza pokrywa się z linią równości”</b> — odwrotnie; wtedy Gini = 0.</li>
+<li><b>„Progresja podatkowa ma na celu zwiększenie współczynnika Giniego”</b> — służy jego zmniejszeniu.</li>
+<li><b>Krzywa Lorenza pokazuje relację skumulowanego odsetka gospodarstw do skumulowanego odsetka <em>dochodów</em></b>, a nie ich zadłużenia.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="k6">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 6</b> · GOSPODARKA OTWARTA I HANDEL MIĘDZYNARODOWY</p><h2>Gospodarka otwarta</h2></header>
+<article class="card" id="MAK-13">
+<header class="card__h"><span class="chip"><b>MAK-13</b><span>Dział 6</span></span><span class="card__src">Gospodarka otwarta</span></header>
+<div class="card__b">
+<h3 class="card__t">Kurs walutowy: aprecjacja, deprecjacja, dewaluacja, rewaluacja</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Termin</th><th>Kierunek</th><th>System kursowy</th></tr></thead>
+<tbody>
+<tr><td>Aprecjacja</td><td>Wzrost wartości waluty</td><td>Kurs płynny — rynek</td></tr>
+<tr><td>Deprecjacja</td><td>Spadek wartości waluty</td><td>Kurs płynny — rynek</td></tr>
+<tr><td><b>Rewaluacja</b></td><td>Wzrost wartości waluty</td><td>Kurs <b>stały</b> — decyzja władz</td></tr>
+<tr><td><b>Dewaluacja</b></td><td>Spadek wartości waluty</td><td>Kurs <b>stały</b> — decyzja władz</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Mechanizmy pochodne</h4>
+<ul>
+<li><b>Odpływ kapitału z kraju</b> → wzrost popytu na waluty obce → <em>deprecjacja</em> waluty krajowej.</li>
+<li><b>Warunek Marshalla–Lernera</b>: realna deprecjacja poprawia rachunek bieżący, o ile suma elastyczności cenowych popytu na eksport i import jest <em>większa od 1</em>.</li>
+<li><b>Krzywa J</b>: opisuje opóźnienie, z jakim realna deprecjacja poprawia bilans obrotów bieżących — początkowo saldo się pogarsza, bo wolumeny nie zdążyły zareagować.</li>
+<li><b>Realna aprecjacja bez zmiany kursu nominalnego</b>: gdy kraj utrzymuje kurs stały, a jego inflacja jest znacznie wyższa niż u partnera, waluta realnie się umacnia i eksport traci konkurencyjność.</li>
+<li><b>Towarowe <em>terms of trade</em></b>: relacja indeksu cen eksportu do indeksu cen importu.</li>
+</ul>
+</div>
+<div class="assume">
+<h4>Założenia teorii optymalnych obszarów walutowych</h4>
+<p>Szybki powrót do równowagi po szoku wymaga: mobilności siły roboczej, mobilności kapitału, federalizmu fiskalnego oraz <strong>elastyczności płac realnych</strong>. Lepkość płac realnych działa dokładnie przeciwnie — utrudnia dostosowanie po utracie własnej polityki pieniężnej.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie dewaluacji z deprecjacją</b> — rozstrzyga <em>system kursowy</em>, nie kierunek zmiany.</li>
+<li><b>„Krzywa J oznacza natychmiastową poprawę bilansu”</b> — istotą jest właśnie opóźnienie.</li>
+<li><b>Ustalenie kursu konwersji na euro poniżej kursu równowagi</b> (złoty zbyt mocny) uderza w <em>eksporterów</em>, a nie w importerów.</li>
+<li><b>ERM II</b>: pasmo wahań ±15% wobec kursu centralnego, uczestnictwo jest <em>obowiązkowym</em> kryterium konwergencji, a mechanizm nie chroni przed atakiem spekulacyjnym.</li>
+<li><b>„Grzech pierworodny”</b> w ekonomii międzynarodowej to niemożność zaciągania przez kraje rozwijające się długu we własnej walucie — nie deficyt bliźniaczy.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-14">
+<header class="card__h"><span class="chip"><b>MAK-14</b><span>Dział 6</span></span><span class="card__src">Gospodarka otwarta</span></header>
+<div class="card__b">
+<h3 class="card__t">Bilans płatniczy i tożsamości gospodarki otwartej</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$\text{Rachunek bieżący} = \text{saldo obrotów towarowych} + \text{usługi} + \text{dochody pierwotne} + \text{dochody wtórne}$$
+              $$S = I + NCO$$
+              <span class="note">Oszczędności narodowe finansują inwestycje krajowe oraz odpływ kapitału netto. Inwestycje bezpośrednie należą do rachunku finansowego, a nie bieżącego.</span>
+</div>
+<div class="mech">
+<h4>Struktura bilansu</h4>
+<ul>
+<li>Rachunek bieżący, kapitałowy i finansowy.</li>
+<li>Pozycja <b>„saldo błędów i opuszczeń”</b> domyka bilans płatniczy — nie występuje w bilansie przedsiębiorstwa ani w rachunku zysków i strat.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Wciąganie inwestycji bezpośrednich do rachunku bieżącego</b> przy liczeniu salda — to pozycja rachunku finansowego i należy ją pominąć.</li>
+<li><b>Odwrócenie tożsamości do postaci \(I = S + NCO\)</b> — poprawna wersja to \(S = I + NCO\).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-15">
+<header class="card__h"><span class="chip"><b>MAK-15</b><span>Dział 6</span></span><span class="card__src">Gospodarka otwarta</span></header>
+<div class="card__b">
+<h3 class="card__t">Teoria handlu: przewaga komparatywna, H–O, Stolper–Samuelson, protekcjonizm</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Koncepcja</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td>Przewaga absolutna (Smith)</td><td>Kraj wytwarza dobro mniejszym nakładem niż partner</td></tr>
+<tr><td><b>Przewaga komparatywna (Ricardo)</b></td><td>Kraj specjalizuje się w dobru o <b>niższym koszcie alternatywnym</b>; korzyści istnieją nawet przy przewadze absolutnej w obu dobrach</td></tr>
+<tr><td>Twierdzenie Heckschera–Ohlina</td><td>Kraj eksportuje dobra intensywnie wykorzystujące czynnik, w który jest obficie wyposażony</td></tr>
+<tr><td><b>Twierdzenie Stolpera–Samuelsona</b></td><td>Otwarcie na handel podnosi wynagrodzenie czynnika <b>obfitego</b>, a obniża wynagrodzenie czynnika rzadkiego</td></tr>
+<tr><td>Protekcjonizm wychowawczy</td><td>Ochrona raczkującego przemysłu do czasu zejścia po krzywej doświadczenia; warunki określa <b>dogmat Milla–Bastable'a</b></td></tr>
+<tr><td>Narzędzia ilościowe</td><td>Kwoty importowe, kontyngenty celne, dobrowolne ograniczenia eksportu (VER). Podatki graniczne to narzędzie <b>taryfowe</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Skutki subsydium eksportowego w małej gospodarce</h4>
+<p>Producenci kierują sprzedaż za granicę, więc podaż na rynku krajowym spada, a cena krajowa rośnie do poziomu ceny światowej powiększonej o subsydium. Bezpośrednim skutkiem jest <strong>spadek liczby sztuk sprzedawanych w kraju</strong>; cena światowa się nie zmienia, bo gospodarka jest mała.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie przewagi absolutnej z komparatywną</b> — pytania podają wydajności w dwóch krajach i sprawdzają, czy liczysz koszty alternatywne, a nie wielkości bezwzględne.</li>
+<li><b>Stolper–Samuelson odwrócony</b> — dystraktor mówi o wzroście wynagrodzenia czynnika <em>rzadkiego</em>.</li>
+<li><b>Zniesienie ceł na żywność z UE do USA</b> → tańszy import obniża ceny i <em>zmniejsza zatrudnienie</em> w amerykańskim sektorze spożywczym, a bilans handlowy USA się pogarsza.</li>
+<li><b>Opadająca krzywa doświadczenia</b> jest argumentem zwolenników protekcjonizmu wychowawczego, nie wolnego handlu.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MAK-16">
+<header class="card__h"><span class="chip"><b>MAK-16</b><span>Dział 6</span></span><span class="card__src">Gospodarka otwarta</span></header>
+<div class="card__b">
+<h3 class="card__t">Wzrost, konwergencja i pułapki rozwojowe</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Pojęcie</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td>Efekt doganiania (catching-up)</td><td>Kraje o niskiej produktywności rosną szybciej dzięki transferowi technologii i wysokiej krańcowej produktywności kapitału</td></tr>
+<tr><td>Konwergencja nominalna vs realna</td><td>Nominalna — kryteria z Maastricht; realna — zbliżenie poziomów PKB per capita i struktur gospodarek</td></tr>
+<tr><td>Pułapka średniego dochodu</td><td>Utrata przewagi kosztowej przed zdobyciem przewagi innowacyjnej</td></tr>
+<tr><td>Pułapka malthuzjańska</td><td>Stała podaż ziemi przy rosnącej populacji → spadek produktu na osobę</td></tr>
+<tr><td>Drenaż mózgów</td><td>Emigracja wykształconych pracowników z krajów biedniejszych do bogatszych</td></tr>
+<tr><td>Dekapitalizacja majątku</td><td><b>Amortyzacja przewyższa inwestycje brutto</b> — zasób kapitału maleje</td></tr>
+<tr><td>Twórcza destrukcja</td><td>Innowacje niszczą stare struktury produkcji i tworzą nowe — mechanizm napędowy wzrostu</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Dekapitalizacja mylona z ujemnymi inwestycjami netto</b> — to ta sama treść wyrażona inaczej, ale dystraktory podstawiają relacje inwestycji brutto do netto, które są zawsze prawdziwe i nic nie rozstrzygają.</li>
+<li><b>Drenaż mózgów mylony z chorobą holenderską</b> — druga dotyczy surowcowej aprecjacji waluty niszczącej przetwórstwo.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<p class="empty" hidden="" id="empty">Brak haseł pasujących do wyszukiwania.</p>
+<footer class="foot"><span>Makroekonomia · kompendium szkolne OWE</span><a href="#top">Na górę ↑</a></footer>
+</main></div></div>
+<a aria-label="Na górę strony" class="totop" href="#top">↑</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.renderMathInElement) renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],
+    throwOnError: false,
+    strict: false
+  });
+});
+</script>
+<script>/* Kompendium OWE — widok ciągły: wyszukiwarka, podświetlanie bieżącego działu, pomocnicze dla kalkulatorów */
+(function () {
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l')
+      .replace(/ń/g, 'n').replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ż/g, 'z').replace(/ź/g, 'z');
+  }
+  function plural(n) {
+    if (n === 1) return 'hasło';
+    var d = n % 10, h = n % 100;
+    return (d >= 2 && d <= 4 && (h < 12 || h > 14)) ? 'hasła' : 'haseł';
+  }
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var sections = $$('section.sec');
+  var cards = $$('article.card');
+  var chips = $$('.chipnav');
+  var tocItems = $$('.toc__list > li');
+  var tocCards = $$('.toc__list ul a');
+  var chipBox = document.querySelector('.chips');
+
+  /* --- wyszukiwarka --- */
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var empty = document.getElementById('empty');
+  cards.forEach(function (c) { c._hay = norm(c.textContent); });
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim());
+      var hits = 0;
+      cards.forEach(function (c) {
+        var ok = !q || c._hay.indexOf(q) > -1;
+        c.hidden = !ok;
+        if (ok) hits++;
+      });
+      sections.forEach(function (s) {
+        var any = $$('article.card', s).some(function (c) { return !c.hidden; });
+        s.hidden = !any;
+        chips.concat(tocItems).forEach(function (el) { if (el.dataset.sec === s.id) el.hidden = !any; });
+      });
+      tocCards.forEach(function (a) {
+        var c = document.getElementById(a.dataset.card);
+        a.parentNode.hidden = !!(c && c.hidden);
+      });
+      count.textContent = q ? (hits + ' / ' + cards.length) : (cards.length + ' ' + plural(cards.length));
+      if (empty) empty.hidden = hits > 0;
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+
+  /* --- bieżący dział i hasło (podświetlenie w nawigacji) --- */
+  var curSec = null, curCard = null;
+  function setSection(id) {
+    if (id === curSec) return;
+    curSec = id;
+    chips.forEach(function (a) { a.classList.toggle('on', a.dataset.sec === id); });
+    tocItems.forEach(function (li) { li.classList.toggle('on', li.dataset.sec === id); });
+    var on = chips.filter(function (a) { return a.dataset.sec === id; })[0];
+    if (on && chipBox && chipBox.offsetParent) {
+      var l = on.offsetLeft - chipBox.offsetLeft, r = l + on.offsetWidth;
+      if (l < chipBox.scrollLeft || r > chipBox.scrollLeft + chipBox.clientWidth) {
+        chipBox.scrollTo({ left: Math.max(0, l - 24), behavior: 'smooth' });
+      }
+    }
+  }
+  function setCard(id) {
+    if (id === curCard) return;
+    curCard = id;
+    tocCards.forEach(function (a) { a.classList.toggle('on', a.dataset.card === id); });
+  }
+  function spy() {
+    var line = 110;
+    var s = null, c = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].hidden) continue;
+      if (sections[i].getBoundingClientRect().top <= line) s = sections[i]; else break;
+    }
+    if (!s) s = sections.filter(function (x) { return !x.hidden; })[0];
+    if (s) {
+      setSection(s.id);
+      var cs = $$('article.card', s);
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j].hidden) continue;
+        if (cs[j].getBoundingClientRect().top <= line + 40) c = cs[j]; else break;
+      }
+      setCard(c ? c.id : (cs[0] && cs[0].id));
+    }
+    var tt = document.querySelector('.totop');
+    if (tt) tt.classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; spy(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+
+  /* --- pomocnicze dla kalkulatorów (bez zmian względem wersji z zakładkami) --- */
+  window.OWE = {
+    n: function (id) { var e = document.getElementById(id); return e ? parseFloat(String(e.value).replace(',', '.')) : NaN; },
+    f: function (x, d) { return isFinite(x) ? x.toLocaleString('pl-PL', { maximumFractionDigits: d === undefined ? 2 : d }) : '—'; },
+    bind: function (ids, fn) {
+      var run = function () { try { fn(); } catch (e) { } };
+      ids.forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener('input', run); });
+      run();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>

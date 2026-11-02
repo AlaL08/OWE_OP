@@ -1,0 +1,261 @@
+{
+ "title": "Portal olimpijski",
+ "tabs": {
+  "start": {
+   "label": "Start"
+  },
+  "op": {
+   "label": "Olimpiada Przedsiębiorczości"
+  },
+  "owe2": {
+   "label": "OWE II"
+  }
+ },
+ "start": {
+  "cards": [
+   {
+    "tab": "owe2",
+    "title": "OWE II",
+    "desc": "Olimpiada Wiedzy Ekonomicznej, etap okręgowy: banki zadań, kompendia wiedzy, analiza finansowa, finał."
+   },
+   {
+    "tab": "op",
+    "title": "Olimpiada Przedsiębiorczości",
+    "desc": "Baza wiedzy do pytań z eliminacji szkolnych, aktualne dane gospodarcze, temat zmienny XXII edycji."
+   }
+  ]
+ },
+ "op": {
+  "dir": "op",
+  "entry": {
+   "file": "index.php",
+   "title": "Strona główna OP",
+   "desc": "spis kategorii, aktualne dane (inflacja, stopy NBP, bezrobocie…), zwijane menu"
+  },
+  "intro": "Olimpiada Przedsiębiorczości – wiedza do 1000 pytań z eliminacji szkolnych (edycje I–XXI) w 11 kategoriach oraz trzy strony tematu zmiennego XXII edycji.",
+  "sections": [
+   {
+    "title": "Kategorie (1000 pytań)",
+    "items": [
+     {
+      "file": "bankowosc.html",
+      "title": "Bankowość i finanse osobiste",
+      "desc": "BFG, lokaty, kredyty, RRSO, emerytury",
+      "badge": "OP"
+     },
+     {
+      "file": "finanse.html",
+      "title": "Finanse przedsiębiorstwa",
+      "desc": "bilans, próg rentowności, wskaźniki, źródła finansowania",
+      "badge": "OP"
+     },
+     {
+      "file": "hr.html",
+      "title": "Rynek pracy i HR",
+      "desc": "motywowanie, płace, bezrobocie, prawo pracy",
+      "badge": "OP"
+     },
+     {
+      "file": "kapital.html",
+      "title": "Rynek kapitałowy i inwestowanie",
+      "desc": "akcje, obligacje, fundusze, indeksy, błędy poznawcze",
+      "badge": "OP"
+     },
+     {
+      "file": "komunikacja.html",
+      "title": "Komunikacja, negocjacje i psychologia",
+      "desc": "komunikacja, asertywność, negocjacje, psychologia",
+      "badge": "OP"
+     },
+     {
+      "file": "makro.html",
+      "title": "Makroekonomia i polityka państwa",
+      "desc": "inflacja, PKB, stopy NBP, podatki, budżet, UE",
+      "badge": "OP"
+     },
+     {
+      "file": "marketing.html",
+      "title": "Marketing i sprzedaż",
+      "desc": "4P/7P/4C, segmentacja, cykl życia produktu, AIDA, marka",
+      "badge": "OP"
+     },
+     {
+      "file": "mikro.html",
+      "title": "Mikroekonomia i rynek",
+      "desc": "popyt i podaż, dobra, koszty, struktury rynku",
+      "badge": "OP"
+     },
+     {
+      "file": "przedsiebiorczosc.html",
+      "title": "Przedsiębiorczość, formy prawne, etyka i innowacje",
+      "desc": "formy prawne, MSP, innowacje, CSR",
+      "badge": "OP"
+     },
+     {
+      "file": "strategia.html",
+      "title": "Strategia i konkurencja",
+      "desc": "PEST, SWOT, 5 sił Portera, Ansoff, BCG, kryzysy",
+      "badge": "OP"
+     },
+     {
+      "file": "zarzadzanie.html",
+      "title": "Zarządzanie i organizacja",
+      "desc": "funkcje i role kierownika, struktury, decyzje, kultura, projekty, jakość",
+      "badge": "OP"
+     }
+    ]
+   },
+   {
+    "title": "Temat zmienny XXII edycji: Przywództwo w projektach",
+    "items": [
+     {
+      "file": "wyzwania.html",
+      "title": "Zarządzanie wyzwaniami projektowymi",
+      "desc": "ryzyko, zmiany, konflikty, interesariusze, EVM",
+      "badge": "OP"
+     },
+     {
+      "file": "zaangazowanie.html",
+      "title": "Zaangażowanie zespołu projektowego",
+      "desc": "Meyer–Allen, motywacja, JD-R, wypalenie",
+      "badge": "OP"
+     },
+     {
+      "file": "zespol.html",
+      "title": "Budowanie i funkcjonowanie zespołu projektowego",
+      "desc": "projekt, role, fazy Tuckmana, Belbin, Scrum",
+      "badge": "OP"
+     }
+    ]
+   }
+  ]
+ },
+ "owe2": {
+  "dir": "owe2",
+  "intro": "Olimpiada Wiedzy Ekonomicznej, zawody II stopnia (etap okręgowy). Wszystkie pliki otwierają się nawzajem: z banku zadań przejdziesz do kompendium danego modułu i odwrotnie.",
+  "sections": [
+   {
+    "title": "Banki zadań – edycje XXI–XXXIX",
+    "items": [
+     {
+      "file": "Mikroekonomia.html",
+      "title": "Mikroekonomia",
+      "desc": "125 pytań z 19 edycji · Popyt i podaż, teoria konsumenta i producenta, struktury rynkowe, zawodności rynku",
+      "badge": "bank zadań"
+     },
+     {
+      "file": "Makroekonomia.html",
+      "title": "Makroekonomia",
+      "desc": "157 pytań z 19 edycji · Dochód narodowy, cykl, inflacja, bezrobocie, polityka pieniężna i fiskalna, handel międzynarodowy",
+      "badge": "bank zadań"
+     },
+     {
+      "file": "Finanse.html",
+      "title": "Finanse",
+      "desc": "127 pytań z 19 edycji · Rynki i instrumenty finansowe, bankowość, finanse publiczne, podatki, ubezpieczenia, rachunkowość",
+      "badge": "bank zadań"
+     },
+     {
+      "file": "Zarzadzanie.html",
+      "title": "Zarządzanie",
+      "desc": "103 pytań z 19 edycji · Teoria organizacji, strategia, HR, przywództwo, marketing, ład korporacyjny i prawo przedsiębiorstw",
+      "badge": "bank zadań"
+     },
+     {
+      "file": "Obliczeniowe.html",
+      "title": "Zadania obliczeniowe",
+      "desc": "58 pytań z 16 edycji · Wszystkie pytania wymagające kalkulacji – niezależnie od dziedziny",
+      "badge": "bank zadań"
+     },
+     {
+      "file": "Analiza_finansowa.html",
+      "title": "Zadanie z analizy finansowej",
+      "desc": "Tendencje XXI–XXXIX, karta wzorów i rozwiązania krok po kroku (0–15 pkt)",
+      "badge": "bank zadań"
+     }
+    ]
+   },
+   {
+    "title": "Kompendia wiedzy",
+    "items": [
+     {
+      "file": "wiedza_mikroekonomia.html",
+      "title": "Mikroekonomia – kompendium",
+      "desc": "19 haseł 6 działów synteza edycji XXI–XXXIX · Konsument, producent, struktury rynkowe.",
+      "badge": "wiedza"
+     },
+     {
+      "file": "wiedza_makroekonomia.html",
+      "title": "Makroekonomia – kompendium",
+      "desc": "16 haseł 6 działów synteza edycji XXI–XXXIX · Modele, pieniądz, polityka gospodarcza.",
+      "badge": "wiedza"
+     },
+     {
+      "file": "wiedza_finanse.html",
+      "title": "Finanse – kompendium",
+      "desc": "14 haseł 6 działów synteza edycji XXI–XXXIX · Rynki, instrumenty, instytucje, sprawozdania.",
+      "badge": "wiedza"
+     },
+     {
+      "file": "wiedza_zarzadzanie.html",
+      "title": "Pozostałe i zarządzanie – kompendium",
+      "desc": "13 haseł 6 działów synteza edycji XXI–XXXIX · Myśl ekonomiczna, prawo, organizacja.",
+      "badge": "wiedza"
+     },
+     {
+      "file": "wiedza_obliczeniowe.html",
+      "title": "Obliczeniowe – kompendium",
+      "desc": "18 haseł 5 działów synteza edycji XXI–XXXIX · Wzory, algorytmy, rozwiązania.",
+      "badge": "wiedza"
+     }
+    ]
+   },
+   {
+    "title": "Etap centralny (finał)",
+    "items": [
+     {
+      "file": "wiedza_zarzadzanie_C.html",
+      "title": "Zarządzanie – wiedza (finał)",
+      "desc": "kompendium z bankiem statystyk; moduł 1 z 5",
+      "badge": "finał"
+     },
+     {
+      "file": "wiedza_zarzadzanie_strategiczne_C.html",
+      "title": "Zarządzanie strategiczne – wiedza (finał)",
+      "desc": "moduł 2 z 5 – plik nie został jeszcze dodany",
+      "badge": "finał"
+     },
+     {
+      "file": "wiedza_finanse_C.html",
+      "title": "Finanse – wiedza (finał)",
+      "desc": "moduł 3 z 5 – plik nie został jeszcze dodany",
+      "badge": "finał"
+     },
+     {
+      "file": "wiedza_ekonomia_prawo_C.html",
+      "title": "Ekonomia i prawo – wiedza (finał)",
+      "desc": "moduł 4 z 5 – plik nie został jeszcze dodany",
+      "badge": "finał"
+     },
+     {
+      "file": "wiedza_psychologia_C.html",
+      "title": "Psychologia – wiedza (finał)",
+      "desc": "moduł 5 z 5 – plik nie został jeszcze dodany",
+      "badge": "finał"
+     }
+    ]
+   },
+   {
+    "title": "Pozostałe",
+    "items": [
+     {
+      "file": "okreg_reszta.html",
+      "title": "Terminal Ekonomii i Bilansu OP",
+      "desc": "ekonomia, marketing, psychologia, etyka/ESG, cyfrowe, aktualności",
+      "badge": "OP · moduł 3"
+     }
+    ]
+   }
+  ]
+ }
+}

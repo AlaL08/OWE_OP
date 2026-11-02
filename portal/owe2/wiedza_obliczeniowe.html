@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="pl" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Obliczeniowe — Kompendium OWE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+
+/* =========================================================
+   Kompendium OWE — widok ciągły (jeden plik, bez zakładek)
+   ========================================================= */
+:root{
+  color-scheme:dark;
+  --bg:#0f1628;
+  --bg-top:#1b2236;
+  --card:#151d31;
+  --card-2:#18213a;
+  --inset:#121a2d;
+  --deep:#0d1424;
+  --line:#26314b;
+  --line-2:#33405f;
+  --gold:#e8c46f;
+  --gold-2:#cfa956;
+  --gold-dim:#8b7444;
+  --orange:#d99158;
+  --ink:#e9edf5;
+  --ink-2:#c5ccda;
+  --muted:#8f99b0;
+  --faint:#6a7590;
+  --cyan:#6cc6e6;
+  --red:#ee8678;
+  --green:#78d4a8;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Charter,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --r-lg:18px;
+  --r-md:14px;
+  --r-sm:10px;
+  --gutter:clamp(16px,3.2vw,56px);
+  --topbar-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:var(--bg) linear-gradient(180deg,var(--bg-top) 0,#141b2f 380px,var(--bg) 900px) no-repeat;
+  font-feature-settings:"cv11","ss01";
+}
+[hidden]{display:none!important}
+::selection{background:rgba(232,196,111,.3)}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+b,strong{font-weight:650;color:#f4f6fa}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#1a1405;padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+.wrap{max-width:1760px;margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 34px;max-width:1180px}
+.eyebrow{
+  margin:0 0 18px;color:var(--orange);font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;
+}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(44px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;color:var(--gold);
+}
+.desc{margin:0 0 26px;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;font-size:19px;color:var(--muted);margin-bottom:16px}
+.stats b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.srcline{margin:0 0 30px;color:var(--faint);font-size:15.5px;max-width:80ch}
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pill{
+  display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:17px;font-weight:500;background:rgba(255,255,255,.015);transition:border-color .15s,background .15s,color .15s;
+}
+.pill:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:700}
+
+/* ---------- intro ---------- */
+.intro{
+  max-width:1180px;margin:8px 0 42px;padding:24px 28px;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.015));
+}
+.intro__lead{margin:0;font-size:18.5px;line-height:1.7;color:var(--ink)}
+.intro__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+/* ---------- sticky topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 calc(var(--gutter)*-1);padding:0 var(--gutter);
+  background:rgba(14,21,38,.86);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:18px;min-height:var(--topbar-h)}
+.topbar__name{font-weight:800;color:var(--gold);font-size:17px;white-space:nowrap;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;padding:10px 0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chipnav{
+  flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:14.5px;font-weight:500;white-space:nowrap;transition:all .15s;
+}
+.chipnav i{font-style:normal;color:var(--gold-2);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.chipnav:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.chipnav.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:650}
+.chipnav.on i{color:#4a3a10}
+.filter{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.filter input{
+  width:280px;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font:inherit;font-size:15px;
+  padding:9px 16px;border-radius:999px;transition:border-color .15s,width .2s;
+}
+.filter input::placeholder{color:var(--faint)}
+.filter input:focus{outline:none;border-color:var(--gold-2)}
+.filter output{font-size:13.5px;color:var(--muted);min-width:76px;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.layout{display:block;padding-top:8px}
+.toc{display:none}
+.content{min-width:0}
+
+@media (min-width:1680px){
+  .layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:48px}
+  .toc{display:block}
+  .chips{display:none}
+  .topbar__in{justify-content:space-between}
+}
+.toc__in{position:sticky;top:calc(var(--topbar-h) + 28px);max-height:calc(100vh - var(--topbar-h) - 48px);overflow:auto;padding:4px 6px 24px 0;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.toc__h{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.toc__list{list-style:none;margin:0;padding:0}
+.toc__list>li{margin:0 0 4px}
+.toc__sec{
+  display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:15px;
+}
+.toc__sec i{font-style:normal;color:var(--gold-2);font-size:13px;min-width:14px}
+.toc__sec:hover{text-decoration:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.toc__list>li.on>.toc__sec{background:rgba(232,196,111,.1);color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.toc__list ul{list-style:none;margin:2px 0 8px;padding:0 0 0 22px;display:none}
+.toc__list>li.on ul{display:block}
+.toc__list ul a{display:block;padding:4px 10px;font-size:13.5px;line-height:1.4;color:var(--muted);border-radius:8px}
+.toc__list ul a i{font-style:normal;display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.toc__list ul a:hover{text-decoration:none;color:var(--ink);background:rgba(255,255,255,.03)}
+.toc__list ul a.on{color:var(--ink)}
+.toc__list ul a.on i{color:var(--gold-2)}
+
+/* ---------- sekcje ---------- */
+.sec{scroll-margin-top:calc(var(--topbar-h) + 12px)}
+.sec__head{margin:56px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.sec:first-child .sec__head{margin-top:36px}
+.sec__eyebrow{margin:0 0 8px;font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.6}
+.sec__eyebrow b{color:var(--orange);font-weight:700}
+.sec__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec>p.sub{margin:-6px 0 22px;color:var(--muted);font-size:16px;max-width:90ch}
+
+/* ---------- karty ---------- */
+.card{
+  scroll-margin-top:calc(var(--topbar-h) + 16px);
+  background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 24px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -28px rgba(0,0,0,.6);
+}
+.card:target{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(232,196,111,.12)}
+.card__h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 28px;border-bottom:1px solid var(--line)}
+.chip{
+  display:inline-flex;align-items:center;border:1px solid var(--gold-dim);border-radius:999px;overflow:hidden;
+  background:rgba(232,196,111,.06);font-size:15px;line-height:1;
+}
+.chip b{color:var(--gold);font-weight:700;padding:8px 14px;letter-spacing:.02em}
+.chip span{color:var(--gold-2);padding:8px 14px 8px 13px;border-left:1px solid var(--gold-dim);font-weight:500}
+.card__src{color:var(--muted);font-size:14.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card__b{padding:24px 28px 28px}
+.card__t{
+  margin:0 0 18px;font-family:var(--serif);font-size:clamp(23px,1.9vw,29px);line-height:1.28;font-weight:700;letter-spacing:-.005em;
+  color:#f2f4f8;text-wrap:balance;
+}
+.card__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1240px){
+  .card__grid{grid-template-columns:minmax(0,1fr) minmax(330px,34%);gap:30px;align-items:start}
+}
+.card__main>*:first-child{margin-top:0}
+.card__main>*:last-child{margin-bottom:0}
+.card__main p{max-width:84ch}
+.card__main>p{margin:0 0 14px}
+p.lead{font-size:18.5px;line-height:1.7;color:var(--ink)}
+.card__aside{display:flex;flex-direction:column;gap:18px;min-width:0}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+/* bloki „mechanizm / założenia” */
+.mech,.assume{
+  margin:16px 0;padding:16px 20px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset);
+}
+.mech>*:last-child,.assume>*:last-child{margin-bottom:0}
+.mech h4,.assume h4,.worked h4,.calc h4{
+  margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.mech p,.assume p{margin:0 0 10px}
+.assume{border-color:rgba(232,196,111,.3);background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.02))}
+.assume h4{color:var(--gold)}
+
+code.k{font-family:var(--mono);font-size:14px;background:var(--deep);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- pułapki ---------- */
+.trap{
+  border:1px solid rgba(238,134,120,.28);border-radius:var(--r-md);padding:16px 16px 14px;
+  background:linear-gradient(180deg,rgba(238,134,120,.07),rgba(238,134,120,.02));
+}
+.trap__h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);line-height:1.4}
+.trap__ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--red);color:#2a0f0b;font-size:14px;font-weight:800;letter-spacing:0}
+.trap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.trap li{
+  margin:0;padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(13,20,36,.65);
+  font-size:15.5px;line-height:1.55;color:var(--ink-2);
+}
+.trap li b{color:#f6d7d2;font-weight:600}
+.trap li em{color:var(--green);font-style:normal}
+
+/* ---------- tabele ---------- */
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th+th,td+td{border-left:1px solid rgba(38,49,75,.6)}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:#18213a;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);white-space:nowrap}
+tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+tbody tr:hover{background:rgba(232,196,111,.035)}
+td b{color:var(--gold)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.game{width:auto;margin:0 auto}
+table.game td,table.game th{text-align:center;font-variant-numeric:tabular-nums}
+table.game td.ne{background:rgba(232,196,111,.14);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+
+/* ---------- rysunki ---------- */
+figure{margin:18px 0;padding:20px;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-md);overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figcaption{margin:14px auto 0;font-size:14.5px;color:var(--muted);line-height:1.6;text-align:center;max-width:78ch}
+figcaption b{color:var(--ink-2)}
+figure text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.ax{stroke:#4d6290;stroke-width:1.4}
+.gr{stroke:#26314b;stroke-width:1}
+.c-gold{stroke:var(--gold);stroke-width:2.3;fill:none}
+.c-cyan{stroke:var(--cyan);stroke-width:2.3;fill:none}
+.c-red{stroke:var(--red);stroke-width:2.1;fill:none}
+.c-green{stroke:var(--green);stroke-width:2.1;fill:none}
+.dash{stroke-dasharray:4 4;stroke-width:1.2;stroke:#617aa8;fill:none}
+.fill-gold{fill:rgba(232,196,111,.16)}
+.fill-cyan{fill:rgba(108,198,230,.14)}
+.fill-red{fill:rgba(238,134,120,.2)}
+.fill-green{fill:rgba(120,212,168,.16)}
+.lbl-gold{fill:var(--gold)}
+.lbl-cyan{fill:var(--cyan)}
+.lbl-red{fill:var(--red)}
+.lbl-green{fill:var(--green)}
+.lbl-mut{fill:var(--muted)}
+
+/* ---------- wzory ---------- */
+.fx{
+  margin:16px 0;padding:16px 22px;border:1px solid rgba(108,198,230,.28);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(108,198,230,.06),rgba(108,198,230,.015));overflow-x:auto;
+}
+.fx .katex-display{margin:.4em 0}
+.fx .katex{color:var(--ink);font-size:1.12em}
+.katex{color:inherit}
+.fx .note{display:block;font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* ---------- rozwiązania krok po kroku ---------- */
+.worked{margin:16px 0;padding:16px 20px 18px;border:1px solid rgba(120,212,168,.25);border-radius:var(--r-md);background:var(--inset);overflow-x:auto}
+.worked h4{color:var(--green)}
+.worked ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.worked li{
+  counter-increment:step;position:relative;margin:0;padding:10px 14px 10px 52px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:rgba(13,20,36,.55);font-size:16px;line-height:1.65;
+}
+.worked li::before{
+  content:counter(step);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:var(--gold);color:#1d1606;font-weight:800;font-size:14px;line-height:1;
+}
+.worked li[data-l]::before{content:attr(data-l)}
+
+/* ---------- kalkulatory ---------- */
+.calc{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,#19233c,#141c31)}
+.calc h4{color:var(--gold);margin-bottom:12px;letter-spacing:.1em}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.calc label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;line-height:1.35}
+.calc input{
+  width:100%;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14.5px;
+  padding:8px 10px;border-radius:9px;
+}
+.calc input:focus{outline:none;border-color:var(--gold-2)}
+.calc .out{
+  margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--deep);border:1px solid var(--line);
+  font-family:var(--mono);font-size:13.5px;color:var(--green);white-space:pre-wrap;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.calc svg{display:block;width:100%;height:auto;max-width:560px;margin:14px auto 0}
+.calc svg text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.calc .note{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------- odsyłacze ---------- */
+a.xref{color:var(--cyan);font-weight:600;border-bottom:1px dotted rgba(108,198,230,.5)}
+a.xref:hover{text-decoration:none;border-bottom-style:solid}
+
+/* ---------- stopka / na górę ---------- */
+.empty{margin:48px 0;padding:28px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r-lg);color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:14.5px}
+.totop{
+  position:fixed;right:22px;bottom:22px;z-index:50;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card-2);border:1px solid var(--line-2);color:var(--gold);font-size:20px;font-weight:700;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;
+}
+.totop:hover{text-decoration:none;border-color:var(--gold-dim)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- węższe ekrany ---------- */
+@media (max-width:900px){
+  body{font-size:16px}
+  .topbar__name{display:none}
+  .topbar__in{flex-wrap:wrap;gap:0 12px;padding:4px 0}
+  .chips{order:2;flex-basis:100%;padding:4px 0 10px}
+  .filter{order:1;width:100%;margin:8px 0 0}
+  .filter input{flex:1;width:auto}
+  .card__h,.card__b{padding-left:18px;padding-right:18px}
+  .intro{padding:18px 20px}
+  .sec{scroll-margin-top:130px}
+  .card{scroll-margin-top:130px}
+  .worked li{padding-left:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  .topbar,.toc,.totop,.pills,.skip{display:none!important}
+  .layout{display:block}
+  .card{break-inside:avoid-page}
+}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Kompendium: Obliczeniowe</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">Olimpiada Wiedzy Ekonomicznej · Etap okręgowy · Kompendium wiedzy</p>
+<h1>Obliczeniowe</h1>
+<p class="desc">Wzory, algorytmy, rozwiązania.</p>
+<div class="stats"><span><b>18</b> haseł</span><span><b>5</b> działów</span><span>synteza edycji <b>XXI–XXXIX</b></span></div>
+<p class="srcline">Zawody II stopnia — etap okręgowy.</p>
+<nav aria-label="Moduły kompendium" class="pills">
+<a class="pill" href="wiedza_mikroekonomia.html">Mikroekonomia · 19</a>
+<a class="pill" href="wiedza_makroekonomia.html">Makroekonomia · 16</a>
+<a class="pill" href="wiedza_finanse.html">Finanse · 14</a>
+<a class="pill" href="wiedza_zarzadzanie.html">Zarządzanie · 13</a>
+<a aria-current="page" class="pill on" href="wiedza_obliczeniowe.html">Obliczeniowe · 18</a>
+</nav><nav aria-label="Banki zadań" class="pills" style="margin-top:12px"><span style="color:#94a3b8;font-size:13px;align-self:center">Bank zadań z edycji XXI–XXXIX:</span><a class="pill" href="Zarzadzanie.html">Zarządzanie</a><a class="pill" href="Obliczeniowe.html">★ Zadania obliczeniowe</a><a class="pill" href="Mikroekonomia.html">Mikroekonomia</a><a class="pill" href="Makroekonomia.html">Makroekonomia</a><a class="pill" href="Finanse.html">Finanse</a><a class="pill" href="Analiza_finansowa.html">Analiza finansowa</a></nav>
+</header>
+<section aria-label="O module" class="intro">
+<p class="intro__lead">Tu trafia <strong>wszystko, co wymaga rachunku</strong> — niezależnie od tego, czy pochodzi z mikro-, makroekonomii czy z finansów przedsiębiorstwa. Każde hasło ma wzór, warunek stosowalności i przynajmniej jeden przykład rozwiązany w krokach. Kalkulatory przeliczają na żywo — sprawdź nimi własne wyniki z arkuszy.</p>
+<p class="intro__note">Zasada MECE: każde zagadnienie występuje w dokładnie jednym module. Wszystko, co wymaga rachunku na liczbach, znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a> — także wtedy, gdy pochodzi z mikro- lub makroekonomii.</p>
+</section>
+<div class="topbar" id="topbar"><div class="topbar__in">
+<span class="topbar__name">Obliczeniowe</span>
+<nav aria-label="Działy" class="chips">
+<a class="chipnav" data-sec="o1" href="#o1"><i>1</i>Mikro w liczbach</a>
+<a class="chipnav" data-sec="o2" href="#o2"><i>2</i>Makro w liczbach</a>
+<a class="chipnav" data-sec="o3" href="#o3"><i>3</i>Analiza wskaźnikowa</a>
+<a class="chipnav" data-sec="o4" href="#o4"><i>4</i>Kapitał obrotowy i zapasy</a>
+<a class="chipnav" data-sec="o5" href="#o5"><i>5</i>Pieniądz w czasie i koszt kapitału</a>
+</nav>
+<label class="filter"><span class="sr">Filtruj hasła</span><input autocomplete="off" id="q" placeholder="Szukaj w module…" type="search"/><output id="qcount">18 haseł</output></label>
+</div></div>
+<div class="layout">
+<aside aria-label="Spis treści" class="toc"><div class="toc__in">
+<p class="toc__h">Spis treści</p><ol class="toc__list">
+<li data-sec="o1"><a class="toc__sec" href="#o1"><i>1</i>Mikro w liczbach</a><ul>
+<li><a data-card="OBL-01" href="#OBL-01"><i>OBL-01</i>Elastyczności — wersja punktowa i łukowa</a></li>
+<li><a data-card="OBL-02" href="#OBL-02"><i>OBL-02</i>Równowaga rynkowa, nadwyżki, podatek i cena urzędowa</a></li>
+<li><a data-card="OBL-03" href="#OBL-03"><i>OBL-03</i>Koszty, próg rentowności i decyzja produkcyjna</a></li>
+<li><a data-card="OBL-04" href="#OBL-04"><i>OBL-04</i>Monopol, monopson, duopol Cournota, MRPL</a></li>
+<li><a data-card="OBL-05" href="#OBL-05"><i>OBL-05</i>Koszt alternatywny, przewaga komparatywna, PPF liczbowo</a></li>
+</ul></li>
+<li data-sec="o2"><a class="toc__sec" href="#o2"><i>2</i>Makro w liczbach</a><ul>
+<li><a data-card="OBL-06" href="#OBL-06"><i>OBL-06</i>Mnożniki wydatkowe i dochód równowagi</a></li>
+<li><a data-card="OBL-07" href="#OBL-07"><i>OBL-07</i>Kreacja pieniądza, baza monetarna, szybkość obiegu</a></li>
+<li><a data-card="OBL-08" href="#OBL-08"><i>OBL-08</i>Rynek pracy, inflacja i wielkości realne</a></li>
+<li><a data-card="OBL-09" href="#OBL-09"><i>OBL-09</i>PKB, wartość dodana i tożsamości gospodarki otwartej</a></li>
+</ul></li>
+<li data-sec="o3"><a class="toc__sec" href="#o3"><i>3</i>Analiza wskaźnikowa</a><ul>
+<li><a data-card="OBL-10" href="#OBL-10"><i>OBL-10</i>Płynność finansowa</a></li>
+<li><a data-card="OBL-11" href="#OBL-11"><i>OBL-11</i>Rentowność i model Du Ponta</a></li>
+<li><a data-card="OBL-12" href="#OBL-12"><i>OBL-12</i>Zadłużenie i dźwignia finansowa</a></li>
+</ul></li>
+<li data-sec="o4"><a class="toc__sec" href="#o4"><i>4</i>Kapitał obrotowy i zapasy</a><ul>
+<li><a data-card="OBL-13" href="#OBL-13"><i>OBL-13</i>Cykle rotacji i cykl konwersji gotówki</a></li>
+<li><a data-card="OBL-14" href="#OBL-14"><i>OBL-14</i>Kapitał obrotowy netto i strategie finansowania</a></li>
+<li><a data-card="OBL-15" href="#OBL-15"><i>OBL-15</i>Optymalna wielkość partii dostawy (EOQ) i zapas bezpieczeństwa</a></li>
+</ul></li>
+<li data-sec="o5"><a class="toc__sec" href="#o5"><i>5</i>Pieniądz w czasie i koszt kapitału</a><ul>
+<li><a data-card="OBL-16" href="#OBL-16"><i>OBL-16</i>Procent składany, dyskontowanie, NPV</a></li>
+<li><a data-card="OBL-17" href="#OBL-17"><i>OBL-17</i>Dyskonto weksla, skonto i efektywny koszt kredytu kupieckiego</a></li>
+<li><a data-card="OBL-18" href="#OBL-18"><i>OBL-18</i>Koszt kapitału: WACC, model Gordona, CAPM</a></li>
+</ul></li>
+</ol></div></aside>
+<main class="content" id="tresc">
+<section class="sec" id="o1">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 1</b> · MIKROEKONOMIA W LICZBACH</p><h2>Mikro w liczbach</h2></header>
+<article class="card" id="OBL-01">
+<header class="card__h"><span class="chip"><b>OBL-01</b><span>Dział 1</span></span><span class="card__src">Mikro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Elastyczności — wersja punktowa i łukowa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$E_D=\frac{\%\Delta Q_D}{\%\Delta P}=\frac{\Delta Q}{\Delta P}\cdot\frac{P}{Q}\qquad E_{luk}=\frac{\Delta Q}{\Delta P}\cdot\frac{P_1+P_2}{Q_1+Q_2}$$
+              $$E_I=\frac{\%\Delta Q_D}{\%\Delta I}\qquad E_{XY}=\frac{\%\Delta Q_X}{\%\Delta P_Y}\qquad E_S=\frac{\Delta Q_S}{\Delta P}\cdot\frac{P}{Q_S}$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany — elastyczność z funkcji liniowej</h4>
+<ol>
+<li>Popyt: \(Q_D = 100 - 2P\), badamy punkt \(P = 20\).</li>
+<li>\(Q = 100 - 40 = 60\); pochodna \(\Delta Q/\Delta P = -2\).</li>
+<li>\(E_D = -2 \cdot \frac{20}{60} = -0{,}67\) → popyt <b>nieelastyczny</b>, obniżka ceny zmniejszy utarg.</li>
+</ol>
+</div>
+<div class="assume">
+<h4>Warunki stosowalności</h4>
+<ul><li>Elastyczność punktowa ma sens tylko dla małych zmian; przy dużych używaj wersji łukowej (wynik nie zależy wtedy od kierunku zmiany).</li><li>Elastyczność cenowa liniowej funkcji popytu <b>zmienia się wzdłuż krzywej</b> — nie jest stała, mimo stałego nachylenia.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator elastyczności łukowej</h4>
+<div class="row">
+<label>P₁<input id="e_p1" value="20"/></label>
+<label>Q₁<input id="e_q1" value="60"/></label>
+<label>P₂<input id="e_p2" value="22"/></label>
+<label>Q₂<input id="e_q2" value="56"/></label>
+</div>
+<div class="out" id="e_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Podstawianie nachylenia zamiast elastyczności</b> — nachylenie \(-2\) to nie to samo co \(E_D=-0{,}67\).</li>
+<li><b>Zapominanie o znaku</b> przy elastyczności mieszanej — to on rozstrzyga, czy dobra są substytutami, czy komplementami.</li>
+<li><b>Mylenie \(\Delta Q/\Delta P\) z \(\Delta P/\Delta Q\)</b> przy funkcji zapisanej w postaci \(P = a - bQ\). Przekształć najpierw do postaci \(Q = f(P)\).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-02">
+<header class="card__h"><span class="chip"><b>OBL-02</b><span>Dział 1</span></span><span class="card__src">Mikro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Równowaga rynkowa, nadwyżki, podatek i cena urzędowa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$Q_D=Q_S \Rightarrow P^*,\,Q^* \qquad CS=\tfrac12\,Q^*\,(P_{max}-P^*) \qquad PS=\tfrac12\,Q^*\,(P^*-P_{min})$$
+              <span class="note">\(P_{max}\) to cena maksymalna z funkcji popytu (punkt przecięcia z osią ceny), \(P_{min}\) — cena minimalna z funkcji podaży.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — podatek kwotowy</h4>
+<ol>
+<li>\(Q_D = 120 - 2P\), \(Q_S = -30 + 3P\). Równowaga: \(120-2P=-30+3P \Rightarrow P^*=30,\ Q^*=60\).</li>
+<li>Podatek 5 zł/szt. od sprzedawców: podaż przesuwa się do \(Q_S=-30+3(P-5)=-45+3P\).</li>
+<li>Nowa równowaga: \(120-2P=-45+3P \Rightarrow P_{nab}=33,\ Q=54\); sprzedawca otrzymuje \(33-5=28\).</li>
+<li>Ciężar: nabywca \(33-30=3\) zł, sprzedawca \(30-28=2\) zł. Wpływy budżetu: \(5\cdot54=270\).</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator równowagi liniowej</h4>
+<div class="row">
+<label>Popyt: a (wyraz)<input id="r_a" value="120"/></label>
+<label>b (nachyl.)<input id="r_b" value="2"/></label>
+<label>Podaż: c<input id="r_c" value="-30"/></label>
+<label>d<input id="r_d" value="3"/></label>
+<label>podatek/szt.<input id="r_t" value="0"/></label>
+</div>
+<div class="out" id="r_out"></div>
+<svg aria-label="Wykres równowagi aktualizowany na żywo" id="r_svg" role="img" style="width:100%;max-width:560px;margin-top:14px" viewbox="0 0 560 280">
+<line class="ax" x1="60" x2="530" y1="240" y2="240"></line>
+<line class="ax" x1="60" x2="60" y1="240" y2="20"></line>
+<line class="c-cyan" id="rl_d" x1="0" x2="0" y1="0" y2="0"></line>
+<line class="c-gold" id="rl_s" x1="0" x2="0" y1="0" y2="0"></line>
+<line class="dash" id="rl_s2" stroke="#e8776d" x1="0" x2="0" y1="0" y2="0"></line>
+<line class="dash" id="r_hx" x1="0" x2="0" y1="0" y2="0"></line>
+<line class="dash" id="r_hy" x1="0" x2="0" y1="0" y2="0"></line>
+<circle cx="-10" cy="-10" fill="#e2eaf6" id="r_pt" r="4.5"></circle>
+<text x="500" y="262">Q</text><text x="24" y="30">P</text>
+<text class="lbl-gold" id="r_lp" x="16" y="0"></text>
+<text class="lbl-gold" id="r_lq" x="0" y="262"></text>
+</svg>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Cena maksymalna ustalona <em>powyżej</em> równowagi nie działa</b> — rynek i tak wyczyszcza się przy \(P^*\). Analogicznie cena minimalna poniżej równowagi jest martwa. Sprawdź to <em>zanim</em> zaczniesz liczyć niedobór.</li>
+<li><b>Niedobór to \(Q_D - Q_S\) przy cenie urzędowej</b>, a nie różnica względem \(Q^*\).</li>
+<li><b>Nadwyżka producenta liczona od zera</b> zamiast od punktu przecięcia podaży z osią ceny — przy \(Q_S=-30+3P\) podaż startuje dopiero od \(P=10\).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-03">
+<header class="card__h"><span class="chip"><b>OBL-03</b><span>Dział 1</span></span><span class="card__src">Mikro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Koszty, próg rentowności i decyzja produkcyjna</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$TC=FC+VC\quad ATC=\frac{TC}{Q}\quad AVC=\frac{VC}{Q}\quad MC=\frac{\Delta TC}{\Delta Q}=TC'(Q)$$
+              $$BEP_{ilość}=\frac{FC}{P-AVC}\qquad BEP_{wartość}=\frac{FC}{1-\frac{AVC}{P}}$$
+              <span class="note">\(P-AVC\) to marża pokrycia (jednostkowa marża brutto).</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — funkcja kosztu</h4>
+<ol>
+<li>\(TC = 20 + 10Q + Q^2\). Koszt stały: <b>20</b> (niezależnie od Q).</li>
+<li>\(MC = 10 + 2Q\); \(ATC = \frac{20}{Q} + 10 + Q\).</li>
+<li>Minimum ATC tam, gdzie \(MC = ATC\): \(10+2Q = \frac{20}{Q}+10+Q \Rightarrow Q^2=20 \Rightarrow Q\approx4{,}47\).</li>
+<li>Firma konkurencyjna produkuje przy \(P = MC\), czyli dla \(P = 30\): \(Q = 10\).</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator progu rentowności</h4>
+<div class="row">
+<label>Koszty stałe<input id="b_fc" value="180000"/></label>
+<label>Cena jedn.<input id="b_p" value="60"/></label>
+<label>Koszt zmienny jedn.<input id="b_v" value="36"/></label>
+<label>Sprzedaż (szt.)<input id="b_q" value="10000"/></label>
+</div>
+<div class="out" id="b_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Wliczanie kosztów utopionych do progu</b> — do BEP wchodzą wyłącznie koszty, których można uniknąć decyzją.</li>
+<li><b>Mylenie marży pokrycia z zyskiem jednostkowym</b> — marża pokrycia nie odejmuje kosztów stałych.</li>
+<li><b>Decyzja o kontynuacji w krótkim okresie</b>: produkuj, dopóki \(P \ge AVC\). Przy \(P &lt; AVC\) zamknięcie ogranicza stratę do kosztów stałych.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-04">
+<header class="card__h"><span class="chip"><b>OBL-04</b><span>Dział 1</span></span><span class="card__src">Mikro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Monopol, monopson, duopol Cournota, MRPL</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$\text{Monopol: } P=a-bQ \Rightarrow MR=a-2bQ \quad (\text{podwójne nachylenie})$$
+              $$\text{Monopson: } ACL=w_0+eL \Rightarrow MCL=w_0+2eL$$
+              $$MRP_L=MP_L\cdot P \quad(\text{konkurencja doskonała na rynku produktu})$$
+              $$\text{Optimum nakładów: } \frac{MP_L}{w}=\frac{MP_K}{r}$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany — monopol</h4>
+<ol>
+<li>\(P = 100 - 2Q\), \(MC = 20\).</li>
+<li>\(MR = 100 - 4Q\); z warunku \(MR = MC\): \(100-4Q=20 \Rightarrow Q_m=20\).</li>
+<li>Cena z krzywej popytu: \(P_m = 100 - 40 = 60\).</li>
+<li>Porównanie: przy konkurencji \(P=MC=20 \Rightarrow Q_k=40\). Zbędna strata \( = \tfrac12(40-20)(60-20)=400\).</li>
+</ol>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — duopol Cournota</h4>
+<ol>
+<li>\(P = 120 - Q\), \(Q = q_1+q_2\), \(MC = 0\) dla obu firm.</li>
+<li>Zysk firmy 1: \(\pi_1 = (120 - q_1 - q_2)q_1\); z warunku pierwszego rzędu: \(q_1 = \frac{120-q_2}{2}\) — to funkcja reakcji.</li>
+<li>Symetria: \(q_1=q_2=40\), \(Q=80\), \(P=40\). Monopolista wyprodukowałby 60, rynek konkurencyjny 120.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator monopolu liniowego</h4>
+<div class="row">
+<label>a (P przy Q=0)<input id="m_a" value="100"/></label>
+<label>b (nachylenie)<input id="m_b" value="2"/></label>
+<label>MC (stały)<input id="m_mc" value="20"/></label>
+</div>
+<div class="out" id="m_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Odczytanie ceny monopolowej z krzywej MR</b> zamiast z krzywej popytu — najczęstszy błąd rachunkowy w tym zadaniu.</li>
+<li><b>Zapominanie o podwojeniu nachylenia</b> w MR oraz w MCL monopsonu. Reguła jest ta sama i wynika z pochodnej funkcji kwadratowej.</li>
+<li><b>Ustalanie płacy monopsonu na poziomie MCL</b> — płacę odczytujemy z krzywej <em>podaży pracy</em> dla optymalnego L, a MCL służy tylko do wyznaczenia L.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-05">
+<header class="card__h"><span class="chip"><b>OBL-05</b><span>Dział 1</span></span><span class="card__src">Mikro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Koszt alternatywny, przewaga komparatywna, PPF liczbowo</h3>
+<div class="card__main"><div class="fx">
+              $$\text{Koszt alt. dobra X} = \frac{\text{utracone Y}}{\text{uzyskane X}}$$
+              <span class="note">Specjalizacja opłaca się krajowi o niższym koszcie alternatywnym danego dobra — niezależnie od wydajności bezwzględnej.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — przewaga komparatywna</h4>
+<ol>
+<li>Kraj A: 1 pracownik wytwarza 10 t pszenicy albo 5 szt. maszyn. Kraj B: 6 t pszenicy albo 4 szt. maszyn.</li>
+<li>Koszt alternatywny maszyny: A → \(10/5 = 2\) t pszenicy; B → \(6/4 = 1{,}5\) t pszenicy.</li>
+<li>B ma przewagę komparatywną w maszynach (mimo przewagi absolutnej A w obu dobrach), A — w pszenicy.</li>
+<li>Opłacalny zakres wymiany: cena maszyny między 1,5 a 2 t pszenicy.</li>
+</ol>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — zysk ekonomiczny</h4>
+<ol>
+<li>Przychód 300 tys.; koszty jawne 250 tys.; utracona pensja 60 tys.; odsetki od zamrożonych 200 tys. przy 5% = 10 tys.</li>
+<li>Zysk księgowy: \(300-250 = 50\) tys.</li>
+<li>Koszt ekonomiczny: \(250+60+10 = 320\) tys. → zysk ekonomiczny \(= -20\) tys.</li>
+<li>Wniosek: mimo dodatniego zysku księgowego przedsięwzięcie nie pokrywa kosztu alternatywnego.</li>
+</ol>
+</div></div>
+</div></article>
+</section>
+<section class="sec" id="o2">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 2</b> · MAKROEKONOMIA W LICZBACH</p><h2>Makro w liczbach</h2></header>
+<article class="card" id="OBL-06">
+<header class="card__h"><span class="chip"><b>OBL-06</b><span>Dział 2</span></span><span class="card__src">Makro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Mnożniki wydatkowe i dochód równowagi</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$k=\frac{1}{1-KSK}=\frac{1}{KSO}\qquad k_{podatkowy}=\frac{-KSK}{1-KSK}\qquad k_{otwarta}=\frac{1}{1-KSK(1-t)+KSI}$$
+              $$Y^*=k\cdot A \quad\text{gdzie } A=C_a+I+G+NX$$
+              <span class="note">KSK — krańcowa skłonność do konsumpcji, KSO — do oszczędzania, KSI — do importu, t — stopa podatkowa.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>\(KSK = 0{,}8\) → \(k = \frac{1}{1-0{,}8} = 5\).</li>
+<li>Wzrost wydatków rządowych o 10 mld → wzrost dochodu równowagi o \(5 \times 10 = 50\) mld.</li>
+<li>Ta sama kwota rozdana jako obniżka podatków: \(k_T = \frac{-0{,}8}{0{,}2} = -4\), czyli wzrost dochodu tylko o 40 mld — część transferu zostaje zaoszczędzona.</li>
+<li>Mnożnik zrównoważonego budżetu (wzrost G i T o tyle samo) wynosi <b>1</b>.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator mnożnika</h4>
+<div class="row">
+<label>KSK<input id="k_ksk" value="0.8"/></label>
+<label>stopa podatkowa t<input id="k_t" value="0"/></label>
+<label>KS importu<input id="k_m" value="0"/></label>
+<label>zmiana wydatków<input id="k_dg" value="10"/></label>
+</div>
+<div class="out" id="k_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Stosowanie mnożnika wydatkowego do zmiany podatków</b> — mnożnik podatkowy jest <em>mniejszy co do wartości bezwzględnej</em> i ma znak przeciwny.</li>
+<li><b>Pomijanie importu i podatków</b> w gospodarce otwartej — każdy dodatkowy odpływ <em>zmniejsza</em> mnożnik.</li>
+<li><b>Mnożnik liczony od PKB zamiast od zmiany wydatków autonomicznych</b> — mnożnik działa na <em>przyrost</em>, nie na poziom.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-07">
+<header class="card__h"><span class="chip"><b>OBL-07</b><span>Dział 2</span></span><span class="card__src">Makro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Kreacja pieniądza, baza monetarna, szybkość obiegu</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$m=\frac{1}{r_{ob}}\ \ (\text{model prosty})\qquad m=\frac{1+c}{r_{ob}+r_{nad}+c}\ \ (\text{model pełny})$$
+              $$M = m \cdot M0 \qquad V=\frac{P\cdot Y}{M}$$
+              <span class="note">c — stosunek gotówki do depozytów, \(r_{ob}\) — stopa rezerwy obowiązkowej, \(r_{nad}\) — rezerwy nadobowiązkowe.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Rezerwa obowiązkowa 10%, brak gotówki w obiegu i rezerw nadobowiązkowych → \(m = 10\).</li>
+<li>Zakup obligacji przez bank centralny za 2 mld zwiększa bazę o 2 mld → podaż pieniądza rośnie maksymalnie o 20 mld.</li>
+<li>Gdy banki utrzymują dodatkowo 5% rezerw nadobowiązkowych, a \(c = 0{,}2\): \(m = \frac{1{,}2}{0{,}1+0{,}05+0{,}2} = 3{,}43\) → wzrost tylko o ok. 6,9 mld.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator mnożnika kreacji pieniądza</h4>
+<div class="row">
+<label>rezerwa obow. (%)<input id="p_r" value="10"/></label>
+<label>rezerwy nadobow. (%)<input id="p_n" value="0"/></label>
+<label>gotówka/depozyty c<input id="p_c" value="0"/></label>
+<label>zmiana bazy M0<input id="p_b" value="2"/></label>
+</div>
+<div class="out" id="p_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Traktowanie mnożnika prostego jako wartości rzeczywistej</b> — rezerwy nadobowiązkowe i gotówka w obiegu zawsze go obniżają.</li>
+<li><b>Mylenie \(M0\) z \(M1\)</b> przy podstawianiu do wzoru.</li>
+<li><b>Pomijanie założenia stałej V</b> przy wnioskowaniu z \(MV = PY\): jeśli V rośnie, wzrost M nie przekłada się jeden do jednego na ceny.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-08">
+<header class="card__h"><span class="chip"><b>OBL-08</b><span>Dział 2</span></span><span class="card__src">Makro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">Rynek pracy, inflacja i wielkości realne</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$u=\frac{\text{bezrobotni}}{\text{aktywni zawodowo}}\cdot100\%\qquad \text{WAZ}=\frac{\text{aktywni zawodowo}}{\text{ludność }15+}\cdot100\%$$
+              $$r_{real}\approx r_{nom}-\pi \qquad 1+r_{real}=\frac{1+r_{nom}}{1+\pi}\ \ (\text{wzór Fishera, dokładny})$$
+              $$\text{wartość realna}=\frac{\text{wartość nominalna}}{\text{indeks cen}}\cdot100$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Ludność 15+: 30 mln; pracujący 16 mln; bezrobotni 2 mln → aktywni zawodowo 18 mln.</li>
+<li>\(u = 2/18 = 11{,}1\%\); WAZ \(= 18/30 = 60\%\).</li>
+<li>Uwaga: osoby bierne zawodowo (emeryci, studenci) <b>nie wchodzą</b> do mianownika stopy bezrobocia.</li>
+<li>Oprocentowanie nominalne 8%, inflacja 5%: przybliżenie daje 3%, wzór dokładny \(\frac{1{,}08}{1{,}05}-1 = 2{,}86\%\).</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator rynku pracy i stopy realnej</h4>
+<div class="row">
+<label>pracujący (mln)<input id="u_e" value="16"/></label>
+<label>bezrobotni (mln)<input id="u_u" value="2"/></label>
+<label>ludność 15+ (mln)<input id="u_p" value="30"/></label>
+<label>stopa nom. (%)<input id="u_rn" value="8"/></label>
+<label>inflacja (%)<input id="u_pi" value="5"/></label>
+</div>
+<div class="out" id="u_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Dzielenie bezrobotnych przez całą ludność</b> zamiast przez aktywnych zawodowo — zaniża wynik i jest najczęstszą pułapką w tej rodzinie zadań.</li>
+<li><b>Przybliżenie Fishera przy wysokiej inflacji</b> — przy inflacji dwucyfrowej różnica między wzorem przybliżonym a dokładnym staje się istotna.</li>
+<li><b>Punkty bazowe</b>: 1 pb = 0,01 pkt proc. Obniżka o 75 pb to spadek stopy o 0,75 punktu procentowego, a nie o 0,75%.</li>
+<li><b>Mylenie punktów procentowych z procentami</b> — wzrost stopy z 4% na 5% to +1 pkt proc., ale +25%.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-09">
+<header class="card__h"><span class="chip"><b>OBL-09</b><span>Dział 2</span></span><span class="card__src">Makro w liczbach</span></header>
+<div class="card__b">
+<h3 class="card__t">PKB, wartość dodana i tożsamości gospodarki otwartej</h3>
+<div class="card__main"><div class="fx">
+              $$PKB = C+I+G+NX \qquad S_{pryw}=Y-T-C \qquad S_{publ}=T-G \qquad S=I+NCO$$
+              <span class="note">NCO — odpływ kapitału netto; równy saldu rachunku bieżącego.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — wartość dodana</h4>
+<ol>
+<li>Rolnik sprzedaje pszenicę za 0,90; młyn mąkę za 1,20; piekarnia chleb za 1,60; sklep sprzedaje za 2,00.</li>
+<li>Wartość dodana: 0,90 + 0,30 + 0,40 + 0,40 = <b>2,00</b>.</li>
+<li>Do PKB wchodzi 2,00 — cena dobra finalnego, a nie suma 5,70 ze wszystkich faz.</li>
+</ol>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — oszczędności</h4>
+<ol>
+<li>\(Y = 1000\), \(C = 600\), \(I = 200\), \(G = 150\), \(T = 170\).</li>
+<li>\(S_{pryw} = 1000-170-600 = 230\); \(S_{publ} = 170-150 = 20\); \(S = 250\).</li>
+<li>\(NCO = S - I = 250-200 = 50\) → nadwyżka rachunku bieżącego 50.</li>
+</ol>
+</div></div>
+</div></article>
+</section>
+<section class="sec" id="o3">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 3</b> · ANALIZA WSKAŹNIKOWA PRZEDSIĘBIORSTWA</p><h2>Analiza wskaźnikowa</h2></header>
+<p class="sub">Rdzeń zadania finansowego na 15 punktów. Komisja punktuje wzór, podstawienie i interpretację osobno — zapisuj wszystkie trzy.</p>
+<article class="card" id="OBL-10">
+<header class="card__h"><span class="chip"><b>OBL-10</b><span>Dział 3</span></span><span class="card__src">Analiza wskaźnikowa</span></header>
+<div class="card__b">
+<h3 class="card__t">Płynność finansowa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$CR=\frac{\text{aktywa obrotowe}}{\text{zobowiązania krótkoterminowe}}\qquad QR=\frac{\text{aktywa obrotowe}-\text{zapasy}-RMK}{\text{zob. krótkoterminowe}}$$
+              $$\text{wskaźnik gotówkowy}=\frac{\text{środki pieniężne}}{\text{zob. krótkoterminowe}}$$
+              <span class="note">Wartości wzorcowe: CR ok. 1,2–2,0; QR ok. 1,0. To punkty odniesienia, nie normy bezwzględne — interpretuj na tle branży i trendu.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Aktywa obrotowe 480 tys., w tym zapasy 210 tys.; zobowiązania krótkoterminowe 300 tys.</li>
+<li>\(CR = 480/300 = 1{,}60\) — poziom bezpieczny.</li>
+<li>\(QR = (480-210)/300 = 0{,}90\) — nieco poniżej wzorca; spółka jest uzależniona od upłynnienia zapasów.</li>
+<li>Interpretacja na punkty: duża rozbieżność CR i QR sygnalizuje nadmierne zapasy, a nie dobrą płynność.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator płynności</h4>
+<div class="row">
+<label>aktywa obrotowe<input id="l_ao" value="480"/></label>
+<label>zapasy<input id="l_z" value="210"/></label>
+<label>środki pieniężne<input id="l_g" value="60"/></label>
+<label>zob. krótkoterm.<input id="l_zk" value="300"/></label>
+</div>
+<div class="out" id="l_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Im wyższa płynność, tym lepiej”</b> — CR znacznie powyżej 2 oznacza nadpłynność: zamrożony kapitał, który nie pracuje. Punktowana interpretacja zawsze wskazuje na kompromis między płynnością a rentownością.</li>
+<li><b>Pozostawianie zapasów w liczniku QR</b> — to jedyna różnica między CR a QR i jednocześnie sedno zadania.</li>
+<li><b>Rezerwy i rozliczenia międzyokresowe bierne</b> bywają doliczane do zobowiązań krótkoterminowych — czytaj uważnie wskazówki z treści zadania.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-11">
+<header class="card__h"><span class="chip"><b>OBL-11</b><span>Dział 3</span></span><span class="card__src">Analiza wskaźnikowa</span></header>
+<div class="card__b">
+<h3 class="card__t">Rentowność i model Du Ponta</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$ROS=\frac{\text{zysk netto}}{\text{przychody}}\quad ROA=\frac{\text{zysk netto}}{\text{aktywa}}\quad ROE=\frac{\text{zysk netto}}{\text{kapitał własny}}$$
+              $$ROE=\underbrace{\frac{Z_n}{S}}_{\text{rentowność sprzedaży}}\times\underbrace{\frac{S}{A}}_{\text{rotacja aktywów}}\times\underbrace{\frac{A}{KW}}_{\text{mnożnik kapitału}}$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Zysk netto 84; przychody 1 200; aktywa 700; kapitał własny 280.</li>
+<li>\(ROS = 84/1200 = 7{,}0\%\); \(ROA = 84/700 = 12{,}0\%\); \(ROE = 84/280 = 30{,}0\%\).</li>
+<li>Rozkład Du Ponta: \(7{,}0\% \times 1{,}714 \times 2{,}5 = 30{,}0\%\).</li>
+<li>Interpretacja: wysokie ROE wynika w dużej mierze z mnożnika kapitału (2,5), czyli z zadłużenia — to jednocześnie źródło ryzyka finansowego.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator Du Ponta</h4>
+<div class="row">
+<label>zysk netto<input id="d_zn" value="84"/></label>
+<label>przychody<input id="d_s" value="1200"/></label>
+<label>aktywa<input id="d_a" value="700"/></label>
+<label>kapitał własny<input id="d_kw" value="280"/></label>
+</div>
+<div class="out" id="d_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Wstawianie zysku brutto zamiast netto</b> — ROE i ROA liczymy standardowo na zysku netto, chyba że treść mówi inaczej.</li>
+<li><b>Pomijanie uśrednienia stanu aktywów</b>, gdy zadanie podaje bilans otwarcia i zamknięcia — poprawnie liczy się od średniej.</li>
+<li><b>„Wzrost ROE zawsze świadczy o poprawie efektywności”</b> — może wynikać wyłącznie ze wzrostu dźwigni przy niezmienionej rentowności operacyjnej.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-12">
+<header class="card__h"><span class="chip"><b>OBL-12</b><span>Dział 3</span></span><span class="card__src">Analiza wskaźnikowa</span></header>
+<div class="card__b">
+<h3 class="card__t">Zadłużenie i dźwignia finansowa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$\text{wsk. zadłużenia}=\frac{\text{zobowiązania ogółem}}{\text{aktywa}}\qquad \text{pokrycie odsetek}=\frac{EBIT}{\text{odsetki}}$$
+              $$ROE=\left[ROA_{EBIT}+\frac{D}{E}\left(ROA_{EBIT}-r_d\right)\right](1-T)$$
+              $$DFL=\frac{EBIT}{EBIT-\text{odsetki}}$$
+              <span class="note">Efekt dźwigni jest dodatni, gdy rentowność operacyjna aktywów przewyższa koszt długu \(r_d\). Tarcza podatkowa: \(\text{odsetki}\times T\).</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>EBIT 120; odsetki 40; podatek 19%.</li>
+<li>\(DFL = 120/(120-40) = 1{,}5\) → wzrost EBIT o 10% podnosi zysk netto o 15%.</li>
+<li>Tarcza podatkowa: \(40 \times 0{,}19 = 7{,}6\) — o tyle niższy podatek dzięki finansowaniu długiem.</li>
+<li>Gdyby EBIT spadł do 40, DFL rośnie do nieskończoności — spółka byłaby na progu pokrycia odsetek.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator dźwigni finansowej</h4>
+<div class="row">
+<label>EBIT<input id="f_ebit" value="120"/></label>
+<label>odsetki<input id="f_i" value="40"/></label>
+<label>stopa podatku (%)<input id="f_t" value="19"/></label>
+</div>
+<div class="out" id="f_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Dźwignia finansowa zawsze zwiększa ROE”</b> — działa w obie strony. Gdy \(ROA_{EBIT} &lt; r_d\), dźwignia obniża rentowność kapitału własnego (maczuga finansowa).</li>
+<li><b>Mylenie dźwigni operacyjnej z finansową</b> — operacyjna wynika z udziału kosztów stałych w kosztach operacyjnych, finansowa z kosztów odsetkowych.</li>
+<li><b>Liczenie tarczy podatkowej od kwoty długu</b> zamiast od odsetek.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="o4">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 4</b> · KAPITAŁ OBROTOWY, ROTACJA I ZAPASY</p><h2>Kapitał obrotowy i zapasy</h2></header>
+<article class="card" id="OBL-13">
+<header class="card__h"><span class="chip"><b>OBL-13</b><span>Dział 4</span></span><span class="card__src">Kapitał obrotowy i zapasy</span></header>
+<div class="card__b">
+<h3 class="card__t">Cykle rotacji i cykl konwersji gotówki</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$\text{cykl zapasów}=\frac{\text{średni stan zapasów}}{\text{koszt sprzedanych wyrobów}}\cdot365$$
+              $$\text{cykl należności}=\frac{\text{średnie należności}}{\text{przychody ze sprzedaży}}\cdot365$$
+              $$\text{cykl zobowiązań}=\frac{\text{średnie zobowiązania}}{\text{koszty operacyjne}}\cdot365$$
+              $$\text{CKG}=\text{cykl zapasów}+\text{cykl należności}-\text{cykl zobowiązań}$$
+            </div>
+<figure>
+<svg aria-label="Cykl konwersji gotówki" role="img" viewbox="0 0 640 190">
+<line class="ax" x1="60" x2="600" y1="130" y2="130"></line>
+<rect class="fill-cyan" height="22" stroke="#63c7e8" width="200" x="70" y="60"></rect>
+<rect class="fill-gold" height="22" stroke="#e8b75d" width="160" x="270" y="60"></rect>
+<rect class="fill-red" height="22" stroke="#e8776d" width="140" x="70" y="94"></rect>
+<line class="dash" x1="210" x2="210" y1="94" y2="150"></line>
+<line class="dash" x1="430" x2="430" y1="60" y2="150"></line>
+<text x="80" y="76">cykl zapasów</text>
+<text x="282" y="76">cykl należności</text>
+<text x="80" y="110">cykl zobowiązań</text>
+<text class="lbl-green" x="220" y="166">← cykl konwersji gotówki →</text>
+</svg>
+<figcaption>Im dłuższy cykl konwersji gotówki, tym większe zapotrzebowanie na kapitał obrotowy. Wydłużenie terminu płatności dostawcom skraca CKG.</figcaption>
+</figure>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Zapasy 60 dni, należności 45 dni, zobowiązania 30 dni.</li>
+<li>\(CKG = 60+45-30 = 75\) dni — tyle czasu gotówka jest zamrożona w cyklu operacyjnym.</li>
+<li>Faktoring skracający inkaso należności do 15 dni obniża CKG do 45 dni i zmniejsza zapotrzebowanie na finansowanie.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator cykli</h4>
+<div class="row">
+<label>zapasy (dni)<input id="c_z" value="60"/></label>
+<label>należności (dni)<input id="c_n" value="45"/></label>
+<label>zobowiązania (dni)<input id="c_zo" value="30"/></label>
+<label>dzienna sprzedaż<input id="c_s" value="12"/></label>
+</div>
+<div class="out" id="c_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Dodawanie cyklu zobowiązań zamiast odejmowania</b> — kredyt kupiecki finansuje cykl, więc go skraca.</li>
+<li><b>Liczenie cyklu zapasów od przychodów</b> zamiast od kosztu sprzedanych wyrobów — zapasy wycenia się w koszcie, nie w cenie sprzedaży.</li>
+<li><b>Cykl operacyjny</b> = zapasy + należności (bez odejmowania zobowiązań). Nie mieszaj go z CKG.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-14">
+<header class="card__h"><span class="chip"><b>OBL-14</b><span>Dział 4</span></span><span class="card__src">Kapitał obrotowy i zapasy</span></header>
+<div class="card__b">
+<h3 class="card__t">Kapitał obrotowy netto i strategie finansowania</h3>
+<div class="card__main"><div class="fx">
+              $$KON=\text{aktywa obrotowe}-\text{zobowiązania krótkoterminowe}$$
+              $$KON=(\text{kapitał własny}+\text{zob. długoterminowe})-\text{aktywa trwałe}$$
+              <span class="note">Obie formuły dają identyczny wynik — druga pokazuje, że KON to część kapitału stałego finansująca majątek obrotowy.</span>
+</div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Strategia</th><th>KON</th><th>Ryzyko / koszt</th></tr></thead>
+<tbody>
+<tr><td>Konserwatywna</td><td>Wysoki dodatni</td><td>Niskie ryzyko utraty płynności, wysoki koszt kapitału</td></tr>
+<tr><td>Umiarkowana</td><td>Dodatni, dopasowany terminowo</td><td>Zrównoważona</td></tr>
+<tr><td>Agresywna</td><td>Niski lub ujemny</td><td>Tanie finansowanie, wysokie ryzyko utraty płynności</td></tr>
+</tbody>
+</table>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Aktywa trwałe 900; aktywa obrotowe 480; kapitał własny 800; zob. długoterminowe 280; zob. krótkoterminowe 300.</li>
+<li>\(KON = 480-300 = 180\).</li>
+<li>Sprawdzenie: \((800+280)-900 = 180\). ✔</li>
+<li>Zapotrzebowanie na KON zależy od CKG — przy 75 dniach i dziennej sprzedaży 12 wynosi ok. 900.</li>
+</ol>
+</div></div>
+</div></article>
+<article class="card" id="OBL-15">
+<header class="card__h"><span class="chip"><b>OBL-15</b><span>Dział 4</span></span><span class="card__src">Kapitał obrotowy i zapasy</span></header>
+<div class="card__b">
+<h3 class="card__t">Optymalna wielkość partii dostawy (EOQ) i zapas bezpieczeństwa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$EOQ=\sqrt{\frac{2\cdot P \cdot K_z}{K_u}}$$
+              $$\text{punkt zamówienia}=\text{zużycie dzienne}\times\text{czas dostawy}+\text{zapas bezpieczeństwa}$$
+              <span class="note">P — roczne zapotrzebowanie, \(K_z\) — koszt złożenia jednego zamówienia, \(K_u\) — koszt utrzymania jednostki zapasu przez rok.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>\(P = 36\,000\) szt./rok, \(K_z = 200\) zł, \(K_u = 4\) zł/szt./rok.</li>
+<li>\(EOQ=\sqrt{\frac{2\cdot36000\cdot200}{4}}=\sqrt{3\,600\,000}=1\,897\) szt.</li>
+<li>Liczba dostaw: \(36\,000/1\,897 \approx 19\) rocznie; zapas przeciętny \(=EOQ/2 \approx 949\) szt.</li>
+<li>Przy zużyciu 100 szt./dzień i dostawie w 5 dni z zapasem bezpieczeństwa 200 szt. punkt zamówienia wynosi \(100\cdot5+200=700\) szt.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator EOQ</h4>
+<div class="row">
+<label>zapotrzebowanie roczne<input id="q_p" value="36000"/></label>
+<label>koszt zamówienia<input id="q_kz" value="200"/></label>
+<label>koszt utrzymania/szt.<input id="q_ku" value="4"/></label>
+</div>
+<div class="out" id="q_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Podstawianie kosztu utrzymania w ujęciu procentowym</b> bez pomnożenia przez cenę jednostkową zapasu.</li>
+<li><b>Mylenie zapasu przeciętnego z EOQ</b> — przeciętny wynosi połowę partii dostawy.</li>
+<li><b>Założenia EOQ</b>: stałe i znane zużycie, stała cena, natychmiastowa dostawa całej partii, brak rabatów ilościowych. Rabat ilościowy unieważnia wynik modelu.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="o5">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 5</b> · WARTOŚĆ PIENIĄDZA W CZASIE I KOSZT KAPITAŁU</p><h2>Pieniądz w czasie i koszt kapitału</h2></header>
+<article class="card" id="OBL-16">
+<header class="card__h"><span class="chip"><b>OBL-16</b><span>Dział 5</span></span><span class="card__src">Pieniądz w czasie i koszt kapitału</span></header>
+<div class="card__b">
+<h3 class="card__t">Procent składany, dyskontowanie, NPV</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$FV=PV(1+r)^n \qquad PV=\frac{FV}{(1+r)^n} \qquad NPV=\sum_{t=0}^{n}\frac{CF_t}{(1+r)^t}$$
+              $$\text{kapitalizacja m razy w roku: } FV=PV\left(1+\frac{r}{m}\right)^{nm}$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>10 000 zł na 3 lata przy 6% rocznie: \(FV = 10\,000 \cdot 1{,}06^3 = 11\,910{,}16\) zł.</li>
+<li>Przy kapitalizacji kwartalnej: \(10\,000 \cdot (1+0{,}015)^{12} = 11\,956{,}18\) zł — częstsza kapitalizacja podnosi efektywną stopę.</li>
+<li>Efektywna stopa roczna: \((1+0{,}015)^4-1 = 6{,}14\%\).</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator wartości przyszłej</h4>
+<div class="row">
+<label>kwota PV<input id="t_pv" value="10000"/></label>
+<label>stopa roczna (%)<input id="t_r" value="6"/></label>
+<label>lata<input id="t_n" value="3"/></label>
+<label>kapitalizacje/rok<input id="t_m" value="1"/></label>
+</div>
+<div class="out" id="t_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Dzielenie stopy przez m bez zmiany wykładnika</b> — liczba okresów też musi zostać przemnożona.</li>
+<li><b>Mylenie stopy nominalnej z efektywną</b> przy porównywaniu ofert lokat.</li>
+<li><b>NPV liczone bez przepływu \(CF_0\)</b> — nakład początkowy wchodzi ze znakiem ujemnym w okresie zerowym, bez dyskontowania.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-17">
+<header class="card__h"><span class="chip"><b>OBL-17</b><span>Dział 5</span></span><span class="card__src">Pieniądz w czasie i koszt kapitału</span></header>
+<div class="card__b">
+<h3 class="card__t">Dyskonto weksla, skonto i efektywny koszt kredytu kupieckiego</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$D=\frac{W\cdot d\cdot t}{360\cdot100}\qquad\text{kwota wypłacona}=W-D$$
+              $$r_{skonto}=\frac{s}{100-s}\cdot\frac{360}{t_{kredytu}-t_{skonta}}\cdot100\%$$
+              <span class="note">W — suma wekslowa, d — stopa dyskontowa, t — liczba dni do wykupu, s — procent skonta.</span>
+</div>
+<div class="worked">
+<h4>Przykład rozwiązany — skonto „2/10 netto 40”</h4>
+<ol>
+<li>Rabat 2% za zapłatę w 10 dni, termin standardowy 40 dni.</li>
+<li>\(r = \frac{2}{98}\cdot\frac{360}{30} = 0{,}0204 \cdot 12 = 24{,}5\%\) w skali roku.</li>
+<li>Wniosek: rezygnacja ze skonta jest opłacalna tylko wtedy, gdy alternatywne finansowanie kosztuje mniej niż 24,5%.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator skonta</h4>
+<div class="row">
+<label>skonto (%)<input id="s_s" value="2"/></label>
+<label>termin skonta (dni)<input id="s_t1" value="10"/></label>
+<label>termin płatności (dni)<input id="s_t2" value="40"/></label>
+</div>
+<div class="out" id="s_out"></div>
+</div></aside>
+</div>
+</div></article>
+<article class="card" id="OBL-18">
+<header class="card__h"><span class="chip"><b>OBL-18</b><span>Dział 5</span></span><span class="card__src">Pieniądz w czasie i koszt kapitału</span></header>
+<div class="card__b">
+<h3 class="card__t">Koszt kapitału: WACC, model Gordona, CAPM</h3>
+<div class="card__grid">
+<div class="card__main"><div class="fx">
+              $$WACC=\frac{E}{E+D}\,k_e+\frac{D}{E+D}\,k_d(1-T)$$
+              $$k_e=\frac{D_1}{P_0}+g \quad(\text{model Gordona})\qquad k_e=r_f+\beta\,(r_m-r_f)\quad(\text{CAPM})$$
+            </div>
+<div class="worked">
+<h4>Przykład rozwiązany</h4>
+<ol>
+<li>Kapitał własny 600, dług 400, koszt kapitału własnego 14%, koszt długu 8%, podatek 19%.</li>
+<li>\(WACC = 0{,}6\cdot14\% + 0{,}4\cdot8\%\cdot(1-0{,}19) = 8{,}4\% + 2{,}59\% = 10{,}99\%\).</li>
+<li>Tarcza podatkowa obniża efektywny koszt długu z 8% do 6,48%.</li>
+<li>Projekt o stopie zwrotu 10% niszczy wartość — nie pokrywa kosztu kapitału.</li>
+</ol>
+</div></div>
+<aside class="card__aside"><div class="calc">
+<h4>Kalkulator WACC</h4>
+<div class="row">
+<label>kapitał własny E<input id="w_e" value="600"/></label>
+<label>dług D<input id="w_d" value="400"/></label>
+<label>koszt kap. wł. (%)<input id="w_ke" value="14"/></label>
+<label>koszt długu (%)<input id="w_kd" value="8"/></label>
+<label>podatek (%)<input id="w_t" value="19"/></label>
+</div>
+<div class="out" id="w_out"></div>
+</div><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Stosowanie tarczy podatkowej do kosztu kapitału własnego</b> — dywidendy nie są kosztem podatkowym, więc tarcza dotyczy wyłącznie długu.</li>
+<li><b>Wagi liczone od wartości księgowych zamiast rynkowych</b> — w zadaniach OWE zwykle podaje się wartości do bezpośredniego podstawienia, ale w interpretacji warto o tym wspomnieć.</li>
+<li><b>Model Gordona wymaga \(g &lt; k_e\)</b> — przy \(g \ge k_e\) wzór traci sens ekonomiczny.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<p class="empty" hidden="" id="empty">Brak haseł pasujących do wyszukiwania.</p>
+<footer class="foot"><span>Obliczeniowe · kompendium szkolne OWE</span><a href="#top">Na górę ↑</a></footer>
+</main></div></div>
+<a aria-label="Na górę strony" class="totop" href="#top">↑</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.renderMathInElement) renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],
+    throwOnError: false,
+    strict: false
+  });
+});
+</script>
+<script>/* Kompendium OWE — widok ciągły: wyszukiwarka, podświetlanie bieżącego działu, pomocnicze dla kalkulatorów */
+(function () {
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l')
+      .replace(/ń/g, 'n').replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ż/g, 'z').replace(/ź/g, 'z');
+  }
+  function plural(n) {
+    if (n === 1) return 'hasło';
+    var d = n % 10, h = n % 100;
+    return (d >= 2 && d <= 4 && (h < 12 || h > 14)) ? 'hasła' : 'haseł';
+  }
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var sections = $$('section.sec');
+  var cards = $$('article.card');
+  var chips = $$('.chipnav');
+  var tocItems = $$('.toc__list > li');
+  var tocCards = $$('.toc__list ul a');
+  var chipBox = document.querySelector('.chips');
+
+  /* --- wyszukiwarka --- */
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var empty = document.getElementById('empty');
+  cards.forEach(function (c) { c._hay = norm(c.textContent); });
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim());
+      var hits = 0;
+      cards.forEach(function (c) {
+        var ok = !q || c._hay.indexOf(q) > -1;
+        c.hidden = !ok;
+        if (ok) hits++;
+      });
+      sections.forEach(function (s) {
+        var any = $$('article.card', s).some(function (c) { return !c.hidden; });
+        s.hidden = !any;
+        chips.concat(tocItems).forEach(function (el) { if (el.dataset.sec === s.id) el.hidden = !any; });
+      });
+      tocCards.forEach(function (a) {
+        var c = document.getElementById(a.dataset.card);
+        a.parentNode.hidden = !!(c && c.hidden);
+      });
+      count.textContent = q ? (hits + ' / ' + cards.length) : (cards.length + ' ' + plural(cards.length));
+      if (empty) empty.hidden = hits > 0;
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+
+  /* --- bieżący dział i hasło (podświetlenie w nawigacji) --- */
+  var curSec = null, curCard = null;
+  function setSection(id) {
+    if (id === curSec) return;
+    curSec = id;
+    chips.forEach(function (a) { a.classList.toggle('on', a.dataset.sec === id); });
+    tocItems.forEach(function (li) { li.classList.toggle('on', li.dataset.sec === id); });
+    var on = chips.filter(function (a) { return a.dataset.sec === id; })[0];
+    if (on && chipBox && chipBox.offsetParent) {
+      var l = on.offsetLeft - chipBox.offsetLeft, r = l + on.offsetWidth;
+      if (l < chipBox.scrollLeft || r > chipBox.scrollLeft + chipBox.clientWidth) {
+        chipBox.scrollTo({ left: Math.max(0, l - 24), behavior: 'smooth' });
+      }
+    }
+  }
+  function setCard(id) {
+    if (id === curCard) return;
+    curCard = id;
+    tocCards.forEach(function (a) { a.classList.toggle('on', a.dataset.card === id); });
+  }
+  function spy() {
+    var line = 110;
+    var s = null, c = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].hidden) continue;
+      if (sections[i].getBoundingClientRect().top <= line) s = sections[i]; else break;
+    }
+    if (!s) s = sections.filter(function (x) { return !x.hidden; })[0];
+    if (s) {
+      setSection(s.id);
+      var cs = $$('article.card', s);
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j].hidden) continue;
+        if (cs[j].getBoundingClientRect().top <= line + 40) c = cs[j]; else break;
+      }
+      setCard(c ? c.id : (cs[0] && cs[0].id));
+    }
+    var tt = document.querySelector('.totop');
+    if (tt) tt.classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; spy(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+
+  /* --- pomocnicze dla kalkulatorów (bez zmian względem wersji z zakładkami) --- */
+  window.OWE = {
+    n: function (id) { var e = document.getElementById(id); return e ? parseFloat(String(e.value).replace(',', '.')) : NaN; },
+    f: function (x, d) { return isFinite(x) ? x.toLocaleString('pl-PL', { maximumFractionDigits: d === undefined ? 2 : d }) : '—'; },
+    bind: function (ids, fn) {
+      var run = function () { try { fn(); } catch (e) { } };
+      ids.forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener('input', run); });
+      run();
+    }
+  };
+})();
+</script>
+<script>
+(function () {
+  var n = OWE.n, f = OWE.f, set = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
+
+  OWE.bind(['e_p1', 'e_q1', 'e_p2', 'e_q2'], function () {
+    var p1 = n('e_p1'), q1 = n('e_q1'), p2 = n('e_p2'), q2 = n('e_q2');
+    var e = ((q2 - q1) / (p2 - p1)) * ((p1 + p2) / (q1 + q2));
+    var op = Math.abs(e) > 1 ? 'elastyczny — obniżka ceny zwiększa utarg' : (Math.abs(e) < 1 ? 'nieelastyczny — obniżka ceny zmniejsza utarg' : 'jednostkowy — utarg w maksimum');
+    set('e_out', 'E = ' + f(e, 3) + '   →   popyt ' + op);
+  });
+
+  OWE.bind(['r_a', 'r_b', 'r_c', 'r_d', 'r_t'], function () {
+    var a = n('r_a'), b = n('r_b'), c = n('r_c'), d = n('r_d'), t = n('r_t') || 0;
+    // Qd = a - bP ; Qs = c + d(P - t)
+    var p = (a - c + d * t) / (b + d), q = a - b * p;
+    var p0 = (a - c) / (b + d), q0 = a - b * p0;
+    var out = 'Bez podatku:  P* = ' + f(p0) + ',  Q* = ' + f(q0);
+    if (t) {
+      out += '\nZ podatkiem:  cena nabywcy = ' + f(p) + ',  cena sprzedawcy = ' + f(p - t) + ',  Q = ' + f(q)
+        + '\nCiężar nabywcy = ' + f(p - p0) + ' zł/szt.,  sprzedawcy = ' + f(p0 - (p - t)) + ' zł/szt.'
+        + '\nWpływy budżetu = ' + f(t * q);
+    }
+    var pmax = a / b, pmin = -c / d;
+    out += '\nNadwyżka konsumenta = ' + f(0.5 * q0 * (pmax - p0)) + ',  producenta = ' + f(0.5 * q0 * (p0 - Math.max(pmin, 0)));
+    set('r_out', out);
+
+    // --- wykres aktualizowany na żywo ---
+    var el = function (id) { return document.getElementById(id); };
+    if (!el('rl_d') || !isFinite(p0)) return;
+    var Pmax = Math.max(pmax, p, p0) * 1.1, Qmax = Math.max(a, q0, q) * 1.1;
+    var X = function (qq) { return 60 + (qq / Qmax) * 470; };
+    var Y = function (pp) { return 240 - (pp / Pmax) * 220; };
+    var seg = function (id, x1, y1, x2, y2) {
+      var e = el(id); e.setAttribute('x1', x1); e.setAttribute('y1', y1); e.setAttribute('x2', x2); e.setAttribute('y2', y2);
+    };
+    // popyt: od (0, a/b) do (a, 0)
+    seg('rl_d', X(0), Y(pmax), X(a), Y(0));
+    // podaż bez podatku: od (max(pmin,0)) do Pmax
+    var qsAt = function (pp, tax) { return c + d * (pp - tax); };
+    seg('rl_s', X(Math.max(qsAt(Math.max(pmin, 0), 0), 0)), Y(Math.max(pmin, 0)), X(qsAt(Pmax, 0)), Y(Pmax));
+    if (t) {
+      var pmin2 = pmin + t;
+      seg('rl_s2', X(Math.max(qsAt(Math.max(pmin2, 0), t), 0)), Y(Math.max(pmin2, 0)), X(qsAt(Pmax, t)), Y(Pmax));
+      el('rl_s2').style.display = '';
+    } else { el('rl_s2').style.display = 'none'; }
+    var pe = t ? p : p0, qe = t ? q : q0;
+    el('r_pt').setAttribute('cx', X(qe)); el('r_pt').setAttribute('cy', Y(pe));
+    seg('r_hx', 60, Y(pe), X(qe), Y(pe));
+    seg('r_hy', X(qe), Y(pe), X(qe), 240);
+    el('r_lp').setAttribute('y', Y(pe) + 4); el('r_lp').textContent = f(pe, 1);
+    el('r_lq').setAttribute('x', X(qe) - 12); el('r_lq').textContent = f(qe, 0);
+  });
+
+  OWE.bind(['b_fc', 'b_p', 'b_v', 'b_q'], function () {
+    var fc = n('b_fc'), p = n('b_p'), v = n('b_v'), q = n('b_q');
+    var m = p - v, bep = fc / m, wart = bep * p, zysk = m * q - fc;
+    var mb = q > bep ? ((q - bep) / q * 100) : 0;
+    set('b_out', 'Marża pokrycia = ' + f(m) + ' zł/szt.\nBEP ilościowy = ' + f(bep, 0) + ' szt.   |   BEP wartościowy = ' + f(wart, 0) + ' zł'
+      + '\nWynik przy sprzedaży ' + f(q, 0) + ' szt. = ' + f(zysk, 0) + ' zł\nMargines bezpieczeństwa = ' + f(mb, 1) + '%');
+  });
+
+  OWE.bind(['m_a', 'm_b', 'm_mc'], function () {
+    var a = n('m_a'), b = n('m_b'), mc = n('m_mc');
+    var qm = (a - mc) / (2 * b), pm = a - b * qm, qk = (a - mc) / b;
+    var dwl = 0.5 * (qk - qm) * (pm - mc);
+    set('m_out', 'MR = ' + f(a) + ' − ' + f(2 * b) + 'Q\nMonopol:  Q = ' + f(qm) + ',  P = ' + f(pm) + ',  zysk ponad koszt zmienny = ' + f((pm - mc) * qm)
+      + '\nKonkurencja:  Q = ' + f(qk) + ',  P = ' + f(mc) + '\nZbędna strata społeczna = ' + f(dwl));
+  });
+
+  OWE.bind(['k_ksk', 'k_t', 'k_m', 'k_dg'], function () {
+    var c = n('k_ksk'), t = n('k_t') || 0, m = n('k_m') || 0, dg = n('k_dg');
+    var k = 1 / (1 - c * (1 - t) + m), kt = -c / (1 - c * (1 - t) + m);
+    set('k_out', 'Mnożnik wydatkowy = ' + f(k, 3) + '\nMnożnik podatkowy = ' + f(kt, 3)
+      + '\nZmiana dochodu przy ΔG = ' + f(dg) + ':  ' + f(k * dg, 2)
+      + '\nTa sama kwota jako obniżka podatków:  ' + f(-kt * dg, 2));
+  });
+
+  OWE.bind(['p_r', 'p_n', 'p_c', 'p_b'], function () {
+    var r = n('p_r') / 100, nn = n('p_n') / 100, c = n('p_c'), b = n('p_b');
+    var simple = 1 / r, full = (1 + c) / (r + nn + c);
+    set('p_out', 'Mnożnik prosty = ' + f(simple, 3) + '\nMnożnik pełny = ' + f(full, 3)
+      + '\nMaksymalny przyrost podaży pieniądza = ' + f(full * b, 3));
+  });
+
+  OWE.bind(['u_e', 'u_u', 'u_p', 'u_rn', 'u_pi'], function () {
+    var e = n('u_e'), u = n('u_u'), p = n('u_p'), rn = n('u_rn') / 100, pi = n('u_pi') / 100;
+    var az = e + u;
+    set('u_out', 'Aktywni zawodowo = ' + f(az) + ' mln\nStopa bezrobocia = ' + f(u / az * 100, 2) + '%'
+      + '\nWspółczynnik aktywności zawodowej = ' + f(az / p * 100, 2) + '%\nWskaźnik zatrudnienia = ' + f(e / p * 100, 2) + '%'
+      + '\nStopa realna (przybliżenie) = ' + f((rn - pi) * 100, 2) + '%   |   (Fisher dokładnie) = ' + f(((1 + rn) / (1 + pi) - 1) * 100, 2) + '%');
+  });
+
+  OWE.bind(['l_ao', 'l_z', 'l_g', 'l_zk'], function () {
+    var ao = n('l_ao'), z = n('l_z'), g = n('l_g'), zk = n('l_zk');
+    var cr = ao / zk, qr = (ao - z) / zk, cash = g / zk;
+    var ocena = cr < 1.2 ? 'poniżej wzorca — ryzyko utraty płynności' : (cr > 2 ? 'powyżej wzorca — możliwa nadpłynność' : 'w przedziale wzorcowym');
+    set('l_out', 'Wskaźnik bieżący = ' + f(cr, 2) + '  (' + ocena + ')\nWskaźnik szybki = ' + f(qr, 2)
+      + '\nWskaźnik gotówkowy = ' + f(cash, 2) + '\nKapitał obrotowy netto = ' + f(ao - zk));
+  });
+
+  OWE.bind(['d_zn', 'd_s', 'd_a', 'd_kw'], function () {
+    var zn = n('d_zn'), s = n('d_s'), a = n('d_a'), kw = n('d_kw');
+    set('d_out', 'ROS = ' + f(zn / s * 100, 2) + '%   ROA = ' + f(zn / a * 100, 2) + '%   ROE = ' + f(zn / kw * 100, 2) + '%'
+      + '\nRozkład Du Ponta:  ' + f(zn / s * 100, 2) + '%  ×  ' + f(s / a, 3) + '  ×  ' + f(a / kw, 3) + '  =  ' + f(zn / kw * 100, 2) + '%'
+      + '\nMnożnik kapitału własnego = ' + f(a / kw, 3) + ' → udział długu w aktywach = ' + f((1 - kw / a) * 100, 1) + '%');
+  });
+
+  OWE.bind(['f_ebit', 'f_i', 'f_t'], function () {
+    var e = n('f_ebit'), i = n('f_i'), t = n('f_t') / 100;
+    var dfl = e / (e - i);
+    set('f_out', 'DFL = ' + f(dfl, 3) + '  → wzrost EBIT o 10% zmienia zysk netto o ' + f(dfl * 10, 1) + '%'
+      + '\nZysk brutto = ' + f(e - i) + ',  zysk netto = ' + f((e - i) * (1 - t))
+      + '\nTarcza podatkowa = ' + f(i * t) + '\nWskaźnik pokrycia odsetek = ' + f(e / i, 2));
+  });
+
+  OWE.bind(['c_z', 'c_n', 'c_zo', 'c_s'], function () {
+    var z = n('c_z'), nn = n('c_n'), zo = n('c_zo'), s = n('c_s');
+    var ckg = z + nn - zo;
+    set('c_out', 'Cykl operacyjny = ' + f(z + nn, 0) + ' dni\nCykl konwersji gotówki = ' + f(ckg, 0) + ' dni'
+      + '\nZapotrzebowanie na kapitał obrotowy ≈ ' + f(ckg * s, 0) + ' (przy dziennej sprzedaży ' + f(s) + ')');
+  });
+
+  OWE.bind(['q_p', 'q_kz', 'q_ku'], function () {
+    var p = n('q_p'), kz = n('q_kz'), ku = n('q_ku');
+    var eoq = Math.sqrt(2 * p * kz / ku);
+    set('q_out', 'EOQ = ' + f(eoq, 0) + ' szt.\nLiczba dostaw w roku = ' + f(p / eoq, 1)
+      + '\nZapas przeciętny = ' + f(eoq / 2, 0) + ' szt.\nŁączny koszt zamawiania i utrzymania = ' + f(p / eoq * kz + eoq / 2 * ku, 0));
+  });
+
+  OWE.bind(['t_pv', 't_r', 't_n', 't_m'], function () {
+    var pv = n('t_pv'), r = n('t_r') / 100, nn = n('t_n'), m = n('t_m') || 1;
+    var fv = pv * Math.pow(1 + r / m, nn * m), ef = Math.pow(1 + r / m, m) - 1;
+    set('t_out', 'FV = ' + f(fv, 2) + '\nEfektywna stopa roczna = ' + f(ef * 100, 3) + '%\nOdsetki łącznie = ' + f(fv - pv, 2));
+  });
+
+  OWE.bind(['s_s', 's_t1', 's_t2'], function () {
+    var s = n('s_s'), t1 = n('s_t1'), t2 = n('s_t2');
+    var r = (s / (100 - s)) * (360 / (t2 - t1)) * 100;
+    set('s_out', 'Efektywny koszt rezygnacji ze skonta = ' + f(r, 2) + '% rocznie'
+      + '\nOpłaca się skorzystać ze skonta, jeśli kredyt kosztuje mniej niż ta stopa.');
+  });
+
+  OWE.bind(['w_e', 'w_d', 'w_ke', 'w_kd', 'w_t'], function () {
+    var e = n('w_e'), d = n('w_d'), ke = n('w_ke') / 100, kd = n('w_kd') / 100, t = n('w_t') / 100;
+    var v = e + d, wacc = (e / v) * ke + (d / v) * kd * (1 - t);
+    set('w_out', 'Udział kapitału własnego = ' + f(e / v * 100, 1) + '%,  długu = ' + f(d / v * 100, 1) + '%'
+      + '\nEfektywny koszt długu po tarczy = ' + f(kd * (1 - t) * 100, 2) + '%'
+      + '\nWACC = ' + f(wacc * 100, 2) + '%');
+  });
+})();
+</script>
+</body>
+</html>

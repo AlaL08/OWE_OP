@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OWE – Zadania obliczeniowe</title><style>:root{--bg:#0F172A;--card:#1E293B;--card2:#172033;--line:#2C3A52;--txt:#E2E8F0;--mut:#94A3B8;--dim:#64748B;--copper:#C8814B;--gold:#E3B861;--orange:#D9895B;--okbg:rgba(227,184,97,.10);--okline:rgba(227,184,97,.55)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.72 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+nav.top{position:sticky;top:0;z-index:10;display:flex;gap:4px;flex-wrap:wrap;justify-content:center;padding:10px 16px;background:rgba(15,23,42,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.top a{color:var(--mut);text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;letter-spacing:.02em}
+nav.top a:hover{color:var(--txt);background:var(--card)}
+nav.top a.cur{color:var(--bg);background:var(--gold);font-weight:600}
+.hero{max-width:880px;margin:0 auto;padding:48px 16px 24px}
+.kicker{color:var(--copper);text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;margin:0 0 8px}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:44px;line-height:1.15;margin:0;color:var(--gold)}
+.sub{color:var(--mut);margin:10px 0 4px;font-size:16px}
+.stats{color:var(--mut);margin:0 0 18px;font-size:15px}.stats b{color:var(--txt)}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 18px}
+.tools button{font:inherit;font-size:14px;color:var(--gold);background:transparent;border:1px solid var(--okline);border-radius:8px;padding:6px 14px;cursor:pointer}
+.tools button:hover{background:var(--okbg)}
+.hint{color:var(--dim);font-size:13.5px}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc a{display:inline-flex;align-items:baseline;gap:6px;color:var(--txt);text-decoration:none;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.toc a small{color:var(--copper);font-size:12px}
+.toc a:hover{border-color:var(--copper)}
+main{max-width:880px;margin:0 auto;padding:0 16px 40px}
+.edition{margin-top:36px}
+.edition h2{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:Georgia,serif;font-weight:600;font-size:26px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);color:var(--orange)}
+.edition h2 em{font-style:normal;font-family:inherit;font-size:14px;color:var(--mut);font-family:"Segoe UI",system-ui,sans-serif;font-weight:400}
+.edition h2 small{margin-left:auto;font-size:13px;color:var(--dim);font-family:"Segoe UI",system-ui,sans-serif;font-weight:400}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px 20px;margin:0 0 20px;box-shadow:0 1px 0 rgba(255,255,255,.02) inset}
+.badge{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;letter-spacing:.03em;margin:0 0 10px}
+.b-ed,.b-q{font-weight:600;color:var(--gold)}
+.b-ed{background:rgba(200,129,75,.14);border:1px solid rgba(200,129,75,.45);color:#F0C79C;border-radius:999px;padding:2px 11px}
+.rom{font-weight:400;color:var(--copper)}
+.sep{color:var(--dim)}
+.b-q{color:var(--txt)}
+.b-yr{margin-left:auto;color:var(--dim);font-size:12.5px}
+.stem{font-size:17.5px;font-weight:500;margin:0 0 12px;color:#F1F5F9}
+.opts{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card2);font-size:16px;line-height:1.55}
+.ol{flex:none;width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-size:12.5px;font-weight:700;color:var(--mut);background:#0F172A;border:1px solid var(--line);margin-top:1px}
+.ot{flex:1}
+.opt.ok{border-color:var(--okline);background:var(--okbg)}
+.opt.ok .ol{background:var(--gold);color:#0F172A;border-color:var(--gold)}
+.tick{flex:none;color:var(--gold);font-size:12.5px;font-weight:600;white-space:nowrap;margin-top:2px}
+.reveal{display:none;font:inherit;font-size:14px;margin-top:10px;color:var(--gold);background:transparent;border:1px dashed var(--okline);border-radius:8px;padding:6px 14px;cursor:pointer}
+.an{margin-top:14px;border-top:1px solid var(--line);padding-top:4px}
+.s h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:14px 0 6px;font-weight:700}
+.s1 h3{color:var(--gold)}.s2 h3{color:var(--orange)}.s3 h3{color:var(--copper)}
+.s p{margin:0}
+.ans{display:inline-block;font-weight:700;color:#0F172A;background:var(--gold);border-radius:6px;padding:0 8px;margin-right:6px;font-size:14px}
+.dis{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dis li{display:flex;gap:10px}
+.dl{flex:none;width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-size:12.5px;font-weight:700;color:var(--orange);border:1px solid rgba(217,137,91,.5);margin-top:3px}
+.s3 p{background:rgba(200,129,75,.08);border-left:3px solid var(--copper);padding:8px 12px;border-radius:0 8px 8px 0}
+strong.k{color:var(--gold);font-weight:600}
+em,i{color:#F3D9B8}
+sub,sup{font-size:.72em}
+footer{max-width:880px;margin:0 auto;padding:24px 16px 48px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+body.test .an,body.test .tick{display:none}
+body.test .opt.ok{border-color:var(--line);background:var(--card2)}
+body.test .opt.ok .ol{background:#0F172A;color:var(--mut);border-color:var(--line)}
+body.test .reveal{display:inline-block}
+body.test .q.open .an{display:block}
+body.test .q.open .tick{display:inline}
+body.test .q.open .opt.ok{border-color:var(--okline);background:var(--okbg)}
+body.test .q.open .opt.ok .ol{background:var(--gold);color:#0F172A;border-color:var(--gold)}
+body.test .q.open .reveal{display:none}
+@media (max-width:640px){body{font-size:16px}h1{font-size:34px}.q{padding:14px 14px 16px}.b-yr{margin-left:0;width:100%}.edition h2{font-size:22px}}
+@media print{body{background:#fff;color:#111}nav.top,.tools,.reveal{display:none}.q{background:#fff;border-color:#ccc;break-inside:avoid}strong.k,h1,.edition h2{color:#8a4b1c}}
+</style></head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Bank zadań: Zadania obliczeniowe</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<nav class="top"><a href="Zarzadzanie.html">Zarządzanie</a><a href="Obliczeniowe.html" class="cur">Zadania obliczeniowe</a><a href="Mikroekonomia.html">Mikroekonomia</a><a href="Makroekonomia.html">Makroekonomia</a><a href="Finanse.html">Finanse</a><a href="Analiza_finansowa.html">Analiza finansowa</a><a href="wiedza_obliczeniowe.html">📖 Kompendium</a><a href="../index.php?tab=owe2">🏠 OWE II</a></nav>
+<header class="hero"><p class="kicker">Olimpiada Wiedzy Ekonomicznej · etap okręgowy · edycje XXI–XXXIX</p>
+<h1>Zadania obliczeniowe</h1><p class="sub">Wszystkie pytania wymagające kalkulacji – niezależnie od dziedziny</p>
+<p class="stats"><b>58</b> pytań z <b>16</b> edycji</p>
+<div class="tools"><button id="mode" type="button">Tryb testu: wyłączony</button><span class="hint">Tryb testu ukrywa odpowiedzi – odsłaniasz je pojedynczo. Ctrl+F działa w trybie nauki.</span></div>
+<div class="toc"><a href="#ed24">Ed. 24<small>1</small></a><a href="#ed25">Ed. 25<small>2</small></a><a href="#ed26">Ed. 26<small>1</small></a><a href="#ed27">Ed. 27<small>2</small></a><a href="#ed28">Ed. 28<small>1</small></a><a href="#ed29">Ed. 29<small>3</small></a><a href="#ed30">Ed. 30<small>4</small></a><a href="#ed31">Ed. 31<small>5</small></a><a href="#ed32">Ed. 32<small>6</small></a><a href="#ed33">Ed. 33<small>4</small></a><a href="#ed34">Ed. 34<small>4</small></a><a href="#ed35">Ed. 35<small>9</small></a><a href="#ed36">Ed. 36<small>6</small></a><a href="#ed37">Ed. 37<small>5</small></a><a href="#ed38">Ed. 38<small>1</small></a><a href="#ed39">Ed. 39<small>4</small></a></div></header>
+<main><section class="edition" id="ed24"><h2><span>Edycja 24</span> <em>XXIV OWE · rok szkolny 2010/2011 · zawody okręgowe</em><small>1 pyt.</small></h2><article class="q" id="e24q6">
+<header class="badge"><span class="b-ed">Edycja 24 <span class="rom">(XXIV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 6</span><span class="b-yr">2010/2011</span></header>
+<p class="stem">Funkcja krótkookresowego kosztu całkowitego ma postać 20 + 10Q + Q², gdzie Q to wielkość produkcji. Przy wielkości produkcji wynoszącej 5 jednostek produktu koszt stały wyniesie:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">95</span></li><li class="opt"><span class="ol">B</span><span class="ot">50</span></li><li class="opt"><span class="ol">C</span><span class="ot">75</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">20</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> Koszt stały (FC) to część kosztu całkowitego <strong class="k">niezależna od wielkości produkcji</strong> – wyraz wolny funkcji TC(Q) = 20 + 10Q + Q². <strong class="k">FC = 20</strong> niezależnie od Q (także przy Q = 5). Dla kontroli: TC(5) = 20 + 50 + 25 = 95; VC(5) = 75.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>95 to <strong class="k">koszt całkowity</strong> TC(5) = 20 + 10·5 + 5².</div></li><li><span class="dl">B</span><div>50 to tylko składnik liniowy 10Q przy Q = 5 (część kosztu zmiennego).</div></li><li><span class="dl">C</span><div>75 to <strong class="k">koszt zmienny</strong> VC(5) = 10·5 + 5² = 75.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Klasyczny „straszak” – informacja o Q = 5 jest zbędna. Dystraktory to kolejne wielkości, które otrzyma ktoś, kto zacznie liczyć zamiast zidentyfikować wyraz wolny.</p></section>
+</div>
+</article></section><section class="edition" id="ed25"><h2><span>Edycja 25</span> <em>XXV OWE · rok szkolny 2011/2012 · zawody okręgowe</em><small>2 pyt.</small></h2><article class="q" id="e25q15">
+<header class="badge"><span class="b-ed">Edycja 25 <span class="rom">(XXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 15</span><span class="b-yr">2011/2012</span></header>
+<p class="stem">Jeśli baza monetarna wynosi 150 mld, a stopa rezerw obowiązkowych jest ustalona na poziomie 8%, to mnożnik kreacji pieniądza wyniesie:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">12</span></li><li class="opt"><span class="ol">B</span><span class="ot">12,5</span></li><li class="opt"><span class="ol">C</span><span class="ot">1875</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">nie da się tego określić bez informacji na temat wielkości gotówki w obiegu pozabankowym</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> <strong class="k">Mnożnik kreacji pieniądza</strong> w pełnej postaci: m = (1 + c) / (c + r), gdzie c – relacja gotówki w obiegu do depozytów (skłonność do utrzymywania gotówki), r – stopa rezerw. Bez znajomości <strong class="k">c</strong> (lub wielkości gotówki pozabankowej) nie można obliczyć mnożnika. Uproszczony wzór 1/r obowiązuje tylko wtedy, gdy nikt nie trzyma gotówki (c = 0) i banki nie utrzymują rezerw nadobowiązkowych.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>12 nie wynika z żadnego poprawnego wzoru – dystraktor „zaokrąglony”.</div></li><li><span class="dl">B</span><div>12,5 = 1/0,08 – <strong class="k">prosty mnożnik depozytowy</strong>, poprawny tylko przy założeniu c = 0.</div></li><li><span class="dl">C</span><div>1875 = 150 · 12,5 – to (przy założeniu c = 0) <strong class="k">podaż pieniądza</strong>, a nie mnożnik; pomylenie wielkości.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Informacja o bazie monetarnej (150 mld) jest zbędna i ma skłonić do liczenia. Pułapka „prostego mnożnika” – uczestnik, który nie zna pełnej formuły, wybierze 12,5.</p></section>
+</div>
+</article><article class="q" id="e25q16">
+<header class="badge"><span class="b-ed">Edycja 25 <span class="rom">(XXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 16</span><span class="b-yr">2011/2012</span></header>
+<p class="stem">Firma zakupiła materiały za 1000 zł netto (VAT 23%), a następnie wykonane z nich produkty sprzedała za 1500 zł netto, przy czym sprzedaż ta opodatkowana jest stawką 8% VAT. Jak będzie wyglądać rozliczenie tej firmy z urzędem skarbowym z tytułu VAT?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">firma wpłaci 110 zł z tytułu VAT do urzędu skarbowego</span></li><li class="opt"><span class="ol">B</span><span class="ot">firma wpłaci 120 zł z tytułu VAT do urzędu skarbowego</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">urząd skarbowy zwróci nadwyżkę VAT naliczonego nad należnym na rachunek bankowy firmy</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">firma nie może sprzedawać produktów ze stawką 8% VAT, jeśli naliczony VAT przy zakupie wyniósł 23%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> VAT należny (od sprzedaży) = 1500 · 8% = <strong class="k">120 zł</strong>. VAT naliczony (przy zakupie) = 1000 · 23% = <strong class="k">230 zł</strong>. Różnica: 120 − 230 = <strong class="k">−110 zł</strong> – nadwyżka podatku naliczonego nad należnym. Podatnik ma prawo do <strong class="k">zwrotu</strong> tej różnicy na rachunek bankowy (lub przeniesienia jej na następny okres rozliczeniowy).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>110 zł to prawidłowa kwota, ale z <strong class="k">odwrotnym znakiem</strong> – to urząd zwraca firmie, a nie firma wpłaca.</div></li><li><span class="dl">B</span><div>120 zł to VAT należny bez odliczenia podatku naliczonego – ignoruje zasadę <strong class="k">neutralności VAT</strong> (prawo do odliczenia).</div></li><li><span class="dl">D</span><div>Stawka VAT na sprzedaży zależy od rodzaju towaru/usługi, a nie od stawki przy zakupie materiałów. Różnice stawek są przyczyną zwrotów, a nie przeszkodą w sprzedaży.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka znaku – A zawiera poprawną wartość liczbową w błędnym kierunku. Kluczowe: VAT do zapłaty = należny − naliczony.</p></section>
+</div>
+</article></section><section class="edition" id="ed26"><h2><span>Edycja 26</span> <em>XXVI OWE · rok szkolny 2012/2013 · zawody okręgowe</em><small>1 pyt.</small></h2><article class="q" id="e26q6">
+<header class="badge"><span class="b-ed">Edycja 26 <span class="rom">(XXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 6</span><span class="b-yr">2012/2013</span></header>
+<p class="stem">Z jakim rodzajem podaży ma do czynienia przedsiębiorstwo, jeśli wzrost ceny oferowanego dobra z 10 zł do 11 zł wywoła wzrost wielkości podaży z 900 szt. do 1000 szt.?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">podażą elastyczną</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">podażą nieelastyczną</span></li><li class="opt"><span class="ol">C</span><span class="ot">podażą jednostkowo elastyczną</span></li><li class="opt"><span class="ol">D</span><span class="ot">podażą doskonale elastyczną</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Elastyczność cenowa podaży: E<sub>S</sub> = %ΔQ / %ΔP. Metodą prostą: %ΔQ = (1000 − 900)/900 ≈ 11,1%; %ΔP = (11 − 10)/10 = 10% ⇒ <strong class="k">E<sub>S</sub> ≈ 1,11 &gt; 1</strong>. Metodą łukową (średnich): %ΔQ = 100/950 ≈ 10,53%; %ΔP = 1/10,5 ≈ 9,52% ⇒ E<sub>S</sub> ≈ 1,105. W obu ujęciach podaż jest <strong class="k">elastyczna</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>Podaż nieelastyczna wymagałaby E<sub>S</sub> &lt; 1 (np. gdyby wielkość podaży wzrosła tylko do 950 szt.).</div></li><li><span class="dl">C</span><div>Jednostkowa elastyczność (E<sub>S</sub> = 1) wymagałaby wzrostu podaży o dokładnie 10% (do 990 szt.).</div></li><li><span class="dl">D</span><div>Doskonale elastyczna podaż (pozioma) oznacza nieskończoną reakcję ilości przy stałej cenie.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka „bliskości jedynki”: wynik 1,11 łatwo pomylić z elastycznością jednostkową, jeśli liczy się w przybliżeniu (100/1000 = 10% ⇒ E = 1). Należy przyjąć jako bazę wartość początkową (900) lub średnią (950).</p></section>
+</div>
+</article></section><section class="edition" id="ed27"><h2><span>Edycja 27</span> <em>XXVII OWE · rok szkolny 2013/2014 · zawody okręgowe</em><small>2 pyt.</small></h2><article class="q" id="e27q9">
+<header class="badge"><span class="b-ed">Edycja 27 <span class="rom">(XXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2013/2014</span></header>
+<p class="stem">Bochenek chleba, zanim trafi ostatecznie do konsumenta, przechodzi kilka faz procesu gospodarczego. Na poszczególnych etapach ceny jednostkowe (w przeliczeniu na 1 bochenek) uzyskiwane przez sprzedawców kształtują się następująco: rolnik 0,90 zł, młynarz 1,20 zł, hurtownik mąki 1,30 zł, piekarz 1,80 zł, sprzedawca pieczywa 2,00 zł. Jaka wartość bochenka chleba zostanie uwzględniona w PKB?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">1,10 zł</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">2,00 zł</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">2,90 zł</span></li><li class="opt"><span class="ol">D</span><span class="ot">7,20 zł</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> PKB obejmuje wyłącznie <strong class="k">wartość dóbr finalnych</strong> (lub równoważnie – sumę wartości dodanej na kolejnych etapach), aby uniknąć podwójnego liczenia. Wartość dodana: rolnik 0,90; młynarz 0,30; hurtownik 0,10; piekarz 0,50; sprzedawca 0,20 – razem <strong class="k">2,00 zł</strong>, czyli cena dobra finalnego.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>1,10 zł = 2,00 − 0,90 – wartość dodana bez wkładu rolnika (błędne pominięcie pierwszego etapu).</div></li><li><span class="dl">C</span><div>2,90 zł = 2,00 + 0,90 – błędne dodanie wartości produkcji rolnej do ceny finalnej.</div></li><li><span class="dl">D</span><div>7,20 zł = suma wszystkich cen sprzedaży (0,90 + 1,20 + 1,30 + 1,80 + 2,00) – klasyczny błąd <strong class="k">podwójnego liczenia</strong> (to wartość produktu globalnego).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Test metody wartości dodanej. D kusi, bo uwzględnia „wszystkie etapy”; A – bo „rolnik to surowiec”. Kluczowe: suma wartości dodanych = wartość produktu finalnego.</p></section>
+</div>
+</article><article class="q" id="e27q15">
+<header class="badge"><span class="b-ed">Edycja 27 <span class="rom">(XXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 15</span><span class="b-yr">2013/2014</span></header>
+<p class="stem">Jaka jest wartość agregatu M1, jeżeli wartość gotówki w obiegu wynosi 100 mld €, wartość jednostek funduszy pieniężnych równa się 200 mld €, depozyty bieżące to 300 mld €, a depozyty terminowe mają wartość 200 mld €?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">100 mld €</span></li><li class="opt"><span class="ol">B</span><span class="ot">300 mld €</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">400 mld €</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">500 mld €</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Agregat <strong class="k">M1</strong> = gotówka w obiegu + depozyty bieżące (overnight, płatne na żądanie) = 100 + 300 = <strong class="k">400 mld €</strong>. Depozyty terminowe (do 2 lat) wchodzą do <strong class="k">M2</strong>, a jednostki funduszy rynku pieniężnego – do <strong class="k">M3</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>100 mld – sama gotówka w obiegu (to agregat M0 w wąskim sensie, nie M1).</div></li><li><span class="dl">B</span><div>300 mld – same depozyty bieżące (pominięcie gotówki).</div></li><li><span class="dl">D</span><div>500 mld = 300 + 200 (depozyty bieżące + terminowe bez gotówki) lub 100 + 200 + 200 – błędne zestawienie składników. Dla porównania M2 (gotówka + depozyty bieżące + terminowe) wyniosłoby 600 mld €, a M3 (z jednostkami funduszy pieniężnych) – 800 mld €.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Należy znać hierarchię agregatów: M1 ⊂ M2 ⊂ M3. Informacje o funduszach pieniężnych i depozytach terminowych to „szum”.</p></section>
+</div>
+</article></section><section class="edition" id="ed28"><h2><span>Edycja 28</span> <em>XXVIII OWE · rok szkolny 2014/2015 · zawody okręgowe</em><small>1 pyt.</small></h2><article class="q" id="e28q11">
+<header class="badge"><span class="b-ed">Edycja 28 <span class="rom">(XXVIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 11</span><span class="b-yr">2014/2015</span></header>
+<p class="stem">Jeżeli krańcowa skłonność do oszczędzania w gospodarce wynosi 0,4, a rząd zamierza przesunąć krzywą zagregowanego popytu w lewo o 50 mld zł, to może to osiągnąć poprzez zmniejszenie wydatków o:</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">20 mld zł</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">30 mld zł</span></li><li class="opt"><span class="ol">C</span><span class="ot">83 mld zł</span></li><li class="opt"><span class="ol">D</span><span class="ot">125 mld zł</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Mnożnik wydatków: k = 1/MPS = 1/0,4 = <strong class="k">2,5</strong>. Aby przesunąć AD o ΔY = −50 mld zł, potrzebna zmiana wydatków: ΔG = ΔY/k = 50/2,5 = <strong class="k">20 mld zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>30 mld = 50 · 0,6 (pomnożenie przez MPC zamiast podzielenia przez mnożnik).</div></li><li><span class="dl">C</span><div>83 mld ≈ 50/0,6 (podzielenie przez MPC zamiast przez MPS – błędny wzór na mnożnik).</div></li><li><span class="dl">D</span><div>125 mld = 50 · 2,5 (pomnożenie przez mnożnik zamiast podzielenia – odwrócenie logiki).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pytanie „odwrotne” – dany jest efekt końcowy, szukana wielkość impulsu. Każdy dystraktor odpowiada typowemu błędowi rachunkowemu.</p></section>
+</div>
+</article></section><section class="edition" id="ed29"><h2><span>Edycja 29</span> <em>XXIX OWE · rok szkolny 2015/2016 · zawody okręgowe</em><small>3 pyt.</small></h2><article class="q" id="e29q3">
+<header class="badge"><span class="b-ed">Edycja 29 <span class="rom">(XXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 3</span><span class="b-yr">2015/2016</span></header>
+<p class="stem">W pewnym przedsiębiorstwie produkcja całkowita przy zatrudnieniu pierwszego, drugiego i trzeciego pracownika wynosi odpowiednio 36, 52, 58 jednostek. W tej sytuacji:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">produkt krańcowy wynikający z zatrudnienia drugiego pracownika wynosi 8 jednostek</span></li><li class="opt"><span class="ol">B</span><span class="ot">produkt przeciętny obliczony przy zatrudnieniu dwóch pracowników wynosi 16 jednostek</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">produkt krańcowy związany z zatrudnieniem trzeciego pracownika wynosi 6 jednostek</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">produkt całkowity wytworzony przez trzech pracowników wynosi 164 jednostki</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Produkt krańcowy: MP<sub>2</sub> = 52 − 36 = 16; <strong class="k">MP<sub>3</sub> = 58 − 52 = 6</strong>. Produkt przeciętny przy 2 pracownikach: AP<sub>2</sub> = 52/2 = 26. Produkt całkowity przy 3 pracownikach: TP<sub>3</sub> = 58 (dane wprost).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>MP drugiego pracownika wynosi 16, a nie 8 (8 nie wynika z żadnego poprawnego działania).</div></li><li><span class="dl">B</span><div>16 to produkt <strong class="k">krańcowy</strong> drugiego pracownika, a nie przeciętny (AP<sub>2</sub> = 26) – pomylenie kategorii.</div></li><li><span class="dl">D</span><div>TP<sub>3</sub> = 58 (podany w treści). Suma wartości skumulowanych (36 + 52 + 58 = 146) byłaby błędem – podawane wartości są już produktem całkowitym, a nie przyrostami.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Uczestnik musi odróżnić wielkości całkowite (skumulowane) od krańcowych i przeciętnych. B wykorzystuje poprawnie policzoną liczbę (16) przypisaną do złej kategorii.</p></section>
+</div>
+</article><article class="q" id="e29q9">
+<header class="badge"><span class="b-ed">Edycja 29 <span class="rom">(XXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2015/2016</span></header>
+<p class="stem">Jeżeli szybkość obiegu pieniądza jest stała, a ilość pieniądza i wartość realnego PKB podwoiła się, to:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">poziom cen również się podwoił</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">poziom cen pozostał niezmieniony</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">ceny spadły</span></li><li class="opt"><span class="ol">D</span><span class="ot">inflacja zwiększyła się dwukrotnie</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Równanie wymiany: <strong class="k">MV = PY</strong>. Przy stałym V: jeśli M wzrosło dwukrotnie i Y wzrosło dwukrotnie, to 2M·V = P'·2Y ⇒ <strong class="k">P' = P</strong>. Poziom cen nie zmienia się – dodatkowy pieniądz „obsłużył” dodatkowy realny produkt.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>Podwojenie P wymagałoby stałego Y przy podwojeniu M.</div></li><li><span class="dl">C</span><div>Spadek cen nastąpiłby, gdyby Y wzrósł szybciej niż M.</div></li><li><span class="dl">D</span><div>„Dwukrotny wzrost inflacji” to nieprecyzyjne sformułowanie i niezgodne z wynikiem (poziom cen stały ⇒ inflacja zero).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka „odruchu monetarystycznego” – kto zapamiętał tylko „więcej pieniądza = inflacja”, wybierze A, ignorując wzrost realnego PKB.</p></section>
+</div>
+</article><article class="q" id="e29q11">
+<header class="badge"><span class="b-ed">Edycja 29 <span class="rom">(XXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 11</span><span class="b-yr">2015/2016</span></header>
+<p class="stem">Populacja pewnego europejskiego kraju liczy 25 mln ludzi w wieku produkcyjnym. Jeśli aktywnych ekonomicznie jest 20 mln ludzi, a liczba bezrobotnych to 1,6 mln osób, to:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">stopa bezrobocia równa jest 6,4%</span></li><li class="opt"><span class="ol">B</span><span class="ot">stopa bezrobocia równa jest 7,4%</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">stopa bezrobocia równa jest 8,0%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">stopa bezrobocia równa jest 8,7%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> <strong class="k">Stopa bezrobocia</strong> = liczba bezrobotnych / <strong class="k">liczba aktywnych zawodowo</strong> (siła robocza = pracujący + bezrobotni) = 1,6 / 20 = <strong class="k">8,0%</strong>. Liczba osób w wieku produkcyjnym (25 mln) jest zbędna.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>6,4% = 1,6/25 – podzielenie przez ludność w wieku produkcyjnym (błędny mianownik).</div></li><li><span class="dl">B</span><div>7,4% ≈ 1,6/21,6 – błędne doliczenie bezrobotnych do liczby aktywnych (aktywni już obejmują bezrobotnych).</div></li><li><span class="dl">D</span><div>8,7% ≈ 1,6/18,4 – podzielenie przez liczbę pracujących (20 − 1,6).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Klasyczny test mianownika. Każdy dystraktor odpowiada innemu błędnemu mianownikowi.</p></section>
+</div>
+</article></section><section class="edition" id="ed30"><h2><span>Edycja 30</span> <em>XXX OWE · rok szkolny 2016/2017 · zawody okręgowe</em><small>4 pyt.</small></h2><article class="q" id="e30q10">
+<header class="badge"><span class="b-ed">Edycja 30 <span class="rom">(XXX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 10</span><span class="b-yr">2016/2017</span></header>
+<p class="stem">Funkcja popytu na rowery opisana jest wzorem q = - p + 10, a punkt równowagi wynosi E=(5,5). Oblicz wartość (w zł) nadwyżki konsumenta:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">2,5</span></li><li class="opt"><span class="ol">B</span><span class="ot">10</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">12,5</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">25</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Odwrotna funkcja popytu: p = 10 − q; cena maksymalna (dławiąca) = 10 zł. W równowadze p = 5, q = 5. <strong class="k">Nadwyżka konsumenta</strong> = pole trójkąta pod krzywą popytu i nad ceną: ½ · 5 · (10 − 5) = <strong class="k">12,5 zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>2,5 – brak poprawnego uzasadnienia (np. błędne pomnożenie ½ · 5 · 1).</div></li><li><span class="dl">B</span><div>10 – maksymalna cena lub pole innej figury, nie nadwyżka.</div></li><li><span class="dl">D</span><div>25 = 5 · 5 – pole prostokąta (pominięcie ½) albo wydatek konsumentów (p·q = 25).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka D – wydatek konsumentów i pole prostokąta dają ten sam wynik 25. Nadwyżka to trójkąt, nie prostokąt.</p></section>
+</div>
+</article><article class="q" id="e30q14">
+<header class="badge"><span class="b-ed">Edycja 30 <span class="rom">(XXX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 14</span><span class="b-yr">2016/2017</span></header>
+<p class="stem">Funkcja kosztu całkowitego ma postać TC = 2Q + 100. Ile wynosi koszt krańcowy, jeżeli Q=5:</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">2</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">22</span></li><li class="opt"><span class="ol">C</span><span class="ot">102</span></li><li class="opt"><span class="ol">D</span><span class="ot">110</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Koszt krańcowy to pochodna kosztu całkowitego: <strong class="k">MC = dTC/dQ = 2</strong> (funkcja liniowa ⇒ MC stały, niezależny od Q). Dla porównania: TC(5) = 110, ATC(5) = 22, FC = 100.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>22 = ATC(5) = 110/5 – koszt <strong class="k">przeciętny</strong>, nie krańcowy.</div></li><li><span class="dl">C</span><div>102 = TC(1) – koszt całkowity przy Q = 1 (lub FC + MC).</div></li><li><span class="dl">D</span><div>110 = TC(5) – koszt <strong class="k">całkowity</strong>.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pytanie „straszak” – wartość Q = 5 jest zbędna, bo MC jest stały. Dystraktory to inne kategorie kosztów obliczone dla Q = 5.</p></section>
+</div>
+</article><article class="q" id="e30q16">
+<header class="badge"><span class="b-ed">Edycja 30 <span class="rom">(XXX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 16</span><span class="b-yr">2016/2017</span></header>
+<p class="stem">Załóżmy, że wielkość agregatu M1 wynosi 800 mld zł, wkłady w bankach płatne na żądanie (depozyty bieżące) wynoszą 600 mld zł, a pieniądz bezgotówkowy banków komercyjnych na rachunkach w banku centralnym 45 mld zł. Baza monetarna wynosi więc:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">200 mld zł</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">245 mld zł</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">645 mld zł</span></li><li class="opt"><span class="ol">D</span><span class="ot">755 mld zł</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> M1 = gotówka w obiegu + depozyty bieżące ⇒ gotówka = 800 − 600 = <strong class="k">200 mld zł</strong>. Baza monetarna = gotówka w obiegu + rezerwy banków w banku centralnym = 200 + 45 = <strong class="k">245 mld zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>200 mld – sama gotówka (pominięcie rezerw banków).</div></li><li><span class="dl">C</span><div>645 mld = 600 + 45 – błędne potraktowanie depozytów bieżących jako składnika bazy.</div></li><li><span class="dl">D</span><div>755 mld = 800 − 45 – bezsensowne odjęcie rezerw od M1.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga dwóch kroków: wyznaczenia gotówki z M1 i dodania rezerw. Pułapka C – depozyty bieżące to pieniądz banków komercyjnych, nie banku centralnego.</p></section>
+</div>
+</article><article class="q" id="e30q22">
+<header class="badge"><span class="b-ed">Edycja 30 <span class="rom">(XXX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 22</span><span class="b-yr">2016/2017</span></header>
+<p class="stem">Na rynku instrumentów pochodnych kwotowany jest kontrakt CDS, którego jednostką referencyjną jest pewne przedsiębiorstwo. 5-letni spread CDS wynosi 330 pb. Oczekiwana stopa odzysku na wypadek niewypłacalności przedsiębiorstwa wynosi 40%. Oszacuj przeciętne roczne prawdopodobieństwo niewypłacalności tego przedsiębiorstwa w okresie kolejnych 5 lat:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">3,3%</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">5,5%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">8,25%</span></li><li class="opt"><span class="ol">D</span><span class="ot">33%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Przybliżenie z wyceny CDS: <strong class="k">spread ≈ PD · (1 − R)</strong>, gdzie PD – roczne prawdopodobieństwo niewypłacalności, R – stopa odzysku. Stąd PD ≈ spread / (1 − R) = 3,30% / (1 − 0,40) = 3,30% / 0,60 = <strong class="k">5,5%</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>3,3% – sam spread (pominięcie stopy odzysku, czyli założenie R = 0).</div></li><li><span class="dl">C</span><div>8,25% = 3,3% / 0,4 – podzielenie przez stopę odzysku zamiast przez LGD (1 − R).</div></li><li><span class="dl">D</span><div>33% – błędne przeliczenie punktów bazowych (330 pb = 3,3%, a nie 33%).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga znajomości logiki kontraktu CDS: spread to premia za oczekiwaną stratę = PD × LGD. Pułapki: jednostki (pb) i mylenie R z LGD.</p></section>
+</div>
+</article></section><section class="edition" id="ed31"><h2><span>Edycja 31</span> <em>XXXI OWE · rok szkolny 2017/2018 · zawody okręgowe</em><small>5 pyt.</small></h2><article class="q" id="e31q9">
+<header class="badge"><span class="b-ed">Edycja 31 <span class="rom">(XXXI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2017/2018</span></header>
+<p class="stem">Funkcja kosztu całkowitego przedsiębiorstwa X ma postać TC = 50Q + 200. Która z kategorii kosztów nie będzie zależeć od poziomu produkcji?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">przeciętnego kosztu stałego</span></li><li class="opt"><span class="ol">B</span><span class="ot">kosztu całkowitego</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">kosztu krańcowego</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">przeciętnego kosztu całkowitego</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Z funkcji TC = 50Q + 200: <strong class="k">MC = dTC/dQ = 50</strong> – stały, niezależny od Q. Pozostałe kategorie zależą od Q: AFC = 200/Q, TC = 50Q + 200, ATC = 50 + 200/Q.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>AFC = 200/Q – maleje wraz ze wzrostem produkcji.</div></li><li><span class="dl">B</span><div>TC rośnie liniowo z Q.</div></li><li><span class="dl">D</span><div>ATC = 50 + 200/Q – maleje wraz z Q (zbliża się do 50).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka A – „koszt stały” w nazwie sugeruje niezależność od Q, ale <strong class="k">przeciętny</strong> koszt stały zmienia się z produkcją. Stały jest FC (200), nie AFC.</p></section>
+</div>
+</article><article class="q" id="e31q11">
+<header class="badge"><span class="b-ed">Edycja 31 <span class="rom">(XXXI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 11</span><span class="b-yr">2017/2018</span></header>
+<p class="stem">W kraju X liczba osób w wieku produkcyjnym wynosi 100 mln ludzi. Ponadto stopa bezrobocia jest równa 10%, a zasób siły roboczej to 80 mln osób. Ile wynosi wskaźnik aktywności zawodowej?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">72%</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">80%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">89%</span></li><li class="opt"><span class="ol">D</span><span class="ot">90%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> <strong class="k">Wskaźnik aktywności zawodowej</strong> = zasób siły roboczej (aktywni zawodowo: pracujący + bezrobotni) / ludność w wieku produkcyjnym = 80 / 100 = <strong class="k">80%</strong>. Stopa bezrobocia jest tu zbędna.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>72% = (80 − 8)/100 – to <strong class="k">wskaźnik zatrudnienia</strong> (pracujący / ludność), bo bezrobotni = 10% · 80 = 8 mln.</div></li><li><span class="dl">C</span><div>89% ≈ 80/90 – błędny mianownik.</div></li><li><span class="dl">D</span><div>90% = 1 − 10% – to udział pracujących w sile roboczej, a nie aktywność zawodowa.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Rozróżnienie wskaźnika aktywności, wskaźnika zatrudnienia i stopy bezrobocia. Informacja o bezrobociu to „szum”, który ma skłonić do obliczenia wskaźnika zatrudnienia (A).</p></section>
+</div>
+</article><article class="q" id="e31q16">
+<header class="badge"><span class="b-ed">Edycja 31 <span class="rom">(XXXI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 16</span><span class="b-yr">2017/2018</span></header>
+<p class="stem">Dane finansowe pewnego przedsiębiorstwa kształtują się w sposób następujący: wskaźnik bieżącej płynności finansowej = 1,2; wskaźnik szybkiej płynności finansowej = 0,7; zobowiązania krótkoterminowe = 10 mln zł. Jaka jest wartość zapasów przedsiębiorstwa (w mln zł)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">19</span></li><li class="opt"><span class="ol">B</span><span class="ot">12</span></li><li class="opt"><span class="ol">C</span><span class="ot">7</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">5</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> Wskaźnik bieżącej płynności: AO / ZK = 1,2 ⇒ AO = 1,2 · 10 = 12 mln zł. Wskaźnik szybkiej płynności: (AO − zapasy) / ZK = 0,7 ⇒ AO − zapasy = 7 mln zł. Stąd <strong class="k">zapasy = 12 − 7 = 5 mln zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>19 = 12 + 7 – dodanie zamiast odjęcia.</div></li><li><span class="dl">B</span><div>12 – wartość aktywów obrotowych, nie zapasów.</div></li><li><span class="dl">C</span><div>7 – aktywa obrotowe pomniejszone o zapasy (aktywa „szybkie”).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga znajomości różnicy między wskaźnikami płynności (zapasy – najmniej płynny składnik AO – są wyłączane w wskaźniku szybkim).</p></section>
+</div>
+</article><article class="q" id="e31q17">
+<header class="badge"><span class="b-ed">Edycja 31 <span class="rom">(XXXI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 17</span><span class="b-yr">2017/2018</span></header>
+<p class="stem">Krzywa popytu monopsonisty na pracę (D<sub>L</sub>) opisana jest równaniem W = 32 − 2L, a jego krzywa kosztu przeciętnego pracy (AC<sub>L</sub>) to W = 2 + 2L (gdzie: W – płaca, L – wielkość zatrudnienia w tys. osób). Ile wyniesie wielkość zatrudnienia maksymalizująca zysk całkowity monopsonisty?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">5 tysięcy osób</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">7,5 tysiąca osób</span></li><li class="opt"><span class="ol">C</span><span class="ot">17 tysięcy osób</span></li><li class="opt"><span class="ol">D</span><span class="ot">22 tysiące osób</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Monopsonista zatrudnia do punktu, w którym <strong class="k">krańcowy koszt pracy (MC<sub>L</sub>) = krańcowy przychód z pracy</strong> (krzywa popytu na pracę). Koszt całkowity pracy: TC<sub>L</sub> = W·L = (2 + 2L)L = 2L + 2L² ⇒ MC<sub>L</sub> = 2 + 4L. Warunek: 32 − 2L = 2 + 4L ⇒ 6L = 30 ⇒ <strong class="k">L = 5 tys. osób</strong>; płaca z krzywej podaży: W = 2 + 2·5 = 12.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>7,5 tys. – zatrudnienie <strong class="k">konkurencyjne</strong> (przecięcie popytu z krzywą AC<sub>L</sub> – podaży): 32 − 2L = 2 + 2L ⇒ L = 7,5.</div></li><li><span class="dl">C</span><div>17 – płaca konkurencyjna (W = 2 + 2·7,5 = 17), a nie zatrudnienie.</div></li><li><span class="dl">D</span><div>22 – wartość krańcowego przychodu z pracy przy L = 5 (32 − 10 = 22), a nie zatrudnienie.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Kluczowe jest użycie <strong class="k">MC<sub>L</sub></strong> (a nie AC<sub>L</sub>) w warunku optimum. Dystraktory to inne wielkości charakterystyczne modelu – zgodne z wynikami poprawnych, ale innych obliczeń.</p></section>
+</div>
+</article><article class="q" id="e31q19">
+<header class="badge"><span class="b-ed">Edycja 31 <span class="rom">(XXXI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 19</span><span class="b-yr">2017/2018</span></header>
+<p class="stem">W krótkim okresie na rynku konkurencyjnym funkcjonuje 10 przedsiębiorstw, a krzywa podaży każdego z przedsiębiorstw ma postać P = 20 + 500Q<sub>n</sub>, gdzie P – cena, Q<sub>n</sub> – ilość produkowana przez pojedyncze przedsiębiorstwo, a Q – ilość produkowana przez całą branżę. Krzywa podaży całej branży ma postać:</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">P = 20 + 50Q</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">P = 20 + 500Q</span></li><li class="opt"><span class="ol">C</span><span class="ot">P = 20 + 5000Q</span></li><li class="opt"><span class="ol">D</span><span class="ot">P = 200 + 5000Q</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Krzywa podaży branży to <strong class="k">pozioma suma</strong> krzywych podaży firm (sumujemy ilości przy danej cenie). Dla firmy: Q<sub>n</sub> = (P − 20)/500. Dla 10 firm: Q = 10·(P − 20)/500 = (P − 20)/50 ⇒ <strong class="k">P = 20 + 50Q</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>P = 20 + 500Q – krzywa pojedynczej firmy (brak agregacji).</div></li><li><span class="dl">C</span><div>P = 20 + 5000Q – błędne pomnożenie nachylenia przez 10 (sumowanie „pionowe” zamiast poziomego).</div></li><li><span class="dl">D</span><div>P = 200 + 5000Q – pomnożenie całego równania przez 10 (sumowanie cen zamiast ilości).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Klasyczny błąd agregacji: sumuje się <strong class="k">ilości</strong> przy danej cenie (horyzontalnie), więc nachylenie krzywej branży jest 10 razy <strong class="k">mniejsze</strong>. Sumowanie pionowe stosuje się dla dóbr publicznych (popyt).</p></section>
+</div>
+</article></section><section class="edition" id="ed32"><h2><span>Edycja 32</span> <em>XXXII OWE · rok szkolny 2018/2019 · zawody okręgowe</em><small>6 pyt.</small></h2><article class="q" id="e32q9">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">Krzywa popytu na produkty przedsiębiorstwa Y jest opisana równaniem q = −p + 10 (gdzie: p – cena za tonę w zł; q – ilość w tonach), a jego funkcja kosztów TC = 2q + 2. Która z odpowiedzi prawidłowo przedstawia funkcję zysku (π) przedsiębiorstwa Y:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">π = −p − 2q + 8</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">π = −q² + 8q − 2</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">π = −3q + 8</span></li><li class="opt"><span class="ol">D</span><span class="ot">π = −3q² + 8q</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Odwrotna funkcja popytu: p = 10 − q. Utarg: TR = p·q = 10q − q². Zysk: π = TR − TC = 10q − q² − (2q + 2) = <strong class="k">−q² + 8q − 2</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>π = −p − 2q + 8 – błędne połączenie zmiennych (p i q) bez wyznaczenia TR.</div></li><li><span class="dl">C</span><div>π = −3q + 8 – pominięcie kwadratu i błędne współczynniki (np. TR = 10 − q zamiast 10q − q²).</div></li><li><span class="dl">D</span><div>π = −3q² + 8q – błędny współczynnik przy q² i pominięty koszt stały (−2).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga poprawnego przekształcenia popytu do postaci p(q) i uwzględnienia kosztu stałego. Każdy dystraktor „gubi” jeden element.</p></section>
+</div>
+</article><article class="q" id="e32q10">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 10</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">Krzywa popytu na produkty przedsiębiorstwa X będącego monopolistą jest opisana równaniem p = −2q + 40 (gdzie: p – cena za tonę w zł; q – ilość w tonach). Dodatkowo wiemy, że przedsiębiorstwo X doskonale różnicuje cenę. Które z równań opisuje krzywą utargu krańcowego przedsiębiorstwa X?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">MR = −4q + 80</span></li><li class="opt"><span class="ol">B</span><span class="ot">MR = −4q + 40</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">MR = −2q + 40</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">MR = −2q</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Przy <strong class="k">doskonałej dyskryminacji cenowej</strong> monopolista sprzedaje każdą jednostkę po cenie rezerwacji, nie obniżając ceny poprzednich jednostek. Utarg krańcowy z kolejnej jednostki równa się jej cenie, więc <strong class="k">krzywa MR pokrywa się z krzywą popytu</strong>: MR = −2q + 40.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>MR = −4q + 80 – bezsensowne podwojenie całego równania.</div></li><li><span class="dl">B</span><div>MR = −4q + 40 – utarg krańcowy monopolisty <strong class="k">jednolitej ceny</strong> (TR = 40q − 2q², MR = 40 − 4q).</div></li><li><span class="dl">D</span><div>MR = −2q – pominięcie wyrazu wolnego.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Kluczowa pułapka: B jest poprawną krzywą MR dla monopolu <strong class="k">bez</strong> dyskryminacji. Doskonała dyskryminacja „prostuje” MR do krzywej popytu.</p></section>
+</div>
+</article><article class="q" id="e32q13">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 13</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">Na rynku działają dwa przedsiębiorstwa X i Y będące duopolistami Bertranda. Każdy z nich produkuje po stałym koszcie krańcowym równym 10 zł. Krzywa popytu rynkowego dla tych duopolistów jest opisana równaniem p = −2q + 50 (gdzie: p – cena za jednostkę w zł; q – ilość jednostek). Ile wyniesie produkcja przedsiębiorstwa X w sytuacji równowagi (Nasha) na tym rynku?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">5</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">10</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">20</span></li><li class="opt"><span class="ol">D</span><span class="ot">30</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> W modelu <strong class="k">Bertranda</strong> z identycznym produktem i identycznymi, stałymi kosztami krańcowymi równowaga Nasha to <strong class="k">P = MC = 10</strong> (paradoks Bertranda – dwie firmy wystarczą do wyniku konkurencyjnego). Popyt: 10 = −2q + 50 ⇒ q = 20 (łącznie). Przy równych cenach firmy dzielą rynek po połowie: <strong class="k">q<sub>X</sub> = 10</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>5 – połowa ilości monopolowej (monopol: MR = 50 − 4q = 10 ⇒ q = 10), czyli wynik <strong class="k">kartelu</strong> dzielącego rynek po równo – a nie równowagi Bertranda.</div></li><li><span class="dl">C</span><div>20 – produkcja <strong class="k">całej branży</strong>, nie jednej firmy.</div></li><li><span class="dl">D</span><div>30 – brak poprawnego uzasadnienia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Paradoks Bertranda: konkurencja cenowa prowadzi do P = MC nawet przy dwóch firmach. Pułapka C – pominięcie podziału rynku; A – wynik zmowy.</p></section>
+</div>
+</article><article class="q" id="e32q15">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 15</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">W banku X oprocentowanie rachunku oszczędnościowego to 4% rocznie, a roczna stopa inflacji wynosi 2%. W tej sytuacji realna wartość depozytów w ciągu roku wzrosła o około:</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">2%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">4%</span></li><li class="opt"><span class="ol">C</span><span class="ot">6%</span></li><li class="opt"><span class="ol">D</span><span class="ot">8%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> <strong class="k">Równanie Fishera</strong>: (1 + r) = (1 + i)/(1 + π) ⇒ r = 1,04/1,02 − 1 ≈ 1,96% ≈ <strong class="k">2%</strong>. W przybliżeniu: r ≈ i − π = 4% − 2% = 2%.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>4% – stopa <strong class="k">nominalna</strong> (pominięcie inflacji).</div></li><li><span class="dl">C</span><div>6% = 4% + 2% – dodanie inflacji zamiast jej odjęcia.</div></li><li><span class="dl">D</span><div>8% = 4% · 2 – brak uzasadnienia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Rozróżnienie stopy nominalnej i realnej. Pułapka C – odwrócenie znaku.</p></section>
+</div>
+</article><article class="q" id="e32q16">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 16</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">Jacek wpłacił 100 zł na 3-letnią lokatę bankową, w której roczna stopa procentowa wynosi 10%, a okres kapitalizacji jest roczny (odsetki obliczane są po upływie każdego roku). Ile wyniesie kapitał końcowy Jacka po upływie terminu 3 lat:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">30</span></li><li class="opt"><span class="ol">B</span><span class="ot">70</span></li><li class="opt"><span class="ol">C</span><span class="ot">130</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">133,1</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> <strong class="k">Procent składany</strong> z kapitalizacją roczną: K<sub>n</sub> = K<sub>0</sub>·(1 + r)<sup>n</sup> = 100·1,1³ = 100·1,331 = <strong class="k">133,1 zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>30 – odsetki przy oprocentowaniu prostym (bez kapitału).</div></li><li><span class="dl">B</span><div>70 – brak poprawnego uzasadnienia (np. 100 − 30).</div></li><li><span class="dl">C</span><div>130 – kapitał przy oprocentowaniu <strong class="k">prostym</strong> (bez kapitalizacji odsetek).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Rozróżnienie procentu prostego i składanego. Pułapka C – wynik bez kapitalizacji; A – samo odsetki proste.</p></section>
+</div>
+</article><article class="q" id="e32q19">
+<header class="badge"><span class="b-ed">Edycja 32 <span class="rom">(XXXII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 19</span><span class="b-yr">2018/2019</span></header>
+<p class="stem">W Polsce w II kw. 2018 r. dane (w mln zł) dotyczące wybranych pozycji w bilansie płatniczym kształtowały się następująco: saldo obrotów towarowych: −117; saldo usług: 23 926; saldo dochodów pierwotnych: –20 815; saldo dochodów wtórnych: −514; inwestycje bezpośrednie - aktywa: −4 762. Ile wynosi saldo rachunku bieżącego (w mln zł)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">−2 282</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">2 480</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">7 242</span></li><li class="opt"><span class="ol">D</span><span class="ot">23 809</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> <strong class="k">Saldo rachunku bieżącego</strong> = saldo towarów + saldo usług + saldo dochodów pierwotnych + saldo dochodów wtórnych = −117 + 23 926 − 20 815 − 514 = <strong class="k">2 480 mln zł</strong>. Inwestycje bezpośrednie należą do <strong class="k">rachunku finansowego</strong> – nie wchodzą do rachunku bieżącego.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>−2 282 = 2 480 − 4 762 – błędne uwzględnienie inwestycji bezpośrednich.</div></li><li><span class="dl">C</span><div>7 242 = 2 480 + 4 762 – również błędne włączenie FDI (z przeciwnym znakiem).</div></li><li><span class="dl">D</span><div>23 809 = −117 + 23 926 – tylko saldo handlu towarami i usługami (pominięcie dochodów).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga znajomości struktury bilansu płatniczego (rachunek bieżący, kapitałowy, finansowy). Dane o FDI to celowy „szum”.</p></section>
+</div>
+</article></section><section class="edition" id="ed33"><h2><span>Edycja 33</span> <em>XXXIII OWE · rok szkolny 2019/2020 · zawody okręgowe</em><small>4 pyt.</small></h2><article class="q" id="e33q4">
+<header class="badge"><span class="b-ed">Edycja 33 <span class="rom">(XXXIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 4</span><span class="b-yr">2019/2020</span></header>
+<p class="stem">Załóżmy, że pewną gospodarkę będącą autarkią opisują następujące równania: C = 100 + 0,5Y<sub>D</sub>; I = 200; G = 150; T = 120 (gdzie: C – konsumpcja; Y<sub>D</sub> – dochód rozporządzalny; I – inwestycje; G – wydatki publiczne; T – podatki minus transfery budżetowe otrzymywane przez konsumenta). Ile wynoszą wydatki autonomiczne w tej gospodarce?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">300</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">390</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">450</span></li><li class="opt"><span class="ol">D</span><span class="ot">510</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Wydatki autonomiczne (niezależne od dochodu Y) w gospodarce zamkniętej: A = C<sub>0</sub> − c·T + I + G, bo konsumpcja zależy od dochodu rozporządzalnego Y<sub>D</sub> = Y − T. A = 100 − 0,5·120 + 200 + 150 = 100 − 60 + 350 = <strong class="k">390</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>300 = 100 + 200 – pominięcie wydatków rządowych i efektu podatków (lub 450 − 150).</div></li><li><span class="dl">C</span><div>450 = 100 + 200 + 150 – pominięcie ujemnego wpływu podatków na konsumpcję autonomiczną (−c·T).</div></li><li><span class="dl">D</span><div>510 = 450 + 60 – <strong class="k">dodanie</strong> efektu podatków zamiast odjęcia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – zapomnienie, że podatki netto obniżają dochód rozporządzalny, a więc autonomiczną część konsumpcji (o c·T, a nie o T).</p></section>
+</div>
+</article><article class="q" id="e33q10">
+<header class="badge"><span class="b-ed">Edycja 33 <span class="rom">(XXXIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 10</span><span class="b-yr">2019/2020</span></header>
+<p class="stem">Cena jednego pluszowego misia wynosi 50 zł, krzywa podaży jest opisana równaniem p = 2q + 2, a krzyw popytu p = −2q + 98 (gdzie: p – cena za sztukę w zł; q – ilość w sztukach). Ze względu na zmianę gustów klientów nowa cena w punkcie równowagi wzrosła do 70 zł. Nowa krzyw popytu opisana jest równaniem p = −2q + 138. Ile wynosi przyrost nadwyżki producenta dla dotychczasowych sprzedawców?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">20</span></li><li class="opt"><span class="ol">B</span><span class="ot">476</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">480</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">864</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Stara równowaga: 2q + 2 = −2q + 98 ⇒ q = 24, p = 50. Nowa: 2q + 2 = −2q + 138 ⇒ q = 34, p = 70. <strong class="k">Dotychczasowi sprzedawcy</strong> (sprzedający pierwotne 24 szt.) zyskują na wyższej cenie: ΔPS = (70 − 50)·24 = <strong class="k">480</strong>. (Łączny przyrost nadwyżki producenta – uwzględniający nowe jednostki – wynosi 480 + ½·10·20 = 580.)</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>20 – sam wzrost ceny, bez przemnożenia przez ilość.</div></li><li><span class="dl">B</span><div>476 – wynik błędnego rachunku (nie odpowiada poprawnej dekompozycji nadwyżki).</div></li><li><span class="dl">D</span><div>864 – nie wynika z poprawnego podziału pól; np. 36·24 (błędna różnica cen/ilości).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Kluczowe słowo: „dla <strong class="k">dotychczasowych</strong> sprzedawców” – liczy się tylko prostokąt dla starej ilości, bez trójkąta dla nowych jednostek (580).</p></section>
+</div>
+</article><article class="q" id="e33q17">
+<header class="badge"><span class="b-ed">Edycja 33 <span class="rom">(XXXIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 17</span><span class="b-yr">2019/2020</span></header>
+<p class="stem">Spółka X jest notowana na giełdzie i aktualna cena rynkowa jednej akcji wynosi 100 zł. Dodatkowo wiemy, że ostatnio wypłacona dywidenda na jedną akcję wyniosła 4 zł, a spodziewane tempo wzrostu dywidendy równe jest 5%. Ile wynosi koszt kapitału własnego?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">4,20%</span></li><li class="opt"><span class="ol">B</span><span class="ot">5,00%</span></li><li class="opt"><span class="ol">C</span><span class="ot">6,05%</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">9,20%</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> <strong class="k">Model Gordona</strong> (stałego wzrostu dywidend): P<sub>0</sub> = D<sub>1</sub>/(k − g) ⇒ k = D<sub>1</sub>/P<sub>0</sub> + g. D<sub>1</sub> = D<sub>0</sub>·(1 + g) = 4·1,05 = 4,20 zł. k = 4,20/100 + 5% = 4,2% + 5% = <strong class="k">9,2%</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>4,20% – sama stopa dywidendy (D<sub>1</sub>/P), bez tempa wzrostu.</div></li><li><span class="dl">B</span><div>5,00% – samo tempo wzrostu dywidendy.</div></li><li><span class="dl">C</span><div>6,05% – błędne połączenie składników (nie wynika z modelu Gordona).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Należy pamiętać o przeliczeniu dywidendy „ostatnio wypłaconej” (D<sub>0</sub>) na oczekiwaną (D<sub>1</sub>). Uproszczenie 4% + 5% = 9% nie jest wśród odpowiedzi – test precyzji.</p></section>
+</div>
+</article><article class="q" id="e33q19">
+<header class="badge"><span class="b-ed">Edycja 33 <span class="rom">(XXXIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 19</span><span class="b-yr">2019/2020</span></header>
+<p class="stem">Przedsiębiorstwo X sprzedające wózki dziecięce ma następującą funkcję produkcji Q = L – 2L² + 2K – K² (gdzie: Q – to wielkość produkcji przedsiębiorstwa X w ciągu miesiąca, L – to liczba przepracowanych w ciągu miesiąca roboczogodzin, K – to ilość zaangażowanego w ciągu miesiąca kapitału). Dodatkowo, wiemy że koszt czynnika pracy w przedsiębiorstwie w przeliczeniu na godzinę wynosi 40 zł, a koszt jednostki kapitału 80 zł. Które z równań przedstawia zależność opisującą optymalną (najtańszą) kombinację kapitału i pracy umożliwiającą osiągnięcie pożądanego poziomu produkcji?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">K = 2L + 0,5</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">K = 4L</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">L = 4K</span></li><li class="opt"><span class="ol">D</span><span class="ot">L = K</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Warunek minimalizacji kosztów: <strong class="k">MP<sub>L</sub>/w = MP<sub>K</sub>/r</strong>. MP<sub>L</sub> = ∂Q/∂L = 1 − 4L; MP<sub>K</sub> = ∂Q/∂K = 2 − 2K. Stąd (1 − 4L)/40 = (2 − 2K)/80 ⇒ 2(1 − 4L) = 2 − 2K ⇒ 2 − 8L = 2 − 2K ⇒ <strong class="k">K = 4L</strong> (ścieżka ekspansji).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>K = 2L + 0,5 – wynik błędnego różniczkowania lub pominięcia cen czynników.</div></li><li><span class="dl">C</span><div>L = 4K – odwrócenie zależności (zamiana ról czynników lub cen).</div></li><li><span class="dl">D</span><div>L = K – wynik przy pominięciu relacji cen i funkcji produkcji.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga znajomości warunku optimum producenta (analogicznego do II prawa Gossena) i pochodnych cząstkowych. Pułapka C – odwrócenie ilorazu cen.</p></section>
+</div>
+</article></section><section class="edition" id="ed34"><h2><span>Edycja 34</span> <em>XXXIV OWE · rok szkolny 2020/2021 · zawody okręgowe</em><small>4 pyt.</small></h2><article class="q" id="e34q18">
+<header class="badge"><span class="b-ed">Edycja 34 <span class="rom">(XXXIV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 18</span><span class="b-yr">2020/2021</span></header>
+<p class="stem">Krzywa popytu na produkt pewnego monopolisty jest opisana równaniem p = −2q + 40 (gdzie: p – cena za tonę w zł; q – ilość w tonach). Dodatkowo wiemy, że nie różnicuje on cen, a jego krzywa kosztu krańcowego jest opisana równaniem MC = 20. Ile wynosi zbędna strata społeczna (czysta strata)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">0</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">25</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">50</span></li><li class="opt"><span class="ol">D</span><span class="ot">100</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Monopol: TR = 40q − 2q² ⇒ MR = 40 − 4q. Warunek MR = MC: 40 − 4q = 20 ⇒ <strong class="k">q<sub>M</sub> = 5</strong>, p<sub>M</sub> = 30. Konkurencja: P = MC: −2q + 40 = 20 ⇒ <strong class="k">q<sub>K</sub> = 10</strong>. Strata martwa = ½·(q<sub>K</sub> − q<sub>M</sub>)·(p<sub>M</sub> − MC) = ½·5·10 = <strong class="k">25</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>0 – strata martwa zerowa wystąpiłaby przy doskonałej dyskryminacji cenowej (lub konkurencji).</div></li><li><span class="dl">C</span><div>50 – pole prostokąta (bez ½) lub zysk monopolisty ((30 − 20)·5 = 50) – pomylenie straty martwej z transferem do monopolisty.</div></li><li><span class="dl">D</span><div>100 – nadwyżka konsumenta w konkurencji (½·10·20) lub inna błędna wielkość.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – zysk monopolowy (50) to <strong class="k">transfer</strong>, nie strata społeczna. Strata martwa to trójkąt Harbergera.</p></section>
+</div>
+</article><article class="q" id="e34q20">
+<header class="badge"><span class="b-ed">Edycja 34 <span class="rom">(XXXIV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 20</span><span class="b-yr">2020/2021</span></header>
+<p class="stem">Krzywa popytu na usługi pewnego przedsiębiorstwa jest opisana równaniem P = −Q + 100 (gdzie: P – cena za jedną usługę w zł; Q – ilość świadczonych usług). Funkcja produkcji tego przedsiębiorstwa w krótkim okresie to: Q = 4L (gdzie: L – liczba pracowników zatrudnionych na pełen etat). Krańcowy przychód z pracy (MRP<sub>L</sub>) tego przedsiębiorstwa przedstawia równanie:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">MRP<sub>L</sub> = 4</span></li><li class="opt"><span class="ol">B</span><span class="ot">MRP<sub>L</sub> = −2Q + 100</span></li><li class="opt"><span class="ol">C</span><span class="ot">MRP<sub>L</sub> = −4Q+ 400</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">MRP<sub>L</sub> = −8Q + 400</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> <strong class="k">MRP<sub>L</sub> = MR · MP<sub>L</sub></strong>. Z popytu P = 100 − Q: TR = 100Q − Q² ⇒ MR = 100 − 2Q. Z funkcji produkcji Q = 4L: MP<sub>L</sub> = 4. Stąd <strong class="k">MRP<sub>L</sub> = 4·(100 − 2Q) = 400 − 8Q</strong> (w funkcji L: 400 − 32L).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>4 – sam produkt krańcowy pracy (MP<sub>L</sub>).</div></li><li><span class="dl">B</span><div>−2Q + 100 – sam utarg krańcowy (MR), bez pomnożenia przez MP<sub>L</sub>.</div></li><li><span class="dl">C</span><div>−4Q + 400 = 4·(100 − Q) = P·MP<sub>L</sub> – <strong class="k">wartość produktu krańcowego (VMP<sub>L</sub>)</strong>, właściwa dla konkurencji doskonałej na rynku produktu, a nie dla firmy z siłą rynkową.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – rozróżnienie MRP (MR·MP) i VMP (P·MP). Przy opadającym popycie MR &lt; P, więc MRP &lt; VMP (por. 36.30).</p></section>
+</div>
+</article><article class="q" id="e34q21">
+<header class="badge"><span class="b-ed">Edycja 34 <span class="rom">(XXXIV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 21</span><span class="b-yr">2020/2021</span></header>
+<p class="stem">Przedsiębiorstwo produkuje sok jabłkowy w dwóch zakładach: A i B, a od dostawców otrzymuje rocznie 15 ton jabłek. Funkcje produkcji dla zakładów A i B kształtują się odpowiednio: Q<sub>A</sub> = 20X<sub>A</sub> − 0,5X<sub>A</sub>² oraz Q<sub>B</sub> = 20X<sub>B</sub> − X<sub>B</sub>² (gdzie: Q<sub>i</sub> – wielkość produkcji w danym zakładzie; X<sub>i</sub> – liczba ton jabłek alokowana w danym zakładzie, i = A lub B). Ile ton jabłek powinno trafić do zakładu A, aby zmaksymalizować produkcję całkowitą przedsiębiorstwa?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">15</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">10</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">7,5</span></li><li class="opt"><span class="ol">D</span><span class="ot">0</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Maksymalizacja łącznej produkcji przy danym zasobie wymaga zrównania <strong class="k">produktów krańcowych</strong> w obu zakładach: MP<sub>A</sub> = 20 − X<sub>A</sub>, MP<sub>B</sub> = 20 − 2X<sub>B</sub>. Warunek: 20 − X<sub>A</sub> = 20 − 2X<sub>B</sub> ⇒ X<sub>A</sub> = 2X<sub>B</sub>. Ograniczenie: X<sub>A</sub> + X<sub>B</sub> = 15 ⇒ 3X<sub>B</sub> = 15 ⇒ X<sub>B</sub> = 5, <strong class="k">X<sub>A</sub> = 10</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>15 – całość do zakładu A: MP<sub>A</sub> = 5 &lt; MP<sub>B</sub>(0) = 20 – przesunięcie części jabłek do B zwiększyłoby produkcję.</div></li><li><span class="dl">C</span><div>7,5 – podział po równo: MP<sub>A</sub> = 12,5 &gt; MP<sub>B</sub> = 5 – należy przesunąć więcej do A.</div></li><li><span class="dl">D</span><div>0 – całość do B: MP<sub>B</sub>(15) = −10 (ujemny!) – oczywiście nieoptymalne.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Zasada <strong class="k">równości krańcowych</strong> przy alokacji zasobu między zastosowania. Pułapka C – intuicyjny podział „po równo”.</p></section>
+</div>
+</article><article class="q" id="e34q24">
+<header class="badge"><span class="b-ed">Edycja 34 <span class="rom">(XXXIV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 24</span><span class="b-yr">2020/2021</span></header>
+<p class="stem">Na początku 2020 r. stopa referencyjna Narodowego Banku Polskiego wynosiła 1,5%. W odpowiedzi na sytuację epidemiologiczną w kraju Rada Polityki Pieniężnej zdecydowała się ją obniżyć do poziomu 0,1%. Oznacza to obniżkę o:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">1,4 procenta</span></li><li class="opt"><span class="ol">B</span><span class="ot">140 punktów procentowych</span></li><li class="opt"><span class="ol">C</span><span class="ot">14 punktów bazowych</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">140 punktów bazowych</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> Obniżka stopy z 1,5% do 0,1% to spadek o <strong class="k">1,4 punktu procentowego</strong> = <strong class="k">140 punktów bazowych</strong> (1 p.p. = 100 pb).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>„1,4 procenta” – błędna jednostka: spadek o 1,4 <strong class="k">punktu procentowego</strong> to (w ujęciu względnym) spadek o ok. 93% (1,4/1,5).</div></li><li><span class="dl">B</span><div>140 punktów procentowych – pomylenie punktów procentowych z bazowymi.</div></li><li><span class="dl">C</span><div>14 punktów bazowych – błędne przeliczenie (1,4 p.p. = 140 pb, nie 14).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Klasyczny test <strong class="k">jednostek</strong>: procent vs. punkt procentowy vs. punkt bazowy.</p></section>
+</div>
+</article></section><section class="edition" id="ed35"><h2><span>Edycja 35</span> <em>XXXV OWE · rok szkolny 2021/2022 · zawody okręgowe</em><small>9 pyt.</small></h2><article class="q" id="e35q2">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 2</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Przedsiębiorstwo Y jest producentem soków jabłkowych. Dla zapewnienia ciągłości produkcji soków rocznie przedsiębiorstwo potrzebuje 10 ton jabłek. Dodatkowo wiemy, że zużycie jabłek w ciągu roku rozkłada się równomiernie, koszt utrzymania zapasu 1 kg jabłek w ciągu roku równy jest 10 zł, a koszt realizacji jednej dostawy to 500 zł. Ile wynosi optymalna wielkość partii dostawy (w kg)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">10,00</span></li><li class="opt"><span class="ol">B</span><span class="ot">707,11</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">1000,00</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">1000000,00</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Model <strong class="k">EOQ (Wilsona)</strong>: Q* = √(2·D·K<sub>z</sub> / k<sub>u</sub>), gdzie D = 10 t = 10 000 kg, K<sub>z</sub> = 500 zł, k<sub>u</sub> = 10 zł/kg/rok. Q* = √(2·10 000·500 / 10) = √1 000 000 = <strong class="k">1000 kg</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>10,00 – roczne zapotrzebowanie w tonach (brak obliczeń).</div></li><li><span class="dl">B</span><div>707,11 = √500 000 – pominięcie mnożnika „2” we wzorze.</div></li><li><span class="dl">D</span><div>1 000 000 – wynik bez pierwiastkowania.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapki: jednostki (tony vs. kg) oraz elementy wzoru (2 w liczniku, pierwiastek). Por. 32.1 (jakościowa wersja tego modelu).</p></section>
+</div>
+</article><article class="q" id="e35q3">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 3</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Jeżeli elastyczność cenowa podaży wynosi 2, to wzrost ceny o 1% powoduje:</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">wzrost ilości oferowanej o 2%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">wzrost ilość oferowanej o 2</span></li><li class="opt"><span class="ol">C</span><span class="ot">wzrost podaży o 0,02%</span></li><li class="opt"><span class="ol">D</span><span class="ot">wzrost ilości oferowanej o 0,02%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Elastyczność cenowa podaży: E<sub>S</sub> = %ΔQ<sub>S</sub> / %ΔP. Przy E<sub>S</sub> = 2 wzrost ceny o 1% zwiększa <strong class="k">wielkość (ilość) oferowaną o 2%</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>„O 2” – jednostki bezwzględne zamiast procentowych; elastyczność jest miarą względną.</div></li><li><span class="dl">C</span><div>„Wzrost podaży o 0,02%” – błędna skala (pomylenie 2 z 0,02) i błędny termin (zmienia się wielkość podaży – ruch po krzywej, nie przesunięcie).</div></li><li><span class="dl">D</span><div>0,02% – błędna skala.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Test definicji elastyczności (stosunek zmian procentowych) i rozróżnienia podaży od wielkości podaży.</p></section>
+</div>
+</article><article class="q" id="e35q7">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 7</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Na doskonale konkurencyjnym rynku zboża krzywa popytu jest opisana równaniem p = −4q + 60, długookresowa krzywa podaży rynkowej (gałęzi) jest pozioma, a wielkość produkcji w stanie długookresowej równowagi wynosi 6 ton (gdzie: p – cena 1 tony w zł; q – wielkość produkcji w tonach). Które z równań prawidłowo opisuje krzywą utargu krańcowego dla przedsiębiorstwa X działającego na tym rynku (gdzie: MR – utarg krańcowy)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">MR = 6</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">MR = 36</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">MR = −8q + 60</span></li><li class="opt"><span class="ol">D</span><span class="ot">na podstawie przedstawionych informacji nie można wyznaczyć krzywej utargu krańcowego przedsiębiorstwa X</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Przy <strong class="k">poziomej</strong> długookresowej krzywej podaży gałęzi cena równowagi jest stała. Z popytu przy q = 6: p = −4·6 + 60 = <strong class="k">36 zł</strong>. Przedsiębiorstwo doskonale konkurencyjne jest cenobiorcą – jego krzywa utargu krańcowego jest pozioma na poziomie ceny: <strong class="k">MR = P = 36</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>MR = 6 – pomylenie ilości z ceną.</div></li><li><span class="dl">C</span><div>MR = −8q + 60 – krzywa utargu krańcowego dla <strong class="k">całego rynku</strong> (tak wyglądałaby dla monopolisty), a nie dla cenobiorcy.</div></li><li><span class="dl">D</span><div>Informacje są wystarczające – cenę wyznacza popyt i wielkość produkcji w równowadze.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – rozróżnienie poziomu rynku i firmy w konkurencji doskonałej (por. 22.7, 27.8).</p></section>
+</div>
+</article><article class="q" id="e35q11">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 11</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Krzywa popytu na pracę opisana jest równaniem W = −20L + 140. Krzywa opisująca liczbę pracowników skłonnych przyjąć ofertę pracy przy różnych stawkach płacy realnej ma postać W = 50L, a krzywa opisująca wielkość zasobu siły roboczej to: W = 500L − 2900 (gdzie: W – płaca realna na godzinę w zł; L – liczba pracowników w tys.). Ile wynosi wielkość bezrobocia naturalnego w stanie równowagi (w tys. osób)?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">2</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">4</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">6</span></li><li class="opt"><span class="ol">D</span><span class="ot">8</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Równowaga na rynku pracy: popyt na pracę = liczba osób skłonnych przyjąć ofertę (krzywa akceptacji ofert): −20L + 140 = 50L ⇒ L = 2 tys., W = 100 zł. Zasób siły roboczej przy W = 100: 500L − 2900 = 100 ⇒ L = 6 tys. <strong class="k">Bezrobocie naturalne</strong> = siła robocza − zatrudnieni = 6 − 2 = <strong class="k">4 tys.</strong> (osoby w sile roboczej, które nie akceptują ofert przy płacy równowagi – bezrobocie dobrowolne/frykcyjne).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>2 – liczba zatrudnionych w równowadze.</div></li><li><span class="dl">C</span><div>6 – zasób siły roboczej przy płacy równowagi.</div></li><li><span class="dl">D</span><div>8 – brak poprawnego uzasadnienia (np. suma 2 + 6).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Model z trzema krzywymi (popyt, krzywa akceptacji ofert, siła robocza) – typowy dla ujęcia bezrobocia naturalnego jako różnicy między siłą roboczą a zatrudnieniem w równowadze.</p></section>
+</div>
+</article><article class="q" id="e35q14">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 14</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Gospodarkę kraju X opisują następujące równania: Y = 2000; C = 1500; G = 200; I = 100; IM = 400 (gdzie: Y – produkt krajowy brutto, C – konsumpcja; G – wydatki rządowe; I – inwestycje; IM – import). Ile wynoszą odpływy kapitałowe netto w tym kraju?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">200</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">400</span></li><li class="opt"><span class="ol">C</span><span class="ot">600</span></li><li class="opt"><span class="ol">D</span><span class="ot">1600</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Y = C + I + G + NX ⇒ NX = 2000 − 1500 − 100 − 200 = <strong class="k">200</strong>. Z tożsamości rachunków narodowych <strong class="k">odpływy kapitałowe netto (NCO) = eksport netto (NX) = 200</strong> (por. S = I + NCO w 33.22).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>400 – wartość importu (dana w treści), a nie NCO.</div></li><li><span class="dl">C</span><div>600 – eksport (X = NX + IM = 200 + 400).</div></li><li><span class="dl">D</span><div>1600 – brak poprawnego uzasadnienia (np. C + I).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga dwóch kroków: wyznaczenia NX z tożsamości PKB i zastosowania tożsamości NX = NCO. Informacja o imporcie to „szum”.</p></section>
+</div>
+</article><article class="q" id="e35q16">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 16</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Na rynku ryżu działają dwa przedsiębiorstwa, które zawiązały kartel. Krzywa popytu na ryż to p = −2q + 400, a krzywa kosztu krańcowego obu przedsiębiorstw to MC = 200 (gdzie: p – cena za tonę w zł; q – ilość w tonach). Które stwierdzenie prawidłowo opisuje sytuację po zawiązaniu kartelu?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">cena 1 tony ryżu wyniesie 200 zł</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">aby maksymalizować zysk kartelu, łączna wielkość produkcji obu przedsiębiorstw powinna odpowiadać ilości monopolowej</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">cena 1 tony ryżu wyniesie 50 zł</span></li><li class="opt"><span class="ol">D</span><span class="ot">wielkość podaży ryżu całego kartelu wyniesie 100 ton</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> <strong class="k">Kartel</strong> maksymalizuje łączny zysk, zachowując się jak <strong class="k">monopolista</strong>: łączna produkcja = ilość monopolowa. MR = 400 − 4q = 200 ⇒ q = 50 t, p = 300 zł.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>Cena 200 zł = MC – cena konkurencyjna (np. równowaga Bertranda), a nie kartelowa.</div></li><li><span class="dl">C</span><div>50 to <strong class="k">ilość</strong> monopolowa (w tonach), a nie cena.</div></li><li><span class="dl">D</span><div>100 t – ilość konkurencyjna (400 − 2q = 200 ⇒ q = 100), a nie kartelowa.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – liczba poprawna, ale przypisana do złej zmiennej (cena zamiast ilości).</p></section>
+</div>
+</article><article class="q" id="e35q20">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 20</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Krzywa popytu na pewien produkt była opisana równaniem p = −2q + 40, a krzywa podaży to p = 2q + 14 (gdzie: p – cena w zł; q – ilość w sztukach). Na jakim poziomie rząd ustanowił cenę maksymalną, skoro wiemy, że niedobór produktu na rynku wynosi 7 sztuk?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">20,0</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">23,5</span></li><li class="opt"><span class="ol">C</span><span class="ot">27,0</span></li><li class="opt"><span class="ol">D</span><span class="ot">34,0</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Przy cenie maksymalnej p: Q<sub>d</sub> = (40 − p)/2, Q<sub>s</sub> = (p − 14)/2. Niedobór: Q<sub>d</sub> − Q<sub>s</sub> = (54 − 2p)/2 = 27 − p = 7 ⇒ <strong class="k">p = 20 zł</strong>. (Kontrola: Q<sub>d</sub> = 10, Q<sub>s</sub> = 3, niedobór 7.)</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>23,5 – odpowiada niedoborowi 3,5 (np. błędne podzielenie niedoboru przez 2).</div></li><li><span class="dl">C</span><div>27,0 – <strong class="k">cena równowagi</strong> (40 − 2q = 2q + 14 ⇒ q = 6,5, p = 27); przy niej niedobór = 0.</div></li><li><span class="dl">D</span><div>34,0 – cena powyżej równowagi – powodowałaby nadwyżkę, nie niedobór.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka C – cena równowagi jest „naturalnym” wynikiem, ale pytanie dotyczy ceny maksymalnej poniżej równowagi.</p></section>
+</div>
+</article><article class="q" id="e35q22">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 22</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Krzywa Lorenza w kraju X jest prostą o nachyleniu 45°, dochód całkowity w tym kraju wynosi 2 mln zł, a liczba gospodarstw domowych wynosi 2 tys. Ile wynosi dochód każdego gospodarstwa w kraju X?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">500</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">1000</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">2000</span></li><li class="opt"><span class="ol">D</span><span class="ot">9000</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Krzywa Lorenza będąca prostą 45° oznacza <strong class="k">równość absolutną</strong> – każde gospodarstwo ma taki sam dochód: 2 000 000 zł / 2000 = <strong class="k">1000 zł</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>500 – połowa właściwej wartości (błąd rachunkowy).</div></li><li><span class="dl">C</span><div>2000 – liczba gospodarstw, nie dochód.</div></li><li><span class="dl">D</span><div>9000 – brak uzasadnienia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Kluczowe: rozpoznanie, że prosta 45° oznacza równy podział (por. 31.18).</p></section>
+</div>
+</article><article class="q" id="e35q23">
+<header class="badge"><span class="b-ed">Edycja 35 <span class="rom">(XXXV)</span></span><span class="sep">|</span><span class="b-q">Pytanie 23</span><span class="b-yr">2021/2022</span></header>
+<p class="stem">Popyt kobiet na rowery opisany jest równaniem p = −2q + 20, natomiast w przypadku mężczyzn ma postać p = −0,5q + 10 (gdzie: p – cena jednego roweru w zł; q – ilość w sztukach). Ile wyniesie łączna wielkość popytu na rowery, jeżeli cena jednego roweru będzie wynosić 16 zł?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">2</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">10</span></li><li class="opt"><span class="ol">C</span><span class="ot">12</span></li><li class="opt"><span class="ol">D</span><span class="ot">14</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Popyt rynkowy to <strong class="k">pozioma suma</strong> popytów indywidualnych – ale tylko dla nieujemnych ilości. Przy p = 16: kobiety: 16 = −2q + 20 ⇒ q = 2; mężczyźni: 16 = −0,5q + 10 ⇒ q = −12 &lt; 0 – mężczyźni <strong class="k">nie kupią</strong> żadnego roweru (cena maksymalna dla nich wynosi 10 zł). Łączna wielkość popytu = <strong class="k">2</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>10 – brak poprawnego uzasadnienia.</div></li><li><span class="dl">C</span><div>12 – wartość bezwzględna ujemnej „ilości” mężczyzn (błąd: q nie może być ujemne).</div></li><li><span class="dl">D</span><div>14 = 2 + 12 – dodanie ujemnego popytu jako dodatniego.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka: mechaniczne sumowanie równań bez sprawdzenia, czy przy danej cenie każda grupa ma dodatni popyt. Krzywa popytu rynkowego jest łamana (załamanie przy p = 10).</p></section>
+</div>
+</article></section><section class="edition" id="ed36"><h2><span>Edycja 36</span> <em>XXXVI OWE · rok szkolny 2022/2023 · zawody okręgowe</em><small>6 pyt.</small></h2><article class="q" id="e36q6">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 6</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">W gospodarce produkowane jest 10 tys. bochenków chleba o cenie jednostkowej równej 4 zł, a ilość pieniądza w obiegu wynosi 1000 zł. Oszacuj szybkość obiegu pieniądza, wykorzystując ilościowe równanie pieniądza:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">0,40</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">40,00</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">100,04</span></li><li class="opt"><span class="ol">D</span><span class="ot">2250,00</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Równanie wymiany: MV = PQ ⇒ <strong class="k">V = PQ/M</strong> = (10 000 · 4 zł) / 1000 zł = 40 000 / 1000 = <strong class="k">40</strong>. Każdy złoty „obraca się” 40 razy.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>0,40 – błąd rzędu wielkości (np. potraktowanie 10 tys. bochenków jako 100); odwrócony iloraz M/PQ wynosiłby 0,025, a nie 0,40.</div></li><li><span class="dl">C</span><div>100,04 – brak poprawnego uzasadnienia.</div></li><li><span class="dl">D</span><div>2250,00 – brak poprawnego uzasadnienia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Proste zastosowanie równania Fishera; pułapka A – odwrócenie ilorazu lub błąd jednostek (10 tys.).</p></section>
+</div>
+</article><article class="q" id="e36q7">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 7</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">Autarkię opisują następujące równania: C = 200 + 0,5Y<sub>D</sub>; I = 400; G = 100; T = 80 (gdzie: C – konsumpcja, Y<sub>D</sub> – dochód rozporządzalny; I – inwestycje; G – wydatki rządowe; T – podatki minus transfery budżetowe otrzymywane przez konsumenta). Ile wynosi wartość wydatków autonomicznych w tej gospodarce?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">200</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">660</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">700</span></li><li class="opt"><span class="ol">D</span><span class="ot">780</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Wydatki autonomiczne w gospodarce zamkniętej z państwem: A = C<sub>0</sub> − c·T + I + G = 200 − 0,5·80 + 400 + 100 = 200 − 40 + 500 = <strong class="k">660</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>200 – sama konsumpcja autonomiczna.</div></li><li><span class="dl">C</span><div>700 = 200 + 400 + 100 – pominięcie efektu podatków (−c·T).</div></li><li><span class="dl">D</span><div>780 = 700 + 80 – <strong class="k">dodanie</strong> podatków zamiast odjęcia ich efektu (lub odjęcie z odwrotnym znakiem).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Powtórka schematu z 33.4. Kluczowe: podatki obniżają wydatki autonomiczne o c·T, a nie o T.</p></section>
+</div>
+</article><article class="q" id="e36q9">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">Banki kwotują następujące kursy EUR/USD: bank A: 1,0521–1,0550; bank B: 1,0518–1,0555. Który bank należy wybrać, chcąc kupić dolary za euro, i jaki będzie kurs walutowy dla tej transakcji?</p>
+<ol class="opts"><li class="opt ok"><span class="ol">A</span><span class="ot">bank A, kurs walutowy: EUR/USD 1,0521</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">B</span><span class="ot">bank A, kurs walutowy: EUR/USD 1,0550</span></li><li class="opt"><span class="ol">C</span><span class="ot">bank B, kurs walutowy: EUR/USD 1,0518</span></li><li class="opt"><span class="ol">D</span><span class="ot">bank B, kurs walutowy: EUR/USD 1,0555</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź A</span> Kwotowanie EUR/USD: <strong class="k">bid (kupno) – ask (sprzedaż)</strong> z perspektywy banku, w USD za 1 EUR. Klient chcący <strong class="k">kupić dolary za euro</strong> w istocie <strong class="k">sprzedaje euro</strong> – bank kupuje od niego euro po kursie <strong class="k">bid</strong>. Klient wybiera bank z <strong class="k">najwyższym</strong> kursem bid (więcej USD za 1 EUR): bank A – 1,0521 &gt; bank B – 1,0518. Transakcja: <strong class="k">bank A, 1,0521</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">B</span><div>1,0550 – kurs ask banku A (po nim klient <strong class="k">kupiłby euro</strong> za dolary).</div></li><li><span class="dl">C</span><div>1,0518 – kurs bid banku B – mniej korzystny (mniej dolarów za euro).</div></li><li><span class="dl">D</span><div>1,0555 – kurs ask banku B (kupno euro – najdroższe).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Dwie pułapki: (1) „kupić dolary” = „sprzedać euro” (waluta bazowa w kwotowaniu to EUR), (2) kursy podawane są z perspektywy banku. Należy przełożyć transakcję na walutę bazową.</p></section>
+</div>
+</article><article class="q" id="e36q17">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 17</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">W gospodarce autarkicznej, w warunkach braku państwa, funkcja oszczędności jest opisana równaniem S = -100 + 0,2Y (gdzie: S – oszczędności; Y – produkt krajowy brutto). Ile wynosi mnożnik inwestycyjny?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">-100,00</span></li><li class="opt"><span class="ol">B</span><span class="ot">0,20</span></li><li class="opt"><span class="ol">C</span><span class="ot">1,25</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">5,00</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> W gospodarce dwusektorowej <strong class="k">mnożnik inwestycyjny</strong> k = 1/(1 − MPC) = 1/MPS. Z funkcji oszczędności S = −100 + 0,2Y: MPS = 0,2 ⇒ <strong class="k">k = 1/0,2 = 5</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>−100 – oszczędności autonomiczne (wyraz wolny), nie mnożnik.</div></li><li><span class="dl">B</span><div>0,20 – krańcowa skłonność do oszczędzania (MPS), nie mnożnik.</div></li><li><span class="dl">C</span><div>1,25 = 1/0,8 – odwrotność MPC (błędne podstawienie MPC zamiast MPS).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Każdy dystraktor to inna wielkość związana z funkcją oszczędności. Pułapka C – odwrócenie MPC i MPS we wzorze.</p></section>
+</div>
+</article><article class="q" id="e36q18">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 18</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">Kraje X i Y produkują dwa rodzaje dóbr A i B. Ich krzywe możliwości produkcyjnych są opisane równaniami odpowiednio 2A<sub>X</sub> + 4B<sub>X</sub> = 10000, 2A<sub>Y</sub> + 4B<sub>Y</sub> = 20000 (gdzie A<sub>X</sub>, B<sub>X</sub> – produkcja dóbr w kraju X; A<sub>Y</sub>, B<sub>Y</sub> – produkcja dóbr w kraju Y). Ile mogą one maksymalnie łącznie wyprodukować dobra A, jeżeli chcą, by łączna produkcja dobra B wyniosła 4 000?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">1 000</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">7 000</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">26 000</span></li><li class="opt"><span class="ol">D</span><span class="ot">30 000</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> W obu krajach koszt alternatywny jest identyczny: z równania 2A + 4B = const wynika, że 1 jednostka B kosztuje 2 jednostki A (nachylenie obu granic jest takie samo). Dlatego łączna granica możliwości: 2A + 4B = 10 000 + 20 000 = 30 000. Przy B = 4000: 2A = 30 000 − 16 000 = 14 000 ⇒ <strong class="k">A = 7000</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>1000 – wynik zaniżony, np. przy przypisaniu całej produkcji B jednemu krajowi i pomyleniu współczynników; nie uwzględnia pełnych możliwości obu krajów.</div></li><li><span class="dl">C</span><div>26 000 = 30 000 − 4000 – pominięcie współczynników w równaniu (traktowanie 1B jako 1A).</div></li><li><span class="dl">D</span><div>30 000 – suma prawych stron równań (bez podziału przez 2 i bez produkcji B).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Ponieważ koszty alternatywne są identyczne, podział produkcji między kraje nie ma znaczenia (brak przewagi komparatywnej). Pułapka C i D – ignorowanie współczynników przy zmiennych.</p></section>
+</div>
+</article><article class="q" id="e36q30">
+<header class="badge"><span class="b-ed">Edycja 36 <span class="rom">(XXXVI)</span></span><span class="sep">|</span><span class="b-q">Pytanie 30</span><span class="b-yr">2022/2023</span></header>
+<p class="stem">Funkcja produkcji przedsiębiorstwa jest opisana równaniem: Q = 4L, gdzie Q – wielkość produkcji w ciągu miesiąca, L – liczba pracowników zatrudnianych w okresie miesiąca na pełny etat. Krzywa popytu na produkty przedsiębiorstwa to P = 2000 – 2Q (gdzie: P – cena jednostkowa w zł). Wskaż równanie krańcowego przychodu z pracy w tym przedsiębiorstwie (gdzie: MRP<sub>L</sub> – krańcowy przychód z pracy).</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">MRP<sub>L</sub> = 2000 – 2L</span></li><li class="opt"><span class="ol">B</span><span class="ot">MRP<sub>L</sub> = 2000 – 8L</span></li><li class="opt"><span class="ol">C</span><span class="ot">MRP<sub>L</sub> = 8000 – 8L</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">MRP<sub>L</sub> = 8000 – 64L</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> <strong class="k">MRP<sub>L</sub> = MR · MP<sub>L</sub></strong>. Z popytu P = 2000 − 2Q: MR = 2000 − 4Q. Z funkcji produkcji: MP<sub>L</sub> = 4, a Q = 4L ⇒ MR = 2000 − 16L. Stąd <strong class="k">MRP<sub>L</sub> = 4·(2000 − 16L) = 8000 − 64L</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>2000 − 2L – funkcja popytu z podstawionym L zamiast Q (brak MR i MP).</div></li><li><span class="dl">B</span><div>2000 − 8L – błędne podstawienie (np. P = 2000 − 2·4L) bez przemnożenia przez MP<sub>L</sub>.</div></li><li><span class="dl">C</span><div>8000 − 8L – wynik 4·(2000 − 2Q) = <strong class="k">VMP<sub>L</sub></strong> w funkcji Q (P·MP), z błędnie zapisaną zmienną; nie uwzględnia MR ani przeliczenia Q na L.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Wymaga (1) użycia MR (a nie P) – siła rynkowa firmy, (2) przeliczenia Q na L. Por. 34.20 (ta sama konstrukcja).</p></section>
+</div>
+</article></section><section class="edition" id="ed37"><h2><span>Edycja 37</span> <em>XXXVII OWE · rok szkolny 2023/2024 · zawody okręgowe</em><small>5 pyt.</small></h2><article class="q" id="e37q4">
+<header class="badge"><span class="b-ed">Edycja 37 <span class="rom">(XXXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 4</span><span class="b-yr">2023/2024</span></header>
+<p class="stem">Autarkię opisują następujące równania: C = 100 + 0,5Y<sub>D</sub>; I = 600; G = 200; T = 100 (gdzie: C – konsumpcja, Y<sub>D</sub> – dochód rozporządzalny; I – inwestycje; G – wydatki rządowe; T – podatki minus transfery budżetowe otrzymywane przez konsumenta). Ile wynosi PKB?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">1 000</span></li><li class="opt"><span class="ol">B</span><span class="ot">1 500</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">1 700</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">1 800</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Równowaga: Y = C + I + G, C = 100 + 0,5(Y − T). Y = 100 + 0,5(Y − 100) + 600 + 200 = 100 + 0,5Y − 50 + 800 ⇒ 0,5Y = 850 ⇒ <strong class="k">Y = 1700</strong>. (Wydatki autonomiczne: 100 − 50 + 800 = 850; mnożnik 1/(1 − 0,5) = 2.)</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>1000 – brak poprawnego uzasadnienia (np. pominięcie mnożnika i części składników).</div></li><li><span class="dl">B</span><div>1500 – błędne obliczenie (np. pominięcie konsumpcji autonomicznej lub G).</div></li><li><span class="dl">D</span><div>1800 – wynik przy pominięciu podatków: 0,5Y = 900 (pominięcie −c·T).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka D – zapomnienie, że konsumpcja zależy od dochodu <strong class="k">rozporządzalnego</strong>. Por. 33.4, 36.7.</p></section>
+</div>
+</article><article class="q" id="e37q9">
+<header class="badge"><span class="b-ed">Edycja 37 <span class="rom">(XXXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 9</span><span class="b-yr">2023/2024</span></header>
+<p class="stem">Aktualna cena rynkowa jednej akcji spółki ABC wynosi 10 zł. Ostatnio wypłacona dywidenda na jedną akcję wyniosła 1 zł, a oczekiwane tempo wzrostu dywidendy to 2%. Ile wynosi koszt kapitału własnego w przedsiębiorstwie ABC?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">2,00%</span></li><li class="opt"><span class="ol">B</span><span class="ot">5,00%</span></li><li class="opt"><span class="ol">C</span><span class="ot">12,00%</span></li><li class="opt ok"><span class="ol">D</span><span class="ot">12,20%</span><span class="tick">✓ poprawna</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź D</span> Model Gordona: k = D<sub>1</sub>/P<sub>0</sub> + g. D<sub>1</sub> = D<sub>0</sub>·(1 + g) = 1·1,02 = 1,02 zł. k = 1,02/10 + 2% = 10,2% + 2% = <strong class="k">12,2%</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>2% – samo tempo wzrostu dywidendy.</div></li><li><span class="dl">B</span><div>5% – brak poprawnego uzasadnienia.</div></li><li><span class="dl">C</span><div>12% = 1/10 + 2% – użycie <strong class="k">ostatniej</strong> dywidendy (D<sub>0</sub>) zamiast oczekiwanej (D<sub>1</sub>).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Powtórka schematu z 33.17. Kluczowa pułapka C – niezaktualizowanie dywidendy o tempo wzrostu.</p></section>
+</div>
+</article><article class="q" id="e37q15">
+<header class="badge"><span class="b-ed">Edycja 37 <span class="rom">(XXXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 15</span><span class="b-yr">2023/2024</span></header>
+<p class="stem">Krańcowa skłonność do konsumpcji wynosi 0,6. Ile wynosi krańcowa skłonność do oszczędzania?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">-0,6</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">0,4</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">1,7</span></li><li class="opt"><span class="ol">D</span><span class="ot">6,0</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Krańcowe skłonności do konsumpcji i oszczędzania sumują się do 1 (każda dodatkowa złotówka dochodu jest konsumowana lub oszczędzana): <strong class="k">MPS = 1 − MPC = 1 − 0,6 = 0,4</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>−0,6 – błędna zmiana znaku MPC.</div></li><li><span class="dl">C</span><div>1,7 ≈ 1/0,6 – odwrotność MPC (nie jest żadną standardową wielkością; mnożnik wynosiłby 1/0,4 = 2,5).</div></li><li><span class="dl">D</span><div>6,0 – błąd rzędu wielkości.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Najprostsza tożsamość; pułapka C – mylenie z mnożnikiem.</p></section>
+</div>
+</article><article class="q" id="e37q22">
+<header class="badge"><span class="b-ed">Edycja 37 <span class="rom">(XXXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 22</span><span class="b-yr">2023/2024</span></header>
+<p class="stem">Przedsiębiorstwo X zajmuje pozycję monopsonistyczną na rynku pracy. Jego krzywa kosztu przeciętnego pracy jest opisana równaniem AC<sub>L</sub> = 2L + 2000 (gdzie: AC<sub>L</sub> – koszt przeciętny pracy; L – liczba zatrudnionych pracowników). Która z odpowiedzi przedstawia przebieg krzywej kosztu krańcowego pracy (MC<sub>L</sub>) tego przedsiębiorstwa?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">MC<sub>L</sub> = −2L + 2000</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">MC<sub>L</sub> = 4L + 2000</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">MC<sub>L</sub> = 4L + 4000</span></li><li class="opt"><span class="ol">D</span><span class="ot">MC<sub>L</sub> = L + 2000</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Koszt całkowity pracy: TC<sub>L</sub> = AC<sub>L</sub>·L = (2L + 2000)·L = 2L² + 2000L. Koszt krańcowy pracy: <strong class="k">MC<sub>L</sub> = dTC<sub>L</sub>/dL = 4L + 2000</strong>. (Dla liniowej krzywej AC<sub>L</sub> krzywa MC<sub>L</sub> ma to samo przecięcie z osią i dwukrotnie większe nachylenie.)</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>−2L + 2000 – ujemne nachylenie (odwrócenie znaku).</div></li><li><span class="dl">C</span><div>4L + 4000 – podwojenie również wyrazu wolnego (błędne – pochodna stałej × L daje tę samą stałą).</div></li><li><span class="dl">D</span><div>L + 2000 – zmniejszenie zamiast podwojenia nachylenia.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Analogia do relacji popyt–MR w monopolu (podwojenie nachylenia, ten sam wyraz wolny). Pułapka C – podwojenie całego równania. Por. 31.17.</p></section>
+</div>
+</article><article class="q" id="e37q25">
+<header class="badge"><span class="b-ed">Edycja 37 <span class="rom">(XXXVII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 25</span><span class="b-yr">2023/2024</span></header>
+<p class="stem">Pracownicy w kopalni złota zarabiają 100 tys. zł za wydobycie 100 kg kruszcu. Kopalnia sprzedaje je przedsiębiorstwu produkującemu biżuterię za 400 tys. zł. Następnie jubiler, za wytworzenie biżuterii z zakupionego złota, płaci swoim pracownikom 300 tys. zł. Jubiler wyprodukowaną biżuterię sprzedaje bezpośrednio konsumentom za 1 mln zł. Ile wynosi PKB?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">400 tys. zł</span></li><li class="opt"><span class="ol">B</span><span class="ot">700 tys. zł</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">1 000 tys. zł</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">1 800 tys. zł</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> <strong class="k">PKB metodą wartości dodanej</strong>: kopalnia – 400 tys. zł (brak zużycia pośredniego); jubiler – 1000 − 400 = 600 tys. zł. PKB = 400 + 600 = <strong class="k">1000 tys. zł</strong> = wartość dobra finalnego (biżuterii). Metoda dochodowa: płace (100 + 300 = 400) + zyski (kopalnia 300 + jubiler 300 = 600) = 1000.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>400 tys. – wartość produkcji kopalni (dobro pośrednie).</div></li><li><span class="dl">B</span><div>700 tys. – brak spójnego uzasadnienia (np. 400 + 300 – sprzedaż kopalni i płace jubilera).</div></li><li><span class="dl">D</span><div>1800 tys. = 400 + 1000 + 100 + 300 – suma wszystkich transakcji i płac (podwójne liczenie).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Powtórka motywu z 27.9 z dodatkiem danych o płacach, które stanowią „szum” (lub pozwalają sprawdzić wynik metodą dochodową).</p></section>
+</div>
+</article></section><section class="edition" id="ed38"><h2><span>Edycja 38</span> <em>XXXVIII OWE · rok szkolny 2024/2025 · zawody okręgowe</em><small>1 pyt.</small></h2><article class="q" id="e38q4">
+<header class="badge"><span class="b-ed">Edycja 38 <span class="rom">(XXXVIII)</span></span><span class="sep">|</span><span class="b-q">Pytanie 4</span><span class="b-yr">2024/2025</span></header>
+<p class="stem">Autarkię opisują następujące równania: C = 200 + 0,5Y<sub>D</sub>; I = 800; G = 400; T = 600 (gdzie: C – konsumpcja, Y<sub>D</sub> – dochód rozporządzalny; I – inwestycje; G – wydatki rządowe; T – podatki minus transfery budżetowe otrzymywane przez konsumenta). Oszczędności prywatne (S<sub>p</sub>) i publiczne (S<sub>pub</sub>) wynoszą:</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">S<sub>p</sub> = 800; S<sub>pub</sub> = 800</span></li><li class="opt"><span class="ol">B</span><span class="ot">S<sub>p</sub> = 1000; S<sub>pub</sub> = −200</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">S<sub>p</sub> = 600; S<sub>pub</sub> = 200</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">S<sub>p</sub> = 400; S<sub>pub</sub> = 400</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Równowaga: Y = C + I + G = 200 + 0,5(Y − 600) + 800 + 400 = 1100 + 0,5Y ⇒ <strong class="k">Y = 2200</strong>. Dochód rozporządzalny: Y<sub>D</sub> = 2200 − 600 = 1600; C = 200 + 0,5·1600 = 1000. <strong class="k">Oszczędności prywatne</strong>: S<sub>p</sub> = Y<sub>D</sub> − C = 1600 − 1000 = <strong class="k">600</strong>. <strong class="k">Oszczędności publiczne</strong>: S<sub>pub</sub> = T − G = 600 − 400 = <strong class="k">200</strong>. Kontrola: S<sub>p</sub> + S<sub>pub</sub> = 800 = I.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>800/800 – suma równa 1600 ≠ I = 800; brak uzasadnienia.</div></li><li><span class="dl">B</span><div>S<sub>p</sub> = 1000 (to wartość konsumpcji, nie oszczędności), S<sub>pub</sub> = −200 (odwrócony znak: G − T zamiast T − G).</div></li><li><span class="dl">D</span><div>400/400 – suma 800 = I (zgadza się tożsamość), ale podział błędny – S<sub>pub</sub> = T − G = 200, nie 400.</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka D – spełnia tożsamość S = I, więc „wygląda” poprawnie. Należy liczyć każdy składnik osobno.</p></section>
+</div>
+</article></section><section class="edition" id="ed39"><h2><span>Edycja 39</span> <em>XXXIX OWE · rok szkolny 2025/2026 · zawody okręgowe</em><small>4 pyt.</small></h2><article class="q" id="e39q4">
+<header class="badge"><span class="b-ed">Edycja 39 <span class="rom">(XXXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 4</span><span class="b-yr">2025/2026</span></header>
+<p class="stem">Krzywą konsumpcji opisuje następujące równanie: C = 100 + 0,4Y<sub>D</sub> (gdzie: C – konsumpcja, Y<sub>D</sub> – dochód rozporządzalny). Ile wynosi krańcowa skłonność do oszczędzania?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">0,4</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">0,6</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">2,5</span></li><li class="opt"><span class="ol">D</span><span class="ot">-100</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> Z funkcji konsumpcji C = 100 + 0,4Y<sub>D</sub>: MPC = 0,4. Ponieważ MPC + MPS = 1: <strong class="k">MPS = 1 − 0,4 = 0,6</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>0,4 – krańcowa skłonność do <strong class="k">konsumpcji</strong>.</div></li><li><span class="dl">C</span><div>2,5 = 1/0,4 – odwrotność MPC (pomyłka z mnożnikiem; mnożnik = 1/MPS ≈ 1,67).</div></li><li><span class="dl">D</span><div>−100 – oszczędności autonomiczne (wyraz wolny funkcji oszczędności S = −100 + 0,6Y<sub>D</sub>).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Powtórka 37.15; każdy dystraktor to inna wielkość związana z funkcją konsumpcji.</p></section>
+</div>
+</article><article class="q" id="e39q14">
+<header class="badge"><span class="b-ed">Edycja 39 <span class="rom">(XXXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 14</span><span class="b-yr">2025/2026</span></header>
+<p class="stem">Pracownicy w przedsiębiorstwie wydobywającym ropę zarabiają 50 tys. zł za wydobycie surowca. Przedsiębiorstwo wydobywcze sprzedaje go rafinerii za 150 tys. zł. Następnie rafineria za przetworzenie ropy w paliwo do samochodów osobowych płaci swoim pracownikom 200 tys. zł. Rafineria sprzedaje je bezpośrednio konsumentom. Wartość dodana w przypadku rafinerii wynosi 500 tys. zł. Ile wynosi PKB w tej gospodarce?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">500 tys. zł</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">650 tys. zł</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">700 tys. zł</span></li><li class="opt"><span class="ol">D</span><span class="ot">850 tys. zł</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> PKB = suma wartości dodanej. Przedsiębiorstwo wydobywcze: sprzedaż 150 tys., brak zużycia pośredniego ⇒ VA = 150 tys. Rafineria: VA = 500 tys. (podane). <strong class="k">PKB = 150 + 500 = 650 tys. zł</strong> (= wartość sprzedaży paliwa konsumentom: 150 + 500 = 650).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>500 tys. – tylko wartość dodana rafinerii (pominięcie wydobycia).</div></li><li><span class="dl">C</span><div>700 tys. = 150 + 50 + 500 – dodanie płac pracowników wydobycia (płace są częścią wartości dodanej, nie są do niej dodawane).</div></li><li><span class="dl">D</span><div>850 tys. = 150 + 200 + 500 – dodanie płac pracowników rafinerii (podwójne liczenie).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Informacje o płacach to „szum” (składowe wartości dodanej). Por. 27.9, 37.25.</p></section>
+</div>
+</article><article class="q" id="e39q18">
+<header class="badge"><span class="b-ed">Edycja 39 <span class="rom">(XXXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 18</span><span class="b-yr">2025/2026</span></header>
+<p class="stem">Kraj X i kraj Y produkują skarpetki i spodnie przy wykorzystaniu rodzimej siły roboczej. W kraju X w ciągu godziny można wyprodukować 50 skarpetek albo 20 spodni, natomiast w kraju Y — 100 skarpetek albo 100 spodni. Które ze stwierdzeń jest prawdziwe?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">kraj X posiada przewagę absolutną w produkcji skarpetek</span></li><li class="opt"><span class="ol">B</span><span class="ot">kraj Y nie posiada przewagi absolutnej w produkcji spodni</span></li><li class="opt ok"><span class="ol">C</span><span class="ot">kraj X posiada przewagę komparatywną w produkcji skarpetek</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">D</span><span class="ot">kraj Y posiada przewagę komparatywną w produkcji obu dóbr</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź C</span> Koszty alternatywne: kraj X – 1 skarpetka = 20/50 = <strong class="k">0,4 spodni</strong>; 1 spodnie = 2,5 skarpetki. Kraj Y – 1 skarpetka = 1 spodnie. Kraj X ma niższy koszt alternatywny skarpetek (0,4 &lt; 1) – <strong class="k">przewagę komparatywną w skarpetkach</strong>; Y – w spodniach (1 &lt; 2,5). Y ma przewagę absolutną w obu dobrach (100 &gt; 50, 100 &gt; 20).</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>Przewagę absolutną w skarpetkach ma <strong class="k">Y</strong> (100 &gt; 50 na godzinę).</div></li><li><span class="dl">B</span><div>Y <strong class="k">ma</strong> przewagę absolutną w spodniach (100 &gt; 20).</div></li><li><span class="dl">D</span><div>Żaden kraj nie może mieć przewagi komparatywnej w <strong class="k">obu</strong> dobrach – przewaga komparatywna jest z definicji względna (D. Ricardo).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Pułapka D – mylenie przewagi absolutnej (Y w obu) z komparatywną. Kluczowe: porównuj koszty alternatywne, nie wydajność.</p></section>
+</div>
+</article><article class="q" id="e39q25">
+<header class="badge"><span class="b-ed">Edycja 39 <span class="rom">(XXXIX)</span></span><span class="sep">|</span><span class="b-q">Pytanie 25</span><span class="b-yr">2025/2026</span></header>
+<p class="stem">W ramach cyklu łagodzenia polityki pieniężnej bank centralny obniżył swoją podstawową stopę procentową łącznie o 50 punktów bazowych. Ile wynosi ona obecnie, jeżeli przed rozpoczęciem cyklu wynosiła 9,00%?</p>
+<ol class="opts"><li class="opt"><span class="ol">A</span><span class="ot">8,95%</span></li><li class="opt ok"><span class="ol">B</span><span class="ot">8,50%</span><span class="tick">✓ poprawna</span></li><li class="opt"><span class="ol">C</span><span class="ot">4,50%</span></li><li class="opt"><span class="ol">D</span><span class="ot">4,00%</span></li></ol>
+<button class="reveal" type="button">Pokaż odpowiedź i analizę</button>
+<div class="an">
+<section class="s s1"><h3>1. Rozwiązanie i mechanizm</h3><p><span class="ans">Odpowiedź B</span> 50 punktów bazowych = <strong class="k">0,50 punktu procentowego</strong>. Stopa po obniżce: 9,00% − 0,50 p.p. = <strong class="k">8,50%</strong>.</p></section>
+<section class="s s2"><h3>2. Inżynieria błędów (dystraktory)</h3><ul class="dis"><li><span class="dl">A</span><div>8,95% – potraktowanie 50 pb jako 0,05 p.p. (1 pb = 0,01 p.p., więc 50 pb = 0,50 p.p.).</div></li><li><span class="dl">C</span><div>4,50% – obniżka o połowę (pomylenie punktów bazowych z procentem względnym 50%).</div></li><li><span class="dl">D</span><div>4,00% – obniżka o 5 p.p. (pomylenie 50 pb z 500 pb).</div></li></ul></section>
+<section class="s s3"><h3>3. Analiza pułapki</h3><p>Powtórka testu jednostek (34.24). Każdy dystraktor odpowiada innemu błędowi przeliczenia.</p></section>
+</div>
+</article></section></main>
+<footer>Opracowanie: analiza pytań testowych OWE (zawody II stopnia, edycje XXI–XXXIX). Klucz odpowiedzi według arkuszy z prawidłowymi odpowiedziami.</footer>
+<script>(function(){var b=document.getElementById('mode');b.addEventListener('click',function(){var on=document.body.classList.toggle('test');b.textContent='Tryb testu: '+(on?'włączony':'wyłączony');document.querySelectorAll('.q.open').forEach(function(q){q.classList.remove('open')});});
+document.addEventListener('click',function(e){if(e.target.classList.contains('reveal')){e.target.closest('.q').classList.add('open');}});})();
+</script></body></html>

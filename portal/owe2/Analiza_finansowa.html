@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OWE – Analiza finansowa</title><style>:root{--bg:#0F172A;--card:#1E293B;--card2:#172033;--line:#2C3A52;--txt:#E2E8F0;--mut:#94A3B8;--dim:#64748B;--copper:#C8814B;--gold:#E3B861;--orange:#D9895B;--okbg:rgba(227,184,97,.10);--okline:rgba(227,184,97,.55)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--txt);font:17px/1.72 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+nav.top{position:sticky;top:0;z-index:10;display:flex;gap:4px;flex-wrap:wrap;justify-content:center;padding:10px 16px;background:rgba(15,23,42,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.top a{color:var(--mut);text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;letter-spacing:.02em}
+nav.top a:hover{color:var(--txt);background:var(--card)}
+nav.top a.cur{color:var(--bg);background:var(--gold);font-weight:600}
+.hero{max-width:880px;margin:0 auto;padding:48px 16px 24px}
+.kicker{color:var(--copper);text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;margin:0 0 8px}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:44px;line-height:1.15;margin:0;color:var(--gold)}
+.sub{color:var(--mut);margin:10px 0 4px;font-size:16px}
+.stats{color:var(--mut);margin:0 0 18px;font-size:15px}.stats b{color:var(--txt)}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 18px}
+.tools button{font:inherit;font-size:14px;color:var(--gold);background:transparent;border:1px solid var(--okline);border-radius:8px;padding:6px 14px;cursor:pointer}
+.tools button:hover{background:var(--okbg)}
+.hint{color:var(--dim);font-size:13.5px}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc a{display:inline-flex;align-items:baseline;gap:6px;color:var(--txt);text-decoration:none;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.toc a small{color:var(--copper);font-size:12px}
+.toc a:hover{border-color:var(--copper)}
+main{max-width:880px;margin:0 auto;padding:0 16px 40px}
+.edition{margin-top:36px}
+.edition h2{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:Georgia,serif;font-weight:600;font-size:26px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);color:var(--orange)}
+.edition h2 em{font-style:normal;font-family:inherit;font-size:14px;color:var(--mut);font-family:"Segoe UI",system-ui,sans-serif;font-weight:400}
+.edition h2 small{margin-left:auto;font-size:13px;color:var(--dim);font-family:"Segoe UI",system-ui,sans-serif;font-weight:400}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px 20px;margin:0 0 20px;box-shadow:0 1px 0 rgba(255,255,255,.02) inset}
+.badge{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;letter-spacing:.03em;margin:0 0 10px}
+.b-ed,.b-q{font-weight:600;color:var(--gold)}
+.b-ed{background:rgba(200,129,75,.14);border:1px solid rgba(200,129,75,.45);color:#F0C79C;border-radius:999px;padding:2px 11px}
+.rom{font-weight:400;color:var(--copper)}
+.sep{color:var(--dim)}
+.b-q{color:var(--txt)}
+.b-yr{margin-left:auto;color:var(--dim);font-size:12.5px}
+.stem{font-size:17.5px;font-weight:500;margin:0 0 12px;color:#F1F5F9}
+.opts{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:7px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card2);font-size:16px;line-height:1.55}
+.ol{flex:none;width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-size:12.5px;font-weight:700;color:var(--mut);background:#0F172A;border:1px solid var(--line);margin-top:1px}
+.ot{flex:1}
+.opt.ok{border-color:var(--okline);background:var(--okbg)}
+.opt.ok .ol{background:var(--gold);color:#0F172A;border-color:var(--gold)}
+.tick{flex:none;color:var(--gold);font-size:12.5px;font-weight:600;white-space:nowrap;margin-top:2px}
+.reveal{display:none;font:inherit;font-size:14px;margin-top:10px;color:var(--gold);background:transparent;border:1px dashed var(--okline);border-radius:8px;padding:6px 14px;cursor:pointer}
+.an{margin-top:14px;border-top:1px solid var(--line);padding-top:4px}
+.s h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:14px 0 6px;font-weight:700}
+.s1 h3{color:var(--gold)}.s2 h3{color:var(--orange)}.s3 h3{color:var(--copper)}
+.s p{margin:0}
+.ans{display:inline-block;font-weight:700;color:#0F172A;background:var(--gold);border-radius:6px;padding:0 8px;margin-right:6px;font-size:14px}
+.dis{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dis li{display:flex;gap:10px}
+.dl{flex:none;width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-size:12.5px;font-weight:700;color:var(--orange);border:1px solid rgba(217,137,91,.5);margin-top:3px}
+.s3 p{background:rgba(200,129,75,.08);border-left:3px solid var(--copper);padding:8px 12px;border-radius:0 8px 8px 0}
+strong.k{color:var(--gold);font-weight:600}
+em,i{color:#F3D9B8}
+sub,sup{font-size:.72em}
+footer{max-width:880px;margin:0 auto;padding:24px 16px 48px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+body.test .an,body.test .tick{display:none}
+body.test .opt.ok{border-color:var(--line);background:var(--card2)}
+body.test .opt.ok .ol{background:#0F172A;color:var(--mut);border-color:var(--line)}
+body.test .reveal{display:inline-block}
+body.test .q.open .an{display:block}
+body.test .q.open .tick{display:inline}
+body.test .q.open .opt.ok{border-color:var(--okline);background:var(--okbg)}
+body.test .q.open .opt.ok .ol{background:var(--gold);color:#0F172A;border-color:var(--gold)}
+body.test .q.open .reveal{display:none}
+@media (max-width:640px){body{font-size:16px}h1{font-size:34px}.q{padding:14px 14px 16px}.b-yr{margin-left:0;width:100%}.edition h2{font-size:22px}}
+@media print{body{background:#fff;color:#111}nav.top,.tools,.reveal{display:none}.q{background:#fff;border-color:#ccc;break-inside:avoid}strong.k,h1,.edition h2{color:#8a4b1c}}
+math{font-family:"STIX Two Math","Cambria Math","Latin Modern Math","Noto Sans Math",math;font-size:1.08em;color:#F1F5F9}
+.eq{overflow-x:auto;overflow-y:hidden;padding:4px 2px;margin:6px 0}
+.eq math{font-size:1.18em}
+mtext{font-family:"Segoe UI",system-ui,sans-serif;font-size:.86em}
+.block{margin-top:44px}
+h2.sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;font-family:Georgia,serif;font-weight:600;font-size:30px;color:var(--gold);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+h2.sec small{font-family:"Segoe UI",system-ui,sans-serif;font-size:14px;color:var(--mut);font-weight:400}
+.lead{color:var(--mut);font-size:15.5px}
+.lead b{color:var(--txt)}
+h3.grp{font-size:14px;text-transform:uppercase;letter-spacing:.12em;color:var(--orange);margin:28px 0 10px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px;min-width:0}
+.f.wide{grid-column:1/-1}
+.f h4{margin:0 0 4px;font-size:15px;color:#F0C79C;font-weight:600}
+.f p{margin:4px 0;color:var(--mut);font-size:14.5px;line-height:1.55}
+.f p.list{color:var(--txt)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tags a{font-size:12px;color:var(--copper);text-decoration:none;border:1px solid rgba(200,129,75,.45);border-radius:999px;padding:0 8px}
+.tags a:hover{background:rgba(200,129,75,.14)}
+.toc.main{margin-bottom:8px}
+.toc.main a{border-color:var(--okline);color:var(--gold);font-weight:600}
+.task{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px 20px;margin:0 0 26px}
+.task h3.th{margin:0 0 4px;font-family:Georgia,serif;font-size:22px;color:var(--orange);font-weight:600}
+.meta{color:var(--mut);font-size:13.5px;margin:0 0 10px}
+.meta b{color:#F0C79C}
+.given{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0 14px;font-size:15.5px}
+.given p{margin:4px 0}
+table.dt{border-collapse:collapse;width:100%;font-size:14.5px;margin:6px 0}
+table.dt th,table.dt td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+table.dt td.n,table.dt th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.dt th{color:var(--mut);font-weight:600;font-size:13px}
+table.dt tr.hl td{color:var(--gold)}
+.tw{overflow-x:auto}
+.step{border-left:3px solid var(--line);padding:2px 0 2px 14px;margin:16px 0}
+.step h4{margin:0 0 6px;font-size:15.5px;color:var(--txt)}
+.step h4 .pk{color:var(--copper);font-weight:400;font-size:13px;margin-left:6px}
+.step p{margin:5px 0}
+.res{display:inline-block;background:var(--okbg);border:1px solid var(--okline);color:var(--gold);border-radius:8px;padding:2px 10px;font-weight:600;margin:4px 0}
+.note{background:rgba(200,129,75,.08);border-left:3px solid var(--copper);padding:8px 12px;border-radius:0 8px 8px 0;margin:10px 0;font-size:15px}
+.note.key{background:rgba(90,141,224,.09);border-left-color:#5A8DE0}
+.note b.t{color:#F0C79C}
+.note.key b.t{color:#9DBBEB}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.card h4{margin:0 0 6px;color:#F0C79C;font-size:15px}
+.card p{margin:0;font-size:14.5px;color:var(--mut);line-height:1.55}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;position:relative}
+.chart h4{margin:0 0 2px;font-size:15px}
+.chart .sub2{color:var(--mut);font-size:13px;margin:0 0 8px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--mut);margin:4px 0 6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tip{position:absolute;pointer-events:none;background:#0F172A;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--txt);display:none;white-space:nowrap;z-index:5}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.motif td:first-child{color:#F0C79C;white-space:nowrap}
+@media (max-width:640px){.task{padding:14px}.fgrid{grid-template-columns:1fr}h2.sec{font-size:25px}}
+
+table.casc td{border-bottom:1px solid var(--line);padding:6px 8px}table.casc td b{color:var(--gold);font-weight:600}
+
+.eqs{display:flex;flex-wrap:wrap;align-items:center;gap:0 34px;margin:6px 0}
+.eqs .eq{margin:2px 0;max-width:100%}
+@media (max-width:640px){.eq math{font-size:1.0em}.eqs{gap:0 18px}}
+</style></head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Bank zadań: Zadanie z analizy finansowej</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<nav class="top"><a href="Zarzadzanie.html">Zarządzanie</a><a href="Obliczeniowe.html">Zadania obliczeniowe</a><a href="Mikroekonomia.html">Mikroekonomia</a><a href="Makroekonomia.html">Makroekonomia</a><a href="Finanse.html">Finanse</a><a href="Analiza_finansowa.html" class="cur">Analiza finansowa</a><a href="wiedza_finanse.html">📖 Kompendium</a><a href="../index.php?tab=owe2">🏠 OWE II</a></nav>
+<header class="hero"><p class="kicker">Olimpiada Wiedzy Ekonomicznej · etap okręgowy · część II arkusza</p>
+<h1>Zadanie z analizy finansowej</h1><p class="sub">Tendencje XXI–XXXIX, karta wzorów i rozwiązania krok po kroku (0–15 pkt)</p>
+<div class="toc main"><a href="#tendencje">Tendencje</a><a href="#karta">Karta wzorów</a><a href="#rozwiazania">Rozwiązania</a></div>
+<div class="toc"><a href="#z21">Ed. 21</a><a href="#z23">Ed. 23</a><a href="#z24">Ed. 24</a><a href="#z25">Ed. 25</a><a href="#z26">Ed. 26</a><a href="#z27">Ed. 27</a><a href="#z28">Ed. 28</a><a href="#z29">Ed. 29</a><a href="#z30">Ed. 30</a><a href="#z31">Ed. 31</a><a href="#z32">Ed. 32</a><a href="#z33">Ed. 33</a><a href="#z34">Ed. 34</a><a href="#z35">Ed. 35</a><a href="#z36">Ed. 36</a><a href="#z37">Ed. 37</a><a href="#z38">Ed. 38</a><a href="#z39">Ed. 39</a></div></header>
+<main><section class="block" id="tendencje">
+<h2 class="sec"><span>Tendencje XXI → XXXIX</span><small>co zmieniło się w zadaniu przez 19 edycji</small></h2>
+
+<div class="cards">
+<div class="card"><h4>1. Narodziny zadania (XXI–XXIII)</h4><p>W ed. XXI była to 10-punktowa analiza danych GUS (struktura, dynamika, deflowanie), w XXII – brak zadania liczbowego (pytanie do artykułu). Od XXIII obowiązuje stała formuła: <b>„Zadanie z analizy finansowej (0–15 pkt)”</b>.</p></div>
+<div class="card"><h4>2. Era decyzji menedżerskich (XXIII–XXIX)</h4><p>Krótka historyjka firmy i <b>decyzja do podjęcia</b>: odwołać wycieczkę, zamknąć sklep, dać kredyt kupiecki, wybrać źródło finansowania, zoptymalizować dostawy. Dominuje rachunek decyzyjny: koszty utopione i alternatywne, dźwignia, EOQ, stopa efektywna.</p></div>
+<div class="card"><h4>3. Zwrot ku sprawozdaniom (od XXX)</h4><p>Dane przychodzą jako <b>wyciąg z bilansu i RZiS</b> (często realne rzędy wielkości, mln zł), a zadanie polega na <b>odtworzeniu brakujących pozycji</b> i policzeniu wskaźników: płynność, rotacja, rentowność, Du Pont, KON, EBITDA.</p></div>
+<div class="card"><h4>4. Coraz więcej słów, mniej rachunków</h4><p>W ed. XXIII–XXX obliczenia dawały średnio <b>ok. 90%</b> punktów. W XXXI–XXXIX – już tylko <b>ok. 58%</b>, a w XXXIX zaledwie 5 z 15 pkt. Rośnie liczba poleceń „o czym informuje”, „zinterpretuj”, „uzasadnij”, „wskaż dwa sposoby”.</p></div>
+<div class="card"><h4>5. Pułapka „nadmiaru danych”</h4><p>Od XXX w każdej edycji część danych jest <b>zbędna</b> (amortyzacja w XXX, WNiP w XXXII, wartość firmy w XXXV, EPS i podatek w XXXVII). Egzaminator sprawdza, czy wiesz, <b>który wzór</b> jest potrzebny, a nie tylko, czy umiesz liczyć.</p></div>
+<div class="card"><h4>6. „Definicje klucza”</h4><p>Nowsze klucze używają wskaźników o <b>nietypowych definicjach</b> (produkcyjność majątku = rzeczowy/finansowy, rentowność operacyjna z pozostałymi przychodami w mianowniku, W<sub>rkc</sub> z odsetkami po podatku). Znajomość tych konwencji to pewne punkty – wszystkie są w karcie wzorów.</p></div>
+</div>
+
+<div class="chart" id="ptsChart">
+<h4>Podział punktów w zadaniu: obliczenia vs. teoria i interpretacja</h4>
+<p class="sub2">Punkty za każdy podpunkt przypisane według charakteru polecenia; przy poleceniach mieszanych – podział szacunkowy. Ed. XXI: zadanie 10-punktowe; ed. XXII: brak zadania.</p>
+<div class="legend"><span><i style="background:#B8822F"></i>Obliczenia</span><span><i style="background:#5A8DE0"></i>Teoria, interpretacja, uzasadnienie</span></div>
+<div class="svgwrap"></div>
+<div class="tip"></div>
+</div>
+
+<h3 class="grp">Tematy edycja po edycji</h3>
+<div class="tw"><table class="dt">
+<tr><th>Ed.</th><th>Firma / kontekst</th><th>Główne narzędzia</th><th class="n">Obl./teoria</th></tr>
+<tr><td><a href="#z21">XXI</a></td><td>Budżety gospodarstw domowych (GUS)</td><td>struktura, dynamika, dynamika realna</td><td class="n">10 / 0</td></tr>
+<tr><td>XXII</td><td colspan="3">brak zadania liczbowego – pytanie opisowe do artykułu</td></tr>
+<tr><td><a href="#z23">XXIII</a></td><td>Biuro turystyczne</td><td>koszty utopione, ROA, ROE, koszt długu, dźwignia</td><td class="n">13 / 2</td></tr>
+<tr><td><a href="#z24">XXIV</a></td><td>Sklep internetowy</td><td>koszty księgowe vs ekonomiczne, cykl inkasa</td><td class="n">12 / 3</td></tr>
+<tr><td><a href="#z25">XXV</a></td><td>Hurtownia chemii</td><td>kredyt kupiecki, należności z VAT, linia kredytowa, odsetki</td><td class="n">14 / 1</td></tr>
+<tr><td><a href="#z26">XXVI</a></td><td>Firma budowlana</td><td>warianty finansowania, tarcza podatkowa, ROE</td><td class="n">11 / 4</td></tr>
+<tr><td><a href="#z27">XXVII</a></td><td>Producent oliwy</td><td>zapas rezerwowy, średni zapas, punkt zamówienia, EOQ</td><td class="n">13 / 2</td></tr>
+<tr><td><a href="#z28">XXVIII</a></td><td>Branża stalowa</td><td>cykle rotacji, równowaga bilansowa, polityka należności</td><td class="n">15 / 0</td></tr>
+<tr><td><a href="#z29">XXIX</a></td><td>Finansowanie krótkoterminowe</td><td>kredyt z prowizją, weksle, faktoring, skonto, stopa efektywna</td><td class="n">15 / 0</td></tr>
+<tr><td><a href="#z30">XXX</a></td><td>Motoryzacja</td><td>płynność, zapasy, ROE, Gordon, WACC</td><td class="n">15 / 0</td></tr>
+<tr><td><a href="#z31">XXXI</a></td><td>Spółka akcyjna X</td><td>RZiS kalkulacyjny, rentowność, pokrycie straty, EDF</td><td class="n">9 / 6</td></tr>
+<tr><td><a href="#z32">XXXII</a></td><td>Zabawki drewniane</td><td>cykl zapasów, rotacja należności, CKG, faktoring</td><td class="n">9 / 6</td></tr>
+<tr><td><a href="#z33">XXXIII</a></td><td>Piłeczki kauczukowe</td><td>należności: udział, relacja dynamik, pozycja kredytowa</td><td class="n">6 / 9</td></tr>
+<tr><td><a href="#z34">XXXIV</a></td><td>Spółka IT</td><td>ROE z EPS, złota zasada, emisja akcji, koszt emisji</td><td class="n">11 / 4</td></tr>
+<tr><td><a href="#z35">XXXV</a></td><td>Producent odzieży</td><td>płynność, KON, zapotrzebowanie i niedobór KON</td><td class="n">9 / 6</td></tr>
+<tr><td><a href="#z36">XXXVI</a></td><td>Fox</td><td>koszty rodzajowe, pokrycie odsetek, dynamika majątku</td><td class="n">9 / 6</td></tr>
+<tr><td><a href="#z37">XXXVII</a></td><td>Handel detaliczny JTA</td><td>unieruchomienie, produkcyjność, obrotowość, EBITDA</td><td class="n">10 / 5</td></tr>
+<tr><td><a href="#z38">XXXVIII</a></td><td>Mleczarnia Milk</td><td>benchmarking, EOQ, zapas bezpieczeństwa, CKG</td><td class="n">10 / 5</td></tr>
+<tr><td><a href="#z39">XXXIX</a></td><td>Maszyny górnicze Mine</td><td>ROA, ROE, Du Pont, forfaiting</td><td class="n">5 / 10</td></tr>
+</table></div>
+
+<h3 class="grp">Motywy powracające</h3>
+<div class="tw"><table class="dt motif">
+<tr><th>Motyw</th><th>Edycje</th><th>Co trzeba umieć</th></tr>
+<tr><td>ROE / ROA / Du Pont</td><td>23, 26, 30, 34, 35, 39</td><td>odtworzyć ZN, KW lub A z mnożnika, EPS, ROA; rozłożyć ROE</td></tr>
+<tr><td>Cykle rotacji i CKG</td><td>24, 28, 32, 38</td><td>przechodzić między „dniami” a „razami”; liczyć wartość z cyklu</td></tr>
+<tr><td>Należności i kredyt kupiecki</td><td>24, 25, 28, 32, 33</td><td>należności brutto (VAT), średni termin ważony, pozycja kredytowa</td></tr>
+<tr><td>Zapasy i EOQ</td><td>27, 30, 38</td><td>EOQ, średni zapas z zapasem bezpieczeństwa, punkt zamówienia</td></tr>
+<tr><td>Płynność i KON</td><td>28, 30, 35, 38</td><td>trzy wskaźniki płynności; KON dwoma sposobami; zapotrzebowanie</td></tr>
+<tr><td>Dźwignia, tarcza, koszt kapitału</td><td>23, 26, 30, 31, 34</td><td>k<sub>d</sub>(1−T), tarcza, WACC, Gordon (D<sub>0</sub> vs D<sub>1</sub>), EDF</td></tr>
+<tr><td>Faktoring / weksle / forfaiting</td><td>29, 32, 39</td><td>koszt i stopa efektywna; wpływ na cykl inkasa i na bilans</td></tr>
+<tr><td>Rachunek zysków i strat</td><td>26, 31, 36, 37</td><td>kaskada wyników, koszty rodzajowe, EBITDA, podatek przy stracie</td></tr>
+</table></div>
+
+<div class="note"><b class="t">Wnioski dla przygotowań:</b> (1) Każdy wskaźnik ucz się w trójce <b>wzór – interpretacja jednym zdaniem – norma lub kierunek „dobrze/źle”</b>; za samo zdanie interpretacji w nowszych edycjach dostaje się 1–3 pkt. (2) Ćwicz „odwracanie” wzorów (z wskaźnika do pozycji bilansu) – to rdzeń zadań od XXX edycji. (3) Zanim zaczniesz liczyć, przekreśl dane zbędne. (4) Zapisuj wzór ogólny, potem podstawienie, potem wynik z jednostką – klucze punktują osobno formułę i wynik. (5) Przy liczbie dni w roku stosuj to, co narzuca treść (360 w zadaniach „kredytowych”, 365 w „bilansowych”).</div>
+</section>
+<section class="block" id="karta">
+<h2 class="sec"><span>Karta wzorów</span><small>wszystkie formuły, które pojawiły się w kluczach edycji XXI–XXXIX</small></h2>
+<p class="lead">Oznaczenia stałe: <b>S</b> – przychody ze sprzedaży, <b>ZN</b> – zysk netto, <b>ZB</b> – zysk brutto, <b>A</b> – aktywa (majątek) ogółem, <b>AT</b> – aktywa trwałe, <b>AO</b> – aktywa obrotowe, <b>KW</b> – kapitał własny, <b>KO</b> – kapitał obcy, <b>ZD</b> – zobowiązania długoterminowe, <b>ZK</b> – zobowiązania krótkoterminowe, <b>T</b> – stawka podatku dochodowego. Liczba dni w roku: 365 lub 360 – <b>zawsze ta, którą narzuca treść</b> (klucz od ed. 32 akceptuje obie, jeśli treść milczy). Znaczniki „Ed.” prowadzą do zadań, w których wzór był potrzebny.</p>
+
+<h3 class="grp">A. Rentowność</h3>
+<div class="fgrid">
+<div class="f"><h4>Rentowność sprzedaży netto (ROS)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROS</mtext><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mi>S</mi></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Ile zysku netto daje 1 zł sprzedaży.</p><div class="tags"><a href="#z23">Ed. 23</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Rentowność aktywów (ROA)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROA</mtext><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mi>A</mi></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Ile zysku netto generuje 1 zł majątku. Mając ROA i ZN, odtwarzasz A: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>A</mi><mo>&#x0003D;</mo><mtext>ZN</mtext><mo>&#x0002F;</mo><mtext>ROA</mtext></mrow></math>.</p><div class="tags"><a href="#z23">Ed. 23</a><a href="#z30">Ed. 30</a><a href="#z35">Ed. 35</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Rentowność kapitału własnego (ROE)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mtext>KW</mtext></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Ile zysku netto przypada na 1 zł kapitału właścicieli.</p><div class="tags"><a href="#z23">Ed. 23</a><a href="#z26">Ed. 26</a><a href="#z30">Ed. 30</a><a href="#z34">Ed. 34</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f wide"><h4>Model Du Ponta (trójczynnikowy)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><munder><munder><mrow><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mi>S</mi></mrow></mfrac></mrow><mo>&#x23DF;</mo></munder><mrow><mtext>ROS</mtext></mrow></munder><mo>&#x000B7;</mo><munder><munder><mrow><mfrac><mrow><mi>S</mi></mrow><mrow><mi>A</mi></mrow></mfrac></mrow><mo>&#x23DF;</mo></munder><mrow><mtext>obrotowość</mtext></mrow></munder><mo>&#x000B7;</mo><munder><munder><mrow><mfrac><mrow><mi>A</mi></mrow><mrow><mtext>KW</mtext></mrow></mfrac></mrow><mo>&#x23DF;</mo></munder><mrow><mtext>mnożnik&#x000A0;KW</mtext></mrow></munder><mo>&#x0003D;</mo><mtext>ROA</mtext><mo>&#x000B7;</mo><mtext>MKW</mtext></mrow></math></div></div>
+<p>Rozkłada ROE na marżę, sprawność wykorzystania majątku i dźwignię (zadłużenie). Wersja dwuczynnikowa: ROE = ROA × MKW.</p><div class="tags"><a href="#z30">Ed. 30</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Rentowność sprzedaży (wg klucza ed. 31)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>s</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>zysk&#x000A0;ze&#x000A0;sprzedaży</mtext></mrow><mrow><mi>S</mi></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn></mrow></math></div></div>
+<p>Liczona od zysku ze sprzedaży (nie od zysku netto) – nazewnictwo z klucza.</p><div class="tags"><a href="#z31">Ed. 31</a></div></div>
+
+<div class="f"><h4>Rentowność operacyjna sprzedaży (wg klucza ed. 31)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>zysk&#x000A0;z&#x000A0;działalności&#x000A0;operacyjnej</mtext></mrow><mrow><mi>S</mi><mo>&#x0002B;</mo><msub><mi>P</mi><mrow><mi>p</mi><mi>o</mi></mrow></msub></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>P</mi><mrow><mi>p</mi><mi>o</mi></mrow></msub></mrow></math> – pozostałe przychody operacyjne (dodane do mianownika).</p><div class="tags"><a href="#z31">Ed. 31</a></div></div>
+
+<div class="f wide"><h4>Rentowność sprzedaży brutto</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>r</mi><mi>b</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>przychody</mtext><mo>&#x02212;</mo><mtext>koszty</mtext></mrow><mrow><mtext>przychody</mtext></mrow></mfrac><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mtext>przychody</mtext><mo>&#x0003D;</mo><mfrac><mrow><mtext>koszty</mtext></mrow><mrow><mn>1</mn><mo>&#x02212;</mo><msub><mi>r</mi><mi>b</mi></msub></mrow></mfrac></mrow></math></div></div>
+<p>Przekształcenie pozwala odtworzyć przychód z kosztów i marży.</p><div class="tags"><a href="#z26">Ed. 26</a></div></div>
+</div>
+
+<h3 class="grp">B. Struktura majątku i kapitału</h3>
+<div class="fgrid">
+<div class="f"><h4>Mnożnik kapitału własnego</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>MKW</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>A</mi></mrow><mrow><mtext>KW</mtext></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KW</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>A</mi></mrow><mrow><mtext>MKW</mtext></mrow></mfrac></mrow></math></div></div>
+<p>MKW = 1,25 oznacza, że 80% majątku finansuje kapitał własny.</p><div class="tags"><a href="#z23">Ed. 23</a><a href="#z30">Ed. 30</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Kapitał stały i równowaga bilansowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KS</mtext><mo>&#x0003D;</mo><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0003D;</mo><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext><mo>&#x0002B;</mo><mtext>ZK</mtext></mrow></math></div></div>
+<p>Suma aktywów = suma pasywów – pozwala wyliczyć brakującą pozycję (np. należności).</p><div class="tags"><a href="#z28">Ed. 28</a><a href="#z35">Ed. 35</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Złota i srebrna reguła bilansowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>złota:&#x000A0;</mtext><mfrac><mrow><mtext>KW</mtext></mrow><mrow><mtext>AT</mtext></mrow></mfrac><mo>&#x02265;</mo><mn>1</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>srebrna:&#x000A0;</mtext><mfrac><mrow><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext></mrow><mrow><mtext>AT</mtext></mrow></mfrac><mo>&#x02265;</mo><mn>1</mn></mrow></math></div></div>
+<p>Aktywa trwałe powinny być finansowane kapitałem własnym (złota) lub co najmniej kapitałem stałym (srebrna).</p><div class="tags"><a href="#z34">Ed. 34</a></div></div>
+
+<div class="f"><h4>Wskaźnik unieruchomienia majątku</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>u</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>AT</mtext></mrow><mrow><mtext>AO</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Im wyższy, tym mniej elastyczne przedsiębiorstwo (dużo majątku „zamrożonego”).</p><div class="tags"><a href="#z37">Ed. 37</a></div></div>
+
+<div class="f"><h4>Wskaźnik produkcyjności majątku (wg klucza ed. 37)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>p</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>majątek&#x000A0;rzeczowy</mtext></mrow><mrow><mtext>majątek&#x000A0;finansowy</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Majątek rzeczowy = środki trwałe + środki trwałe w budowie + zapasy; finansowy = należności + inwestycje krótkoterminowe + pozostałe składniki finansowe. Definicja specyficzna dla klucza – zapamiętaj ją.</p><div class="tags"><a href="#z37">Ed. 37</a></div></div>
+
+<div class="f"><h4>Obrotowość (produktywność) majątku</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>o</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mi>S</mi></mrow><mrow><mi>A</mi></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>S</mi></mrow><mrow><msub><mi>W</mi><mi>o</mi></msub></mrow></mfrac></mrow></math></div></div>
+<p>Ile złotych przychodu przypada na 1 zł majątku. Porównywać tylko w obrębie branży.</p><div class="tags"><a href="#z37">Ed. 37</a><a href="#z39">Ed. 39</a></div></div>
+
+<div class="f"><h4>Przekładnia kapitałowa i poziom kosztów</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>przekładnia</mtext><mo>&#x0003D;</mo><mfrac><mrow><mtext>KO</mtext></mrow><mrow><mtext>KW</mtext></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>koszty&#x000A0;całkowite</mtext></mrow><mrow><mi>S</mi></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Z poziomu kosztów odtworzysz przychody: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mi>K</mi><mo>&#x0002F;</mo><msub><mi>W</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub></mrow></math>.</p><div class="tags"><a href="#z38">Ed. 38</a></div></div>
+</div>
+
+<h3 class="grp">C. Płynność i kapitał obrotowy</h3>
+<div class="fgrid">
+<div class="f"><h4>Płynność bieżąca</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>b</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>AO</mtext></mrow><mrow><mtext>ZK</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Norma podręcznikowa: ok. 1,2–2,0.</p><div class="tags"><a href="#z30">Ed. 30</a><a href="#z35">Ed. 35</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Płynność szybka</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>s</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>AO</mtext><mo>&#x02212;</mo><mtext>zapasy</mtext></mrow><mrow><mtext>ZK</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Norma ok. 1,0. Niska szybka przy poprawnej bieżącej = za dużo zapasów. Zapasy <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x0003D;</mo><mtext>ZK</mtext><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>W</mi><mrow><mi>p</mi><mi>b</mi></mrow></msub><mo>&#x02212;</mo><msub><mi>W</mi><mrow><mi>p</mi><mi>s</mi></mrow></msub><mo stretchy="false">&#x00029;</mo></mrow></math>.</p><div class="tags"><a href="#z30">Ed. 30</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Płynność gotówkowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>g</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>środki&#x000A0;pieniężne</mtext></mrow><mrow><mtext>ZK</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Norma ok. 0,1–0,2.</p><div class="tags"><a href="#z30">Ed. 30</a></div></div>
+
+<div class="f"><h4>Kapitał obrotowy netto (dwa sposoby)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KON</mtext><mo>&#x0003D;</mo><mtext>KS</mtext><mo>&#x02212;</mo><mtext>AT</mtext><mo>&#x0003D;</mo><mtext>AO</mtext><mo>&#x02212;</mo><mtext>ZK</mtext></mrow></math></div></div>
+<p>Część aktywów obrotowych finansowana kapitałem stałym.</p><div class="tags"><a href="#z28">Ed. 28</a><a href="#z35">Ed. 35</a></div></div>
+
+<div class="f wide"><h4>Dysponowany KON i zapotrzebowanie (metoda uproszczona)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>KON</mtext><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><munder><munder><mrow><mo stretchy="false">&#x00028;</mo><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>zysk&#x000A0;zatrzymany</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext><mo stretchy="false">&#x00029;</mo></mrow><mo>&#x23DF;</mo></munder><mrow><mtext>planowany&#x000A0;KS</mtext></mrow></munder><mo>&#x02212;</mo><munder><munder><mrow><mo stretchy="false">&#x00028;</mo><mtext>AT</mtext><mo>&#x0002B;</mo><mtext>inwestycje</mtext><mo>&#x02212;</mo><mtext>amortyzacja</mtext><mo stretchy="false">&#x00029;</mo></mrow><mo>&#x23DF;</mo></munder><mrow><mtext>przyszłe&#x000A0;AT</mtext></mrow></munder></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>KON</mtext><mrow><mi>z</mi><mi>a</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mtext>AO</mtext><mo>&#x02212;</mo><mtext>ZK</mtext><mo stretchy="false">&#x00029;</mo><mo>&#x000B7;</mo><mtext>dynamika&#x000A0;przychodów</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>niedobór</mtext><mo>&#x0003D;</mo><msub><mtext>KON</mtext><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>p</mi></mrow></msub><mo>&#x02212;</mo><msub><mtext>KON</mtext><mrow><mi>z</mi><mi>a</mi><mi>p</mi></mrow></msub></mrow></math></div></div>
+<div class="tags"><a href="#z35">Ed. 35</a></div></div>
+</div>
+
+<h3 class="grp">D. Sprawność – cykle rotacji</h3>
+<div class="fgrid">
+<div class="f"><h4>Cykl zapasów w dniach</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>Z</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>zapasy</mtext><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mi>S</mi></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>zapasy</mtext><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>C</mi><mi>Z</mi></msub><mo>&#x000B7;</mo><mi>S</mi></mrow><mrow><mn>365</mn></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z28">Ed. 28</a><a href="#z32">Ed. 32</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Cykl inkasa należności w dniach</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>należności</mtext><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mi>S</mi></mrow></mfrac></mrow></math></div></div>
+<p>W okresie miesięcznym: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>30</mn><mo>&#x000B7;</mo><mi>N</mi><mo>&#x0002F;</mo><msub><mi>S</mi><mrow><mi>m</mi><mi>i</mi><mi>e</mi><mi>s</mi></mrow></msub></mrow></math>.</p><div class="tags"><a href="#z24">Ed. 24</a><a href="#z28">Ed. 28</a><a href="#z32">Ed. 32</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Cykl spłaty zobowiązań w dniach</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mrow><mi>Z</mi><mi>o</mi><mi>b</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>zobowiązania&#x000A0;bieżące</mtext><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mi>S</mi></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z28">Ed. 28</a><a href="#z32">Ed. 32</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Rotacja należności w razach</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>R</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mi>S</mi></mrow><mrow><mtext>należności</mtext></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>365</mn></mrow><mrow><msub><mi>R</mi><mi>N</mi></msub></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z32">Ed. 32</a></div></div>
+
+<div class="f wide"><h4>Cykl operacyjny i cykl konwersji gotówki</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>CO</mtext><mo>&#x0003D;</mo><msub><mi>C</mi><mi>Z</mi></msub><mo>&#x0002B;</mo><msub><mi>C</mi><mi>N</mi></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>CKG</mtext><mo>&#x0003D;</mo><msub><mi>C</mi><mi>Z</mi></msub><mo>&#x0002B;</mo><msub><mi>C</mi><mi>N</mi></msub><mo>&#x02212;</mo><msub><mi>C</mi><mrow><mi>Z</mi><mi>o</mi><mi>b</mi></mrow></msub></mrow></math></div></div>
+<p>CKG = czas od zapłaty dostawcy do wpływu gotówki od odbiorcy.</p><div class="tags"><a href="#z32">Ed. 32</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Średni termin płatności (ważony)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mover><mi>C</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>N</mi></msub><mo>&#x0003D;</mo><munder><mo>&#x02211;</mo><mi>i</mi></munder><msub><mi>w</mi><mi>i</mi></msub><mo>&#x000B7;</mo><msub><mi>t</mi><mi>i</mi></msub></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow></math> – udział odbiorców, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mi>i</mi></msub></mrow></math> – ich termin płatności.</p><div class="tags"><a href="#z28">Ed. 28</a></div></div>
+
+<div class="f"><h4>Należności – struktura i dynamika</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>u</mi><mi>m</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mi>N</mi></mrow><mrow><mtext>AO</mtext></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>N</mi><mn>1</mn></msub><mo>&#x0002F;</mo><msub><mi>N</mi><mn>0</mn></msub></mrow><mrow><msub><mi>S</mi><mn>1</mn></msub><mo>&#x0002F;</mo><msub><mi>S</mi><mn>0</mn></msub></mrow></mfrac></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>&#x0003E;</mo><mn>1</mn></mrow></math>: należności rosną szybciej niż sprzedaż (luźniejszy kredyt kupiecki).</p><div class="tags"><a href="#z33">Ed. 33</a></div></div>
+
+<div class="f"><h4>Pozycja kredytowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>należności&#x000A0;z&#x000A0;tyt.&#x000A0;dostaw</mtext></mrow><mrow><mtext>zobowiązania&#x000A0;z&#x000A0;tyt.&#x000A0;dostaw</mtext></mrow></mfrac></mrow></math></div></div>
+<p>&lt; 1 – per saldo biorca kredytu kupieckiego; &gt; 1 – dawca.</p><div class="tags"><a href="#z33">Ed. 33</a></div></div>
+</div>
+
+<h3 class="grp">E. Zapasy</h3>
+<div class="fgrid">
+<div class="f wide"><h4>Optymalna wielkość dostawy (EOQ, model Wilsona)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>Q</mi><mrow><mo>&#x0002A;</mo></mrow></msup><mo>&#x0003D;</mo><msqrt><mrow><mfrac><mrow><mn>2</mn><mo>&#x000B7;</mo><mi>D</mi><mo>&#x000B7;</mo><msub><mi>K</mi><mi>d</mi></msub></mrow><mrow><msub><mi>k</mi><mi>u</mi></msub></mrow></mfrac></mrow></msqrt></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>n</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>D</mi></mrow><mrow><msup><mi>Q</mi><mrow><mo>&#x0002A;</mo></mrow></msup></mrow></mfrac></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math> – roczne zapotrzebowanie, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>K</mi><mi>d</mi></msub></mrow></math> – koszt jednej dostawy, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>k</mi><mi>u</mi></msub></mrow></math> – roczny koszt utrzymania jednostki zapasu (np. cena × % kosztów utrzymania). Niższy <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>k</mi><mi>u</mi></msub></mrow></math> ⇒ większe i rzadsze dostawy.</p><div class="tags"><a href="#z27">Ed. 27</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Średni zapas</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>Z</mi><mo stretchy="true">&#x000AF;</mo></mover><mo>&#x0003D;</mo><mfrac><mrow><mi>Q</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002B;</mo><msub><mi>Z</mi><mi>b</mi></msub></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>Z</mi><mi>b</mi></msub></mrow></math> – zapas bezpieczeństwa (rezerwowy).</p><div class="tags"><a href="#z27">Ed. 27</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Zapas bezpieczeństwa i punkt zamówienia</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>Z</mi><mi>b</mi></msub><mo>&#x0003D;</mo><mi>d</mi><mo>&#x000B7;</mo><msub><mi>t</mi><mi>b</mi></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>PZ</mtext><mo>&#x0003D;</mo><mi>d</mi><mo>&#x000B7;</mo><msub><mover><mi>t</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>d</mi></msub><mo>&#x0002B;</mo><msub><mi>Z</mi><mi>b</mi></msub></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> – dzienne zużycie, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mover><mi>t</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>d</mi></msub></mrow></math> – oczekiwany (ważony) czas dostawy.</p><div class="tags"><a href="#z27">Ed. 27</a><a href="#z38">Ed. 38</a></div></div>
+
+<div class="f"><h4>Roczne koszty zaopatrzenia i utrzymania</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>K</mi><mo>&#x0003D;</mo><mi>n</mi><mo>&#x000B7;</mo><msub><mi>K</mi><mi>d</mi></msub><mo>&#x0002B;</mo><mover><mi>Z</mi><mo stretchy="true">&#x000AF;</mo></mover><mo>&#x000B7;</mo><mi>c</mi><mo>&#x000B7;</mo><mi>h</mi></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>c</mi></mrow></math> – cena jednostki, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>h</mi></mrow></math> – koszt utrzymania jako % wartości.</p><div class="tags"><a href="#z27">Ed. 27</a></div></div>
+</div>
+
+<h3 class="grp">F. Koszt kapitału i dźwignia finansowa</h3>
+<div class="fgrid">
+<div class="f"><h4>Model Gordona (koszt kapitału własnego)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>e</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub></mrow></mfrac><mo>&#x0002B;</mo><mi>g</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>&#x0003D;</mo><msub><mi>D</mi><mn>0</mn></msub><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x0002B;</mo><mi>g</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div></div>
+<p>Uwaga na <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>D</mi><mn>0</mn></msub></mrow></math> („ostatnio wypłacona”) vs <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow></math> („najbliższa/oczekiwana”).</p><div class="tags"><a href="#z30">Ed. 30</a><a href="#z34">Ed. 34</a></div></div>
+
+<div class="f"><h4>Koszt kapitału z nowej emisji</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>e</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub><mo>&#x02212;</mo><msub><mi>K</mi><mi>e</mi></msub></mrow></mfrac><mo>&#x0002B;</mo><mi>g</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>f</mi><mo stretchy="false">&#x00029;</mo></mrow></mfrac><mo>&#x0002B;</mo><mi>g</mi></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>f</mi></mrow></math> – koszty emisji jako % ceny.</p><div class="tags"><a href="#z34">Ed. 34</a></div></div>
+
+<div class="f"><h4>Koszt długu po opodatkowaniu i tarcza podatkowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mi>k</mi><mi>d</mi><mrow><mspace width="0.167em" /><mi>p</mi><mi>o</mi></mrow></msubsup><mo>&#x0003D;</mo><msub><mi>k</mi><mi>d</mi></msub><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>T</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>TP</mtext><mo>&#x0003D;</mo><mtext>odsetki</mtext><mo>&#x000B7;</mo><mi>T</mi></mrow></math></div></div>
+<div class="tags"><a href="#z26">Ed. 26</a></div></div>
+
+<div class="f wide"><h4>Średni ważony koszt kapitału (WACC)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>WACC</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>E</mi></mrow><mrow><mi>V</mi></mrow></mfrac><mspace width="0.167em" /><msub><mi>k</mi><mi>e</mi></msub><mo>&#x0002B;</mo><mfrac><mrow><mi>D</mi></mrow><mrow><mi>V</mi></mrow></mfrac><mspace width="0.167em" /><msub><mi>k</mi><mi>d</mi></msub><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>T</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>V</mi><mo>&#x0003D;</mo><mi>E</mi><mo>&#x0002B;</mo><mi>D</mi></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>E</mi></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math> – rynkowe wartości kapitału własnego i długu.</p><div class="tags"><a href="#z30">Ed. 30</a></div></div>
+
+<div class="f wide"><h4>Efekt dźwigni finansowej (wg klucza ed. 31)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>EDF</mtext><mo>&#x0003D;</mo><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>w</mi></mrow></msub><mo>&#x02212;</mo><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>c</mi></mrow></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>w</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mtext>KW</mtext></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>c</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext><mo>&#x0002B;</mo><mtext>odsetki</mtext><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>T</mi><mo stretchy="false">&#x00029;</mo></mrow><mrow><mtext>kapitał&#x000A0;całkowity</mtext></mrow></mfrac></mrow></math></div></div>
+<p>EDF &lt; 0 („maczuga finansowa”): koszt długu przewyższa rentowność kapitału całkowitego.</p><div class="tags"><a href="#z31">Ed. 31</a><a href="#z23">Ed. 23</a></div></div>
+
+<div class="f"><h4>Odtwarzanie kosztu długu z wyników</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>EBIT</mtext><mo>&#x0003D;</mo><mtext>ZN</mtext><mo>&#x0002B;</mo><mtext>odsetki</mtext><mo>&#x0002B;</mo><mtext>podatek</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>r</mi><mo>&#x000B7;</mo><mi>D</mi><mo>&#x0002B;</mo><mi>T</mi><mo stretchy="false">&#x00028;</mo><mtext>EBIT</mtext><mo>&#x02212;</mo><mi>r</mi><mo>&#x000B7;</mo><mi>D</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mtext>EBIT</mtext><mo>&#x02212;</mo><mtext>ZN</mtext></mrow></math></div></div>
+<div class="tags"><a href="#z23">Ed. 23</a></div></div>
+
+<div class="f"><h4>Pokrycie odsetek zyskiem</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZB</mtext><mo>&#x0002B;</mo><mtext>odsetki</mtext></mrow><mrow><mtext>odsetki</mtext></mrow></mfrac></mrow></math></div></div>
+<p>Ile razy zysk przed odsetkami i opodatkowaniem pokrywa odsetki.</p><div class="tags"><a href="#z36">Ed. 36</a></div></div>
+</div>
+
+<h3 class="grp">G. Finansowanie krótkoterminowe i wartość pieniądza w czasie</h3>
+<div class="fgrid">
+<div class="f wide"><h4>Efektywna roczna stopa procentowa</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>r</mi><mrow><mi>e</mi><mi>f</mi></mrow></msub><mo>&#x0003D;</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mfrac><mrow><mtext>kwota&#x000A0;do&#x000A0;zwrotu</mtext></mrow><mrow><mtext>kwota&#x000A0;faktycznie&#x000A0;otrzymana</mtext></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mrow><mfrac><mrow><mn>360</mn></mrow><mrow><mi>t</mi></mrow></mfrac></mrow></msup><mo>&#x02212;</mo><mn>1</mn></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>t</mi></mrow></math> – okres finansowania w dniach. Prowizje i odsetki pobierane z góry zmniejszają kwotę otrzymaną.</p><div class="tags"><a href="#z29">Ed. 29</a></div></div>
+
+<div class="f"><h4>Odsetki proste</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>O</mi><mo>&#x0003D;</mo><mi>K</mi><mo>&#x000B7;</mo><mi>r</mi><mo>&#x000B7;</mo><mfrac><mrow><mi>t</mi></mrow><mrow><mn>365</mn></mrow></mfrac><mtext>&#x000A0;</mtext><mtext>&#x000A0;lub&#x000A0;</mtext><mtext>&#x000A0;</mtext><mfrac><mrow><mi>t</mi></mrow><mrow><mn>360</mn></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z25">Ed. 25</a><a href="#z29">Ed. 29</a></div></div>
+
+<div class="f wide"><h4>Kredyt z odsetkami i opłatą pobranymi z góry</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>K</mi><mrow><mi>n</mi><mi>e</mi><mi>t</mi><mi>t</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mi>K</mi><mo>&#x02212;</mo><mi>K</mi><mo>&#x000B7;</mo><mi>r</mi><mo>&#x000B7;</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mi>t</mi></mrow><mrow><mn>360</mn></mrow></mfrac></mstyle><mo>&#x02212;</mo><mi>F</mi><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mi>K</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>K</mi><mrow><mi>n</mi><mi>e</mi><mi>t</mi><mi>t</mi><mi>o</mi></mrow></msub><mo>&#x0002B;</mo><mi>F</mi></mrow><mrow><mn>1</mn><mo>&#x02212;</mo><mi>r</mi><mo>&#x000B7;</mo><mi>t</mi><mo>&#x0002F;</mo><mn>360</mn></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z29">Ed. 29</a></div></div>
+
+<div class="f"><h4>Dyskonto weksla</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>d</mi></msub><mo>&#x0003D;</mo><msub><mi>W</mi><mi>n</mi></msub><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>d</mi><mo>&#x000B7;</mo><mfrac><mrow><mi>t</mi></mrow><mrow><mn>360</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>W</mi><mi>n</mi></msub></mrow></math> – wartość nominalna, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> – stopa dyskonta, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>t</mi></mrow></math> – dni do wykupu.</p><div class="tags"><a href="#z29">Ed. 29</a></div></div>
+
+<div class="f wide"><h4>Koszt skonta (rezygnacji ze skonta)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>s</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mi>s</mi></mrow><mrow><mn>1</mn><mo>&#x02212;</mo><mi>s</mi></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>r</mi><mrow><mi>e</mi><mi>f</mi></mrow></msub><mo>&#x0003D;</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mn>1</mn><mo>&#x0002B;</mo><mfrac><mrow><mi>s</mi></mrow><mrow><mn>1</mn><mo>&#x02212;</mo><mi>s</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mrow><mfrac><mrow><mn>360</mn></mrow><mrow><msub><mi>T</mi><mi>k</mi></msub><mo>&#x02212;</mo><msub><mi>T</mi><mi>s</mi></msub></mrow></mfrac></mrow></msup><mo>&#x02212;</mo><mn>1</mn></mrow></math></div></div>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>s</mi></mrow></math> – stopa skonta, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>k</mi></msub></mrow></math> – termin kredytu kupieckiego, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>s</mi></msub></mrow></math> – termin skonta.</p><div class="tags"><a href="#z29">Ed. 29</a></div></div>
+</div>
+
+<h3 class="grp">H. Rachunek kosztów i decyzje</h3>
+<div class="fgrid">
+<div class="f"><h4>Próg decyzji przy kosztach utopionych</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>n</mi><mrow><mo>&#x0002A;</mo></mrow></msup><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>K</mi><mrow><mi>c</mi><mi>a</mi><mi>ł</mi><mi>k</mi></mrow></msub><mo>&#x02212;</mo><msub><mi>K</mi><mrow><mi>u</mi><mi>t</mi><mi>o</mi><mi>p</mi></mrow></msub></mrow><mrow><mi>p</mi></mrow></mfrac></mrow></math></div></div>
+<p>Koszty utopione (poniesione nieodwołalnie) nie wpływają na decyzję – liczą się tylko koszty, których można uniknąć.</p><div class="tags"><a href="#z23">Ed. 23</a></div></div>
+
+<div class="f"><h4>Koszty i zysk ekonomiczny</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>K</mi><mrow><mi>e</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>K</mi><mrow><mi>k</mi><mi>s</mi><mi>i</mi><mi>ę</mi><mi>g</mi></mrow></msub><mo>&#x0002B;</mo><msub><mi>K</mi><mrow><mi>a</mi><mi>l</mi><mi>t</mi></mrow></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>Z</mi><mrow><mi>e</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mi>S</mi><mo>&#x02212;</mo><msub><mi>K</mi><mrow><mi>e</mi><mi>k</mi></mrow></msub></mrow></math></div></div>
+<p>Koszt alternatywny kapitału: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>K</mi><mo>&#x000B7;</mo><mi>r</mi><mo>&#x0002F;</mo><mn>12</mn></mrow></math> miesięcznie.</p><div class="tags"><a href="#z24">Ed. 24</a></div></div>
+
+<div class="f wide"><h4>Kredyt kupiecki – opłacalność</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mtext>EBIT</mtext><mo>&#x0003D;</mo><mi>&#x00394;</mi><mi>S</mi><mo>&#x02212;</mo><mi>&#x00394;</mi><msub><mi>K</mi><mi>Z</mi></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mover><mi>N</mi><mo stretchy="true">&#x000AF;</mo></mover><mrow><mi>b</mi><mi>r</mi><mi>u</mi><mi>t</mi><mi>t</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mi>&#x00394;</mi><mi>S</mi><mo>&#x000B7;</mo><mfrac><mrow><msub><mi>t</mi><mi>k</mi></msub></mrow><mrow><mi>T</mi></mrow></mfrac><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x0002B;</mo><mtext>VAT</mtext><mo stretchy="false">&#x00029;</mo></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mi>Z</mi><mo>&#x0003D;</mo><mi>&#x00394;</mi><mtext>EBIT</mtext><mo>&#x02212;</mo><mtext>odsetki&#x000A0;od&#x000A0;finansowania</mtext><mo>&#x02212;</mo><mtext>odpisy&#x000A0;na&#x000A0;nieściągalne</mtext></mrow></math></div></div>
+<div class="tags"><a href="#z25">Ed. 25</a></div></div>
+</div>
+
+<h3 class="grp">I. Rachunek zysków i strat</h3>
+<div class="fgrid">
+<div class="f wide"><h4>Kaskada wyników (układ kalkulacyjny, stan prawny z ed. 31)</h4>
+<div class="tw"><table class="dt casc">
+<tr><td>przychody netto ze sprzedaży − koszt własny sprzedaży</td><td>= <b>zysk ze sprzedaży</b></td></tr>
+<tr><td>+ pozostałe przychody operacyjne − pozostałe koszty operacyjne</td><td>= <b>zysk z działalności operacyjnej (EBIT)</b></td></tr>
+<tr><td>+ przychody finansowe − koszty finansowe</td><td>= <b>zysk (strata) brutto</b></td></tr>
+<tr><td>− podatek dochodowy</td><td>= <b>zysk (strata) netto</b></td></tr>
+</table></div>
+<p>Przed 2016 r. między zyskiem z działalności gospodarczej a zyskiem brutto występował „wynik zdarzeń nadzwyczajnych”.</p><div class="tags"><a href="#z31">Ed. 31</a></div></div>
+
+<div class="f wide"><h4>Koszt własny sprzedaży (kalkulacyjnie)</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KWS</mtext><mo>&#x0003D;</mo><mtext>zakładowy&#x000A0;koszt&#x000A0;wytworzenia</mtext><mo>&#x0002B;</mo><mtext>koszty&#x000A0;sprzedaży</mtext></mrow></math></div></div>
+<p>Zakładowy k.w. = techniczny k.w. (bezpośrednie + wydziałowe) + koszty ogólnego zarządu.</p><div class="tags"><a href="#z31">Ed. 31</a></div></div>
+
+<div class="f"><h4>Koszty rodzajowe (układ porównawczy)</h4>
+<p class="list">amortyzacja · zużycie materiałów i energii · usługi obce · podatki i opłaty · wynagrodzenia · ubezpieczenia społeczne i inne świadczenia · pozostałe koszty rodzajowe (+ osobno: wartość sprzedanych towarów i materiałów)</p><div class="tags"><a href="#z36">Ed. 36</a></div></div>
+
+<div class="f"><h4>EBITDA</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>EBITDA</mtext><mo>&#x0003D;</mo><mtext>EBIT</mtext><mo>&#x0002B;</mo><mtext>amortyzacja</mtext></mrow></math></div></div>
+<p>Nie jest miarą wolnych przepływów (pomija capex i zmianę KON).</p><div class="tags"><a href="#z37">Ed. 37</a></div></div>
+</div>
+
+<h3 class="grp">J. Dynamika i struktura</h3>
+<div class="fgrid">
+<div class="f"><h4>Odchylenie i wskaźnik dynamiki</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mo>&#x0003D;</mo><msub><mi>X</mi><mn>1</mn></msub><mo>&#x02212;</mo><msub><mi>X</mi><mn>0</mn></msub></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>I</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>X</mi><mn>1</mn></msub></mrow><mrow><msub><mi>X</mi><mn>0</mn></msub></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<div class="tags"><a href="#z36">Ed. 36</a><a href="#z21">Ed. 21</a></div></div>
+
+<div class="f"><h4>Dynamika realna i wartość w cenach bazowych</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>I</mi><mrow><mi>r</mi><mi>e</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>I</mi><mrow><mi>n</mi><mi>o</mi><mi>m</mi></mrow></msub></mrow><mrow><msub><mi>I</mi><mrow><mi>c</mi><mi>e</mi><mi>n</mi></mrow></msub></mrow></mfrac></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>X</mi><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></msup><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>X</mi><mn>1</mn></msub></mrow><mrow><msub><mi>I</mi><mrow><mi>c</mi><mi>e</mi><mi>n</mi></mrow></msub></mrow></mfrac></mrow></math></div></div>
+<div class="tags"><a href="#z21">Ed. 21</a></div></div>
+
+<div class="f"><h4>Wskaźnik struktury</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><mrow><mo>&#x02211;</mo><mi>x</mi></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<div class="tags"><a href="#z21">Ed. 21</a></div></div>
+</div>
+</section>
+<section class="block" id="rozwiazania">
+<h2 class="sec"><span>Rozwiązania krok po kroku</span><small>edycja po edycji; punktacja w nawiasach według arkusza</small></h2>
+<p class="lead">Każde zadanie zawiera: zwięzłe dane, polecenie z punktacją, obliczenia z wzorem ogólnym i podstawieniem, wynik oraz interpretację. W edycji XXII arkusz nie zawierał zadania z analizy finansowej (część II była pytaniem opisowym do artykułu prasowego) – dlatego jej tu nie ma.</p>
+
+<!-- ========== 21 ========== -->
+<article class="task" id="z21">
+<h3 class="th">Edycja 21 (XXI) · 2007/2008</h3>
+<p class="meta"><b>Zadanie sprawdzające umiejętność korzystania z danych statystycznych (0–10 pkt)</b> · prekursor zadania finansowego · temat: struktura i dynamika wydatków gospodarstw domowych (GUS, 1999 i 2006)</p>
+<div class="given"><div class="tw"><table class="dt">
+<tr><th>Grupa wydatków (na 1 osobę, mies.)</th><th class="n">1999</th><th class="n">2006</th><th class="n">Str. 1999</th><th class="n">Str. 2006</th><th class="n">Dyn. (1999=100)</th></tr>
+<tr><td>Żywność i napoje bezalkoholowe</td><td class="n">171 zł</td><td class="n">202 zł</td><td class="n">32,26%</td><td class="n">28,33%</td><td class="n">118,13</td></tr>
+<tr><td>Odzież i obuwie</td><td class="n">34 zł</td><td class="n">40 zł</td><td class="n">6,42%</td><td class="n">5,61%</td><td class="n">117,65</td></tr>
+<tr><td>Mieszkanie, nośniki energii, wyposażenie</td><td class="n">136 zł</td><td class="n">185 zł</td><td class="n">25,66%</td><td class="n">25,95%</td><td class="n">136,03</td></tr>
+<tr><td>Zdrowie, rekreacja i kultura, edukacja</td><td class="n">68 zł</td><td class="n">100 zł</td><td class="n">12,83%</td><td class="n">14,03%</td><td class="n">147,06</td></tr>
+<tr><td>Transport i łączność</td><td class="n">66 zł</td><td class="n">104 zł</td><td class="n">12,45%</td><td class="n">14,59%</td><td class="n">157,58</td></tr>
+<tr><td>Pozostałe wydatki konsumpcyjne</td><td class="n">55 zł</td><td class="n">82 zł</td><td class="n">10,38%</td><td class="n">11,50%</td><td class="n">149,09</td></tr>
+<tr class="hl"><td>Ogółem</td><td class="n">530 zł</td><td class="n">713 zł</td><td class="n">100%</td><td class="n">100%</td><td class="n">134,53</td></tr>
+</table></div><p>Tabela w postaci kompletnej (w arkuszu część pól była pusta). Dodatkowo: ceny w 2006 r. były o 27% wyższe niż w 1999 r.</p></div>
+
+<div class="step"><h4>1. Uzupełnienie tabeli – reguły liczenia</h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>w</mi><mrow><mi>i</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><mrow><mtext>ogółem</mtext></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>I</mi><mi>i</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>x</mi><mrow><mi>i</mi><mo>&#x0002C;</mo><mn>2006</mn></mrow></msub></mrow><mrow><msub><mi>x</mi><mrow><mi>i</mi><mo>&#x0002C;</mo><mn>1999</mn></mrow></msub></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn></mrow></math></div></div>
+<p>Przykład kontrolny: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mrow><mn>202</mn></mrow><mrow><mn>713</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi><mo>&#x0003D;</mo><mn>28,33</mn><mi>&#x00025;</mi></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mrow><mn>713</mn></mrow><mrow><mn>530</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>134,53</mn></mrow></math>. Każdą brakującą kwotę odtwarza się z dynamiki: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mrow><mn>2006</mn></mrow></msub><mo>&#x0003D;</mo><msub><mi>x</mi><mrow><mn>1999</mn></mrow></msub><mo>&#x000B7;</mo><mi>I</mi><mo>&#x0002F;</mo><mn>100</mn></mrow></math> (zaokrąglenie do pełnych złotych).</p></div>
+
+<div class="step"><h4>2a–c. Odczyt struktury i dynamiki <span class="pk">(3 × 2 pkt)</span></h4>
+<p>a) udział wydatków na zdrowie, rekreację, kulturę i edukację w 2006 r.: <span class="res">14,03%</span></p>
+<p>b) wydatki mieszkaniowe wzrosły o <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>136,03</mn><mo>&#x02212;</mo><mn>100</mn><mo>&#x0003D;</mo></mrow></math> <span class="res">36,03%</span></p>
+<p>c) najwyższa dynamika: <span class="res">transport i łączność – 157,58%</span></p></div>
+
+<div class="step"><h4>2d. Realny wzrost wydatków ogółem <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>I</mi><mrow><mi>r</mi><mi>e</mi><mi>a</mi><mi>l</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>I</mi><mrow><mi>n</mi><mi>o</mi><mi>m</mi></mrow></msub></mrow><mrow><msub><mi>I</mi><mrow><mi>c</mi><mi>e</mi><mi>n</mi></mrow></msub></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>1,3453</mn></mrow><mrow><mn>1,27</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>1,0593</mn></mrow></math></div></div>
+<p>Wydatki ogółem wzrosły realnie o <span class="res">5,93%</span>. Nie wolno odejmować (34,53% − 27% = 7,53% to przybliżenie zawyżające wynik).</p></div>
+
+<div class="step"><h4>2e. Odzież i obuwie w cenach z 1999 r. <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>X</mi><mrow><mo stretchy="false">&#x00028;</mo><mn>1999</mn><mo stretchy="false">&#x00029;</mo></mrow></msup><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>X</mi><mrow><mn>2006</mn></mrow></msub></mrow><mrow><msub><mi>I</mi><mrow><mi>c</mi><mi>e</mi><mi>n</mi></mrow></msub></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>40</mn></mrow><mrow><mn>1,27</mn></mrow></mfrac><mo>&#x02248;</mo><mn>31,50</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div>
+<p><span class="res">31,50 zł</span> – realnie wydatki na odzież spadły w porównaniu z 34 zł w 1999 r.</p></div>
+<div class="note"><b class="t">Pułapka:</b> „wzrost o X%” = dynamika − 100, a deflowanie to <b>dzielenie</b> przez indeks cen, nie odejmowanie stopy inflacji.</div>
+</article>
+
+<!-- ========== 23 ========== -->
+<article class="task" id="z23">
+<h3 class="th">Edycja 23 (XXIII) · 2009/2010</h3>
+<p class="meta"><b>Biuro turystyczne</b> · koszty utopione · ROA/ROE · koszt długu i dźwignia finansowa</p>
+<div class="given"><p>Wycieczka: kierowca 100 € (koszt utopiony), autokar 500 € (z czego 50 € zaliczki przepada przy odwołaniu), autostrady i parkingi 75 €; cena biletu 25 €.</p>
+<p>Biuro: sprzedaż 100 000 €, aktywa 50 000 €, ROS 10%, mnożnik KW 1,25; EBIT 14 000 €; CIT 20%.</p></div>
+
+<div class="step"><h4>1. Minimalna liczba uczestników <span class="pk">(5 pkt)</span></h4>
+<p>Decyzję o odwołaniu podejmuje się na podstawie kosztów, których można jeszcze uniknąć. Utopione: kierowca 100 € + zaliczka 50 € = 150 €.</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>n</mi><mrow><mo>&#x0002A;</mo></mrow></msup><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>K</mi><mrow><mi>c</mi><mi>a</mi><mi>ł</mi><mi>k</mi></mrow></msub><mo>&#x02212;</mo><msub><mi>K</mi><mrow><mi>u</mi><mi>t</mi><mi>o</mi><mi>p</mi></mrow></msub></mrow><mrow><mi>p</mi></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mo stretchy="false">&#x00028;</mo><mn>100</mn><mo>&#x0002B;</mo><mn>500</mn><mo>&#x0002B;</mo><mn>75</mn><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mn>150</mn></mrow><mrow><mn>25</mn></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>525</mn></mrow><mrow><mn>25</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>21</mn></mrow></math></div></div>
+<p><span class="res">co najmniej 21 osób</span> – przy 21 biletach strata równa się kosztom utopionym, więc odwołanie niczego nie poprawia; przy mniejszej liczbie odwołanie ogranicza stratę.</p></div>
+
+<div class="step"><h4>2. ROA i ROE <span class="pk">(5 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ZN</mtext><mo>&#x0003D;</mo><mtext>ROS</mtext><mo>&#x000B7;</mo><mi>S</mi><mo>&#x0003D;</mo><mn>0,1</mn><mo>&#x000B7;</mo><mn>100 000</mn><mo>&#x0003D;</mo><mn>10 000</mn><mtext>&#x000A0;</mtext><mtext>€</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KW</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>A</mi></mrow><mrow><mtext>MKW</mtext></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>50 000</mn></mrow><mrow><mn>1,25</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>40 000</mn><mtext>&#x000A0;</mtext><mtext>€</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROA</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>10 000</mn></mrow><mrow><mn>50 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>20</mn><mi>&#x00025;</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>10 000</mn></mrow><mrow><mn>40 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>25</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p><span class="res">ROA = 20%</span> <span class="res">ROE = 25%</span> (kontrola: ROE = ROA · MKW = 20% · 1,25).</p></div>
+
+<div class="step"><h4>3. Kredyt czy kapitał własny? Koszt długu <span class="pk">(5 pkt)</span></h4>
+<p>Dług: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi><mo>&#x0003D;</mo><mi>A</mi><mo>&#x02212;</mo><mtext>KW</mtext><mo>&#x0003D;</mo><mn>10 000</mn></mrow></math> €. Różnica EBIT − ZN = odsetki + podatek:</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>10 000</mn><mspace width="0.167em" /><mi>r</mi><mo>&#x0002B;</mo><mn>0,2</mn><mspace width="0.167em" /><mo stretchy="false">&#x00028;</mo><mn>14 000</mn><mo>&#x02212;</mo><mn>10 000</mn><mspace width="0.167em" /><mi>r</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>14 000</mn><mo>&#x02212;</mo><mn>10 000</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mn>8 000</mn><mspace width="0.167em" /><mi>r</mi><mo>&#x0003D;</mo><mn>1 200</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mi>r</mi><mo>&#x0003D;</mo><mn>15</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p><span class="res">koszt kredytu r = 15%</span>. Rentowność majątku przed odsetkami i podatkiem <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mtext>EBIT</mtext><mo>&#x0002F;</mo><mi>A</mi><mo>&#x0003D;</mo><mn>28</mn><mi>&#x00025;</mi></mrow></math> przewyższa koszt długu 15% (po opodatkowaniu 12%), więc finansowanie ekspansji kredytem podniesie ROE – działa <b>dodatnia dźwignia finansowa</b>. Rekomendacja: <b>kredyt</b>.</p>
+<div class="note key"><b class="t">Uwaga do klucza:</b> klucz porównuje koszt długu z ROA liczonym od zysku netto (20%). Poprawniejsze porównanie to EBIT/A (28%) vs r (15%) albo r(1−T) = 12% vs ROE; wniosek jest ten sam.</div></div>
+</article>
+
+<!-- ========== 24 ========== -->
+<article class="task" id="z24">
+<h3 class="th">Edycja 24 (XXIV) · 2010/2011</h3>
+<p class="meta"><b>Sklep internetowy dwóch przyjaciół</b> · koszty księgowe vs ekonomiczne · cykl inkasa</p>
+<div class="given"><p>Miesięcznie: przychody 60 tys. zł; łącza 10 tys.; sekretarka i konsultanci 30 tys.; pozostałe 6 tys.; biuro rachunkowe 2 tys.; średnie należności 25 tys. zł.</p>
+<p>Koszty alternatywne: utracone pensje 6 tys. i 5,5 tys.; czynsz, który dałby własny lokal, 3,5 tys.; kapitał obrotowy 150 tys. zł przy rocznej stopie 4%.</p></div>
+
+<div class="step"><h4>1–2. Koszty i zysk księgowy <span class="pk">(1 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>K</mi><mrow><mi>k</mi><mi>s</mi><mi>i</mi><mi>ę</mi><mi>g</mi></mrow></msub><mo>&#x0003D;</mo><mn>10</mn><mo>&#x0002B;</mo><mn>30</mn><mo>&#x0002B;</mo><mn>6</mn><mo>&#x0002B;</mo><mn>2</mn><mo>&#x0003D;</mo><mn>48</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>Z</mi><mrow><mi>k</mi><mi>s</mi><mi>i</mi><mi>ę</mi><mi>g</mi></mrow></msub><mo>&#x0003D;</mo><mn>60</mn><mo>&#x02212;</mo><mn>48</mn><mo>&#x0003D;</mo><mn>12</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>3. Cykl inkasa należności <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>30</mn><mo>&#x000B7;</mo><mn>25</mn></mrow><mrow><mn>60</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>12,5</mn><mtext>&#x000A0;</mtext><mtext>dnia</mtext></mrow></math></div></div>
+<p><span class="res">12,5 dnia</span> (okres miesięczny = 30 dni, przychody miesięczne).</p></div>
+
+<div class="step"><h4>4–5. Koszty alternatywne i ekonomiczne <span class="pk">(3 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>K</mi><mrow><mi>a</mi><mi>l</mi><mi>t</mi></mrow></msub><mo>&#x0003D;</mo><mn>6</mn><mo>&#x0002B;</mo><mn>5,5</mn><mo>&#x0002B;</mo><mn>3,5</mn><mo>&#x0002B;</mo><mn>150</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>0,04</mn></mrow><mrow><mn>12</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>15</mn><mo>&#x0002B;</mo><mn>0,5</mn><mo>&#x0003D;</mo><mn>15,5</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>K</mi><mrow><mi>e</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mn>48</mn><mo>&#x0002B;</mo><mn>15,5</mn><mo>&#x0003D;</mo><mn>63,5</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div></div>
+<p>Wartość lokalu (700 tys.) nie wchodzi do rachunku – liczy się utracony czynsz (unikamy podwójnego liczenia).</p></div>
+
+<div class="step"><h4>6. Czy kontynuować? <span class="pk">(5 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>Z</mi><mrow><mi>e</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mn>60</mn><mo>&#x02212;</mo><mn>63,5</mn><mo>&#x0003D;</mo><mo>&#x02212;</mo><mn>3,5</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div></div>
+<p><span class="res">zysk ekonomiczny −3,5 tys. zł/mies. → zrezygnować</span>. Etat w administracji + wynajem lokalu + lokata kapitału dałyby 15,5 tys. zł zamiast 12 tys. zł zysku księgowego.</p></div>
+<div class="note"><b class="t">Pułapka:</b> dodatni zysk księgowy nie uzasadnia działalności; decyduje zysk ekonomiczny (po kosztach alternatywnych).</div>
+</article>
+
+<!-- ========== 25 ========== -->
+<article class="task" id="z25">
+<h3 class="th">Edycja 25 (XXV) · 2011/2012</h3>
+<p class="meta"><b>Hurtownia chemii gospodarczej</b> · wprowadzenie kredytu kupieckiego · VAT · koszt finansowania</p>
+<div class="given"><p>Kwartał (90 dni): sprzedaż netto 1 500 000 zł, koszty zmienne 1 125 000 zł (75% sprzedaży), VAT 23%. Odroczony termin 20 dni zwiększy sprzedaż o 20%. Zakupy dodatkowego towaru finansowane linią kredytową 15% rocznie. Ściągalność wierzytelności z kredytu kupieckiego: 95%.</p></div>
+
+<div class="step"><h4>1–3. Przyrost sprzedaży, kosztów, zysku <span class="pk">(1 + 2 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mi>S</mi><mo>&#x0003D;</mo><mn>0,2</mn><mo>&#x000B7;</mo><mn>1 500 000</mn><mo>&#x0003D;</mo><mn>300 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><msub><mi>K</mi><mi>Z</mi></msub><mo>&#x0003D;</mo><mn>0,2</mn><mo>&#x000B7;</mo><mn>1 125 000</mn><mo>&#x0003D;</mo><mn>225 000</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mtext>EBIT</mtext><mo>&#x0003D;</mo><mn>300 000</mn><mo>&#x02212;</mo><mn>225 000</mn><mo>&#x0003D;</mo><mn>75 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div>
+<p>(z VAT: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00394;</mi><msub><mi>K</mi><mi>Z</mi></msub><mo>&#x0003D;</mo><mn>276 750</mn></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00394;</mi><mtext>EBIT</mtext><mo>&#x0003D;</mo><mn>92 250</mn></mrow></math> – klucz akceptuje obie wersje).</p></div>
+
+<div class="step"><h4>4. Przeciętne należności brutto <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>N</mi><mo stretchy="true">&#x000AF;</mo></mover><mo>&#x0003D;</mo><mi>&#x00394;</mi><mi>S</mi><mo>&#x000B7;</mo><mfrac><mrow><msub><mi>t</mi><mi>k</mi></msub></mrow><mrow><mi>T</mi></mrow></mfrac><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x0002B;</mo><mtext>VAT</mtext><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>300 000</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>20</mn></mrow><mrow><mn>90</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>1,23</mn><mo>&#x0003D;</mo><mn>82 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>5. Przeciętna wysokość linii kredytowej <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>L</mi><mo>&#x0003D;</mo><mn>82 000</mn><mo>&#x000B7;</mo><mn>0,75</mn><mo>&#x0003D;</mo><mn>61 500</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext><mspace width="1em" /><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mo>&#x0003D;</mo><mn>276 750</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>20</mn></mrow><mrow><mn>90</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow></mrow></math></div></div>
+<p>Finansujemy tylko koszt zakupu towaru (75% ceny), nie marżę.</p></div>
+
+<div class="step"><h4>6. Odsetki kwartalne <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>O</mi><mo>&#x0003D;</mo><mn>61 500</mn><mo>&#x000B7;</mo><mn>0,15</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>90</mn></mrow><mrow><mn>365</mn></mrow></mfrac><mo>&#x02248;</mo><mn>2 274,66</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>7. Opłacalność przy 95% ściągalności <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mi>Z</mi><mo>&#x0003D;</mo><mn>75 000</mn><mo>&#x02212;</mo><mn>2 274,66</mn><mo>&#x02212;</mo><munder><munder><mrow><mn>0,05</mn><mo>&#x000B7;</mo><mn>300 000</mn></mrow><mo>&#x23DF;</mo></munder><mrow><mn>15 000</mn></mrow></munder><mo>&#x02248;</mo><mn>57 725</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext><mo>&#x0003E;</mo><mn>0</mn></mrow></math></div></div>
+<p><span class="res">decyzja opłacalna</span> – nawet po kosztach finansowania i odpisach zysk rośnie.</p></div>
+<div class="note"><b class="t">Pułapka:</b> należności liczone są <b>brutto</b> (klient płaci z VAT), ale odpisy na nieściągalne – od wartości netto (tak w kluczu).</div>
+</article>
+
+<!-- ========== 26 ========== -->
+<article class="task" id="z26">
+<h3 class="th">Edycja 26 (XXVI) · 2012/2013</h3>
+<p class="meta"><b>Przedsiębiorstwo budowlane „Cegiełka”</b> · warianty finansowania · tarcza podatkowa · ROE</p>
+<div class="given"><p>Kontrakt 2 mln zł, koszty 1,6 mln zł. Wariant I: 100% kapitału własnego. Wariant II: 50% KW + 50% kredytu (koszt 10%), a uwolnione 800 tys. zł KW idzie na projekt dodatkowy o rentowności sprzedaży brutto 20%. CIT 20%.</p></div>
+
+<div class="step"><h4>1. Wynik finansowy netto <span class="pk">(6 pkt)</span></h4>
+<p>Przychód projektu dodatkowego: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>800 000</mn></mrow><mrow><mn>1</mn><mo>&#x02212;</mo><mn>0,2</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>1 000 000</mn></mrow></math> zł.</p>
+<div class="tw"><table class="dt">
+<tr><th></th><th class="n">Wariant I</th><th class="n">II – projekt główny</th><th class="n">II – projekt dodatkowy</th></tr>
+<tr><td>Przychody</td><td class="n">2 000 000</td><td class="n">2 000 000</td><td class="n">1 000 000</td></tr>
+<tr><td>Koszty</td><td class="n">1 600 000</td><td class="n">1 600 000</td><td class="n">800 000</td></tr>
+<tr><td>EBIT</td><td class="n">400 000</td><td class="n">400 000</td><td class="n">200 000</td></tr>
+<tr><td>Odsetki (10% · 800 000)</td><td class="n">0</td><td class="n">80 000</td><td class="n">0</td></tr>
+<tr><td>CIT 20%</td><td class="n">80 000</td><td class="n">64 000</td><td class="n">40 000</td></tr>
+<tr class="hl"><td>Zysk netto</td><td class="n">320 000</td><td class="n">256 000</td><td class="n">160 000</td></tr>
+</table></div>
+<p><span class="res">ZN I = 320 000 zł</span> <span class="res">ZN II = 256 000 + 160 000 = 416 000 zł</span></p></div>
+
+<div class="step"><h4>2. Efektywny koszt kredytu <span class="pk">(1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mi>k</mi><mi>d</mi><mrow><mspace width="0.167em" /><mi>p</mi><mi>o</mi></mrow></msubsup><mo>&#x0003D;</mo><mn>10</mn><mi>&#x00025;</mi><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mn>0,2</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>8</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+
+<div class="step"><h4>3. Tarcza podatkowa <span class="pk">(2 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>TP</mtext><mo>&#x0003D;</mo><mn>80 000</mn><mo>&#x000B7;</mo><mn>0,2</mn><mo>&#x0003D;</mo><mn>16 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext><mspace width="0.278em" /><mspace width="0.278em" /><mo stretchy="false">&#x00028;</mo><mo>&#x0003D;</mo><mn>80 000</mn><mo>&#x02212;</mo><mn>64 000</mn><mo stretchy="false">&#x00029;</mo></mrow></math></div></div>
+<p>Odsetki są kosztem uzyskania przychodu – obniżają podstawę opodatkowania, a więc podatek o odsetki × T.</p></div>
+
+<div class="step"><h4>4. Rekomendacja <span class="pk">(4 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>ROE</mtext><mi>I</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>320 000</mn></mrow><mrow><mn>1 600 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>20</mn><mi>&#x00025;</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>ROE</mtext><mrow><mi>I</mi><mi>I</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>416 000</mn></mrow><mrow><mn>1 600 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>26</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p><span class="res">wariant II</span> – wyższy zysk i ROE (koszt długu po podatku 8% &lt; rentowność zaangażowanego kapitału).</p></div>
+</article>
+
+<!-- ========== 27 ========== -->
+<article class="task" id="z27">
+<h3 class="th">Edycja 27 (XXVII) · 2013/2014</h3>
+<p class="meta"><b>Producent oliwy</b> · zapas rezerwowy · średni zapas · koszty · punkt zamówienia · EOQ</p>
+<div class="given"><p>Roczne zużycie 120 000 kg; 8 dostaw po 15 000 kg; zapas max 16 000 kg, rezerwowy 1 000 kg; transport 1 500 € za dostawę; cena 20 €/kg; koszt utrzymania 20% wartości rocznie; rok = 360 dni.</p></div>
+
+<div class="step"><h4>1. Na ile dni starcza zapas rezerwowy <span class="pk">(1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>d</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>120 000</mn></mrow><mrow><mn>360</mn></mrow></mfrac><mo>&#x02248;</mo><mn>333,33</mn><mtext>&#x000A0;</mtext><mtext>kg/dzień</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mfrac><mrow><mn>1 000</mn></mrow><mrow><mn>333,33</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>3</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>2. Średni zapas <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>Z</mi><mo stretchy="true">&#x000AF;</mo></mover><mo>&#x0003D;</mo><mfrac><mrow><mn>16 000</mn><mo>&#x02212;</mo><mn>1 000</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002B;</mo><mn>1 000</mn><mo>&#x0003D;</mo><mn>8 500</mn><mtext>&#x000A0;</mtext><mtext>kg</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>3. Roczne koszty transportu i utrzymania <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>K</mi><mo>&#x0003D;</mo><mn>8</mn><mo>&#x000B7;</mo><mn>1 500</mn><mo>&#x0002B;</mo><mn>8 500</mn><mo>&#x000B7;</mo><mn>20</mn><mo>&#x000B7;</mo><mn>0,2</mn><mo>&#x0003D;</mo><mn>12 000</mn><mo>&#x0002B;</mo><mn>34 000</mn><mo>&#x0003D;</mo><mn>46 000</mn><mtext>&#x000A0;</mtext><mtext>€</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>4. Poziom zapasu przy składaniu zamówienia <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mover><mi>t</mi><mo stretchy="true">&#x000AF;</mo></mover><mi>d</mi></msub><mo>&#x0003D;</mo><mn>0,7</mn><mo>&#x000B7;</mo><mn>5</mn><mo>&#x0002B;</mo><mn>0,2</mn><mo>&#x000B7;</mo><mn>8</mn><mo>&#x0002B;</mo><mn>0,1</mn><mo>&#x000B7;</mo><mn>9</mn><mo>&#x0003D;</mo><mn>6</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>PZ</mtext><mo>&#x0003D;</mo><mn>6</mn><mo>&#x000B7;</mo><mn>333,33</mn><mo>&#x0002B;</mo><mn>1 000</mn><mo>&#x0003D;</mo><mn>3 000</mn><mtext>&#x000A0;</mtext><mtext>kg</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>5. Optymalna dostawa i liczba dostaw <span class="pk">(4 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>Q</mi><mrow><mo>&#x0002A;</mo></mrow></msup><mo>&#x0003D;</mo><msqrt><mrow><mfrac><mrow><mn>2</mn><mo>&#x000B7;</mo><mn>120 000</mn><mo>&#x000B7;</mo><mn>1 500</mn></mrow><mrow><mn>20</mn><mo>&#x000B7;</mo><mn>0,2</mn></mrow></mfrac></mrow></msqrt><mo>&#x0003D;</mo><msqrt><mrow><mn>90 000 000</mn></mrow></msqrt><mo>&#x02248;</mo><mn>9 486,83</mn><mtext>&#x000A0;</mtext><mtext>kg</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>n</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>120 000</mn></mrow><mrow><mn>9 486,83</mn></mrow></mfrac><mo>&#x02248;</mo><mn>12,65</mn><mspace width="0.278em" /><mo>&#x02192;</mo><mspace width="0.278em" /><mn>13</mn><mtext>&#x000A0;</mtext><mtext>dostaw</mtext></mrow></math></div></div>
+<div class="note key"><b class="t">Uwaga do klucza:</b> klucz podaje 9 486 kg; przy zaokrągleniu „do liczb całkowitych” matematycznie poprawne jest 9 487 kg. Obie wartości powinny zostać uznane – w arkuszu warto dopisać wynik niezaokrąglony.</div></div>
+
+<div class="step"><h4>6. Spadek stóp procentowych <span class="pk">(2 pkt)</span></h4>
+<p>Tańszy kapitał ⇒ niższy <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>k</mi><mi>u</mi></msub></mrow></math> (mianownik EOQ) ⇒ <b>większe</b> pojedyncze dostawy i <b>rzadsze</b> zamówienia.</p></div>
+</article>
+
+<!-- ========== 28 ========== -->
+<article class="task" id="z28">
+<h3 class="th">Edycja 28 (XXVIII) · 2014/2015</h3>
+<p class="meta"><b>Firma z branży stalowej</b> · cykle rotacji · równowaga bilansowa · polityka należności</p>
+<div class="given"><p>Przychody 4 380 000 zł; KON 20 000 zł; kredyt krótkoterminowy 300 000 zł; gotówka 20 000 zł; cykl zapasów 35 dni; cykl zobowiązań (bez kredytów) 60 dni; zobowiązania przeterminowane 15%. Odbiorcy: 10% płaci po 90 dniach, 20% po 60, 20% po 45 (terminów nie można zmienić). Rok = 365 dni.</p></div>
+
+<div class="step"><h4>1. Średnie zapasy i zobowiązania <span class="pk">(3 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>zapasy</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>35</mn><mo>&#x000B7;</mo><mn>4 380 000</mn></mrow><mrow><mn>365</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>420 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>zobowiązania</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>60</mn><mo>&#x000B7;</mo><mn>4 380 000</mn></mrow><mrow><mn>365</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>720 000</mn></mrow></math></div></div></div>
+
+<div class="step"><h4>2. Należności z równowagi bilansowej <span class="pk">(2 pkt)</span></h4>
+<p>Z definicji KON = AO − ZK, więc aktywa obrotowe = KON + wszystkie zobowiązania krótkoterminowe (kredyt + zobowiązania handlowe):</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AO</mtext><mo>&#x0003D;</mo><mn>20 000</mn><mo>&#x0002B;</mo><mn>300 000</mn><mo>&#x0002B;</mo><mn>720 000</mn><mo>&#x0003D;</mo><mn>1 040 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>N</mi><mo>&#x0003D;</mo><mtext>AO</mtext><mo>&#x02212;</mo><mtext>gotówka</mtext><mo>&#x02212;</mo><mtext>zapasy</mtext><mo>&#x0003D;</mo><mn>1 040 000</mn><mo>&#x02212;</mo><mn>20 000</mn><mo>&#x02212;</mo><mn>420 000</mn><mo>&#x0003D;</mo><mn>600 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>3. Termin płatności pozostałych odbiorców <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>600 000</mn><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mn>4 380 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>50</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0,1</mn><mo>&#x000B7;</mo><mn>90</mn><mo>&#x0002B;</mo><mn>0,2</mn><mo>&#x000B7;</mo><mn>60</mn><mo>&#x0002B;</mo><mn>0,2</mn><mo>&#x000B7;</mo><mn>45</mn><mo>&#x0002B;</mo><mn>0,5</mn><mspace width="0.167em" /><mi>D</mi><mo>&#x0003D;</mo><mn>50</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mn>30</mn><mo>&#x0002B;</mo><mn>0,5</mn><mi>D</mi><mo>&#x0003D;</mo><mn>50</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mi>D</mi><mo>&#x0003D;</mo><mn>40</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>4. O ile skrócić termin, by płacić w terminie <span class="pk">(4 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>przeterminowane</mtext><mo>&#x0003D;</mo><mn>0,15</mn><mo>&#x000B7;</mo><mn>720 000</mn><mo>&#x0003D;</mo><mn>108 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>108 000</mn><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mn>4 380 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>9</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>30</mn><mo>&#x0002B;</mo><mn>0,5</mn><mspace width="0.167em" /><msup><mi>D</mi><mi>&#x02032;</mi></msup><mo>&#x0003D;</mo><mn>41</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><msup><mi>D</mi><mi>&#x02032;</mi></msup><mo>&#x0003D;</mo><mn>22</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>D</mi><mo>&#x02212;</mo><msup><mi>D</mi><mi>&#x02032;</mi></msup><mo>&#x0003D;</mo><mn>40</mn><mo>&#x02212;</mo><mn>22</mn><mo>&#x0003D;</mo><mn>18</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div>
+<p><span class="res">skrócenie o 18 dni</span> – bo tylko połowa odbiorców podlega zmianie, więc skrócenie średniej o 9 dni wymaga dwukrotnie większego skrócenia ich terminu.</p></div>
+<div class="note"><b class="t">Pułapka:</b> odpowiedź „9 dni” jest błędna – to zmiana średniej, a nie terminu dla pozostałych 50% odbiorców.</div>
+</article>
+
+<!-- ========== 29 ========== -->
+<article class="task" id="z29">
+<h3 class="th">Edycja 29 (XXIX) · 2015/2016</h3>
+<p class="meta"><b>Finansowanie działalności operacyjnej</b> · kredyt z prowizją · SKOK · dyskonto weksli · faktoring · skonto · stopa efektywna</p>
+<div class="given"><p>Miesiąc = 30 dni, rok = 360 dni. Pięć wariantów pozyskania ok. 4 mln zł na 6 miesięcy lub krócej.</p></div>
+
+<div class="step"><h4>1. Kredyt bankowy: 4 mln zł, 6 mies., 9%, prowizja 2% z góry <span class="pk">(2 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>prowizja</mtext><mo>&#x0003D;</mo><mn>0,02</mn><mo>&#x000B7;</mo><mn>4 000 000</mn><mo>&#x0003D;</mo><mn>80 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>O</mi><mo>&#x0003D;</mo><mn>4 000 000</mn><mo>&#x000B7;</mo><mn>0,09</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>180</mn></mrow><mrow><mn>360</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>180 000</mn></mrow></math></div></div>
+<p>Koszt łączny <span class="res">260 000 zł</span>. Otrzymujemy 3 920 000 zł, zwracamy 4 180 000 zł po pół roku:</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>r</mi><mrow><mi>e</mi><mi>f</mi></mrow></msub><mo>&#x0003D;</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mfrac><mrow><mn>4 180 000</mn></mrow><mrow><mn>3 920 000</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mrow><mn>2</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x02248;</mo><mn>13,71</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+
+<div class="step"><h4>2. SKOK: 10%, odsetki za cały okres i opłata 50 tys. pobrane z góry <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>K</mi><mo>&#x02212;</mo><mi>K</mi><mo>&#x000B7;</mo><mn>0,1</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>180</mn></mrow><mrow><mn>360</mn></mrow></mfrac><mo>&#x02212;</mo><mn>50 000</mn><mo>&#x0003D;</mo><mn>4 000 000</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mn>0,95</mn><mspace width="0.167em" /><mi>K</mi><mo>&#x0003D;</mo><mn>4 050 000</mn><mspace width="0.278em" /><mo>&#x021D2;</mo><mspace width="0.278em" /><mi>K</mi><mo>&#x02248;</mo><mn>4 263 157,89</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>3. Dyskonto weksli 3,75 mln zł na 90 dni przed wykupem, d = 6% <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>d</mi></msub><mo>&#x0003D;</mo><mn>3 750 000</mn><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mn>0,06</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>90</mn></mrow><mrow><mn>360</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mo>&#x0003D;</mo><mn>3 693 750</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>4. Faktoring: faktury 4,5 mln zł, zaliczka 80%, prowizja 1%, odsetki 8% za 90 dni <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>zaliczka</mtext><mo>&#x0003D;</mo><mn>3 600 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>prowizja</mtext><mo>&#x0003D;</mo><mn>36 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>O</mi><mo>&#x0003D;</mo><mn>3 600 000</mn><mo>&#x000B7;</mo><mn>0,08</mn><mo>&#x000B7;</mo><mfrac><mrow><mn>90</mn></mrow><mrow><mn>360</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>72 000</mn></mrow></math></div></div>
+<p>Koszt <span class="res">108 000 zł = 3% za 90 dni</span> (<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>108 000</mn><mo>&#x0002F;</mo><mn>3 600 000</mn></mrow></math>).</p></div>
+
+<div class="step"><h4>5. Skonto 2% za płatność od razu zamiast po 60 dniach – porównanie <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>s</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>0,02</mn></mrow><mrow><mn>0,98</mn></mrow></mfrac><mo>&#x02248;</mo><mn>2,04</mn><mi>&#x00025;</mi></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mi>r</mi><mrow><mi>e</mi><mi>f</mi></mrow><mrow><mi>s</mi><mi>k</mi><mi>o</mi><mi>n</mi><mi>t</mi><mi>o</mi></mrow></msubsup><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mn>1,0204</mn><msup><mo stretchy="false">&#x00029;</mo><mrow><mfrac><mrow><mn>360</mn></mrow><mrow><mn>60</mn></mrow></mfrac></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x02248;</mo><mn>12,89</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mi>r</mi><mrow><mi>e</mi><mi>f</mi></mrow><mrow><mi>f</mi><mi>a</mi><mi>k</mi><mi>t</mi><mi>o</mi><mi>r</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msubsup><mo>&#x0003D;</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mfrac><mrow><mn>3 708 000</mn></mrow><mrow><mn>3 600 000</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mrow><mn>4</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x0003D;</mo><mn>1</mn><mrow><mo>&#x0002C;</mo></mrow><msup><mn>03</mn><mrow><mn>4</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x02248;</mo><mn>12,55</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p><span class="res">faktoring tańszy (12,55% &lt; 12,89%)</span></p>
+<div class="note key"><b class="t">Uwaga do klucza:</b> klucz traktuje prowizję jak koszt płatny na końcu. Jeśli prowizję potrąca się z wypłaty (otrzymujemy 3 564 000 zł, faktor zatrzymuje 3 600 000 + 72 000 zł), stopa efektywna wynosi <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo stretchy="false">&#x00028;</mo><mn>3 672 000</mn><mo>&#x0002F;</mo><mn>3 564 000</mn><msup><mo stretchy="false">&#x00029;</mo><mrow><mn>4</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x02248;</mo><mn>12,68</mn><mi>&#x00025;</mi></mrow></math> – nadal mniej niż koszt skonta, więc wniosek się nie zmienia.</div></div>
+</article>
+<!-- ========== 30 ========== -->
+<article class="task" id="z30">
+<h3 class="th">Edycja 30 (XXX) · 2016/2017</h3>
+<p class="meta"><b>Przedsiębiorstwo motoryzacyjne</b> · płynność · zapasy · ROE · model Gordona · WACC</p>
+<div class="given"><p>Przychody 5 000 000 zł; amortyzacja 500 000 zł; środki pieniężne 100 000 zł; zobowiązania bieżące 1 200 000 zł; mnożnik KW 1,4; płynność bieżąca 1,31; płynność szybka 0,53; ROA 7,5%; CIT 19%.</p></div>
+
+<div class="step"><h4>1. Płynność gotówkowa <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>g</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>100 000</mn></mrow><mrow><mn>1 200 000</mn></mrow></mfrac><mo>&#x02248;</mo><mn>0,083</mn></mrow></math></div></div>
+<p><span class="res">0,08(3)</span> – poniżej typowego przedziału 0,1–0,2.</p></div>
+
+<div class="step"><h4>2. Wartość zapasów <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AO</mtext><mo>&#x0003D;</mo><mn>1,31</mn><mo>&#x000B7;</mo><mn>1 200 000</mn><mo>&#x0003D;</mo><mn>1 572 000</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AO</mtext><mo>&#x02212;</mo><mtext>Z</mtext><mo>&#x0003D;</mo><mn>0,53</mn><mo>&#x000B7;</mo><mn>1 200 000</mn><mo>&#x0003D;</mo><mn>636 000</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>Z</mtext><mo>&#x0003D;</mo><mn>1 572 000</mn><mo>&#x02212;</mo><mn>636 000</mn><mo>&#x0003D;</mo><mn>936 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>3. ROE <span class="pk">(4 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><mtext>ROA</mtext><mo>&#x000B7;</mo><mtext>MKW</mtext><mo>&#x0003D;</mo><mn>7,5</mn><mi>&#x00025;</mi><mo>&#x000B7;</mo><mn>1,4</mn><mo>&#x0003D;</mo><mn>10,5</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+
+<div class="step"><h4>4. Koszt kapitału własnego <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>&#x0003D;</mo><mn>2</mn><mo>&#x000B7;</mo><mn>1,05</mn><mo>&#x0003D;</mo><mn>2,10</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>e</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>2,10</mn></mrow><mrow><mn>42</mn></mrow></mfrac><mo>&#x0002B;</mo><mn>0,05</mn><mo>&#x0003D;</mo><mn>0,05</mn><mo>&#x0002B;</mo><mn>0,05</mn><mo>&#x0003D;</mo><mn>10</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+
+<div class="step"><h4>5. WACC (E = 6 mln, D = 8 mln, k<sub>d</sub> = 8%) <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>WACC</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>6</mn></mrow><mrow><mn>14</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>10</mn><mi>&#x00025;</mi><mo>&#x0002B;</mo><mfrac><mrow><mn>8</mn></mrow><mrow><mn>14</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>8</mn><mi>&#x00025;</mi><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mn>0,19</mn><mo stretchy="false">&#x00029;</mo><mo>&#x02248;</mo><mn>4,29</mn><mi>&#x00025;</mi><mo>&#x0002B;</mo><mn>3,70</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>7,99</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>8</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+<div class="note"><b class="t">Pułapka:</b> dane „amortyzacja” i przychody są zbędne. W Gordonie trzeba zwiększyć ostatnią dywidendę o g; w WACC – nie zapomnieć o (1 − T).</div>
+</article>
+
+<!-- ========== 31 ========== -->
+<article class="task" id="z31">
+<h3 class="th">Edycja 31 (XXXI) · 2017/2018</h3>
+<p class="meta"><b>Spółka kapitałowa X</b> · rachunek zysków i strat (kalkulacyjny) · rentowność · forma prawna · pokrycie straty · efekt dźwigni · podatek przy stracie</p>
+<div class="given"><div class="tw"><table class="dt">
+<tr><th>Pozycja RZiS</th><th class="n">2015</th><th class="n">2016</th></tr>
+<tr><td>Przychody netto ze sprzedaży</td><td class="n">128 000</td><td class="n">151 000</td></tr>
+<tr><td>Koszt własny sprzedaży</td><td class="n">114 000</td><td class="n">124 000</td></tr>
+<tr class="hl"><td>Zysk ze sprzedaży</td><td class="n">14 000</td><td class="n">27 000</td></tr>
+<tr><td>Pozostałe przychody operacyjne</td><td class="n">1 500</td><td class="n">2 000</td></tr>
+<tr><td>Pozostałe koszty operacyjne</td><td class="n">600</td><td class="n">400</td></tr>
+<tr class="hl"><td>Zysk z działalności operacyjnej</td><td class="n">14 900</td><td class="n">28 600</td></tr>
+<tr><td>Przychody finansowe</td><td class="n">1 000</td><td class="n">1 000</td></tr>
+<tr><td>Koszty finansowe</td><td class="n">16 000</td><td class="n">16 000</td></tr>
+<tr class="hl"><td>Zysk z działalności gospodarczej</td><td class="n">−100</td><td class="n">13 600</td></tr>
+<tr><td>Saldo strat nadzwyczajnych</td><td class="n">0</td><td class="n">0</td></tr>
+<tr class="hl"><td>Zysk (strata) brutto</td><td class="n">−100</td><td class="n">13 600</td></tr>
+<tr><td>Podatek (19%)</td><td class="n">12</td><td class="n">2 584</td></tr>
+<tr class="hl"><td>Zysk (strata) netto</td><td class="n">−112</td><td class="n">11 016</td></tr>
+</table></div><p>Tabela kompletna (w arkuszu brakowało nazw kategorii zysku i części wartości). Koszty 2015: bezpośrednie 100 000, zarządu 10 000, pośrednie 14 000. 2016: KW 400 000, kapitał całkowity 600 000, oprocentowanie długu 8%.</p></div>
+
+<div class="step"><h4>a) Uzupełnienie tabeli <span class="pk">(1 + 2 pkt)</span></h4>
+<p>Każdy poziom wyniku to poprzedni poziom ± kolejna para pozycji (kaskada – zob. karta wzorów, grupa I). Np. 2016: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>151 000</mn><mo>&#x02212;</mo><mn>124 000</mn><mo>&#x0003D;</mo><mn>27 000</mn></mrow></math>; <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>27 000</mn><mo>&#x0002B;</mo><mn>2 000</mn><mo>&#x02212;</mo><mn>400</mn><mo>&#x0003D;</mo><mn>28 600</mn></mrow></math>; <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>28 600</mn><mo>&#x0002B;</mo><mn>1 000</mn><mo>&#x02212;</mo><mn>16 000</mn><mo>&#x0003D;</mo><mn>13 600</mn></mrow></math>; podatek <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0,19</mn><mo>&#x000B7;</mo><mn>13 600</mn><mo>&#x0003D;</mo><mn>2 584</mn></mrow></math>.</p>
+<div class="note key"><b class="t">Uwaga do klucza:</b> klucz przyjmuje koszt własny sprzedaży 2015 = 114 000 zł (= bezpośrednie 100 000 + pośrednie 14 000). Zgodnie z definicją układu kalkulacyjnego koszt własny sprzedaży obejmuje także koszty ogólnego zarządu (wtedy 124 000 zł). Na zawodach trzymaj się wartości, które pasują do pozostałych danych tabeli (tu – 114 000).</div></div>
+
+<div class="step"><h4>b) Rentowność sprzedaży i operacyjna 2016 <span class="pk">(4 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>s</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>27 000</mn></mrow><mrow><mn>151 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>17,88</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>28 600</mn></mrow><mrow><mn>151 000</mn><mo>&#x0002B;</mo><mn>2 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>18,69</mn></mrow></math></div></div></div>
+
+<div class="step"><h4>c) Forma spółki <span class="pk">(1 pkt)</span></h4>
+<p><span class="res">spółka akcyjna</span> – zestawienie przygotowano na <b>walne zgromadzenie</b> (organ S.A.; w sp. z o.o. – zgromadzenie wspólników).</p></div>
+
+<div class="step"><h4>d) Pokrycie straty <span class="pk">(1 pkt)</span></h4>
+<p>Z niepodzielonego zysku lat ubiegłych, z kapitału zapasowego lub rezerwowego, z zysków lat następnych albo przez obniżenie kapitału zakładowego.</p></div>
+
+<div class="step"><h4>e) Efekt dźwigni finansowej 2016 <span class="pk">(3 + 1 pkt)</span></h4>
+<p>Odsetki: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>8</mn><mi>&#x00025;</mi><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>600 000</mn><mo>&#x02212;</mo><mn>400 000</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>16 000</mn></mrow></math> zł.</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>w</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>11 016</mn></mrow><mrow><mn>400 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>2,754</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>k</mi><mi>c</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>11 016</mn><mo>&#x0002B;</mo><mn>16 000</mn><mo>&#x000B7;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mn>0,19</mn><mo stretchy="false">&#x00029;</mo></mrow><mrow><mn>600 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mfrac><mrow><mn>23 976</mn></mrow><mrow><mn>600 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>3,996</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>EDF</mtext><mo>&#x0003D;</mo><mn>2,754</mn><mo>&#x02212;</mo><mn>3,996</mn><mo>&#x0003D;</mo><mo>&#x02212;</mo><mn>1,242</mn><mtext>&#x000A0;</mtext><mtext>p.p.</mtext></mrow></math></div></div>
+<p><span class="res">EDF = −1,242</span> – ujemny efekt dźwigni („maczuga finansowa”): koszt długu (8%) przewyższa rentowność kapitału całkowitego, więc zadłużenie obniża ROE.</p></div>
+
+<div class="step"><h4>f) Podatek mimo straty brutto <span class="pk">(2 pkt)</span></h4>
+<p>Wynik bilansowy ≠ podstawa opodatkowania: część kosztów bilansowych nie jest kosztem podatkowym (np. reprezentacja, kary, niezapłacone odsetki), więc dochód podatkowy mógł być dodatni.</p></div>
+</article>
+
+<!-- ========== 32 ========== -->
+<article class="task" id="z32">
+<h3 class="th">Edycja 32 (XXXII) · 2018/2019</h3>
+<p class="meta"><b>Producent drewnianych zabawek</b> · cykl zapasów · rotacja należności · cykl operacyjny i konwersji gotówki · faktoring</p>
+<div class="given"><p>Przychody 7 300 000 zł; zysk brutto 82 000 zł; WNiP 200 000 zł; zapasy 600 000 zł; należności handlowe 800 000 zł; zobowiązania długoterminowe 20 000 zł; okres spłaty zobowiązań 20 dni. Rok: 365 dni (klucz akceptuje 360).</p></div>
+
+<div class="step"><h4>a) Cykl zapasów <span class="pk">(2 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>Z</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>600 000</mn><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mn>7 300 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>30</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext><mtext>&#x000A0;</mtext><mtext>&#x000A0;</mtext><mo stretchy="false">&#x00028;</mo><mn>29,59</mn><mtext>&#x000A0;przy&#x000A0;</mtext><mn>360</mn><mo stretchy="false">&#x00029;</mo></mrow></math></div></div>
+<p>Zapasy odtwarzane są średnio co 30 dni.</p></div>
+
+<div class="step"><h4>b) Rotacja należności w razach <span class="pk">(2 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>R</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>7 300 000</mn></mrow><mrow><mn>800 000</mn></mrow></mfrac><mo>&#x02248;</mo><mn>9,13</mn></mrow></math></div></div>
+<p>Należności „obracają się” ok. 9,13 razy w roku.</p></div>
+
+<div class="step"><h4>c) Cykl operacyjny i cykl konwersji gotówki <span class="pk">(5 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mi>N</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>800 000</mn><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mn>7 300 000</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>40</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>CO</mtext><mo>&#x0003D;</mo><mn>30</mn><mo>&#x0002B;</mo><mn>40</mn><mo>&#x0003D;</mo><mn>70</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>CKG</mtext><mo>&#x0003D;</mo><mn>30</mn><mo>&#x0002B;</mo><mn>40</mn><mo>&#x02212;</mo><mn>20</mn><mo>&#x0003D;</mo><mn>50</mn><mtext>&#x000A0;</mtext><mtext>dni</mtext><mtext>&#x000A0;</mtext><mtext>&#x000A0;</mtext><mo stretchy="false">&#x00028;</mo><mn>49,04</mn><mtext>&#x000A0;przy&#x000A0;</mtext><mn>360</mn><mo stretchy="false">&#x00029;</mo></mrow></math></div></div></div>
+
+<div class="step"><h4>d) Faktoring właściwy <span class="pk">(2 + 2 pkt)</span></h4>
+<p>Wykup przez faktora nieprzeterminowanych wierzytelności z <b>przejęciem ryzyka niewypłacalności dłużnika</b> (bez regresu). Bezpośrednio skraca <b>cykl inkasa należności</b>, a więc cykl konwersji gotówki.</p></div>
+<div class="note"><b class="t">Pułapka:</b> zysk brutto, WNiP i zobowiązania długoterminowe to dane zbędne. Rotacja „w razach” i cykl „w dniach” to odwrotności (365 / 9,13 ≈ 40).</div>
+</article>
+
+<!-- ========== 33 ========== -->
+<article class="task" id="z33">
+<h3 class="th">Edycja 33 (XXXIII) · 2019/2020</h3>
+<p class="meta"><b>Producent kauczukowych piłeczek</b> · analiza należności · relacja dynamik · pozycja kredytowa</p>
+<div class="given"><div class="tw"><table class="dt">
+<tr><th>mln zł</th><th class="n">2017</th><th class="n">2018</th></tr>
+<tr><td>Przychody ze sprzedaży</td><td class="n">3 938,10</td><td class="n">4 725,80</td></tr>
+<tr><td>Należności handlowe</td><td class="n">95,70</td><td class="n">124,40</td></tr>
+<tr><td>Zobowiązania wobec dostawców</td><td class="n">235,80</td><td class="n">864,20</td></tr>
+<tr><td>Aktywa trwałe</td><td class="n">1 154,10</td><td class="n">3 574,10</td></tr>
+<tr><td>Suma bilansowa</td><td class="n">3 369,90</td><td class="n">6 736,00</td></tr>
+</table></div><p>(W arkuszu także pozycje RZiS i inne pozycje bilansu – zbędne do obliczeń.) Brak krótkoterminowych RMK, należnych wpłat i akcji własnych.</p></div>
+
+<div class="step"><h4>a) Udział należności w majątku obrotowym 2018 <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AO</mtext><mo>&#x0003D;</mo><mn>6 736,00</mn><mo>&#x02212;</mo><mn>3 574,10</mn><mo>&#x0003D;</mo><mn>3 161,90</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>u</mi><mi>m</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>124,40</mn></mrow><mrow><mn>3 161,90</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>3,93</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Brak RMK, należnych wpłat i akcji własnych gwarantuje, że AO = suma bilansowa − AT.</p></div>
+
+<div class="step"><h4>b) Relacja dynamik należności i przychodów <span class="pk">(2 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>r</mi><mi>n</mi><mi>s</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>124,40</mn><mo>&#x0002F;</mo><mn>95,70</mn></mrow><mrow><mn>4 725,80</mn><mo>&#x0002F;</mo><mn>3 938,10</mn></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>1,2999</mn></mrow><mrow><mn>1,2000</mn></mrow></mfrac><mo>&#x02248;</mo><mn>1,08</mn></mrow></math></div></div>
+<p>Należności rosną szybciej niż sprzedaż (ok. 1,08% na każdy 1% wzrostu przychodów) – firma rozszerzyła kredyt kupiecki bez proporcjonalnego efektu sprzedażowego.</p></div>
+
+<div class="step"><h4>c) Pozycja kredytowa <span class="pk">(2 + 2 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>124,40</mn></mrow><mrow><mn>864,20</mn></mrow></mfrac><mo>&#x02248;</mo><mn>0,14</mn></mrow></math></div></div>
+<p><span class="res">0,14 &lt; 1 → per saldo biorca kredytu kupieckiego</span>: należności stanowią ok. 14% zobowiązań wobec dostawców (dostawcy finansują firmę blisko 7 razy mocniej, niż ona swoich odbiorców).</p></div>
+
+<div class="step"><h4>d) Funkcje należności <span class="pk">(2 pkt)</span></h4>
+<p>Stymulowanie sprzedaży; budowanie relacji z odbiorcami; wpływ na strukturę majątku obrotowego i na płynność.</p></div>
+</article>
+
+<!-- ========== 34 ========== -->
+<article class="task" id="z34">
+<h3 class="th">Edycja 34 (XXXIV) · 2020/2021</h3>
+<p class="meta"><b>Spółka akcyjna z branży IT</b> · ROE z EPS · złota zasada bilansowa · emisja akcji w pasywach · koszt kapitału z emisji</p>
+<div class="given"><p>mln zł: aktywa obrotowe 461,7; suma bilansowa 5 235,7; kapitał własny 4 892,4; kapitał podstawowy 83,0; kapitał zapasowy 4 180,1; zobowiązania długoterminowe 137,2; kredyty 0; zobowiązania krótkoterminowe 206,1. EPS 2,49 zł; wartość nominalna akcji 1 zł.</p></div>
+
+<div class="step"><h4>a) ROE <span class="pk">(3 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>liczba&#x000A0;akcji</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>83,0</mn><mtext>&#x000A0;</mtext><mtext>mln&#x000A0;zł</mtext></mrow><mrow><mn>1</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></mfrac><mo>&#x0003D;</mo><mn>83</mn><mtext>&#x000A0;</mtext><mtext>mln</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ZN</mtext><mo>&#x0003D;</mo><mn>83</mn><mo>&#x000B7;</mo><mn>2,49</mn><mo>&#x0003D;</mo><mn>206,67</mn><mtext>&#x000A0;</mtext><mtext>mln&#x000A0;zł</mtext></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>206,67</mn></mrow><mrow><mn>4 892,4</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>4,22</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Na 1 zł kapitału własnego przypada ok. 0,042 zł zysku netto.</p></div>
+
+<div class="step"><h4>b) Złota zasada bilansowa <span class="pk">(2 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AT</mtext><mo>&#x0003D;</mo><mn>5 235,7</mn><mo>&#x02212;</mo><mn>461,7</mn><mo>&#x0003D;</mo><mn>4 774</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mfrac><mrow><mtext>KW</mtext></mrow><mrow><mtext>AT</mtext></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>4 892,4</mn></mrow><mrow><mn>4 774</mn></mrow></mfrac><mo>&#x02248;</mo><mn>1,025</mn><mo>&#x02265;</mo><mn>1</mn></mrow></math></div></div>
+<p><span class="res">spełniona</span> – aktywa trwałe są w pełni pokryte kapitałem własnym.</p></div>
+
+<div class="step"><h4>c) Emisja 100 tys. akcji po 20 zł <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>wpływ</mtext><mo>&#x0003D;</mo><mn>100 000</mn><mo>&#x000B7;</mo><mn>20</mn><mo>&#x0003D;</mo><mn>2</mn><mtext>&#x000A0;</mtext><mtext>mln&#x000A0;zł</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>kap.&#x000A0;podstawowy</mtext><mi>:</mi><mo>&#x0002B;</mo><mn>100 000</mn><mo>&#x000B7;</mo><mn>1</mn><mo>&#x0003D;</mo><mn>0,1</mn><mtext>&#x000A0;</mtext><mtext>mln</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>kap.&#x000A0;zapasowy&#x000A0;(agio)</mtext><mi>:</mi><mo>&#x0002B;</mo><mn>1,9</mn><mtext>&#x000A0;</mtext><mtext>mln</mtext></mrow></math></div></div>
+<p>Kapitał własny ogółem +2 mln zł.</p>
+<div class="note key"><b class="t">Uwaga do klucza:</b> klucz wymienia trzy pozycje. Formalnie zmienia się też „suma bilansowa” (pasywa ogółem, +2 mln zł) – warto ją dopisać jako pozycję wynikową.</div></div>
+
+<div class="step"><h4>d) Koszt kapitału z emisji <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>k</mi><mi>e</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow><mrow><msub><mi>P</mi><mn>0</mn></msub><mo>&#x02212;</mo><msub><mi>K</mi><mi>e</mi></msub></mrow></mfrac><mo>&#x0002B;</mo><mi>g</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>1,02</mn></mrow><mrow><mn>20</mn><mo>&#x02212;</mo><mn>0,12</mn><mo>&#x000B7;</mo><mn>20</mn></mrow></mfrac><mo>&#x0002B;</mo><mn>0,02</mn><mo>&#x0003D;</mo><mfrac><mrow><mn>1,02</mn></mrow><mrow><mn>17,6</mn></mrow></mfrac><mo>&#x0002B;</mo><mn>0,02</mn><mo>&#x02248;</mo><mn>7,80</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Tu dywidenda jest już „najbliższa” (<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>D</mi><mn>1</mn></msub></mrow></math>) – nie mnożymy jej przez (1 + g).</p></div>
+</article>
+
+<!-- ========== 35 ========== -->
+<article class="task" id="z35">
+<h3 class="th">Edycja 35 (XXXV) · 2021/2022</h3>
+<p class="meta"><b>Producent odzieży (spółka giełdowa)</b> · płynność bieżąca · kapitał obrotowy netto · zapotrzebowanie i niedobór KON</p>
+<div class="given"><p>zł: kapitał własny 3 393 887; zobowiązania długoterminowe 1 340 554; zobowiązania krótkoterminowe 2 521 401; aktywa trwałe 4 432 309; zysk netto 435 350,52; zapasy 1 365 814; wartość firmy 179 618; ROA = 6%.</p></div>
+
+<div class="step"><h4>a) Płynność bieżąca <span class="pk">(1 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0003D;</mo><mfrac><mrow><mtext>ZN</mtext></mrow><mrow><mtext>ROA</mtext></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mn>435 350,52</mn></mrow><mrow><mn>0,06</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>7 255 842</mn><mtext>&#x000A0;</mtext><mtext>&#x000A0;</mtext><mo stretchy="false">&#x00028;</mo><mo>&#x0003D;</mo><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext><mo>&#x0002B;</mo><mtext>ZK</mtext><mo stretchy="false">&#x00029;</mo></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AO</mtext><mo>&#x0003D;</mo><mn>7 255 842</mn><mo>&#x02212;</mo><mn>4 432 309</mn><mo>&#x0003D;</mo><mn>2 823 533</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>b</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>2 823 533</mn></mrow><mrow><mn>2 521 401</mn></mrow></mfrac><mo>&#x02248;</mo><mn>1,12</mn></mrow></math></div></div>
+<p>Informuje, w jakim stopniu aktywa obrotowe pokrywają zobowiązania krótkoterminowe.</p></div>
+
+<div class="step"><h4>b) Kapitał obrotowy netto – dwa sposoby <span class="pk">(2 + 1 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KON</mtext><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mtext>KW</mtext><mo>&#x0002B;</mo><mtext>ZD</mtext><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mtext>AT</mtext><mo>&#x0003D;</mo><mn>4 734 441</mn><mo>&#x02212;</mo><mn>4 432 309</mn><mo>&#x0003D;</mo><mn>302 132</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KON</mtext><mo>&#x0003D;</mo><mtext>AO</mtext><mo>&#x02212;</mo><mtext>ZK</mtext><mo>&#x0003D;</mo><mn>2 823 533</mn><mo>&#x02212;</mo><mn>2 521 401</mn><mo>&#x0003D;</mo><mn>302 132</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div>
+<p>302 132 zł aktywów obrotowych finansuje kapitał stały.</p></div>
+
+<div class="step"><h4>c) Dysponowany KON, zapotrzebowanie i niedobór <span class="pk">(6 pkt)</span></h4>
+<p>Dane prognozy: zysk zatrzymany 3 000; inwestycje 874 400; amortyzacja 664 846; dynamika przychodów 105%.</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>KS</mtext><mrow><mi>p</mi><mi>l</mi><mi>a</mi><mi>n</mi></mrow></msub><mo>&#x0003D;</mo><mn>3 393 887</mn><mo>&#x0002B;</mo><mn>3 000</mn><mo>&#x0002B;</mo><mn>1 340 554</mn><mo>&#x0003D;</mo><mn>4 737 441</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>AT</mtext><mrow><mi>p</mi><mi>l</mi><mi>a</mi><mi>n</mi></mrow></msub><mo>&#x0003D;</mo><mn>4 432 309</mn><mo>&#x0002B;</mo><mn>874 400</mn><mo>&#x02212;</mo><mn>664 846</mn><mo>&#x0003D;</mo><mn>4 641 863</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>KON</mtext><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><mn>4 737 441</mn><mo>&#x02212;</mo><mn>4 641 863</mn><mo>&#x0003D;</mo><mn>95 578</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mtext>KON</mtext><mrow><mi>z</mi><mi>a</mi><mi>p</mi></mrow></msub><mo>&#x0003D;</mo><mn>2 823 533</mn><mo>&#x000B7;</mo><mn>1,05</mn><mo>&#x02212;</mo><mn>2 521 401</mn><mo>&#x000B7;</mo><mn>1,05</mn><mo>&#x0003D;</mo><mn>2 964 709,65</mn><mo>&#x02212;</mo><mn>2 647 471,05</mn><mo>&#x0003D;</mo><mn>317 238,60</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>niedobór</mtext><mo>&#x0003D;</mo><mn>95 578</mn><mo>&#x02212;</mo><mn>317 238,60</mn><mo>&#x0003D;</mo><mo>&#x02212;</mo><mn>221 660,60</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>d) Pokrycie niedoboru <span class="pk">(2 pkt)</span></h4>
+<p>Kredyt krótko- lub długoterminowy, kredyt kupiecki, podwyższenie kapitału własnego, skrócenie inkasa należności.</p></div>
+<div class="note"><b class="t">Pułapka:</b> „wartość firmy” i zapasy są zbędne; AO trzeba odtworzyć z ROA (albo z sumy pasywów).</div>
+</article>
+
+<!-- ========== 36 ========== -->
+<article class="task" id="z36">
+<h3 class="th">Edycja 36 (XXXVI) · 2022/2023</h3>
+<p class="meta"><b>Przedsiębiorstwo Fox</b> · RZiS w układzie porównawczym · koszty rodzajowe · pokrycie odsetek · dynamika majątku</p>
+<div class="given"><p>zł: przychody 2 573 341; zużycie materiałów i energii 1 782 815; usługi obce 253 790; podatki i opłaty 68 656; wynagrodzenia 201 938; ubezpieczenia społeczne 59 129; pozostałe koszty rodzajowe 27 083; wartość sprzedanych towarów 44 899; zysk operacyjny 426 038; przychody finansowe (odsetki) 45 048; koszty finansowe (odsetki) 76 710; zysk brutto 394 376; zysk netto 319 445. Suma bilansowa: 9 845 000 (2020), 11 667 000 (2021). W arkuszu brakowało nazw czterech kosztów rodzajowych i kwoty amortyzacji.</p></div>
+
+<div class="step"><h4>a) Brakujące nazwy kosztów rodzajowych <span class="pk">(2 pkt)</span></h4>
+<p>Zużycie materiałów i energii · usługi obce · podatki i opłaty · wynagrodzenia.</p></div>
+
+<div class="step"><h4>b) Amortyzacja (koszty rodzajowe razem 2 531 620 zł) <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x003A3;</mi><mrow><mtext>pozostałe</mtext></mrow></msub><mo>&#x0003D;</mo><mn>1 782 815</mn><mo>&#x0002B;</mo><mn>253 790</mn><mo>&#x0002B;</mo><mn>68 656</mn><mo>&#x0002B;</mo><mn>201 938</mn><mo>&#x0002B;</mo><mn>59 129</mn><mo>&#x0002B;</mo><mn>27 083</mn><mo>&#x0003D;</mo><mn>2 393 411</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>amortyzacja</mtext><mo>&#x0003D;</mo><mn>2 531 620</mn><mo>&#x02212;</mo><mn>2 393 411</mn><mo>&#x0003D;</mo><mn>138 209</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>c) Pokrycie odsetek zyskiem <span class="pk">(2 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mrow><mi>p</mi><mi>o</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>394 376</mn><mo>&#x0002B;</mo><mn>76 710</mn></mrow><mrow><mn>76 710</mn></mrow></mfrac><mo>&#x02248;</mo><mn>6,14</mn></mrow></math></div></div>
+<p>Zysk przed odsetkami i opodatkowaniem ponad 6-krotnie przewyższa należne odsetki – bezpieczny poziom obsługi długu.</p></div>
+
+<div class="step"><h4>d) Odchylenie i dynamika majątku <span class="pk">(2 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x00394;</mi><mo>&#x0003D;</mo><mn>11 667 000</mn><mo>&#x02212;</mo><mn>9 845 000</mn><mo>&#x0003D;</mo><mn>1 822 000</mn><mtext>&#x000A0;</mtext><mtext>zł</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>I</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>11 667 000</mn></mrow><mrow><mn>9 845 000</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>118,51</mn><mi>&#x00025;</mi></mrow></math></div></div></div>
+
+<div class="step"><h4>e) Uwzględnić CPI w dynamice majątku? <span class="pk">(2 pkt)</span></h4>
+<p><b>Za:</b> ujęcie realne (bez efektu wzrostu cen). <b>Przeciw:</b> CPI dotyczy dóbr konsumpcyjnych, a nie składników majątku; majątek nabywany jest w różnych momentach roku; przy niskiej inflacji korekta niewiele zmienia.</p></div>
+<div class="note"><b class="t">Pułapka:</b> „wartość sprzedanych towarów i materiałów” nie jest kosztem rodzajowym – w układzie porównawczym stoi obok kosztów rodzajowych.</div>
+</article>
+
+<!-- ========== 37 ========== -->
+<article class="task" id="z37">
+<h3 class="th">Edycja 37 (XXXVII) · 2023/2024</h3>
+<p class="meta"><b>Spółka handlu detalicznego JTA</b> · wskaźnik unieruchomienia · produkcyjność i obrotowość majątku · EBITDA</p>
+<div class="given"><p>tys. zł: aktywa obrotowe 2 706 706; amortyzacja 300 129; EBIT 1 537 819; EPS 11,55 zł; inwestycje krótkoterminowe 453 056; koszty finansowe 141 293; koszty zarządu 143 217; należności krótkoterminowe 274 872; podatek 269 531; pozostałe składniki majątku finansowego 226 321; przychody 19 801 622; suma bilansowa 9 003 059; środki trwałe 5 000 000; środki trwałe w budowie 1 070 032; zapasy 1 978 778.</p></div>
+
+<div class="step"><h4>a) Wskaźnik unieruchomienia majątku <span class="pk">(1 + 2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>AT</mtext><mo>&#x0003D;</mo><mn>9 003 059</mn><mo>&#x02212;</mo><mn>2 706 706</mn><mo>&#x0003D;</mo><mn>6 296 353</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>u</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>6 296 353</mn></mrow><mrow><mn>2 706 706</mn></mrow></mfrac><mo>&#x02248;</mo><mn>2,33</mn></mrow></math></div></div>
+<p>Na 1 zł majątku obrotowego przypada 2,33 zł trwałego – niska elastyczność dostosowań.</p></div>
+
+<div class="step"><h4>b) Wskaźnik produkcyjności majątku <span class="pk">(4 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>rzeczowy</mtext><mo>&#x0003D;</mo><mn>5 000 000</mn><mo>&#x0002B;</mo><mn>1 070 032</mn><mo>&#x0002B;</mo><mn>1 978 778</mn><mo>&#x0003D;</mo><mn>8 048 810</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>finansowy</mtext><mo>&#x0003D;</mo><mn>274 872</mn><mo>&#x0002B;</mo><mn>453 056</mn><mo>&#x0002B;</mo><mn>226 321</mn><mo>&#x0003D;</mo><mn>954 249</mn></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>p</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>8 048 810</mn></mrow><mrow><mn>954 249</mn></mrow></mfrac><mo>&#x02248;</mo><mn>8,43</mn></mrow></math></div></div>
+<div class="note key"><b class="t">Uwaga do klucza:</b> w mianowniku klucz wpisuje 953 249 (literówka); wynik 8,43 odpowiada poprawnej sumie 954 249.</div></div>
+
+<div class="step"><h4>c) Obrotowość majątku <span class="pk">(2 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>W</mi><mi>o</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>19 801 622</mn></mrow><mrow><mn>9 003 059</mn></mrow></mfrac><mo>&#x02248;</mo><mn>2,20</mn></mrow></math></div></div>
+<p>Porównania międzybranżowe są mylące – handel ma z natury mało majątku na jednostkę przychodu, przemysł wydobywczy dużo.</p></div>
+
+<div class="step"><h4>d) EBITDA <span class="pk">(2 + 3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>EBITDA</mtext><mo>&#x0003D;</mo><mn>1 537 819</mn><mo>&#x0002B;</mo><mn>300 129</mn><mo>&#x0003D;</mo><mn>1 837 948</mn><mtext>&#x000A0;</mtext><mtext>tys.&#x000A0;zł</mtext></mrow></math></div></div>
+<p>Nie jest wolnym przepływem pieniężnym: opiera się na danych memoriałowych i pomija nakłady inwestycyjne (capex) oraz zmianę kapitału obrotowego netto (a także podatek).</p></div>
+<div class="note"><b class="t">Pułapka:</b> EPS, podatek, koszty finansowe i zarządu to dane zbędne. Definicje obu nietypowych wskaźników (a, b) trzeba znać z klucza – nie są intuicyjne.</div>
+</article>
+
+<!-- ========== 38 ========== -->
+<article class="task" id="z38">
+<h3 class="th">Edycja 38 (XXXVIII) · 2024/2025</h3>
+<p class="meta"><b>Mleczarnia Milk</b> · benchmarking z branżą · EOQ · zapas bezpieczeństwa · cykl konwersji gotówki</p>
+<div class="given"><div class="tw"><table class="dt">
+<tr><th>Wskaźnik</th><th class="n">Milk</th><th class="n">Branża</th></tr>
+<tr><td>Przekładnia kapitałowa (%)</td><td class="n">87,1</td><td class="n">87,2</td></tr>
+<tr><td>Poziom kosztów (%)</td><td class="n">96,2</td><td class="n">95,3</td></tr>
+<tr><td>Płynność bieżąca</td><td class="n">1,8</td><td class="n">1,6</td></tr>
+<tr><td>Płynność szybka</td><td class="n">0,8</td><td class="n">1,1</td></tr>
+<tr><td>Inkaso należności (dni)</td><td class="n">30,0</td><td class="n">30,2</td></tr>
+</table></div><p>Koszty całkowite Milk w ubiegłym roku: 110 mln €. Rok = 365 dni.</p></div>
+
+<div class="step"><h4>a) Które wskaźniki wskazują problem z zapasami? <span class="pk">(2 + 1 pkt)</span></h4>
+<p>Płynność bieżąca (1,8) jest poprawna, ale szybka (0,8) – poniżej 1 i poniżej branży (1,1). Różnica między nimi to zapasy: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mtext>Z</mtext><mo>&#x0002F;</mo><mtext>ZK</mtext><mo>&#x0003D;</mo><mn>1,8</mn><mo>&#x02212;</mo><mn>0,8</mn><mo>&#x0003D;</mo><mn>1,0</mn></mrow></math> wobec 0,5 w branży – <b>zapasy są zbyt wysokie</b>. Skutek dla wyników: wyższe koszty magazynowania i zamrożony kapitał (niższa efektywność).</p></div>
+
+<div class="step"><h4>b) Optymalna partia dostawy i liczba dostaw <span class="pk">(3 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>Q</mi><mrow><mo>&#x0002A;</mo></mrow></msup><mo>&#x0003D;</mo><msqrt><mrow><mfrac><mrow><mn>2</mn><mo>&#x000B7;</mo><mn>5 000</mn><mo>&#x000B7;</mo><mn>24 000 000</mn></mrow><mrow><mn>0,5</mn></mrow></mfrac></mrow></msqrt><mo>&#x0003D;</mo><msqrt><mrow><mn>480 000</mn><mspace width="0.167em" /><mn>000 000</mn></mrow></msqrt><mo>&#x02248;</mo><mn>692 820</mn><mtext>&#x000A0;</mtext><mtext>l</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>n</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>24 000 000</mn></mrow><mrow><mn>692 820</mn></mrow></mfrac><mo>&#x02248;</mo><mn>34,64</mn><mo>&#x02192;</mo><mn>35</mn></mrow></math></div></div></div>
+
+<div class="step"><h4>c) Średni poziom zapasów <span class="pk">(3 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>Z</mi><mi>b</mi></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>24 000 000</mn></mrow><mrow><mn>365</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>3</mn><mo>&#x02248;</mo><mn>197 260</mn><mo>&#x02192;</mo><mn>200 000</mn><mtext>&#x000A0;</mtext><mtext>l</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>Z</mi><mo stretchy="true">&#x000AF;</mo></mover><mo>&#x0003D;</mo><mfrac><mrow><mn>692 820</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002B;</mo><mn>200 000</mn><mo>&#x0003D;</mo><mn>546 410</mn><mtext>&#x000A0;</mtext><mtext>l</mtext></mrow></math></div></div></div>
+
+<div class="step"><h4>d) Cykl konwersji gotówki po zmianach <span class="pk">(3 + 2 pkt)</span></h4>
+<p>Przychody z danych ubiegłorocznych: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>110</mn></mrow><mrow><mn>0,962</mn></mrow></mfrac><mo>&#x02248;</mo><mn>114,35</mn></mrow></math> mln €.</p>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>C</mi><mrow><mi>Z</mi><mi>o</mi><mi>b</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>9,5</mn><mo>&#x000B7;</mo><mn>365</mn></mrow><mrow><mn>114,35</mn></mrow></mfrac><mo>&#x02248;</mo><mn>30,32</mn><mtext>&#x000A0;</mtext><mtext>dnia</mtext></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>CKG</mtext><mo>&#x0003D;</mo><mn>4,36</mn><mo>&#x0002B;</mo><mn>30,0</mn><mo>&#x02212;</mo><mn>30,32</mn><mo>&#x0003D;</mo><mn>4,04</mn><mtext>&#x000A0;</mtext><mtext>dnia</mtext></mrow></math></div></div>
+<p>Od zapłaty za materiały do wpływu gotówki ze sprzedaży mija ok. 4 dni – bardzo krótki cykl, niskie zapotrzebowanie na finansowanie obrotowe.</p></div>
+<div class="note"><b class="t">Pułapka:</b> przychody odtwarzasz z <b>ubiegłorocznego</b> wskaźnika poziomu kosztów (96,2%), bo treść mówi, że pozostałe wielkości się nie zmieniają; zrównanie z branżą dotyczy kosztów, nie przychodów.</div>
+</article>
+
+<!-- ========== 39 ========== -->
+<article class="task" id="z39">
+<h3 class="th">Edycja 39 (XXXIX) · 2025/2026</h3>
+<p class="meta"><b>Producent maszyn górniczych Mine</b> · ROA · ROE i Du Pont · ROA vs ROE na tle branży · forfaiting</p>
+<div class="given"><p>mln zł: długoterminowe aktywa finansowe (inne papiery) 1,20; należności z tyt. dostaw 1,00; krótkoterminowe aktywa finansowe – inne aktywa pieniężne 1,10; zobowiązania długoterminowe 15,00; kapitał stały 111,00; przychody 80,64; obrotowość majątku 0,70; mnożnik KW 1,20; zysk netto 25,20. Weksel od kontrahenta: 1 mln zł, płatny za 10 miesięcy (otrzymany w listopadzie 2025 r.).</p></div>
+
+<div class="step"><h4>a) Rentowność majątku netto <span class="pk">(1 + 3 + 1 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>KW</mtext><mo>&#x0003D;</mo><mn>111</mn><mo>&#x02212;</mo><mn>15</mn><mo>&#x0003D;</mo><mn>96</mn></mrow></math></div><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0003D;</mo><mn>1,2</mn><mo>&#x000B7;</mo><mn>96</mn><mo>&#x0003D;</mo><mn>115,2</mn><mtext>&#x000A0;</mtext><mtext>&#x000A0;</mtext><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mo>&#x0003D;</mo><mfrac><mrow><mn>80,64</mn></mrow><mrow><mn>0,70</mn></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow></mrow></math></div></div>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROA</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>25,2</mn></mrow><mrow><mn>115,2</mn></mrow></mfrac><mo>&#x000B7;</mo><mn>100</mn><mi>&#x00025;</mi><mo>&#x02248;</mo><mn>21,88</mn><mi>&#x00025;</mi></mrow></math></div></div>
+<p>Każda złotówka aktywów wygenerowała ok. 0,22 zł zysku netto.</p></div>
+
+<div class="step"><h4>b) ROE i dekompozycja Du Ponta <span class="pk">(2 pkt)</span></h4>
+<div class="eqs"><div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>ROE</mtext><mo>&#x0003D;</mo><mfrac><mrow><mn>25,2</mn></mrow><mrow><mn>96</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>26,25</mn><mi>&#x00025;</mi><mo>&#x0003D;</mo><munder><munder><mrow><mfrac><mrow><mn>25,2</mn></mrow><mrow><mn>80,64</mn></mrow></mfrac></mrow><mo>&#x23DF;</mo></munder><mrow><mn>31,25</mn><mi>&#x00025;</mi></mrow></munder><mo>&#x000B7;</mo><munder><munder><mrow><mn>0,70</mn></mrow><mo>&#x23DF;</mo></munder><mrow><mi>S</mi><mo>&#x0002F;</mo><mi>A</mi></mrow></munder><mo>&#x000B7;</mo><munder><munder><mrow><mn>1,20</mn></mrow><mo>&#x23DF;</mo></munder><mrow><mi>A</mi><mo>&#x0002F;</mo><mtext>KW</mtext></mrow></munder></mrow></math></div></div></div>
+
+<div class="step"><h4>c) ROA ≈ branża, ale ROE wyraźnie niższe <span class="pk">(2 pkt)</span></h4>
+<p>Skoro ROE = ROA × MKW, niższe ROE przy podobnym ROA oznacza <b>niższy mnożnik kapitału własnego</b> – firma w mniejszym stopniu niż konkurenci korzysta z kapitału obcego (słabsza dźwignia finansowa).</p></div>
+
+<div class="step"><h4>d) Forfaiting <span class="pk">(2 + 2 + 2 pkt)</span></h4>
+<p><b>Istota:</b> sprzedaż przez eksportera nieprzeterminowanych (zwykle średnio- i długoterminowych, często wekslowych) wierzytelności forfaiterowi bez regresu. <b>Korzyści:</b> natychmiastowa gotówka (płynność), przeniesienie ryzyka niewypłacalności kontrahenta (i ryzyk politycznych, walutowych). <b>Pozycja, która się zmniejszy</b> (wg klucza): „Krótkoterminowe aktywa finansowe – inne aktywa pieniężne”.</p>
+<div class="note key"><b class="t">Uwaga do klucza:</b> w ustawie o rachunkowości „inne aktywa pieniężne” obejmują m.in. weksle obce płatne w ciągu 3 miesięcy. Weksel z terminem 10 miesięcy powinien trafić raczej do „innych krótkoterminowych aktywów finansowych”; w tabeli takiej pozycji nie ma, więc punktowana jest odpowiedź z klucza.</div></div>
+</article>
+</section>
+</main>
+<footer>Rozwiązania oparte na kluczach z arkuszy zawodów okręgowych; wszystkie wyniki przeliczone ponownie. Rozbieżności z kluczem opisano w ramkach „Uwaga do klucza”.</footer>
+<script>(function(){
+var D=[["XXI",10,0],["XXII",0,0],["XXIII",13,2],["XXIV",12,3],["XXV",14,1],["XXVI",11,4],["XXVII",13,2],["XXVIII",15,0],["XXIX",15,0],["XXX",15,0],["XXXI",9,6],["XXXII",9,6],["XXXIII",6,9],["XXXIV",11,4],["XXXV",9,6],["XXXVI",9,6],["XXXVII",10,5],["XXXVIII",10,5],["XXXIX",5,10]];
+var box=document.getElementById('ptsChart'); if(!box) return;
+var wrap=box.querySelector('.svgwrap'), tip=box.querySelector('.tip');
+var W=820,H=260,ml=34,mr=8,mt=10,mb=34,pw=W-ml-mr,ph=H-mt-mb,max=15;
+var ns='http://www.w3.org/2000/svg';
+var svg=document.createElementNS(ns,'svg'); svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.setAttribute('width','100%'); svg.setAttribute('role','img');
+svg.setAttribute('aria-label','Wykres słupkowy skumulowany: punkty za obliczenia i za teorię w zadaniu finansowym, edycje XXI–XXXIX');
+function el(n,a){var e=document.createElementNS(ns,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+[0,5,10,15].forEach(function(v){var y=mt+ph-v/max*ph;svg.appendChild(el('line',{x1:ml,x2:W-mr,y1:y,y2:y,stroke:'#2C3A52','stroke-width':1}));var t=el('text',{x:ml-6,y:y+4,'text-anchor':'end','font-size':11,fill:'#94A3B8'});t.textContent=v;svg.appendChild(t);});
+var bw=pw/D.length, w=Math.min(28,bw*0.62);
+D.forEach(function(d,i){
+ var x=ml+i*bw+(bw-w)/2, yo=mt+ph, ho=d[1]/max*ph, ht=d[2]/max*ph;
+ var g=el('g',{});
+ if(d[1]+d[2]===0){var t0=el('text',{x:x+w/2,y:yo-6,'text-anchor':'middle','font-size':10,fill:'#64748B'});t0.textContent='brak';g.appendChild(t0);}
+ if(ho>0){g.appendChild(el('rect',{x:x,y:yo-ho,width:w,height:Math.max(ho-(ht>0?1:0),0),fill:'#B8822F',rx:ht>0?0:3}));}
+ if(ht>0){g.appendChild(el('rect',{x:x,y:yo-ho-ht,width:w,height:ht-1,fill:'#5A8DE0',rx:3}));}
+ var hit=el('rect',{x:ml+i*bw,y:mt,width:bw,height:ph,fill:'transparent'}); g.appendChild(hit);
+ var lab=el('text',{x:x+w/2,y:H-mb+16,'text-anchor':'middle','font-size':10,fill:'#94A3B8'}); lab.textContent=d[0]; g.appendChild(lab);
+ hit.addEventListener('mousemove',function(ev){var r=box.getBoundingClientRect();tip.style.display='block';var tot=d[1]+d[2];tip.innerHTML='<b>Ed. '+d[0]+'</b><br>'+(tot?('Obliczenia: '+d[1]+' pkt ('+Math.round(d[1]/tot*100)+'%)<br>Teoria/interpretacja: '+d[2]+' pkt'):'brak zadania finansowego');var lx=ev.clientX-r.left+12;if(lx>r.width-200)lx=ev.clientX-r.left-200;tip.style.left=lx+'px';tip.style.top=(ev.clientY-r.top-10)+'px';});
+ hit.addEventListener('mouseleave',function(){tip.style.display='none';});
+ svg.appendChild(g);
+});
+// average annotation lines
+function avgLine(i0,i1,val,label){var y=mt+ph-val/max*ph;var x0=ml+i0*bw,x1=ml+(i1+1)*bw;svg.appendChild(el('line',{x1:x0,x2:x1,y1:y,y2:y,stroke:'#E2E8F0','stroke-width':1,'stroke-dasharray':'4 3',opacity:.7}));var t=el('text',{x:(x0+x1)/2,y:y-6,'text-anchor':'middle','font-size':11.5,fill:'#F1F5F9',stroke:'#1E293B','stroke-width':4,'paint-order':'stroke','font-weight':600});t.textContent=label;svg.appendChild(t);}
+avgLine(2,9,13.5,'śr. obliczenia 13,5 pkt (90%)');
+avgLine(10,18,8.67,'śr. obliczenia 8,7 pkt (58%)');
+wrap.appendChild(svg);
+})();
+</script></body></html>

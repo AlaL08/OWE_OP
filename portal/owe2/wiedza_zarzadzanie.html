@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pl" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pozostałe i zarządzanie — Kompendium OWE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+
+/* =========================================================
+   Kompendium OWE — widok ciągły (jeden plik, bez zakładek)
+   ========================================================= */
+:root{
+  color-scheme:dark;
+  --bg:#0f1628;
+  --bg-top:#1b2236;
+  --card:#151d31;
+  --card-2:#18213a;
+  --inset:#121a2d;
+  --deep:#0d1424;
+  --line:#26314b;
+  --line-2:#33405f;
+  --gold:#e8c46f;
+  --gold-2:#cfa956;
+  --gold-dim:#8b7444;
+  --orange:#d99158;
+  --ink:#e9edf5;
+  --ink-2:#c5ccda;
+  --muted:#8f99b0;
+  --faint:#6a7590;
+  --cyan:#6cc6e6;
+  --red:#ee8678;
+  --green:#78d4a8;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Charter,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --r-lg:18px;
+  --r-md:14px;
+  --r-sm:10px;
+  --gutter:clamp(16px,3.2vw,56px);
+  --topbar-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:var(--bg) linear-gradient(180deg,var(--bg-top) 0,#141b2f 380px,var(--bg) 900px) no-repeat;
+  font-feature-settings:"cv11","ss01";
+}
+[hidden]{display:none!important}
+::selection{background:rgba(232,196,111,.3)}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+b,strong{font-weight:650;color:#f4f6fa}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#1a1405;padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+.wrap{max-width:1760px;margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 34px;max-width:1180px}
+.eyebrow{
+  margin:0 0 18px;color:var(--orange);font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;
+}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(44px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;color:var(--gold);
+}
+.desc{margin:0 0 26px;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;font-size:19px;color:var(--muted);margin-bottom:16px}
+.stats b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.srcline{margin:0 0 30px;color:var(--faint);font-size:15.5px;max-width:80ch}
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pill{
+  display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:17px;font-weight:500;background:rgba(255,255,255,.015);transition:border-color .15s,background .15s,color .15s;
+}
+.pill:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:700}
+
+/* ---------- intro ---------- */
+.intro{
+  max-width:1180px;margin:8px 0 42px;padding:24px 28px;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.015));
+}
+.intro__lead{margin:0;font-size:18.5px;line-height:1.7;color:var(--ink)}
+.intro__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+/* ---------- sticky topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 calc(var(--gutter)*-1);padding:0 var(--gutter);
+  background:rgba(14,21,38,.86);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:18px;min-height:var(--topbar-h)}
+.topbar__name{font-weight:800;color:var(--gold);font-size:17px;white-space:nowrap;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;padding:10px 0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chipnav{
+  flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:14.5px;font-weight:500;white-space:nowrap;transition:all .15s;
+}
+.chipnav i{font-style:normal;color:var(--gold-2);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.chipnav:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.chipnav.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:650}
+.chipnav.on i{color:#4a3a10}
+.filter{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.filter input{
+  width:280px;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font:inherit;font-size:15px;
+  padding:9px 16px;border-radius:999px;transition:border-color .15s,width .2s;
+}
+.filter input::placeholder{color:var(--faint)}
+.filter input:focus{outline:none;border-color:var(--gold-2)}
+.filter output{font-size:13.5px;color:var(--muted);min-width:76px;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.layout{display:block;padding-top:8px}
+.toc{display:none}
+.content{min-width:0}
+
+@media (min-width:1680px){
+  .layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:48px}
+  .toc{display:block}
+  .chips{display:none}
+  .topbar__in{justify-content:space-between}
+}
+.toc__in{position:sticky;top:calc(var(--topbar-h) + 28px);max-height:calc(100vh - var(--topbar-h) - 48px);overflow:auto;padding:4px 6px 24px 0;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.toc__h{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.toc__list{list-style:none;margin:0;padding:0}
+.toc__list>li{margin:0 0 4px}
+.toc__sec{
+  display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:15px;
+}
+.toc__sec i{font-style:normal;color:var(--gold-2);font-size:13px;min-width:14px}
+.toc__sec:hover{text-decoration:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.toc__list>li.on>.toc__sec{background:rgba(232,196,111,.1);color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.toc__list ul{list-style:none;margin:2px 0 8px;padding:0 0 0 22px;display:none}
+.toc__list>li.on ul{display:block}
+.toc__list ul a{display:block;padding:4px 10px;font-size:13.5px;line-height:1.4;color:var(--muted);border-radius:8px}
+.toc__list ul a i{font-style:normal;display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.toc__list ul a:hover{text-decoration:none;color:var(--ink);background:rgba(255,255,255,.03)}
+.toc__list ul a.on{color:var(--ink)}
+.toc__list ul a.on i{color:var(--gold-2)}
+
+/* ---------- sekcje ---------- */
+.sec{scroll-margin-top:calc(var(--topbar-h) + 12px)}
+.sec__head{margin:56px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.sec:first-child .sec__head{margin-top:36px}
+.sec__eyebrow{margin:0 0 8px;font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.6}
+.sec__eyebrow b{color:var(--orange);font-weight:700}
+.sec__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec>p.sub{margin:-6px 0 22px;color:var(--muted);font-size:16px;max-width:90ch}
+
+/* ---------- karty ---------- */
+.card{
+  scroll-margin-top:calc(var(--topbar-h) + 16px);
+  background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 24px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -28px rgba(0,0,0,.6);
+}
+.card:target{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(232,196,111,.12)}
+.card__h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 28px;border-bottom:1px solid var(--line)}
+.chip{
+  display:inline-flex;align-items:center;border:1px solid var(--gold-dim);border-radius:999px;overflow:hidden;
+  background:rgba(232,196,111,.06);font-size:15px;line-height:1;
+}
+.chip b{color:var(--gold);font-weight:700;padding:8px 14px;letter-spacing:.02em}
+.chip span{color:var(--gold-2);padding:8px 14px 8px 13px;border-left:1px solid var(--gold-dim);font-weight:500}
+.card__src{color:var(--muted);font-size:14.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card__b{padding:24px 28px 28px}
+.card__t{
+  margin:0 0 18px;font-family:var(--serif);font-size:clamp(23px,1.9vw,29px);line-height:1.28;font-weight:700;letter-spacing:-.005em;
+  color:#f2f4f8;text-wrap:balance;
+}
+.card__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1240px){
+  .card__grid{grid-template-columns:minmax(0,1fr) minmax(330px,34%);gap:30px;align-items:start}
+}
+.card__main>*:first-child{margin-top:0}
+.card__main>*:last-child{margin-bottom:0}
+.card__main p{max-width:84ch}
+.card__main>p{margin:0 0 14px}
+p.lead{font-size:18.5px;line-height:1.7;color:var(--ink)}
+.card__aside{display:flex;flex-direction:column;gap:18px;min-width:0}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+/* bloki „mechanizm / założenia” */
+.mech,.assume{
+  margin:16px 0;padding:16px 20px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset);
+}
+.mech>*:last-child,.assume>*:last-child{margin-bottom:0}
+.mech h4,.assume h4,.worked h4,.calc h4{
+  margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.mech p,.assume p{margin:0 0 10px}
+.assume{border-color:rgba(232,196,111,.3);background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.02))}
+.assume h4{color:var(--gold)}
+
+code.k{font-family:var(--mono);font-size:14px;background:var(--deep);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- pułapki ---------- */
+.trap{
+  border:1px solid rgba(238,134,120,.28);border-radius:var(--r-md);padding:16px 16px 14px;
+  background:linear-gradient(180deg,rgba(238,134,120,.07),rgba(238,134,120,.02));
+}
+.trap__h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);line-height:1.4}
+.trap__ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--red);color:#2a0f0b;font-size:14px;font-weight:800;letter-spacing:0}
+.trap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.trap li{
+  margin:0;padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(13,20,36,.65);
+  font-size:15.5px;line-height:1.55;color:var(--ink-2);
+}
+.trap li b{color:#f6d7d2;font-weight:600}
+.trap li em{color:var(--green);font-style:normal}
+
+/* ---------- tabele ---------- */
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th+th,td+td{border-left:1px solid rgba(38,49,75,.6)}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:#18213a;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);white-space:nowrap}
+tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+tbody tr:hover{background:rgba(232,196,111,.035)}
+td b{color:var(--gold)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.game{width:auto;margin:0 auto}
+table.game td,table.game th{text-align:center;font-variant-numeric:tabular-nums}
+table.game td.ne{background:rgba(232,196,111,.14);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+
+/* ---------- rysunki ---------- */
+figure{margin:18px 0;padding:20px;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-md);overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figcaption{margin:14px auto 0;font-size:14.5px;color:var(--muted);line-height:1.6;text-align:center;max-width:78ch}
+figcaption b{color:var(--ink-2)}
+figure text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.ax{stroke:#4d6290;stroke-width:1.4}
+.gr{stroke:#26314b;stroke-width:1}
+.c-gold{stroke:var(--gold);stroke-width:2.3;fill:none}
+.c-cyan{stroke:var(--cyan);stroke-width:2.3;fill:none}
+.c-red{stroke:var(--red);stroke-width:2.1;fill:none}
+.c-green{stroke:var(--green);stroke-width:2.1;fill:none}
+.dash{stroke-dasharray:4 4;stroke-width:1.2;stroke:#617aa8;fill:none}
+.fill-gold{fill:rgba(232,196,111,.16)}
+.fill-cyan{fill:rgba(108,198,230,.14)}
+.fill-red{fill:rgba(238,134,120,.2)}
+.fill-green{fill:rgba(120,212,168,.16)}
+.lbl-gold{fill:var(--gold)}
+.lbl-cyan{fill:var(--cyan)}
+.lbl-red{fill:var(--red)}
+.lbl-green{fill:var(--green)}
+.lbl-mut{fill:var(--muted)}
+
+/* ---------- wzory ---------- */
+.fx{
+  margin:16px 0;padding:16px 22px;border:1px solid rgba(108,198,230,.28);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(108,198,230,.06),rgba(108,198,230,.015));overflow-x:auto;
+}
+.fx .katex-display{margin:.4em 0}
+.fx .katex{color:var(--ink);font-size:1.12em}
+.katex{color:inherit}
+.fx .note{display:block;font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* ---------- rozwiązania krok po kroku ---------- */
+.worked{margin:16px 0;padding:16px 20px 18px;border:1px solid rgba(120,212,168,.25);border-radius:var(--r-md);background:var(--inset);overflow-x:auto}
+.worked h4{color:var(--green)}
+.worked ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.worked li{
+  counter-increment:step;position:relative;margin:0;padding:10px 14px 10px 52px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:rgba(13,20,36,.55);font-size:16px;line-height:1.65;
+}
+.worked li::before{
+  content:counter(step);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:var(--gold);color:#1d1606;font-weight:800;font-size:14px;line-height:1;
+}
+.worked li[data-l]::before{content:attr(data-l)}
+
+/* ---------- kalkulatory ---------- */
+.calc{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,#19233c,#141c31)}
+.calc h4{color:var(--gold);margin-bottom:12px;letter-spacing:.1em}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.calc label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;line-height:1.35}
+.calc input{
+  width:100%;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14.5px;
+  padding:8px 10px;border-radius:9px;
+}
+.calc input:focus{outline:none;border-color:var(--gold-2)}
+.calc .out{
+  margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--deep);border:1px solid var(--line);
+  font-family:var(--mono);font-size:13.5px;color:var(--green);white-space:pre-wrap;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.calc svg{display:block;width:100%;height:auto;max-width:560px;margin:14px auto 0}
+.calc svg text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.calc .note{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------- odsyłacze ---------- */
+a.xref{color:var(--cyan);font-weight:600;border-bottom:1px dotted rgba(108,198,230,.5)}
+a.xref:hover{text-decoration:none;border-bottom-style:solid}
+
+/* ---------- stopka / na górę ---------- */
+.empty{margin:48px 0;padding:28px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r-lg);color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:14.5px}
+.totop{
+  position:fixed;right:22px;bottom:22px;z-index:50;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card-2);border:1px solid var(--line-2);color:var(--gold);font-size:20px;font-weight:700;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;
+}
+.totop:hover{text-decoration:none;border-color:var(--gold-dim)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- węższe ekrany ---------- */
+@media (max-width:900px){
+  body{font-size:16px}
+  .topbar__name{display:none}
+  .topbar__in{flex-wrap:wrap;gap:0 12px;padding:4px 0}
+  .chips{order:2;flex-basis:100%;padding:4px 0 10px}
+  .filter{order:1;width:100%;margin:8px 0 0}
+  .filter input{flex:1;width:auto}
+  .card__h,.card__b{padding-left:18px;padding-right:18px}
+  .intro{padding:18px 20px}
+  .sec{scroll-margin-top:130px}
+  .card{scroll-margin-top:130px}
+  .worked li{padding-left:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  .topbar,.toc,.totop,.pills,.skip{display:none!important}
+  .layout{display:block}
+  .card{break-inside:avoid-page}
+}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Kompendium: Pozostałe i zarządzanie</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">Olimpiada Wiedzy Ekonomicznej · Etap okręgowy · Kompendium wiedzy</p>
+<h1>Pozostałe i zarządzanie</h1>
+<p class="desc">Myśl ekonomiczna, prawo, organizacja.</p>
+<div class="stats"><span><b>13</b> haseł</span><span><b>6</b> działów</span><span>synteza edycji <b>XXI–XXXIX</b></span></div>
+<p class="srcline">Zawody II stopnia — etap okręgowy.</p>
+<nav aria-label="Moduły kompendium" class="pills">
+<a class="pill" href="wiedza_mikroekonomia.html">Mikroekonomia · 19</a>
+<a class="pill" href="wiedza_makroekonomia.html">Makroekonomia · 16</a>
+<a class="pill" href="wiedza_finanse.html">Finanse · 14</a>
+<a aria-current="page" class="pill on" href="wiedza_zarzadzanie.html">Zarządzanie · 13</a>
+<a class="pill" href="wiedza_obliczeniowe.html">Obliczeniowe · 18</a>
+</nav><nav aria-label="Banki zadań" class="pills" style="margin-top:12px"><span style="color:#94a3b8;font-size:13px;align-self:center">Bank zadań z edycji XXI–XXXIX:</span><a class="pill" href="Zarzadzanie.html">★ Zarządzanie</a><a class="pill" href="Obliczeniowe.html">Zadania obliczeniowe</a><a class="pill" href="Mikroekonomia.html">Mikroekonomia</a><a class="pill" href="Makroekonomia.html">Makroekonomia</a><a class="pill" href="Finanse.html">Finanse</a><a class="pill" href="Analiza_finansowa.html">Analiza finansowa</a></nav>
+</header>
+<section aria-label="O module" class="intro">
+<p class="intro__lead">Ten moduł zbiera wszystko, co nie jest modelem mikro- ani makroekonomicznym: <strong>atrybucję doktrynalną</strong> (kto co głosił), prawo gospodarcze oraz cały blok zarządzania, który w ostatnich edycjach odpowiada za 6–9 pytań testowych. To najtańsze punkty w całym zestawie — są czysto pamięciowe.</p>
+<p class="intro__note">Zasada MECE: każde zagadnienie występuje w dokładnie jednym module. Wszystko, co wymaga rachunku na liczbach, znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a> — także wtedy, gdy pochodzi z mikro- lub makroekonomii.</p>
+</section>
+<div class="topbar" id="topbar"><div class="topbar__in">
+<span class="topbar__name">Pozostałe i zarządzanie</span>
+<nav aria-label="Działy" class="chips">
+<a class="chipnav" data-sec="z1" href="#z1"><i>1</i>Myśl ekonomiczna</a>
+<a class="chipnav" data-sec="z2" href="#z2"><i>2</i>Prawo i instytucje</a>
+<a class="chipnav" data-sec="z3" href="#z3"><i>3</i>Organizacja i struktury</a>
+<a class="chipnav" data-sec="z4" href="#z4"><i>4</i>Motywacja i przywództwo</a>
+<a class="chipnav" data-sec="z5" href="#z5"><i>5</i>Strategia i operacje</a>
+<a class="chipnav" data-sec="z6" href="#z6"><i>6</i>Marketing i HRM</a>
+</nav>
+<label class="filter"><span class="sr">Filtruj hasła</span><input autocomplete="off" id="q" placeholder="Szukaj w module…" type="search"/><output id="qcount">13 haseł</output></label>
+</div></div>
+<div class="layout">
+<aside aria-label="Spis treści" class="toc"><div class="toc__in">
+<p class="toc__h">Spis treści</p><ol class="toc__list">
+<li data-sec="z1"><a class="toc__sec" href="#z1"><i>1</i>Myśl ekonomiczna</a><ul>
+<li><a data-card="POZ-01" href="#POZ-01"><i>POZ-01</i>Kto czego jest autorem</a></li>
+<li><a data-card="POZ-02" href="#POZ-02"><i>POZ-02</i>Szkoły ekonomiczne — co odróżnia jedną od drugiej</a></li>
+</ul></li>
+<li data-sec="z2"><a class="toc__sec" href="#z2"><i>2</i>Prawo i instytucje</a><ul>
+<li><a data-card="POZ-03" href="#POZ-03"><i>POZ-03</i>Spółki: podział, odpowiedzialność, organy</a></li>
+<li><a data-card="POZ-04" href="#POZ-04"><i>POZ-04</i>Ochrona konkurencji i konsumenta</a></li>
+</ul></li>
+<li data-sec="z3"><a class="toc__sec" href="#z3"><i>3</i>Organizacja i struktury</a><ul>
+<li><a data-card="POZ-05" href="#POZ-05"><i>POZ-05</i>Nurty w nauce o zarządzaniu</a></li>
+<li><a data-card="POZ-06" href="#POZ-06"><i>POZ-06</i>Struktury organizacyjne i rozpiętość kierowania</a></li>
+</ul></li>
+<li data-sec="z4"><a class="toc__sec" href="#z4"><i>4</i>Motywacja i przywództwo</a><ul>
+<li><a data-card="POZ-07" href="#POZ-07"><i>POZ-07</i>Teorie motywacji: treści i procesu</a></li>
+<li><a data-card="POZ-08" href="#POZ-08"><i>POZ-08</i>Style i teorie przywództwa</a></li>
+<li><a data-card="POZ-09" href="#POZ-09"><i>POZ-09</i>Kontrola i podejmowanie decyzji grupowych</a></li>
+</ul></li>
+<li data-sec="z5"><a class="toc__sec" href="#z5"><i>5</i>Strategia i operacje</a><ul>
+<li><a data-card="POZ-10" href="#POZ-10"><i>POZ-10</i>Metody analizy strategicznej</a></li>
+<li><a data-card="POZ-11" href="#POZ-11"><i>POZ-11</i>Zarządzanie operacyjne i jakość</a></li>
+</ul></li>
+<li data-sec="z6"><a class="toc__sec" href="#z6"><i>6</i>Marketing i HRM</a><ul>
+<li><a data-card="POZ-12" href="#POZ-12"><i>POZ-12</i>Marketing: orientacje, 4P, segmentacja</a></li>
+<li><a data-card="POZ-13" href="#POZ-13"><i>POZ-13</i>ZZL: rekrutacja, ocena, patologie</a></li>
+</ul></li>
+</ol></div></aside>
+<main class="content" id="tresc">
+<section class="sec" id="z1">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 1</b> · HISTORIA MYŚLI EKONOMICZNEJ</p><h2>Myśl ekonomiczna</h2></header>
+<p class="sub">Atrybucja: nazwisko ↔ koncepcja. Mechanika samych modeli jest w module <a class="xref" href="wiedza_makroekonomia.html">Makroekonomia</a>.</p>
+<article class="card" id="POZ-01">
+<header class="card__h"><span class="chip"><b>POZ-01</b><span>Dział 1</span></span><span class="card__src">Myśl ekonomiczna</span></header>
+<div class="card__b">
+<h3 class="card__t">Kto czego jest autorem</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Postać</th><th>Koncepcja</th></tr></thead>
+<tbody>
+<tr><td>Adam Smith</td><td>Niewidzialna ręka rynku, przewaga absolutna, podział pracy</td></tr>
+<tr><td>David Ricardo</td><td>Przewaga komparatywna, teoria renty gruntowej</td></tr>
+<tr><td>Thomas Malthus</td><td>Pułapka ludnościowa</td></tr>
+<tr><td>Jean-Baptiste Say</td><td>Prawo rynków: podaż tworzy własny popyt</td></tr>
+<tr><td>Alfred Marshall</td><td>Synteza popytu i podaży, elastyczność, nadwyżka konsumenta</td></tr>
+<tr><td>John Maynard Keynes</td><td>Efektywny popyt, mnożnik, aktywna polityka gospodarcza</td></tr>
+<tr><td><b>Michał Kalecki</b></td><td>Niezależnie od Keynesa sformułował teorię efektywnego popytu i cyklu; teoria stopnia monopolizacji</td></tr>
+<tr><td>Milton Friedman</td><td>Monetaryzm, hipoteza dochodu permanentnego, naturalna stopa bezrobocia</td></tr>
+<tr><td>Friedrich von Hayek, Ludwig von Mises</td><td>Szkoła austriacka: porządek spontaniczny, krytyka kalkulacji socjalistycznej</td></tr>
+<tr><td>Joseph Schumpeter</td><td>Twórcza destrukcja, przedsiębiorca-innowator</td></tr>
+<tr><td>Robert Lucas</td><td>Racjonalne oczekiwania, krytyka Lucasa</td></tr>
+<tr><td>Hyman Minsky</td><td>Hipoteza niestabilności finansowej — stabilność rodzi ryzykowne zachowania</td></tr>
+<tr><td>Eugene Fama</td><td>Hipoteza rynków efektywnych</td></tr>
+<tr><td>George Akerlof</td><td>Rynek cytryn — selekcja negatywna</td></tr>
+<tr><td>Arthur Pigou</td><td>Podatek korygujący efekty zewnętrzne</td></tr>
+<tr><td>Ronald Coase</td><td>Twierdzenie o prawach własności, natura firmy, koszty transakcyjne</td></tr>
+<tr><td>Walter Bagehot</td><td>Pożyczkodawca ostatniej instancji</td></tr>
+<tr><td>Hermann Gossen</td><td>Prawa użyteczności krańcowej</td></tr>
+<tr><td>Arthur Okun</td><td>Zależność bezrobocia i luki PKB</td></tr>
+<tr><td>Arthur Laffer</td><td>Krzywa zależności wpływów podatkowych od stawki</td></tr>
+<tr><td>Thorstein Veblen</td><td>Konsumpcja ostentacyjna (efekt Veblena)</td></tr>
+<tr><td>Robert Mundell</td><td>Teoria optymalnych obszarów walutowych</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Przypisywanie Kaleckiego wyłącznie do socjalizmu</b> — w OWE pytania podkreślają jego <em>wyprzedzenie</em> ogólnej teorii Keynesa.</li>
+<li><b>Mylenie Pigou z Coase'em</b> — Pigou to interwencja państwa (podatek), Coase to rozwiązanie rynkowe (negocjacje przy zdefiniowanych prawach własności).</li>
+<li><b>Mylenie prawa Saya z prawem Kopernika–Greshama</b> — drugie dotyczy wypierania lepszego pieniądza przez gorszy.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-02">
+<header class="card__h"><span class="chip"><b>POZ-02</b><span>Dział 1</span></span><span class="card__src">Myśl ekonomiczna</span></header>
+<div class="card__b">
+<h3 class="card__t">Szkoły ekonomiczne — co odróżnia jedną od drugiej</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Szkoła</th><th>Teza o rynku</th><th>Zalecenie dla polityki</th></tr></thead>
+<tbody>
+<tr><td>Klasyczna / neoklasyczna</td><td>Rynek samoczynnie dąży do równowagi przy pełnym zatrudnieniu; ceny i płace elastyczne</td><td>Minimalna interwencja</td></tr>
+<tr><td>Keynesowska</td><td>Popyt może być trwale niedostateczny; ceny i płace lepkie w dół</td><td>Aktywna polityka fiskalna</td></tr>
+<tr><td>Monetaryzm</td><td>Inflacja jest zawsze zjawiskiem pieniężnym; pieniądz neutralny w długim okresie</td><td>Stała reguła przyrostu podaży pieniądza</td></tr>
+<tr><td>Nowa klasyczna</td><td>Racjonalne oczekiwania; antycypowana polityka jest nieskuteczna</td><td>Wiarygodność i przewidywalność reguł</td></tr>
+<tr><td><b>Nowa keynesowska</b></td><td>Mikropodstawy lepkości: koszty zmiany cenników, kontrakty nieformalne, płace motywujące</td><td>Dopuszczalna stabilizacja</td></tr>
+<tr><td>Szkoła austriacka</td><td>Rynek jako proces odkrywania; cykl wywołany zbyt niską stopą procentową</td><td>Wolny pieniądz, brak sterowania popytem</td></tr>
+<tr><td>Instytucjonalizm</td><td>Instytucje i reguły gry determinują wyniki gospodarcze</td><td>Reformy instytucjonalne</td></tr>
+<tr><td>Ekonomia behawioralna</td><td>Ograniczona racjonalność, heurystyki, awersja do straty</td><td>Architektura wyboru, „szturchnięcia”</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Przypisywanie lepkości cen monetaryzmowi</b> — to znak rozpoznawczy nowej ekonomii keynesowskiej.</li>
+<li><b>„Krzywa AS nowych keynesistów jest zawsze pozioma”</b> — jest rosnąca, a przy produkcji odpowiadającej pełnemu zatrudnieniu staje się pionowa.</li>
+<li><b>Mylenie racjonalnych oczekiwań z adaptacyjnymi</b> — adaptacyjne opierają się wyłącznie na przeszłości, racjonalne wykorzystują całą dostępną informację, łącznie ze znajomością modelu gospodarki.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="z2">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 2</b> · PRAWO GOSPODARCZE I INSTYTUCJE</p><h2>Prawo i instytucje</h2></header>
+<article class="card" id="POZ-03">
+<header class="card__h"><span class="chip"><b>POZ-03</b><span>Dział 2</span></span><span class="card__src">Prawo i instytucje</span></header>
+<div class="card__b">
+<h3 class="card__t">Spółki: podział, odpowiedzialność, organy</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Typ</th><th>Spółki</th><th>Cecha</th></tr></thead>
+<tbody>
+<tr><td>Osobowe</td><td>jawna, partnerska, komandytowa, komandytowo-akcyjna</td><td>Brak osobowości prawnej (mają zdolność prawną); odpowiedzialność wspólników majątkiem osobistym</td></tr>
+<tr><td>Kapitałowe</td><td>z o.o., akcyjna, prosta spółka akcyjna</td><td>Osobowość prawna; odpowiedzialność ograniczona do wkładu</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Spółka akcyjna — organy i zasady</h4>
+<ul>
+<li>Organy: walne zgromadzenie, rada nadzorcza (obowiązkowa), zarząd.</li>
+<li><b>Rada nadzorcza nie ma prawa wydawać zarządowi wiążących poleceń</b> dotyczących prowadzenia spraw spółki — sprawuje nadzór, a nie kierownictwo.</li>
+<li>Członków zarządu powołuje i odwołuje rada nadzorcza (o ile statut nie stanowi inaczej); rada może zawiesić w czynnościach członka zarządu.</li>
+<li>Prosta spółka akcyjna: minimalny kapitał <b>1 zł</b>, możliwość pokrycia akcji pracą lub usługami, brak wymogu formy aktu notarialnego przy rejestracji elektronicznej.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Spółka jawna może emitować obligacje”</b> — nie może; brak jej podmiotowości wymaganej przez ustawę o obligacjach.</li>
+<li><b>Mylenie komercjalizacji z prywatyzacją</b> — komercjalizacja to przekształcenie przedsiębiorstwa państwowego w spółkę Skarbu Państwa; prywatyzacja to zbycie udziałów podmiotom prywatnym.</li>
+<li><b>Mylenie syndyka, komornika i sędziego-komisarza</b> — syndyk zarządza masą upadłości, komornik prowadzi egzekucję z majątku dłużnika, sędzia-komisarz nadzoruje postępowanie upadłościowe.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-04">
+<header class="card__h"><span class="chip"><b>POZ-04</b><span>Dział 2</span></span><span class="card__src">Prawo i instytucje</span></header>
+<div class="card__b">
+<h3 class="card__t">Ochrona konkurencji i konsumenta</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Instytucja / instrument</th><th>Zakres</th></tr></thead>
+<tbody>
+<tr><td><b>UOKiK</b></td><td>Praktyki ograniczające konkurencję, kontrola koncentracji, zbiorowe interesy konsumentów, klauzule abuzywne</td></tr>
+<tr><td><b>KNF</b></td><td>Nadzór nad rynkiem finansowym: banki, ubezpieczyciele, rynek kapitałowy, emerytalny</td></tr>
+<tr><td><b>Leniency</b></td><td>Program łagodzenia kar dla uczestnika zmowy, który jako pierwszy ujawni kartel i podejmie współpracę</td></tr>
+<tr><td>Odstąpienie od umowy zawartej na odległość</td><td><b>14 dni</b> bez podania przyczyny</td></tr>
+<tr><td>Klauzula abuzywna</td><td>Postanowienie nieuzgodnione indywidualnie, rażąco naruszające interesy konsumenta — nie wiąże go</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Leniency mylone z ugodą lub abolicją podatkową</b> — dotyczy wyłącznie uczestników porozumień ograniczających konkurencję.</li>
+<li><b>Przypisywanie UOKiK nadzoru nad giełdą</b> — to kompetencja KNF.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="z3">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 3</b> · TEORIA ORGANIZACJI I STRUKTURY</p><h2>Organizacja i struktury</h2></header>
+<article class="card" id="POZ-05">
+<header class="card__h"><span class="chip"><b>POZ-05</b><span>Dział 3</span></span><span class="card__src">Organizacja i struktury</span></header>
+<div class="card__b">
+<h3 class="card__t">Nurty w nauce o zarządzaniu</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Nurt</th><th>Przedstawiciele</th><th>Istota</th></tr></thead>
+<tbody>
+<tr><td>Naukowe zarządzanie</td><td>F. Taylor, F. i L. Gilbrethowie, H. Gantt</td><td>Badanie czasu i ruchów, normy, „jeden najlepszy sposób” wykonania pracy</td></tr>
+<tr><td>Kierunek administracyjny</td><td><b>H. Fayol</b>, M. Weber</td><td>Funkcje kierownicze (planowanie, organizowanie, przewodzenie, kontrolowanie), 14 zasad zarządzania, biurokracja idealna</td></tr>
+<tr><td>Nurt behawioralny</td><td>E. Mayo, M.P. Follett, A. Maslow, D. McGregor</td><td>Człowiek i grupa nieformalna jako źródło wydajności; eksperymenty w Hawthorne</td></tr>
+<tr><td>Ilościowy</td><td>Badania operacyjne</td><td>Modele matematyczne, optymalizacja, symulacja</td></tr>
+<tr><td>Systemowy</td><td>—</td><td>Organizacja jako system otwarty; synergia, entropia, sprzężenia zwrotne</td></tr>
+<tr><td>Sytuacyjny</td><td>J. Woodward, T. Burns i G. Stalker</td><td>Nie ma uniwersalnych rozwiązań — skuteczność zależy od kontekstu i technologii</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Pojęcia pochodne</h4>
+<ul>
+<li><b>Prakseologia</b> — nauka o sprawnym działaniu (T. Kotarbiński).</li>
+<li><b>Fotografia dnia roboczego</b> — technika rejestracji rzeczywistego wykorzystania czasu pracy, wywodząca się z nurtu naukowego zarządzania.</li>
+<li><b>Wykres Gantta</b> — harmonogram zadań w czasie; nie służy do analizy przyczyn (od tego jest diagram Ishikawy).</li>
+<li><b>Otoczenie ogólne</b>: wymiar ekonomiczny, techniczny, prawno-polityczny, socjokulturowy, międzynarodowy. <b>Otoczenie zadaniowe</b>: konkurenci, klienci, dostawcy, regulatorzy, związki zawodowe, właściciele, sojusznicy strategiczni.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie otoczenia ogólnego z zadaniowym</b> — klient i dostawca są zawsze zadaniowi, nawet gdy pytanie opisuje „ogólne warunki rynkowe”.</li>
+<li><b>Przypisywanie funkcji kierowniczych Taylorowi</b> — sformułował je Fayol.</li>
+<li><b>Weber jako krytyk biurokracji</b> — przeciwnie, opisał ją jako typ idealny racjonalnej organizacji.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-06">
+<header class="card__h"><span class="chip"><b>POZ-06</b><span>Dział 3</span></span><span class="card__src">Organizacja i struktury</span></header>
+<div class="card__b">
+<h3 class="card__t">Struktury organizacyjne i rozpiętość kierowania</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Struktura</th><th>Zasada grupowania</th><th>Typowe zastosowanie</th></tr></thead>
+<tbody>
+<tr><td><b>Funkcjonalna (typu U)</b></td><td>Według funkcji: produkcja, sprzedaż, finanse</td><td>Firmy jednoproduktowe, jeden rynek</td></tr>
+<tr><td><b>Dywizjonalna (typu M)</b></td><td>Według produktów, rynków lub regionów</td><td>Dywersyfikacja pokrewna</td></tr>
+<tr><td><b>Holdingowa (typu H)</b></td><td>Niepowiązane spółki pod wspólną kontrolą właścicielską</td><td>Dywersyfikacja konglomeratowa</td></tr>
+<tr><td><b>Macierzowa</b></td><td>Jednoczesne podporządkowanie funkcjonalne i projektowe</td><td>Projekty, B+R; łamie zasadę jedności rozkazodawstwa</td></tr>
+<tr><td>Sieciowa / wirtualna</td><td>Relacje kontraktowe zamiast hierarchii</td><td>Outsourcing procesów</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Rozpiętość kierowania</h4>
+<p>Liczba podwładnych bezpośrednio podległych jednemu kierownikowi. <strong>Szeroka</strong> rozpiętość daje strukturę <em>płaską</em> (mało szczebli, szybszy obieg informacji, większa samodzielność). <strong>Wąska</strong> daje strukturę <em>smukłą</em> (ścisły nadzór, dłuższa droga decyzyjna, wyższe koszty zarządu).</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Odwrócenie zależności smukła/płaska</b> — to najczęstszy dystraktor w tym bloku.</li>
+<li><b>„Struktura macierzowa realizuje zasadę jedności rozkazodawstwa”</b> — świadomie ją narusza: pracownik ma dwóch przełożonych.</li>
+<li><b>Delegowanie uprawnień nie przenosi odpowiedzialności</b> ostatecznej z przełożonego na podwładnego.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="z4">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 4</b> · MOTYWACJA I PRZYWÓDZTWO</p><h2>Motywacja i przywództwo</h2></header>
+<article class="card" id="POZ-07">
+<header class="card__h"><span class="chip"><b>POZ-07</b><span>Dział 4</span></span><span class="card__src">Motywacja i przywództwo</span></header>
+<div class="card__b">
+<h3 class="card__t">Teorie motywacji: treści i procesu</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Hierarchia potrzeb Maslowa" role="img" viewbox="0 0 640 260">
+<polygon class="fill-gold" points="320,20 420,80 220,80" stroke="#e8b75d"></polygon>
+<polygon class="fill-gold" opacity=".8" points="220,80 420,80 460,130 180,130" stroke="#e8b75d"></polygon>
+<polygon class="fill-cyan" points="180,130 460,130 500,180 140,180" stroke="#63c7e8"></polygon>
+<polygon class="fill-cyan" opacity=".75" points="140,180 500,180 530,220 110,220" stroke="#63c7e8"></polygon>
+<polygon fill="rgba(111,211,165,.18)" points="110,220 530,220 560,250 80,250" stroke="#6fd3a5"></polygon>
+<text x="290" y="66">samorealizacji</text>
+<text x="288" y="114">uznania</text>
+<text x="282" y="164">przynależności</text>
+<text x="290" y="208">bezpieczeństwa</text>
+<text x="288" y="243">fizjologiczne</text>
+</svg>
+<figcaption>Potrzeba niższego rzędu musi być zaspokojona, zanim wyższa stanie się motywatorem. Potrzeba zaspokojona przestaje motywować.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Teoria</th><th>Autor</th><th>Rdzeń</th></tr></thead>
+<tbody>
+<tr><td>Hierarchia potrzeb</td><td>A. Maslow</td><td>Pięć poziomów; kolejność zaspokajania</td></tr>
+<tr><td><b>ERG</b></td><td>C. Alderfer</td><td>Egzystencja, kontaktów, wzrostu; dopuszcza <b>regresję</b> do niższego poziomu przy frustracji</td></tr>
+<tr><td><b>Dwuczynnikowa</b></td><td>F. Herzberg</td><td><b>Czynniki higieny</b> (płaca, warunki, nadzór, polityka firmy) usuwają niezadowolenie; <b>motywatory</b> (osiągnięcia, uznanie, rozwój, sama praca) budują zadowolenie</td></tr>
+<tr><td>Teoria X i Y</td><td>D. McGregor</td><td>X — człowiek unika pracy, wymaga kontroli; Y — praca jest naturalna, ludzie szukają odpowiedzialności</td></tr>
+<tr><td>Teoria potrzeb</td><td>D. McClelland</td><td>Potrzeba osiągnięć, władzy, przynależności</td></tr>
+<tr><td><b>Teoria oczekiwań</b></td><td>V. Vroom</td><td>Motywacja = oczekiwanie (wysiłek→wynik) × instrumentalność (wynik→nagroda) × walencja (wartość nagrody)</td></tr>
+<tr><td>Model rozszerzony</td><td>Porter–Lawler</td><td>To <b>efektywność prowadzi do zadowolenia</b>, a nie odwrotnie</td></tr>
+<tr><td>Teoria sprawiedliwości</td><td>J.S. Adams</td><td>Porównanie relacji nakładów do wyników z innymi osobami</td></tr>
+<tr><td>Wzmocnienia</td><td>B.F. Skinner</td><td>Konsekwencje zachowań kształtują ich powtarzalność</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Uznanie płacy za motywator u Herzberga</b> — wynagrodzenie jest czynnikiem <em>higieny</em>. Jego podniesienie usuwa niezadowolenie, ale nie buduje trwałej motywacji.</li>
+<li><b>Odwrócenie tezy Portera–Lawlera</b> — dystraktor mówi „zadowolenie prowadzi do efektywności”.</li>
+<li><b>Mylenie wzbogacania pracy z rozszerzaniem</b>: rozszerzanie (job enlargement) to więcej zadań na tym samym poziomie; wzbogacanie (job enrichment) to <em>zwiększenie zakresu decyzji i odpowiedzialności</em>.</li>
+<li><b>Alderfer bez regresji</b> — to właśnie możliwość cofnięcia się do niższego poziomu odróżnia ERG od Maslowa.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-08">
+<header class="card__h"><span class="chip"><b>POZ-08</b><span>Dział 4</span></span><span class="card__src">Motywacja i przywództwo</span></header>
+<div class="card__b">
+<h3 class="card__t">Style i teorie przywództwa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Model</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td><b>Siatka kierownicza</b> (Blake–Mouton)</td><td>Dwa wymiary: troska o ludzi i troska o produkcję; styl 9.9 („zespołowy”) uznany za optymalny</td></tr>
+<tr><td><b>Model Fiedlera (NPW)</b></td><td>Skala „najmniej preferowanego współpracownika”; skuteczność stylu zależy od <b>korzystności sytuacji</b> (relacje, struktura zadania, władza formalna)</td></tr>
+<tr><td><b>Ścieżka do celu</b> (House)</td><td>Kierownik usuwa przeszkody i wskazuje drogę do nagrody; styl dyrektywny, wspierający, partycypacyjny, zorientowany na osiągnięcia</td></tr>
+<tr><td><b>Vroom–Yetton–Jago</b></td><td>Drzewo decyzyjne określające, <b>ile udziału podwładnych</b> powinno być w konkretnej decyzji</td></tr>
+<tr><td><b>Continuum Tannenbauma–Schmidta</b></td><td>Ciągła skala od pełnej autokracji do pełnej demokracji</td></tr>
+<tr><td>Przywództwo charyzmatyczne / transformacyjne</td><td>Wizja, inspiracja, zmiana wartości zespołu — odróżniane od transakcyjnego (wymiana nagród za wyniki)</td></tr>
+<tr><td><b>Role kierownicze Mintzberga</b></td><td>Interpersonalne (reprezentant, przywódca, łącznik), informacyjne (monitor, propagator, rzecznik), decyzyjne (przedsiębiorca, przeciwdziałający zakłóceniom, rozdzielający zasoby, negocjator)</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Model Vrooma–Yettona–Jago mylony z teorią oczekiwań Vrooma</b> — ten sam autor, dwie różne koncepcje: pierwsza dotyczy partycypacji w decyzjach, druga motywacji.</li>
+<li><b>Fiedler jako zwolennik jednego najlepszego stylu</b> — przeciwnie, jego model jest sytuacyjny.</li>
+<li><b>Mylenie władzy formalnej z przywództwem</b> — przywództwo opiera się także na źródłach nieformalnych (ekspercka, odniesienia).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-09">
+<header class="card__h"><span class="chip"><b>POZ-09</b><span>Dział 4</span></span><span class="card__src">Motywacja i przywództwo</span></header>
+<div class="card__b">
+<h3 class="card__t">Kontrola i podejmowanie decyzji grupowych</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Rodzaj kontroli</th><th>Przedmiot</th></tr></thead>
+<tbody>
+<tr><td>Strategiczna</td><td>Dopasowanie organizacji do otoczenia i realizacja celów długookresowych</td></tr>
+<tr><td><b>Strukturalna</b></td><td>Stopień realizacji potrzeb organizacji przez jej strukturę; dwa bieguny: kontrola <b>biurokratyczna</b> i kontrola <b>z udziałem pracowników</b></td></tr>
+<tr><td>Operacyjna</td><td>Procesy przekształcania nakładów w wyniki (wstępna, bieżąca, końcowa)</td></tr>
+<tr><td>Finansowa</td><td>Budżety, sprawozdania, audyt</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Techniki grupowe</h4>
+<ul>
+<li><b>Burza mózgów</b> — swobodne generowanie pomysłów z zakazem krytyki na etapie zbierania.</li>
+<li><b>Technika grupy nominalnej</b> — indywidualne zgłaszanie pomysłów, następnie wspólna ocena i głosowanie.</li>
+<li><b>Metoda delficka</b> — anonimowe, wielorundowe opinie ekspertów, którzy się nie spotykają.</li>
+<li><b>Zarządzanie przez wyjątki</b> — kierownik reaguje tylko na odchylenia przekraczające próg; <b>zarządzanie przez cele</b> — uzgadnianie celów i rozliczanie z wyników.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Metoda delficka mylona z burzą mózgów</b> — kluczowa różnica to anonimowość i brak bezpośredniego kontaktu ekspertów.</li>
+<li><b>Myślenie grupowe</b> (groupthink) to <em>patologia</em> spójnej grupy — dążenie do zgody kosztem krytycznej oceny, a nie zaleta pracy zespołowej.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="z5">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 5</b> · STRATEGIA, OPERACJE I JAKOŚĆ</p><h2>Strategia i operacje</h2></header>
+<article class="card" id="POZ-10">
+<header class="card__h"><span class="chip"><b>POZ-10</b><span>Dział 5</span></span><span class="card__src">Strategia i operacje</span></header>
+<div class="card__b">
+<h3 class="card__t">Metody analizy strategicznej</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Macierz BCG" role="img" viewbox="0 0 640 280">
+<line class="ax" x1="120" x2="520" y1="240" y2="240"></line>
+<line class="ax" x1="120" x2="120" y1="240" y2="30"></line>
+<line class="gr" x1="320" x2="320" y1="30" y2="240"></line>
+<line class="gr" x1="120" x2="520" y1="135" y2="135"></line>
+<text class="lbl-cyan" x="150" y="80">znaki zapytania</text>
+<text fill="#7e97bd" x="150" y="100">duży udział rynku? inwestować</text>
+<text class="lbl-gold" x="360" y="80">gwiazdy</text>
+<text fill="#7e97bd" x="360" y="100">wzrost + pozycja</text>
+<text x="150" y="190">psy</text>
+<text fill="#7e97bd" x="150" y="210">kandydaci do wycofania</text>
+<text class="lbl-green" x="360" y="190">dojne krowy</text>
+<text fill="#7e97bd" x="360" y="210">źródło gotówki</text>
+<text x="30" y="140">tempo wzrostu rynku</text>
+<text x="420" y="264">względny udział w rynku →</text>
+</svg>
+<figcaption>Oś pozioma to <em>względny</em> udział w rynku (w relacji do największego konkurenta), rosnąca w lewo w oryginalnym ujęciu BCG.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Metoda</th><th>Wymiary</th></tr></thead>
+<tbody>
+<tr><td>SWOT</td><td>Silne i słabe strony (wnętrze) × szanse i zagrożenia (otoczenie)</td></tr>
+<tr><td>BCG</td><td>Tempo wzrostu rynku × względny udział w rynku</td></tr>
+<tr><td>GE / McKinsey</td><td>Atrakcyjność sektora × pozycja konkurencyjna (macierz 3×3)</td></tr>
+<tr><td>ADL</td><td>Faza cyklu życia sektora × pozycja konkurencyjna</td></tr>
+<tr><td><b>Pięć sił Portera</b></td><td>Rywalizacja w sektorze, groźba nowych wejść, siła dostawców, siła nabywców, groźba substytutów</td></tr>
+<tr><td>Strategie ogólne Portera</td><td>Przywództwo kosztowe, dyferencjacja, koncentracja</td></tr>
+<tr><td>Miles i Snow</td><td>Poszukiwacz, obrońca, analityk, reagujący</td></tr>
+<tr><td>Balanced scorecard</td><td>Perspektywa finansowa, klienta, procesów wewnętrznych, rozwoju</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Kierunki rozwoju</h4>
+<ul>
+<li><b>Integracja pionowa</b> — przejmowanie ogniw w górę (dostawcy) lub w dół (odbiorcy) łańcucha wartości.</li>
+<li><b>Integracja pozioma</b> — przejęcie konkurenta na tym samym szczeblu.</li>
+<li><b>Dywersyfikacja konglomeratowa</b> — wejście w działalność niepowiązaną z dotychczasową.</li>
+<li><b>Benchmarking</b> — porównanie własnych procesów z najlepszymi praktykami, także spoza branży.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Dodawanie do pięciu sił Portera „siły państwa” lub „siły pracowników”</b> — model ma dokładnie pięć elementów.</li>
+<li><b>„Dojne krowy należy sprzedawać”</b> — służą finansowaniu gwiazd i znaków zapytania.</li>
+<li><b>Mylenie SWOT z analizą pięciu sił</b> — SWOT łączy wnętrze i otoczenie, Porter opisuje wyłącznie strukturę sektora.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-11">
+<header class="card__h"><span class="chip"><b>POZ-11</b><span>Dział 5</span></span><span class="card__src">Strategia i operacje</span></header>
+<div class="card__b">
+<h3 class="card__t">Zarządzanie operacyjne i jakość</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Koncepcja</th><th>Istota</th></tr></thead>
+<tbody>
+<tr><td><b>Just in time</b></td><td>Dostawy dokładnie na czas; minimalizacja zapasów, wysokie wymagania wobec dostawców</td></tr>
+<tr><td><b>Lean management</b></td><td>Eliminacja marnotrawstwa (muda) we wszystkich procesach</td></tr>
+<tr><td><b>Kaizen</b></td><td>Ciągłe doskonalenie małymi krokami, z udziałem wszystkich pracowników</td></tr>
+<tr><td><b>Six Sigma</b></td><td>Redukcja zmienności procesów do poziomu 3,4 defektu na milion możliwości; cykl DMAIC</td></tr>
+<tr><td><b>TQM</b></td><td>Kompleksowe zarządzanie jakością — jakość jako sprawa całej organizacji, nie działu kontroli</td></tr>
+<tr><td><b>Outsourcing / offshoring / reshoring</b></td><td>Wydzielenie na zewnątrz / przeniesienie za granicę / powrót produkcji do kraju macierzystego</td></tr>
+<tr><td>Keiretsu, czebole</td><td>Japońskie i koreańskie grupy powiązanych kapitałowo przedsiębiorstw</td></tr>
+<tr><td>Reengineering</td><td>Radykalne przeprojektowanie procesów — przeciwieństwo stopniowego kaizen</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Kaizen mylony z reengineeringiem</b> — pierwsze to ewolucja, drugie rewolucja procesowa.</li>
+<li><b>„JIT obniża wymagania wobec dostawców”</b> — drastycznie je podnosi: opóźnienie dostawy zatrzymuje produkcję.</li>
+<li><b>Offshoring utożsamiany z outsourcingiem</b> — można przenieść produkcję za granicę, pozostawiając ją we własnych strukturach (captive offshoring).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="z6">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 6</b> · MARKETING I ZARZĄDZANIE ZASOBAMI LUDZKIMI</p><h2>Marketing i HRM</h2></header>
+<article class="card" id="POZ-12">
+<header class="card__h"><span class="chip"><b>POZ-12</b><span>Dział 6</span></span><span class="card__src">Marketing i HRM</span></header>
+<div class="card__b">
+<h3 class="card__t">Marketing: orientacje, 4P, segmentacja</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Pojęcie</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td>Orientacje</td><td>Produkcyjna → produktowa → sprzedażowa → marketingowa → społeczna</td></tr>
+<tr><td><b>Marketing mix 4P</b></td><td>Produkt, cena, dystrybucja (place), promocja. Rozszerzenie 7P dla usług: ludzie, procesy, świadectwo materialne</td></tr>
+<tr><td>Kryteria segmentacji</td><td>Demograficzne, geograficzne, psychograficzne, behawioralne</td></tr>
+<tr><td><b>Model AIDA</b></td><td>Uwaga → zainteresowanie → pożądanie → działanie</td></tr>
+<tr><td><b>Mystery shopping</b></td><td>Badanie jakości obsługi przez „tajemniczego klienta”</td></tr>
+<tr><td>Poczta pantoflowa (word of mouth)</td><td>Nieformalne rekomendacje konsumentów</td></tr>
+<tr><td>CSR</td><td>Społeczna odpowiedzialność biznesu — dobrowolne uwzględnianie interesów społecznych i środowiskowych</td></tr>
+<tr><td>Ekonomia współdzielenia / dostępu</td><td>Korzystanie zamiast posiadania; platformy pośredniczące</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Orientacja sprzedażowa mylona z marketingową</b> — sprzedażowa wychodzi od gotowego produktu i szuka nabywcy, marketingowa zaczyna od rozpoznania potrzeb.</li>
+<li><b>Dodawanie „konkurencji” do 4P</b> — to element otoczenia, nie narzędzie marketingu mix.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="POZ-13">
+<header class="card__h"><span class="chip"><b>POZ-13</b><span>Dział 6</span></span><span class="card__src">Marketing i HRM</span></header>
+<div class="card__b">
+<h3 class="card__t">ZZL: rekrutacja, ocena, patologie</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Pojęcie</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td><b>Model sita</b></td><td>Selekcja najlepszych kandydatów i wymiana słabszych; nacisk na rekrutację, nie na rozwój</td></tr>
+<tr><td><b>Model kapitału ludzkiego</b></td><td>Długookresowe inwestowanie w rozwój i lojalność pracownika</td></tr>
+<tr><td>Rekrutacja wewnętrzna</td><td>Tańsza, motywująca, skraca adaptację; ryzyko „chowu wsobnego”</td></tr>
+<tr><td><b>Assessment center</b></td><td>Wielozadaniowa ocena kompetencji przez zespół obserwatorów</td></tr>
+<tr><td><b>Outplacement</b></td><td>Program wsparcia zwalnianych pracowników w znalezieniu nowej pracy</td></tr>
+<tr><td><b>Efekt aureoli (halo)</b></td><td>Jedna pozytywna cecha rzutuje na całościową ocenę pracownika</td></tr>
+<tr><td><b>Mobbing</b></td><td>Uporczywe i długotrwałe nękanie pracownika</td></tr>
+<tr><td>Karoshi</td><td>Śmierć z przepracowania (termin japoński)</td></tr>
+<tr><td>Osobowość typu A / B</td><td>A — rywalizacyjna, pośpiech, podatność na stres; B — spokojniejsza, mniej konfliktowa</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Model sita mylony z kapitałem ludzkim</b> — rozstrzyga, czy firma wymienia pracowników, czy w nich inwestuje.</li>
+<li><b>Assessment center mylone z centrum oceny wyników</b> — to metoda <em>selekcji i diagnozy kompetencji</em>, a nie okresowa ocena pracownicza.</li>
+<li><b>Outplacement mylony ze zwolnieniem grupowym</b> — to program osłonowy towarzyszący zwolnieniom.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<p class="empty" hidden="" id="empty">Brak haseł pasujących do wyszukiwania.</p>
+<footer class="foot"><span>Pozostałe i zarządzanie · kompendium szkolne OWE</span><a href="#top">Na górę ↑</a></footer>
+</main></div></div>
+<a aria-label="Na górę strony" class="totop" href="#top">↑</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.renderMathInElement) renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],
+    throwOnError: false,
+    strict: false
+  });
+});
+</script>
+<script>/* Kompendium OWE — widok ciągły: wyszukiwarka, podświetlanie bieżącego działu, pomocnicze dla kalkulatorów */
+(function () {
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l')
+      .replace(/ń/g, 'n').replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ż/g, 'z').replace(/ź/g, 'z');
+  }
+  function plural(n) {
+    if (n === 1) return 'hasło';
+    var d = n % 10, h = n % 100;
+    return (d >= 2 && d <= 4 && (h < 12 || h > 14)) ? 'hasła' : 'haseł';
+  }
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var sections = $$('section.sec');
+  var cards = $$('article.card');
+  var chips = $$('.chipnav');
+  var tocItems = $$('.toc__list > li');
+  var tocCards = $$('.toc__list ul a');
+  var chipBox = document.querySelector('.chips');
+
+  /* --- wyszukiwarka --- */
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var empty = document.getElementById('empty');
+  cards.forEach(function (c) { c._hay = norm(c.textContent); });
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim());
+      var hits = 0;
+      cards.forEach(function (c) {
+        var ok = !q || c._hay.indexOf(q) > -1;
+        c.hidden = !ok;
+        if (ok) hits++;
+      });
+      sections.forEach(function (s) {
+        var any = $$('article.card', s).some(function (c) { return !c.hidden; });
+        s.hidden = !any;
+        chips.concat(tocItems).forEach(function (el) { if (el.dataset.sec === s.id) el.hidden = !any; });
+      });
+      tocCards.forEach(function (a) {
+        var c = document.getElementById(a.dataset.card);
+        a.parentNode.hidden = !!(c && c.hidden);
+      });
+      count.textContent = q ? (hits + ' / ' + cards.length) : (cards.length + ' ' + plural(cards.length));
+      if (empty) empty.hidden = hits > 0;
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+
+  /* --- bieżący dział i hasło (podświetlenie w nawigacji) --- */
+  var curSec = null, curCard = null;
+  function setSection(id) {
+    if (id === curSec) return;
+    curSec = id;
+    chips.forEach(function (a) { a.classList.toggle('on', a.dataset.sec === id); });
+    tocItems.forEach(function (li) { li.classList.toggle('on', li.dataset.sec === id); });
+    var on = chips.filter(function (a) { return a.dataset.sec === id; })[0];
+    if (on && chipBox && chipBox.offsetParent) {
+      var l = on.offsetLeft - chipBox.offsetLeft, r = l + on.offsetWidth;
+      if (l < chipBox.scrollLeft || r > chipBox.scrollLeft + chipBox.clientWidth) {
+        chipBox.scrollTo({ left: Math.max(0, l - 24), behavior: 'smooth' });
+      }
+    }
+  }
+  function setCard(id) {
+    if (id === curCard) return;
+    curCard = id;
+    tocCards.forEach(function (a) { a.classList.toggle('on', a.dataset.card === id); });
+  }
+  function spy() {
+    var line = 110;
+    var s = null, c = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].hidden) continue;
+      if (sections[i].getBoundingClientRect().top <= line) s = sections[i]; else break;
+    }
+    if (!s) s = sections.filter(function (x) { return !x.hidden; })[0];
+    if (s) {
+      setSection(s.id);
+      var cs = $$('article.card', s);
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j].hidden) continue;
+        if (cs[j].getBoundingClientRect().top <= line + 40) c = cs[j]; else break;
+      }
+      setCard(c ? c.id : (cs[0] && cs[0].id));
+    }
+    var tt = document.querySelector('.totop');
+    if (tt) tt.classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; spy(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+
+  /* --- pomocnicze dla kalkulatorów (bez zmian względem wersji z zakładkami) --- */
+  window.OWE = {
+    n: function (id) { var e = document.getElementById(id); return e ? parseFloat(String(e.value).replace(',', '.')) : NaN; },
+    f: function (x, d) { return isFinite(x) ? x.toLocaleString('pl-PL', { maximumFractionDigits: d === undefined ? 2 : d }) : '—'; },
+    bind: function (ids, fn) {
+      var run = function () { try { fn(); } catch (e) { } };
+      ids.forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener('input', run); });
+      run();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>

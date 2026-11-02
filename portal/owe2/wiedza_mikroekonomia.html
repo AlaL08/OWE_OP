@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="pl" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mikroekonomia — Kompendium OWE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+
+/* =========================================================
+   Kompendium OWE — widok ciągły (jeden plik, bez zakładek)
+   ========================================================= */
+:root{
+  color-scheme:dark;
+  --bg:#0f1628;
+  --bg-top:#1b2236;
+  --card:#151d31;
+  --card-2:#18213a;
+  --inset:#121a2d;
+  --deep:#0d1424;
+  --line:#26314b;
+  --line-2:#33405f;
+  --gold:#e8c46f;
+  --gold-2:#cfa956;
+  --gold-dim:#8b7444;
+  --orange:#d99158;
+  --ink:#e9edf5;
+  --ink-2:#c5ccda;
+  --muted:#8f99b0;
+  --faint:#6a7590;
+  --cyan:#6cc6e6;
+  --red:#ee8678;
+  --green:#78d4a8;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Charter,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --r-lg:18px;
+  --r-md:14px;
+  --r-sm:10px;
+  --gutter:clamp(16px,3.2vw,56px);
+  --topbar-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:var(--bg) linear-gradient(180deg,var(--bg-top) 0,#141b2f 380px,var(--bg) 900px) no-repeat;
+  font-feature-settings:"cv11","ss01";
+}
+[hidden]{display:none!important}
+::selection{background:rgba(232,196,111,.3)}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+b,strong{font-weight:650;color:#f4f6fa}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#1a1405;padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+.wrap{max-width:1760px;margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 34px;max-width:1180px}
+.eyebrow{
+  margin:0 0 18px;color:var(--orange);font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;
+}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(44px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;color:var(--gold);
+}
+.desc{margin:0 0 26px;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;font-size:19px;color:var(--muted);margin-bottom:16px}
+.stats b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.srcline{margin:0 0 30px;color:var(--faint);font-size:15.5px;max-width:80ch}
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pill{
+  display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:17px;font-weight:500;background:rgba(255,255,255,.015);transition:border-color .15s,background .15s,color .15s;
+}
+.pill:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:700}
+
+/* ---------- intro ---------- */
+.intro{
+  max-width:1180px;margin:8px 0 42px;padding:24px 28px;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.015));
+}
+.intro__lead{margin:0;font-size:18.5px;line-height:1.7;color:var(--ink)}
+.intro__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+/* ---------- sticky topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 calc(var(--gutter)*-1);padding:0 var(--gutter);
+  background:rgba(14,21,38,.86);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:18px;min-height:var(--topbar-h)}
+.topbar__name{font-weight:800;color:var(--gold);font-size:17px;white-space:nowrap;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;padding:10px 0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chipnav{
+  flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:14.5px;font-weight:500;white-space:nowrap;transition:all .15s;
+}
+.chipnav i{font-style:normal;color:var(--gold-2);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.chipnav:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.chipnav.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:650}
+.chipnav.on i{color:#4a3a10}
+.filter{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.filter input{
+  width:280px;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font:inherit;font-size:15px;
+  padding:9px 16px;border-radius:999px;transition:border-color .15s,width .2s;
+}
+.filter input::placeholder{color:var(--faint)}
+.filter input:focus{outline:none;border-color:var(--gold-2)}
+.filter output{font-size:13.5px;color:var(--muted);min-width:76px;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.layout{display:block;padding-top:8px}
+.toc{display:none}
+.content{min-width:0}
+
+@media (min-width:1680px){
+  .layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:48px}
+  .toc{display:block}
+  .chips{display:none}
+  .topbar__in{justify-content:space-between}
+}
+.toc__in{position:sticky;top:calc(var(--topbar-h) + 28px);max-height:calc(100vh - var(--topbar-h) - 48px);overflow:auto;padding:4px 6px 24px 0;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.toc__h{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.toc__list{list-style:none;margin:0;padding:0}
+.toc__list>li{margin:0 0 4px}
+.toc__sec{
+  display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:15px;
+}
+.toc__sec i{font-style:normal;color:var(--gold-2);font-size:13px;min-width:14px}
+.toc__sec:hover{text-decoration:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.toc__list>li.on>.toc__sec{background:rgba(232,196,111,.1);color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.toc__list ul{list-style:none;margin:2px 0 8px;padding:0 0 0 22px;display:none}
+.toc__list>li.on ul{display:block}
+.toc__list ul a{display:block;padding:4px 10px;font-size:13.5px;line-height:1.4;color:var(--muted);border-radius:8px}
+.toc__list ul a i{font-style:normal;display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.toc__list ul a:hover{text-decoration:none;color:var(--ink);background:rgba(255,255,255,.03)}
+.toc__list ul a.on{color:var(--ink)}
+.toc__list ul a.on i{color:var(--gold-2)}
+
+/* ---------- sekcje ---------- */
+.sec{scroll-margin-top:calc(var(--topbar-h) + 12px)}
+.sec__head{margin:56px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.sec:first-child .sec__head{margin-top:36px}
+.sec__eyebrow{margin:0 0 8px;font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.6}
+.sec__eyebrow b{color:var(--orange);font-weight:700}
+.sec__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec>p.sub{margin:-6px 0 22px;color:var(--muted);font-size:16px;max-width:90ch}
+
+/* ---------- karty ---------- */
+.card{
+  scroll-margin-top:calc(var(--topbar-h) + 16px);
+  background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 24px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -28px rgba(0,0,0,.6);
+}
+.card:target{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(232,196,111,.12)}
+.card__h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 28px;border-bottom:1px solid var(--line)}
+.chip{
+  display:inline-flex;align-items:center;border:1px solid var(--gold-dim);border-radius:999px;overflow:hidden;
+  background:rgba(232,196,111,.06);font-size:15px;line-height:1;
+}
+.chip b{color:var(--gold);font-weight:700;padding:8px 14px;letter-spacing:.02em}
+.chip span{color:var(--gold-2);padding:8px 14px 8px 13px;border-left:1px solid var(--gold-dim);font-weight:500}
+.card__src{color:var(--muted);font-size:14.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card__b{padding:24px 28px 28px}
+.card__t{
+  margin:0 0 18px;font-family:var(--serif);font-size:clamp(23px,1.9vw,29px);line-height:1.28;font-weight:700;letter-spacing:-.005em;
+  color:#f2f4f8;text-wrap:balance;
+}
+.card__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1240px){
+  .card__grid{grid-template-columns:minmax(0,1fr) minmax(330px,34%);gap:30px;align-items:start}
+}
+.card__main>*:first-child{margin-top:0}
+.card__main>*:last-child{margin-bottom:0}
+.card__main p{max-width:84ch}
+.card__main>p{margin:0 0 14px}
+p.lead{font-size:18.5px;line-height:1.7;color:var(--ink)}
+.card__aside{display:flex;flex-direction:column;gap:18px;min-width:0}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+/* bloki „mechanizm / założenia” */
+.mech,.assume{
+  margin:16px 0;padding:16px 20px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset);
+}
+.mech>*:last-child,.assume>*:last-child{margin-bottom:0}
+.mech h4,.assume h4,.worked h4,.calc h4{
+  margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.mech p,.assume p{margin:0 0 10px}
+.assume{border-color:rgba(232,196,111,.3);background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.02))}
+.assume h4{color:var(--gold)}
+
+code.k{font-family:var(--mono);font-size:14px;background:var(--deep);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- pułapki ---------- */
+.trap{
+  border:1px solid rgba(238,134,120,.28);border-radius:var(--r-md);padding:16px 16px 14px;
+  background:linear-gradient(180deg,rgba(238,134,120,.07),rgba(238,134,120,.02));
+}
+.trap__h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);line-height:1.4}
+.trap__ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--red);color:#2a0f0b;font-size:14px;font-weight:800;letter-spacing:0}
+.trap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.trap li{
+  margin:0;padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(13,20,36,.65);
+  font-size:15.5px;line-height:1.55;color:var(--ink-2);
+}
+.trap li b{color:#f6d7d2;font-weight:600}
+.trap li em{color:var(--green);font-style:normal}
+
+/* ---------- tabele ---------- */
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th+th,td+td{border-left:1px solid rgba(38,49,75,.6)}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:#18213a;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);white-space:nowrap}
+tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+tbody tr:hover{background:rgba(232,196,111,.035)}
+td b{color:var(--gold)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.game{width:auto;margin:0 auto}
+table.game td,table.game th{text-align:center;font-variant-numeric:tabular-nums}
+table.game td.ne{background:rgba(232,196,111,.14);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+
+/* ---------- rysunki ---------- */
+figure{margin:18px 0;padding:20px;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-md);overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figcaption{margin:14px auto 0;font-size:14.5px;color:var(--muted);line-height:1.6;text-align:center;max-width:78ch}
+figcaption b{color:var(--ink-2)}
+figure text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.ax{stroke:#4d6290;stroke-width:1.4}
+.gr{stroke:#26314b;stroke-width:1}
+.c-gold{stroke:var(--gold);stroke-width:2.3;fill:none}
+.c-cyan{stroke:var(--cyan);stroke-width:2.3;fill:none}
+.c-red{stroke:var(--red);stroke-width:2.1;fill:none}
+.c-green{stroke:var(--green);stroke-width:2.1;fill:none}
+.dash{stroke-dasharray:4 4;stroke-width:1.2;stroke:#617aa8;fill:none}
+.fill-gold{fill:rgba(232,196,111,.16)}
+.fill-cyan{fill:rgba(108,198,230,.14)}
+.fill-red{fill:rgba(238,134,120,.2)}
+.fill-green{fill:rgba(120,212,168,.16)}
+.lbl-gold{fill:var(--gold)}
+.lbl-cyan{fill:var(--cyan)}
+.lbl-red{fill:var(--red)}
+.lbl-green{fill:var(--green)}
+.lbl-mut{fill:var(--muted)}
+
+/* ---------- wzory ---------- */
+.fx{
+  margin:16px 0;padding:16px 22px;border:1px solid rgba(108,198,230,.28);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(108,198,230,.06),rgba(108,198,230,.015));overflow-x:auto;
+}
+.fx .katex-display{margin:.4em 0}
+.fx .katex{color:var(--ink);font-size:1.12em}
+.katex{color:inherit}
+.fx .note{display:block;font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* ---------- rozwiązania krok po kroku ---------- */
+.worked{margin:16px 0;padding:16px 20px 18px;border:1px solid rgba(120,212,168,.25);border-radius:var(--r-md);background:var(--inset);overflow-x:auto}
+.worked h4{color:var(--green)}
+.worked ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.worked li{
+  counter-increment:step;position:relative;margin:0;padding:10px 14px 10px 52px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:rgba(13,20,36,.55);font-size:16px;line-height:1.65;
+}
+.worked li::before{
+  content:counter(step);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:var(--gold);color:#1d1606;font-weight:800;font-size:14px;line-height:1;
+}
+.worked li[data-l]::before{content:attr(data-l)}
+
+/* ---------- kalkulatory ---------- */
+.calc{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,#19233c,#141c31)}
+.calc h4{color:var(--gold);margin-bottom:12px;letter-spacing:.1em}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.calc label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;line-height:1.35}
+.calc input{
+  width:100%;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14.5px;
+  padding:8px 10px;border-radius:9px;
+}
+.calc input:focus{outline:none;border-color:var(--gold-2)}
+.calc .out{
+  margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--deep);border:1px solid var(--line);
+  font-family:var(--mono);font-size:13.5px;color:var(--green);white-space:pre-wrap;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.calc svg{display:block;width:100%;height:auto;max-width:560px;margin:14px auto 0}
+.calc svg text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.calc .note{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------- odsyłacze ---------- */
+a.xref{color:var(--cyan);font-weight:600;border-bottom:1px dotted rgba(108,198,230,.5)}
+a.xref:hover{text-decoration:none;border-bottom-style:solid}
+
+/* ---------- stopka / na górę ---------- */
+.empty{margin:48px 0;padding:28px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r-lg);color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:14.5px}
+.totop{
+  position:fixed;right:22px;bottom:22px;z-index:50;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card-2);border:1px solid var(--line-2);color:var(--gold);font-size:20px;font-weight:700;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;
+}
+.totop:hover{text-decoration:none;border-color:var(--gold-dim)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- węższe ekrany ---------- */
+@media (max-width:900px){
+  body{font-size:16px}
+  .topbar__name{display:none}
+  .topbar__in{flex-wrap:wrap;gap:0 12px;padding:4px 0}
+  .chips{order:2;flex-basis:100%;padding:4px 0 10px}
+  .filter{order:1;width:100%;margin:8px 0 0}
+  .filter input{flex:1;width:auto}
+  .card__h,.card__b{padding-left:18px;padding-right:18px}
+  .intro{padding:18px 20px}
+  .sec{scroll-margin-top:130px}
+  .card{scroll-margin-top:130px}
+  .worked li{padding-left:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  .topbar,.toc,.totop,.pills,.skip{display:none!important}
+  .layout{display:block}
+  .card{break-inside:avoid-page}
+}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Kompendium: Mikroekonomia</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">Olimpiada Wiedzy Ekonomicznej · Etap okręgowy · Kompendium wiedzy</p>
+<h1>Mikroekonomia</h1>
+<p class="desc">Konsument, producent, struktury rynkowe.</p>
+<div class="stats"><span><b>19</b> haseł</span><span><b>6</b> działów</span><span>synteza edycji <b>XXI–XXXIX</b></span></div>
+<p class="srcline">Zawody II stopnia — etap okręgowy.</p>
+<nav aria-label="Moduły kompendium" class="pills">
+<a aria-current="page" class="pill on" href="wiedza_mikroekonomia.html">Mikroekonomia · 19</a>
+<a class="pill" href="wiedza_makroekonomia.html">Makroekonomia · 16</a>
+<a class="pill" href="wiedza_finanse.html">Finanse · 14</a>
+<a class="pill" href="wiedza_zarzadzanie.html">Zarządzanie · 13</a>
+<a class="pill" href="wiedza_obliczeniowe.html">Obliczeniowe · 18</a>
+</nav><nav aria-label="Banki zadań" class="pills" style="margin-top:12px"><span style="color:#94a3b8;font-size:13px;align-self:center">Bank zadań z edycji XXI–XXXIX:</span><a class="pill" href="Zarzadzanie.html">Zarządzanie</a><a class="pill" href="Obliczeniowe.html">Zadania obliczeniowe</a><a class="pill" href="Mikroekonomia.html">★ Mikroekonomia</a><a class="pill" href="Makroekonomia.html">Makroekonomia</a><a class="pill" href="Finanse.html">Finanse</a><a class="pill" href="Analiza_finansowa.html">Analiza finansowa</a></nav>
+</header>
+<section aria-label="O module" class="intro">
+<p class="intro__lead">Mikroekonomia w OWE jest testowana przez <strong>rozstrzygnięcia graniczne</strong>: kiedy krzywa się przesuwa, a kiedy poruszamy się po niej; co dokładnie zrównuje się w optimum; który koszt wchodzi do rachunku decyzyjnego. Wszystkie zagadnienia wymagające liczenia — elastyczności z równań, nadwyżki z funkcji liniowych, MR monopolisty, monopson — znajdziesz w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a>.</p>
+<p class="intro__note">Zasada MECE: każde zagadnienie występuje w dokładnie jednym module. Wszystko, co wymaga rachunku na liczbach, znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a> — także wtedy, gdy pochodzi z mikro- lub makroekonomii.</p>
+</section>
+<div class="topbar" id="topbar"><div class="topbar__in">
+<span class="topbar__name">Mikroekonomia</span>
+<nav aria-label="Działy" class="chips">
+<a class="chipnav" data-sec="m1" href="#m1"><i>1</i>Ograniczoność i rynek</a>
+<a class="chipnav" data-sec="m2" href="#m2"><i>2</i>Teoria konsumenta</a>
+<a class="chipnav" data-sec="m3" href="#m3"><i>3</i>Produkcja i koszty</a>
+<a class="chipnav" data-sec="m4" href="#m4"><i>4</i>Struktury rynkowe</a>
+<a class="chipnav" data-sec="m5" href="#m5"><i>5</i>Rynek czynników</a>
+<a class="chipnav" data-sec="m6" href="#m6"><i>6</i>Zawodność rynku</a>
+</nav>
+<label class="filter"><span class="sr">Filtruj hasła</span><input autocomplete="off" id="q" placeholder="Szukaj w module…" type="search"/><output id="qcount">19 haseł</output></label>
+</div></div>
+<div class="layout">
+<aside aria-label="Spis treści" class="toc"><div class="toc__in">
+<p class="toc__h">Spis treści</p><ol class="toc__list">
+<li data-sec="m1"><a class="toc__sec" href="#m1"><i>1</i>Ograniczoność i rynek</a><ul>
+<li><a data-card="MIK-01" href="#MIK-01"><i>MIK-01</i>Granica możliwości produkcyjnych (PPF)</a></li>
+<li><a data-card="MIK-02" href="#MIK-02"><i>MIK-02</i>Popyt i podaż: przesunięcie krzywej a ruch po krzywej</a></li>
+<li><a data-card="MIK-03" href="#MIK-03"><i>MIK-03</i>Elastyczności — interpretacja jakościowa</a></li>
+<li><a data-card="MIK-04" href="#MIK-04"><i>MIK-04</i>Incydencja podatkowa — kto realnie płaci podatek</a></li>
+</ul></li>
+<li data-sec="m2"><a class="toc__sec" href="#m2"><i>2</i>Teoria konsumenta</a><ul>
+<li><a data-card="MIK-05" href="#MIK-05"><i>MIK-05</i>Użyteczność całkowita, krańcowa i warunek optimum</a></li>
+<li><a data-card="MIK-06" href="#MIK-06"><i>MIK-06</i>Krzywe obojętności i ich kształty</a></li>
+<li><a data-card="MIK-07" href="#MIK-07"><i>MIK-07</i>Linia budżetowa, krzywa Engla i nadwyżka konsumenta</a></li>
+</ul></li>
+<li data-sec="m3"><a class="toc__sec" href="#m3"><i>3</i>Produkcja i koszty</a><ul>
+<li><a data-card="MIK-08" href="#MIK-08"><i>MIK-08</i>Produkt całkowity, przeciętny i krańcowy</a></li>
+<li><a data-card="MIK-09" href="#MIK-09"><i>MIK-09</i>Izokwanty, MRTS i optimum techniczne</a></li>
+<li><a data-card="MIK-10" href="#MIK-10"><i>MIK-10</i>Struktura kosztów w krótkim i długim okresie</a></li>
+<li><a data-card="MIK-11" href="#MIK-11"><i>MIK-11</i>Koszty księgowe, alternatywne, ekonomiczne i utopione</a></li>
+</ul></li>
+<li data-sec="m4"><a class="toc__sec" href="#m4"><i>4</i>Struktury rynkowe</a><ul>
+<li><a data-card="MIK-12" href="#MIK-12"><i>MIK-12</i>Tablica porównawcza czterech struktur</a></li>
+<li><a data-card="MIK-13" href="#MIK-13"><i>MIK-13</i>Monopol, dyskryminacja cenowa i zbędna strata</a></li>
+<li><a data-card="MIK-14" href="#MIK-14"><i>MIK-14</i>Oligopol: zmowa, przywództwo cenowe i modele strategiczne</a></li>
+</ul></li>
+<li data-sec="m5"><a class="toc__sec" href="#m5"><i>5</i>Rynek czynników</a><ul>
+<li><a data-card="MIK-15" href="#MIK-15"><i>MIK-15</i>Monopson i siła rynkowa po stronie popytu na pracę</a></li>
+<li><a data-card="MIK-16" href="#MIK-16"><i>MIK-16</i>Rynek funduszy pożyczkowych i preferencja czasowa</a></li>
+</ul></li>
+<li data-sec="m6"><a class="toc__sec" href="#m6"><i>6</i>Zawodność rynku</a><ul>
+<li><a data-card="MIK-17" href="#MIK-17"><i>MIK-17</i>Macierz dóbr: publiczne, prywatne, klubowe, wspólne</a></li>
+<li><a data-card="MIK-18" href="#MIK-18"><i>MIK-18</i>Efekty zewnętrzne, podatek Pigou i twierdzenie Coase'a</a></li>
+<li><a data-card="MIK-19" href="#MIK-19"><i>MIK-19</i>Asymetria informacji: pryncypał–agent, selekcja negatywna, pokusa nadużycia</a></li>
+</ul></li>
+</ol></div></aside>
+<main class="content" id="tresc">
+<section class="sec" id="m1">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 1</b> · OGRANICZONOŚĆ, WYBÓR I MECHANIZM RYNKOWY</p><h2>Ograniczoność i rynek</h2></header>
+<p class="sub">Fundament, z którego OWE regularnie buduje pierwsze 3–5 pytań testowych każdego zestawu.</p>
+<article class="card" id="MIK-01">
+<header class="card__h"><span class="chip"><b>MIK-01</b><span>Dział 1</span></span><span class="card__src">Ograniczoność i rynek</span></header>
+<div class="card__b">
+<h3 class="card__t">Granica możliwości produkcyjnych (PPF)</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Zbiór maksymalnych kombinacji dwóch dóbr możliwych do wytworzenia przy pełnym i efektywnym wykorzystaniu danych zasobów i danej technologii. Nachylenie krzywej to koszt alternatywny jednego dobra wyrażony w drugim.</p>
+<figure>
+<svg aria-label="Granica możliwości produkcyjnych" role="img" viewbox="0 0 640 340">
+<line class="ax" x1="70" x2="600" y1="300" y2="300"></line>
+<line class="ax" x1="70" x2="70" y1="300" y2="40"></line>
+<path class="c-gold" d="M70,60 Q420,80 560,300"></path>
+<path class="dash" d="M70,40 Q440,55 590,290"></path>
+<circle cx="250" cy="230" fill="#63c7e8" r="4"></circle>
+<circle cx="352" cy="140" fill="#e8b75d" r="4"></circle>
+<circle cx="520" cy="95" fill="#e8776d" r="4"></circle>
+<text class="lbl-cyan" x="262" y="236">A — niewykorzystane zasoby (bezrobocie)</text>
+<text class="lbl-gold" x="364" y="132">B — efektywność produkcyjna</text>
+<text class="lbl-red" x="400" y="88">C — nieosiągalne dziś</text>
+<text fill="#7e97bd" x="470" y="46">wzrost zasobów / technologia</text>
+<text x="16" y="52">dobro K</text>
+<text x="560" y="322">dobro C</text>
+</svg>
+<figcaption>Punkt wewnątrz = nieefektywność. Punkt na krzywej = efektywność. Przesunięcie całej krzywej = zmiana zasobów lub technologii.</figcaption>
+</figure>
+<div class="mech">
+<h4>Mechanizm</h4>
+<p>Krzywa jest wklęsła do początku układu, bo czynniki produkcji nie są doskonale przystosowalne: przesuwając kolejne jednostki pracy i kapitału z produkcji dobra C do dobra K, tracimy coraz więcej dobra C na każdą dodatkową jednostkę K. To graficzna postać prawa rosnącego kosztu alternatywnego.</p>
+</div>
+<div class="assume">
+<h4>Założenia modelu</h4>
+<ul>
+<li>Dwa dobra (lub dwa agregaty dóbr) i dany, stały zasób czynników produkcji.</li>
+<li>Stała technologia w danym momencie.</li>
+<li>Gospodarka zamknięta — brak wymiany, która pozwoliłaby konsumować poza granicą.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Pojawienie się bezrobocia to przesunięcie krzywej w lewo”</b> — nie. Zasoby nie zniknęły, tylko nie są używane: gospodarka <em>przechodzi do punktu poniżej granicy</em>. Przesunięcie w lewo oznaczałoby fizyczną utratę zasobów (wojna, kataklizm).</li>
+<li><b>„Podniesienie wieku emerytalnego to ruch po krzywej”</b> — nie. Rośnie zasób siły roboczej, więc cała granica przesuwa się w prawo/w górę. To klasyk powracający w edycjach XXV i XXVI.</li>
+<li><b>„Wzrost produkcji dóbr kapitałowych nie musi nikogo nic kosztować”</b> — jeśli jesteśmy <em>na</em> granicy, musi odbyć się kosztem dóbr konsumpcyjnych. Bez tego zastrzeżenia zdanie jest fałszywe.</li>
+<li><b>„Punkt powyżej krzywej jest osiągalny przy lepszej organizacji”</b> — lepsza organizacja to zmiana technologii, czyli przesunięcie granicy. Przy danej granicy punkt zewnętrzny jest nieosiągalny z definicji.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-02">
+<header class="card__h"><span class="chip"><b>MIK-02</b><span>Dział 1</span></span><span class="card__src">Ograniczoność i rynek</span></header>
+<div class="card__b">
+<h3 class="card__t">Popyt i podaż: przesunięcie krzywej a ruch po krzywej</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Zmiana ceny samego dobra powoduje <em>ruch po krzywej</em> (zmiana wielkości popytu / wielkości podaży). Zmiana czegokolwiek innego przesuwa <em>całą krzywą</em> (zmiana popytu / podaży).</p>
+<figure>
+<svg aria-label="Rynek: popyt, podaż, nadwyżki" role="img" viewbox="0 0 640 340">
+<line class="ax" x1="70" x2="600" y1="300" y2="300"></line>
+<line class="ax" x1="70" x2="70" y1="300" y2="40"></line>
+<polygon class="fill-cyan" points="70,70 330,185 70,185"></polygon>
+<polygon class="fill-gold" points="70,300 330,185 70,185"></polygon>
+<line class="c-cyan" x1="90" x2="540" y1="60" y2="290"></line>
+<line class="c-gold" x1="90" x2="540" y1="290" y2="60"></line>
+<line class="dash" x1="70" x2="330" y1="185" y2="185"></line>
+<line class="dash" x1="330" x2="330" y1="185" y2="300"></line>
+<circle cx="330" cy="185" fill="#e2eaf6" r="4.5"></circle>
+<text class="lbl-cyan" x="548" y="296">D</text>
+<text class="lbl-gold" x="548" y="64">S</text>
+<text x="26" y="189">P*</text>
+<text x="322" y="318">Q*</text>
+<text class="lbl-cyan" x="120" y="112">nadwyżka konsumenta</text>
+<text class="lbl-gold" x="120" y="250">nadwyżka producenta</text>
+</svg>
+<figcaption>Równowaga rynkowa i podział korzyści z wymiany. Suma obu nadwyżek to nadwyżka całkowita — miara efektywności alokacyjnej.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Zdarzenie</th><th>Skutek</th><th>Dlaczego</th></tr></thead>
+<tbody>
+<tr><td>Spada cena cementu</td><td>Rośnie <b>popyt</b> na betoniarki</td><td>Dobra komplementarne — tańszy cement zwiększa opłacalność całego pakietu budowlanego</td></tr>
+<tr><td>Rosną ceny tytoniu</td><td>Spada <b>podaż</b> papierosów</td><td>Cena czynnika produkcji — krzywa podaży przesuwa się w lewo</td></tr>
+<tr><td>Oczekiwany przyszły wzrost ceny dobra</td><td>Rośnie <b>bieżący popyt</b></td><td>Konsumenci przesuwają zakupy w czasie; bieżąca cena rynkowa rośnie, a nie spada</td></tr>
+<tr><td>Odkrycie prozdrowotnych właściwości kakao</td><td>Popyt przesuwa się w prawo: z \(q=-p+20\) na \(q=-p+25\)</td><td>Zmiana gustów — zmienia wyraz wolny, nie nachylenie</td></tr>
+<tr><td>Subsydium kwotowe dla producentów</td><td>Równoległe przesunięcie S w dół</td><td>Stała kwota na jednostkę obniża krzywą o tę kwotę, nie zmieniając nachylenia</td></tr>
+<tr><td>Podatek <em>ad valorem</em> od sprzedawców</td><td>Zmiana <b>nachylenia</b> S</td><td>Obciążenie proporcjonalne do ceny rośnie wraz z ceną</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie „popytu” z „wielkością popytu”.</b> OWE świadomie używa obu terminów w jednym pytaniu. „Wzrasta popyt na betoniarki” i „wzrasta wielkość popytu na betoniarki” to dwie różne odpowiedzi i tylko jedna bywa poprawna.</li>
+<li><b>Cło antydumpingowe nałożone przez kraj trzeci</b> na telewizory z Korei — na rynku <em>koreańskim</em> spada cena, więc rośnie <em>wielkość</em> popytu krajowego (ruch po krzywej), a nie sam popyt.</li>
+<li><b>„Spadek popytu wywołany kampanią społeczną obniża podaż”</b> — nie. Zmienia się wielkość podaży (ruch po krzywej S), bo spada cena równowagi.</li>
+<li><b>Cena minimalna nie jest reakcją na nadwyżkę</b> — jest jej przyczyną. Cena minimalna (powyżej równowagi) chroni producentów i generuje trwałą nadwyżkę podaży; cena maksymalna chroni nabywców i generuje niedobór oraz reglamentację.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-03">
+<header class="card__h"><span class="chip"><b>MIK-03</b><span>Dział 1</span></span><span class="card__src">Ograniczoność i rynek</span></header>
+<div class="card__b">
+<h3 class="card__t">Elastyczności — interpretacja jakościowa</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Elastyczność mierzy siłę reakcji jednej zmiennej na procentową zmianę drugiej. Sam rachunek znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a>; tutaj liczy się poprawne odczytanie znaku i przedziału.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Rodzaj</th><th>Znak / wartość</th><th>Wniosek</th></tr></thead>
+<tbody>
+<tr><td>Cenowa \(|E_D|&gt;1\)</td><td>popyt elastyczny</td><td>Obniżka ceny <b>zwiększa</b> utarg całkowity</td></tr>
+<tr><td>Cenowa \(|E_D|&lt;1\)</td><td>popyt nieelastyczny</td><td>Obniżka ceny zmniejsza utarg całkowity</td></tr>
+<tr><td>Cenowa \(|E_D|=1\)</td><td>jednostkowa</td><td>Utarg całkowity nie reaguje na zmianę ceny — jest w maksimum</td></tr>
+<tr><td>Dochodowa \(E_I&gt;1\)</td><td>dobro luksusowe</td><td>Udział wydatków na to dobro rośnie wraz z dochodem</td></tr>
+<tr><td>Dochodowa \(0&lt;E_I&lt;1\)</td><td>dobro normalne podstawowe</td><td>Wydatki rosną, ale ich <b>udział</b> maleje (prawo Engla)</td></tr>
+<tr><td>Dochodowa \(E_I&lt;0\)</td><td>dobro niższego rzędu</td><td>Popyt rośnie, gdy dochód realny spada</td></tr>
+<tr><td>Mieszana \(E_{XY}&gt;0\)</td><td>substytuty</td><td>Wzrost ceny Y zwiększa popyt na X</td></tr>
+<tr><td>Mieszana \(E_{XY}&lt;0\)</td><td>komplementy</td><td>Wzrost ceny Y zmniejsza popyt na X</td></tr>
+</tbody>
+</table>
+</div>
+<div class="assume">
+<h4>Ceteris paribus</h4>
+<p>Każda elastyczność cząstkowa zakłada zamrożenie wszystkich pozostałych determinant. Elastyczność dochodowa mierzona przy jednoczesnej zmianie cen przestaje być elastycznością dochodową — to najczęstsze źródło błędnych intuicji przy pytaniach o dobra Giffena.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Popyt jest elastyczny, gdy \(|E_D|&gt;0\)”</b> — fałsz, bo warunek spełnia niemal każdy popyt. Granicą jest jedynka, nie zero.</li>
+<li><b>Prawo Engla nie mówi, że wydatki na żywność rosną szybciej niż dochód</b> — mówi dokładnie odwrotnie: wraz ze wzrostem dochodu <em>udział</em> wydatków na żywność maleje.</li>
+<li><b>Paradoks Giffena dotyczy dóbr podrzędnych o dużym udziale w budżecie</b> (ziemniaki, chleb w ubogim gospodarstwie), a nie dóbr o udziale niewielkim. Efekt dochodowy musi zdominować efekt substytucyjny, co bez dużego udziału w wydatkach jest niemożliwe.</li>
+<li><b>„Dobra podstawowe to dobra tanie”</b> — cena nie definiuje kategorii. Definiuje ją wartość elastyczności dochodowej.</li>
+<li><b>Wzrost dochodu o 10% przy \(E_I=0,9\)</b>: suma wydatków na dobro <em>rośnie</em> (o ok. 9%), ale ich <em>udział</em> w wydatkach ogółem <em>maleje</em>, bo 9% &lt; 10%. OWE stawia oba człony w jednej odpowiedzi.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-04">
+<header class="card__h"><span class="chip"><b>MIK-04</b><span>Dział 1</span></span><span class="card__src">Ograniczoność i rynek</span></header>
+<div class="card__b">
+<h3 class="card__t">Incydencja podatkowa — kto realnie płaci podatek</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Rozkład ciężaru podatku pośredniego nie zależy od tego, kto fizycznie wpłaca go do urzędu, lecz wyłącznie od relacji elastyczności popytu i podaży.</p>
+<div class="mech">
+<h4>Mechanizm</h4>
+<p>Podatek wbija klin między cenę płaconą przez nabywcę a cenę otrzymywaną przez sprzedawcę. Ciężar przypada w większym stopniu tej stronie rynku, która jest <strong>mniej elastyczna</strong>, ponieważ ma mniejszą zdolność ucieczki od transakcji. Gdy podaż paliw jest bardziej elastyczna niż popyt, to nabywcy poniosą większą część akcyzy.</p>
+</div>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Krótki okres, brak zmian technologii i struktury rynku.</li><li>Rynek konkurencyjny — brak strategicznej reakcji cenowej.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Podatek obciąża producentów, bo to oni wpłacają go do budżetu”</b> — mylenie obowiązku formalnego z ciężarem ekonomicznym.</li>
+<li><b>„Producenci przerzucą <em>cały</em> wzrost na nabywców”</b> — pełne przerzucenie zachodzi tylko w skrajnych przypadkach (popyt doskonale nieelastyczny albo podaż doskonale elastyczna). W typowym pytaniu OWE odpowiedź brzmi „obie strony, ale w większym stopniu ta mniej elastyczna”.</li>
+<li><b>Zbędna strata (deadweight loss) rośnie wraz z elastycznością</b> — im łatwiej strony rynku uciekają od transakcji, tym więcej wymiany zostaje zniszczone.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="m2">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 2</b> · TEORIA KONSUMENTA</p><h2>Teoria konsumenta</h2></header>
+<p class="sub">Użyteczność, ograniczenie budżetowe i geometria preferencji.</p>
+<article class="card" id="MIK-05">
+<header class="card__h"><span class="chip"><b>MIK-05</b><span>Dział 2</span></span><span class="card__src">Teoria konsumenta</span></header>
+<div class="card__b">
+<h3 class="card__t">Użyteczność całkowita, krańcowa i warunek optimum</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Użyteczność całkowita to łączna korzyść ze skonsumowanych jednostek dobra. Użyteczność krańcowa to przyrost tej korzyści z ostatniej jednostki; maleje wraz ze wzrostem konsumpcji (pierwsze prawo Gossena).</p>
+<div class="fx">
+              $$\frac{MU_A}{P_A}=\frac{MU_B}{P_B}=\dots=\lambda$$
+              <span class="note">Drugie prawo Gossena: konsument maksymalizuje użyteczność, gdy ostatnia złotówka wydana na każde dobro przynosi tę samą użyteczność krańcową.</span>
+</div>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Konsument wydaje cały dochód (ograniczenie budżetowe wiążące).</li><li>Preferencje zupełne, przechodnie i nienasycone.</li><li>Użyteczność krańcowa jest malejąca.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Użyteczności całkowite z obu dóbr muszą być równe”</b> — fałsz. Równe muszą być użyteczności krańcowe <em>na złotówkę</em>.</li>
+<li><b>„Iloczyn użyteczności krańcowej i ceny jednego dobra równa się iloczynowi dla drugiego”</b> — podmieniony operator: w warunku występuje <em>iloraz</em>, nie iloczyn.</li>
+<li><b>„Stosunek użyteczności <em>całkowitej</em> do ceny ma być jednakowy”</b> — podmieniona kategoria użyteczności. W edycji XXI poprawną odpowiedzią było „żadna z powyższych”, bo wszystkie trzy warianty zawierały jedną z tych podmian.</li>
+<li><b>Użyteczność całkowita to nie wartość rynkowa</b> zakupionych dóbr ani wydatek — to subiektywna korzyść. Różnica między nią a wydatkiem to nadwyżka konsumenta.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-06">
+<header class="card__h"><span class="chip"><b>MIK-06</b><span>Dział 2</span></span><span class="card__src">Teoria konsumenta</span></header>
+<div class="card__b">
+<h3 class="card__t">Krzywe obojętności i ich kształty</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Krzywa obojętności łączy koszyki dające ten sam poziom użyteczności. Jej nachylenie to krańcowa stopa substytucji (MRS) — ile jednostek dobra Y konsument odda za jednostkę X, pozostając równie zadowolonym.</p>
+<figure>
+<svg aria-label="Kształty krzywych obojętności" role="img" viewbox="0 0 640 220">
+<g>
+<line class="ax" x1="40" x2="190" y1="180" y2="180"></line><line class="ax" x1="40" x2="40" y1="180" y2="30"></line>
+<path class="c-gold" d="M55,40 C90,150 100,160 180,168"></path>
+<path class="c-gold" d="M75,60 C110,165 120,172 185,178" opacity=".55"></path>
+<text x="46" y="205">typowe (wypukłe)</text>
+</g>
+<g transform="translate(215,0)">
+<line class="ax" x1="40" x2="190" y1="180" y2="180"></line><line class="ax" x1="40" x2="40" y1="180" y2="30"></line>
+<line class="c-cyan" x1="45" x2="150" y1="50" y2="178"></line>
+<line class="c-cyan" opacity=".55" x1="80" x2="185" y1="40" y2="168"></line>
+<text x="40" y="205">substytuty doskonałe</text>
+</g>
+<g transform="translate(430,0)">
+<line class="ax" x1="40" x2="190" y1="180" y2="180"></line><line class="ax" x1="40" x2="40" y1="180" y2="30"></line>
+<path class="c-green" d="M60,45 L110,45 L110,178"></path>
+<path class="c-green" d="M85,70 L145,70 L145,178" opacity=".55"></path>
+<text x="36" y="205">komplementy doskonałe</text>
+</g>
+</svg>
+<figcaption>MRS stała → substytuty doskonałe. MRS niezdefiniowana w kącie → komplementy doskonałe, konsumpcja w stałej proporcji.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Sytuacja</th><th>Kształt krzywej obojętności</th></tr></thead>
+<tbody>
+<tr><td>Dobra typowe, malejąca MRS</td><td>Wypukła do początku układu, nachylenie ujemne</td></tr>
+<tr><td>Substytuty doskonałe</td><td>Linia prosta o stałym nachyleniu</td></tr>
+<tr><td>Komplementy doskonałe (1:1)</td><td>Kształt litery „L”; ścieżka ekspansji nachylona pod kątem 45°</td></tr>
+<tr><td>Jedno dobro obojętne dla konsumenta</td><td>Linia <b>prostopadła do jednej z osi</b> — zmiana ilości dobra obojętnego nie zmienia użyteczności</td></tr>
+<tr><td>Jedno dobro niechciane (uciążliwe)</td><td>Nachylenie <b>dodatnie</b> — za większą ilość zła trzeba zrekompensować dobrem</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Krzywe obojętności zawsze mają nachylenie ujemne”</b> — fałsz przy dobrach niechcianych i obojętnych. Uniwersalnie prawdziwe jest natomiast, że <em>krzywe obojętności się nie przecinają</em> (przecięcie łamie przechodniość preferencji).</li>
+<li><b>Położenie krzywej obojętności nie zależy od dochodu ani od cen.</b> Krzywe obojętności opisują wyłącznie preferencje; dochód i ceny wyznaczają linię budżetową. Wzrost dochodu przesuwa linię budżetową, a nie krzywą obojętności.</li>
+<li><b>Ścieżka ekspansji przy substytutach doskonałych</b>: konsument kupuje wyłącznie dobro tańsze, więc ścieżka leży na osi odpowiadającej dobru tańszemu.</li>
+<li><b>Bony i talony</b> (transfer rzeczowy) nie przesuwają linii budżetowej równolegle — tworzą <em>linię łamaną</em>, bo dodatkowa ilość dotyczy tylko jednego dobra.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-07">
+<header class="card__h"><span class="chip"><b>MIK-07</b><span>Dział 2</span></span><span class="card__src">Teoria konsumenta</span></header>
+<div class="card__b">
+<h3 class="card__t">Linia budżetowa, krzywa Engla i nadwyżka konsumenta</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Linia budżetowa: \(I = P_X X + P_Y Y\). Jej nachylenie to relacja cen \(-P_X/P_Y\), a odległość od początku układu wyznacza dochód realny.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Zmiana</th><th>Efekt na linii budżetowej</th></tr></thead>
+<tbody>
+<tr><td>Wzrost dochodu nominalnego</td><td>Przesunięcie równoległe w prawo</td></tr>
+<tr><td>Wzrost ceny jednego dobra</td><td>Obrót wokół punktu przecięcia z drugą osią (zmiana nachylenia)</td></tr>
+<tr><td>Proporcjonalny wzrost dochodu i obu cen o 20%</td><td><b>Brak zmiany</b> — optimum konsumenta pozostaje w tym samym punkcie (brak iluzji pieniężnej)</td></tr>
+<tr><td>Bon na 2 jednostki dobra A</td><td>Linia łamana z odcinkiem poziomym</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Krzywa Engla</h4>
+<p>Przedstawia zależność wielkości konsumpcji dobra od dochodu. Półprosta nachylona pod 45° z początku układu oznacza \(E_I = 1\). Linia <strong>pionowa</strong> oznacza, że konsumpcja nie reaguje na dochód (\(E_I = 0\)). Nachylenie ujemne — dobro niższego rzędu.</p>
+</div>
+<div class="mech">
+<h4>Nadwyżka konsumenta</h4>
+<p>Zawsze równa różnicy między wyrażoną w pieniądzu użytecznością całkowitą ze skonsumowanych jednostek a wydatkiem poniesionym na ich zakup. Graficznie: pole między krzywą popytu a poziomą linią ceny.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Nadwyżka konsumenta jest zawsze mniejsza od wydatku”</b> — nieprawda, relacja zależy od kształtu popytu. Prawdziwe jest tylko zdanie definicyjne: nadwyżka = użyteczność całkowita w pieniądzu − wydatek.</li>
+<li><b>„Nachylenie linii budżetowej zmienia się w zależności od rozpatrywanego koszyka”</b> — nie, jest stałe przy danych cenach; to krzywa obojętności zmienia nachylenie wzdłuż swojego przebiegu.</li>
+<li><b>„Zmiana gustów przesuwa linię budżetową”</b> — gusta działają wyłącznie na krzywe obojętności.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="m3">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 3</b> · PRODUKCJA I KOSZTY</p><h2>Produkcja i koszty</h2></header>
+<p class="sub">Krótki okres rządzi się prawem malejących przychodów; długi — przychodami ze skali.</p>
+<article class="card" id="MIK-08">
+<header class="card__h"><span class="chip"><b>MIK-08</b><span>Dział 3</span></span><span class="card__src">Produkcja i koszty</span></header>
+<div class="card__b">
+<h3 class="card__t">Produkt całkowity, przeciętny i krańcowy</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Produkt krańcowy (MP) to przyrost produkcji z ostatniej jednostki czynnika zmiennego; produkt przeciętny (AP) to produkcja na jednostkę tego czynnika.</p>
+<div class="mech">
+<h4>Relacja MP–AP (reguła krańcowo-przeciętna)</h4>
+<ul>
+<li>\(MP &gt; AP\) → AP <b>rośnie</b>.</li>
+<li>\(MP = AP\) → AP osiąga <b>maksimum</b>.</li>
+<li>\(MP &lt; AP\) → AP maleje.</li>
+<li>\(MP = 0\) → produkt całkowity osiąga maksimum; \(MP &lt; 0\) → produkt całkowity spada.</li>
+</ul>
+</div>
+<div class="assume">
+<h4>Założenia (okres krótki)</h4>
+<ul><li>Co najmniej jeden czynnik produkcji jest stały — to definicja okresu krótkiego, nie długość kalendarzowa.</li><li>Technologia niezmieniona; jednorodne jednostki czynnika zmiennego.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Okres długi nie może być krótszy niż rok”</b> — kryterium jest wyłącznie techniczne: w długim okresie <em>wszystkie</em> nakłady są zmienne. W hutnictwie to lata, w handlu obwoźnym tygodnie.</li>
+<li><b>„AP jest maksymalny, gdy MP jest maksymalny”</b> — nie; AP jest maksymalny, gdy MP <em>przecina</em> AP.</li>
+<li><b>Pułapka z ujemnym MP</b>: gdy przedsiębiorstwo <em>ogranicza</em> nakład czynnika zmiennego i produkcja całkowita <em>rośnie</em>, oznacza to, że działało w obszarze ujemnego produktu krańcowego. Prawidłowa odpowiedź w edycji XXV: „produkt krańcowy wzrósł, lecz jest ujemny”.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-09">
+<header class="card__h"><span class="chip"><b>MIK-09</b><span>Dział 3</span></span><span class="card__src">Produkcja i koszty</span></header>
+<div class="card__b">
+<h3 class="card__t">Izokwanty, MRTS i optimum techniczne</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Izokwanta łączy kombinacje kapitału i pracy dające tę samą wielkość produkcji. Jej nachylenie to krańcowa stopa technicznej substytucji \(MRTS = MP_L/MP_K\).</p>
+<div class="mech">
+<h4>Mechanizm</h4>
+<p>Poruszając się wzdłuż wypukłej izokwanty w stronę większych nakładów pracy, MRTS maleje: substytucja między czynnikami staje się coraz trudniejsza, bo czynnik już obficie stosowany ma coraz niższą produktywność krańcową. Optimum producenta leży w punkcie <strong>styczności izokwanty z izokosztą</strong> (linią jednakowego kosztu), a nie z „krzywą kosztu całkowitego” ani z linią budżetową konsumenta.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Optimum to styczność izokwanty z krzywą kosztu całkowitego”</b> — podmiana nazwy: chodzi o izokosztę. W edycji XXIII poprawną odpowiedzią było „żadna z powyższych”.</li>
+<li><b>„Z samej izokwanty odczytamy rodzaj przychodów ze skali”</b> — nie; potrzebna jest mapa izokwant z przypisanymi wielkościami produkcji. Z pojedynczej izokwanty odczytamy jedynie wielkość produkcji całkowitej, bo jest ona wzdłuż niej stała.</li>
+<li><b>„MRTS = 2 oznacza, że wzrostowi pracy o 2 towarzyszy spadek kapitału o 4 przy stałych kosztach”</b> — MRTS dotyczy <em>stałej produkcji</em>, nie stałego kosztu. Stały koszt opisuje izokoszta.</li>
+<li><b>Nakłady doskonale komplementarne</b> dają izokwanty w kształcie litery „L”, bez możliwości substytucji.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-10">
+<header class="card__h"><span class="chip"><b>MIK-10</b><span>Dział 3</span></span><span class="card__src">Produkcja i koszty</span></header>
+<div class="card__b">
+<h3 class="card__t">Struktura kosztów w krótkim i długim okresie</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Krzywe kosztów przedsiębiorstwa" role="img" viewbox="0 0 640 340">
+<line class="ax" x1="70" x2="600" y1="300" y2="300"></line>
+<line class="ax" x1="70" x2="70" y1="300" y2="30"></line>
+<path class="c-red" d="M95,250 C160,255 200,200 300,130 C360,88 420,60 500,45"></path>
+<path class="c-gold" d="M95,230 C180,210 250,175 320,170 C400,168 460,185 520,215"></path>
+<path class="c-cyan" d="M95,265 C180,240 250,215 330,212 C410,214 470,228 520,248"></path>
+<circle cx="330" cy="212" fill="#63c7e8" r="4"></circle>
+<circle cx="404" cy="168" fill="#e8b75d" r="4"></circle>
+<line class="dash" x1="404" x2="404" y1="168" y2="300"></line>
+<text class="lbl-red" x="505" y="40">MC</text>
+<text class="lbl-gold" x="527" y="219">ATC</text>
+<text class="lbl-cyan" x="527" y="252">AVC</text>
+<text x="330" y="322">próg zamknięcia</text>
+<text class="lbl-gold" x="392" y="150">min ATC</text>
+<text x="16" y="42">koszt</text>
+<text x="565" y="322">Q</text>
+</svg>
+<figcaption>MC przecina AVC i ATC dokładnie w ich minimach. Odcinek MC powyżej min AVC to krótkookresowa krzywa podaży firmy konkurencyjnej; powyżej min ATC — długookresowa.</figcaption>
+</figure>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Kategoria</th><th>Treść</th><th>Uwaga OWE</th></tr></thead>
+<tbody>
+<tr><td>Koszt stały (FC)</td><td>Niezależny od wielkości produkcji</td><td>W funkcji \(TC = 20 + 10Q + Q^2\) kosztem stałym jest <b>20</b> dla każdego Q</td></tr>
+<tr><td>Koszt całkowity (krótki okres)</td><td>Suma kosztu stałego i sumy kosztów krańcowych</td><td>Nie jest „iloczynem AVC i produkcji” — to tylko koszt zmienny</td></tr>
+<tr><td>Przeciętny koszt stały (AFC)</td><td>\(FC/Q\)</td><td>Gdy produkcja <b>maleje</b>, AFC zawsze <b>rośnie</b> — to jedyne zdanie prawdziwe bezwarunkowo</td></tr>
+<tr><td>Kształt krzywej kosztów zmiennych</td><td>Wynika z prawa malejących przychodów</td><td>Nie z kosztów stałych ani z nachylenia popytu</td></tr>
+<tr><td>Długi okres</td><td>Wszystkie czynniki zmienne, brak kosztów stałych</td><td>Wówczas \(AVC = ATC\); rosnące przychody ze skali = spadek <b>długookresowego</b> ATC</td></tr>
+<tr><td>Stałe przychody ze skali</td><td>Pozioma krzywa długookresowego ATC</td><td>Nie pozioma krzywa kosztu całkowitego</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie „kosztu stałego” z „przeciętnym kosztem stałym”</b> przy pytaniach z funkcją kosztu. FC nie zależy od Q, AFC zależy.</li>
+<li><b>„Jeśli MC jest stały, to ATC też jest stały”</b> — nie, dopóki istnieje koszt stały, ATC maleje. ATC = MC dla każdego Q tylko wtedy, gdy koszt stały wynosi zero.</li>
+<li><b>„Rosnące przychody ze skali obniżają koszt przeciętny w krótkim okresie”</b> — skala jest kategorią wyłącznie długookresową.</li>
+<li><b>Krzywa AVC ma zawsze co najmniej jeden punkt wspólny z MC</b> — w swoim minimum. To zdanie bywa jedynym prawdziwym w zestawie.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-11">
+<header class="card__h"><span class="chip"><b>MIK-11</b><span>Dział 3</span></span><span class="card__src">Produkcja i koszty</span></header>
+<div class="card__b">
+<h3 class="card__t">Koszty księgowe, alternatywne, ekonomiczne i utopione</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Koszt ekonomiczny = koszt księgowy (jawny) + koszt alternatywny (niejawny). Zysk ekonomiczny = utarg − koszt ekonomiczny. Zysk normalny to sytuacja, w której zysk ekonomiczny wynosi zero, a zysk księgowy jest dodatni i równy kosztom niejawnym.</p>
+<div class="mech">
+<h4>Koszt utopiony</h4>
+<p>Wydatek już poniesiony i nieodzyskiwalny niezależnie od decyzji. Z definicji <strong>nie wchodzi</strong> do rachunku decyzyjnego. Przy decyzji o odwołaniu wycieczki wynagrodzenie kierowcy i przepadająca zaliczka są utopione — próg opłacalności liczy się wyłącznie z kosztów możliwych do uniknięcia.</p>
+</div>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Istnieje realna, wyceniona alternatywa dla zaangażowanych zasobów (płaca możliwa do uzyskania, czynsz rynkowy, rynkowa stopa procentowa od zamrożonego kapitału).</li><li>Decyzja jest podejmowana na przyszłość, nie wstecz.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Firma osiąga zysk księgowy, więc warto kontynuować działalność”</b> — klasyczne zadanie z edycji XXIV: sklep internetowy z zyskiem księgowym 12 tys. zł miesięcznie ponosił stratę ekonomiczną 3,5 tys. zł. Osiąganie zysku księgowego nie jest wystarczającą przesłanką.</li>
+<li><b>Pomijanie kosztu kapitału własnego.</b> Zainwestowane środki obrotowe mają koszt alternatywny równy rynkowej stopie procentowej — także wtedy, gdy nikt nie wystawia za to faktury.</li>
+<li><b>„Zysk normalny wynosi zero”</b> — to zysk <em>ekonomiczny</em> wynosi zero. Zysk normalny to właśnie wynagrodzenie przedsiębiorcy zawarte w koszcie ekonomicznym.</li>
+<li><b>Wliczanie kosztów utopionych do progu</b> zawyża wymaganą sprzedaż i prowadzi do błędnej decyzji o rezygnacji z przedsięwzięcia.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="m4">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 4</b> · STRUKTURY RYNKOWE</p><h2>Struktury rynkowe</h2></header>
+<p class="sub">Cztery modele odróżniane przez trzy cechy: liczbę firm, jednorodność produktu i bariery wejścia.</p>
+<article class="card" id="MIK-12">
+<header class="card__h"><span class="chip"><b>MIK-12</b><span>Dział 4</span></span><span class="card__src">Struktury rynkowe</span></header>
+<div class="card__b">
+<h3 class="card__t">Tablica porównawcza czterech struktur</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Cecha</th><th>Konkurencja doskonała</th><th>Konkurencja monopolistyczna</th><th>Oligopol</th><th>Monopol</th></tr></thead>
+<tbody>
+<tr><td>Liczba firm</td><td>Bardzo wiele</td><td>Wiele</td><td>Kilka</td><td>Jedna</td></tr>
+<tr><td>Produkt</td><td>Jednorodny</td><td>Zróżnicowany</td><td>Jedno- lub zróżnicowany</td><td>Bez bliskich substytutów</td></tr>
+<tr><td>Bariery wejścia</td><td>Brak</td><td>Brak</td><td>Znaczne</td><td>Zaporowe</td></tr>
+<tr><td>Krzywa popytu firmy</td><td>Pozioma, \(D = AR = MR = P\)</td><td>Opadająca, bardzo elastyczna</td><td>Zależna od reakcji rywali</td><td>Opadający popyt rynkowy</td></tr>
+<tr><td>Relacja P i MR</td><td>\(P = MR\)</td><td>\(P &gt; MR\)</td><td>\(P &gt; MR\)</td><td>\(P &gt; MR\)</td></tr>
+<tr><td>Długi okres</td><td>\(P = ATC_{min}\), zysk ekonomiczny 0</td><td>\(P = ATC\) (ale nie w minimum)</td><td>Możliwy trwały zysk ekonomiczny</td><td>Trwały zysk ekonomiczny</td></tr>
+<tr><td>Efektywność</td><td>Alokacyjna i produkcyjna</td><td>Nadmiar mocy produkcyjnych</td><td>Zależna od zmowy</td><td>Zbędna strata społeczna</td></tr>
+</tbody>
+</table>
+</div>
+<div class="assume">
+<h4>Założenia wspólne</h4>
+<ul><li>Firma maksymalizuje zysk, stosując regułę \(MR = MC\) przy rosnącym MC.</li><li>Pełna informacja o kosztach i popycie; brak efektów zewnętrznych.</li><li>Swoboda wejścia i wyjścia działa wyłącznie w długim okresie.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Zysk jest maksymalny, gdy MR = MC”</b> — to warunek konieczny, ale niewystarczający. Potrzebny jest drugi człon: <em>koszt krańcowy musi rosnąć</em>. Przy malejącym MC punkt MR = MC to minimum zysku.</li>
+<li><b>„Zysk maksymalny przy MR = 0”</b> — to warunek maksymalizacji <em>utargu</em>, nie zysku.</li>
+<li><b>„Zysk maksymalny w minimum ATC”</b> — to punkt minimalnego kosztu jednostkowego, a nie maksymalnego zysku.</li>
+<li><b>Krzywa popytu firmy doskonale konkurencyjnej nie jest tożsama z popytem rynkowym</b> — rynkowy jest opadający, popyt na produkty jednej firmy jest poziomy i pokrywa się z funkcją utargu krańcowego.</li>
+<li><b>W długim okresie firma konkurencyjna, która nie zmienia produkcji</b>, osiąga zysk normalny — utarg całkowity równa się całkowitemu kosztowi ekonomicznemu, a zysk księgowy równa się kosztom niejawnym.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-13">
+<header class="card__h"><span class="chip"><b>MIK-13</b><span>Dział 4</span></span><span class="card__src">Struktury rynkowe</span></header>
+<div class="card__b">
+<h3 class="card__t">Monopol, dyskryminacja cenowa i zbędna strata</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Równowaga monopolu i zbędna strata społeczna" role="img" viewbox="0 0 640 340">
+<line class="ax" x1="70" x2="600" y1="300" y2="300"></line>
+<line class="ax" x1="70" x2="70" y1="300" y2="30"></line>
+<line class="c-cyan" x1="70" x2="520" y1="50" y2="290"></line>
+<line class="c-red" x1="70" x2="295" y1="50" y2="290"></line>
+<line class="c-gold" x1="70" x2="560" y1="190" y2="190"></line>
+<polygon class="fill-red" points="220,163 295,190 220,190"></polygon>
+<line class="dash" x1="220" x2="220" y1="163" y2="300"></line>
+<line class="dash" x1="70" x2="220" y1="141" y2="141"></line>
+<line class="dash" x1="295" x2="295" y1="190" y2="300"></line>
+<text x="30" y="145">P<tspan dy="4" font-size="9">m</tspan></text>
+<text x="206" y="320">Q<tspan dy="4" font-size="9">m</tspan></text>
+<text x="282" y="320">Q<tspan dy="4" font-size="9">k</tspan></text>
+<text class="lbl-cyan" x="527" y="295">D = AR</text>
+<text class="lbl-red" x="300" y="286">MR</text>
+<text class="lbl-gold" x="565" y="186">MC</text>
+<text class="lbl-red" x="238" y="166">DWL</text>
+</svg>
+<figcaption>Monopolista wybiera Q z warunku MR = MC, a cenę odczytuje z krzywej popytu. Ograniczenie produkcji poniżej \(Q_k\) tworzy zbędną stratę społeczną.</figcaption>
+</figure>
+<div class="mech">
+<h4>Dyskryminacja cenowa</h4>
+<p>Sprzedaż tego samego produktu, w tym samym miejscu i czasie, różnym nabywcom po różnych cenach — przy braku istotnej różnicy w kosztach. Warunki: siła rynkowa, możliwość segmentacji nabywców według elastyczności popytu i brak arbitrażu między segmentami. <strong>Dyskryminacja doskonała</strong> (I stopnia) przechwytuje całą nadwyżkę konsumenta, ale zwiększa nadwyżkę <em>całkowitą</em> i likwiduje zbędną stratę, bo produkcja wraca do poziomu \(P = MC\).</p>
+</div>
+<div class="mech">
+<h4>Monopol naturalny</h4>
+<p>Występuje, gdy jedna firma obsługuje cały rynek taniej niż kilka — technicznie: korzyści skali utrzymują się dla <em>każdej</em> wielkości produkcji, więc długookresowy koszt przeciętny stale maleje. Cechą charakterystyczną są bardzo wysokie koszty stałe przy niskim koszcie krańcowym (sieci przesyłowe, wodociągi).</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Monopolista ustala cenę maksymalną, jaką może uzyskać”</b> — monopolista ustala <em>jedną</em> zmienną: ilość albo cenę. Reszta wynika z krzywej popytu. Nie może wybrać dowolnej pary (P, Q).</li>
+<li><b>„Zysk ekonomiczny monopolisty jest dodatni, gdy MR &gt; MC”</b> — warunkiem dodatniego zysku ekonomicznego jest \(P &gt; ATC\). MR &gt; MC oznacza jedynie, że opłaca się zwiększyć produkcję.</li>
+<li><b>„Monopol naturalny wynika z decyzji rządu”</b> — to monopol <em>prawny</em>. Naturalny wynika z technologii kosztowej.</li>
+<li><b>„Przy dyskryminacji doskonałej nadwyżka konsumenta rośnie”</b> — spada do zera; rośnie nadwyżka <em>całkowita</em> i zysk monopolisty.</li>
+<li><b>Dumping</b> nie jest tym samym co dyskryminacja cenowa: powodzenie dumpingu wymaga barier uniemożliwiających powrót wypartych konkurentów na rynek.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-14">
+<header class="card__h"><span class="chip"><b>MIK-14</b><span>Dział 4</span></span><span class="card__src">Struktury rynkowe</span></header>
+<div class="card__b">
+<h3 class="card__t">Oligopol: zmowa, przywództwo cenowe i modele strategiczne</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Rynek kilku firm, na którym decyzja każdej z nich istotnie zmienia sytuację pozostałych. To jedyna struktura, w której zachowanie firmy jest problemem <em>strategicznym</em>, a nie tylko optymalizacyjnym.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Model</th><th>Zmienna decyzyjna</th><th>Wynik</th></tr></thead>
+<tbody>
+<tr><td>Cournot</td><td>Wielkość produkcji, decyzje równoczesne</td><td>Równowaga Nasha w punkcie przecięcia funkcji reakcji; produkcja większa niż monopolowa, mniejsza niż konkurencyjna</td></tr>
+<tr><td>Bertrand</td><td>Cena, produkt jednorodny</td><td>Cena spada do kosztu krańcowego — „paradoks Bertranda”</td></tr>
+<tr><td>Stackelberg</td><td>Ilość, decyzje sekwencyjne</td><td>Przewaga pierwszego ruchu dla lidera</td></tr>
+<tr><td>Kartel</td><td>Wspólna ilość</td><td>Łączna produkcja i cena jak u monopolisty; silna zachęta do oszukiwania</td></tr>
+<tr><td>Przywództwo cenowe</td><td>Cena lidera, naśladowcy ją przyjmują</td><td>Cena wyższa od kosztu krańcowego lidera</td></tr>
+</tbody>
+</table>
+</div>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Wszystkie firmy znają krzywą popytu rynkowego i funkcje kosztów rywali.</li><li>Model Cournota: firmy traktują produkcję rywala jako daną (popyt rezydualny).</li><li>Kartel wymaga egzekwowalności umowy — bez niej dominuje strategia odstępstwa (dylemat więźnia).</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„W długim okresie oligopoliści mogą zawierać porozumienia cenowe, dzielić rynki lub prowadzić wojny cenowe”</b> — wszystkie trzy warianty są w modelu możliwe; prawidłową odpowiedzią bywa „wszystkie powyższe”. Legalność to inna kwestia niż możliwość ekonomiczna.</li>
+<li><b>Krzywa popytu rezydualnego leży poniżej krzywej popytu rynkowego</b>, bo pomniejsza ją produkcja rywala — pytania OWE odwracają tę relację.</li>
+<li><b>W duopolu Bertranda z identycznym MC</b> rynek dzieli się po połowie przy cenie równej MC: z popytu \(p=-2q+50\) i \(MC=10\) łączna ilość to 20, a na firmę przypada 10.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="m5">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 5</b> · RYNEK CZYNNIKÓW PRODUKCJI</p><h2>Rynek czynników</h2></header>
+<p class="sub">Popyt na czynnik jest popytem pochodnym — wynika z popytu na produkt końcowy.</p>
+<article class="card" id="MIK-15">
+<header class="card__h"><span class="chip"><b>MIK-15</b><span>Dział 5</span></span><span class="card__src">Rynek czynników</span></header>
+<div class="card__b">
+<h3 class="card__t">Monopson i siła rynkowa po stronie popytu na pracę</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Monopson to jedyny nabywca czynnika produkcji. Jego siła rynkowa polega na zdolności kształtowania <strong>jednocześnie</strong> poziomu płac i wielkości zatrudnienia — w przeciwieństwie do firmy konkurencyjnej, która przyjmuje płacę rynkową jako daną.</p>
+<div class="mech">
+<h4>Mechanizm</h4>
+<p>Monopson stoi wobec rosnącej krzywej podaży pracy, więc zatrudnienie dodatkowego pracownika wymaga podniesienia płacy <em>wszystkim</em>. Dlatego krańcowy koszt pracy leży powyżej płacy i rośnie dwukrotnie szybciej niż przeciętny koszt pracy. Efekt: zatrudnienie i płaca niższe niż na rynku konkurencyjnym.</p>
+</div>
+<div class="mech">
+<h4>Płaca minimalna w warunkach monopsonu</h4>
+<p>To wyjątek od neoklasycznej reguły: odpowiednio ustalona płaca minimalna może <strong>jednocześnie</strong> podnieść płacę i zwiększyć zatrudnienie, bo eliminuje monopsonistyczne ograniczanie popytu na pracę. W modelu konkurencyjnym płaca minimalna powyżej równowagi zawsze tworzy bezrobocie i przesuwa krótkookresową krzywą Phillipsa w prawo.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Monopson kształtuje tylko płace”</b> albo <b>„tylko zatrudnienie”</b> — oba warianty są niepełne; prawidłowa odpowiedź obejmuje jedno i drugie.</li>
+<li><b>Dochód transferowy vs renta ekonomiczna</b>: dochód transferowy to <em>minimalna</em> zapłata niezbędna do utrzymania czynnika w obecnym zastosowaniu (pole pod krzywą podaży); renta ekonomiczna to nadwyżka ponad tę kwotę.</li>
+<li><b>Model selekcji negatywnej na rynku pracy</b>: przy stawkach znacząco niższych od płacy motywującej krzywa popytu na pracę staje się <em>rosnąca</em>, bo obniżka płac psuje jakość kandydatów. Aspiracje płacowe są <em>dodatnio</em>, a nie ujemnie skorelowane z wydajnością.</li>
+<li><b>Teoria kontraktów nieformalnych</b> opiera się na <em>większej</em> awersji do ryzyka pracowników niż pracodawców (pracownik ma niezdywersyfikowany majątek — jedno źródło dochodu).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-16">
+<header class="card__h"><span class="chip"><b>MIK-16</b><span>Dział 5</span></span><span class="card__src">Rynek czynników</span></header>
+<div class="card__b">
+<h3 class="card__t">Rynek funduszy pożyczkowych i preferencja czasowa</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Ludzie na ogół wyżej cenią konsumpcję dzisiejszą niż przyszłą. Skłonienie ich do odroczenia konsumpcji wymaga wynagrodzenia w postaci odsetek — dlatego krzywa <strong>podaży</strong> funduszy pożyczkowych jest nachylona dodatnio.</p>
+<div class="assume">
+<h4>Założenia</h4>
+<ul><li>Dodatnia preferencja czasowa gospodarstw domowych.</li><li>Popyt na fundusze pochodzi od inwestorów i jest malejącą funkcją stopy procentowej (malejąca krańcowa produktywność kapitału).</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Przypisanie dodatniego nachylenia krzywej popytu</b> zamiast podaży — najczęstszy wariant dystraktora.</li>
+<li><b>Mylenie preferencji czasowej z awersją do ryzyka</b> — to niezależne wymiary preferencji.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="m6">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 6</b> · ZAWODNOŚĆ RYNKU I DOBRA PUBLICZNE</p><h2>Zawodność rynku</h2></header>
+<p class="sub">Dwie cechy — wykluczalność i konkurencyjność w konsumpcji — generują pełną klasyfikację dóbr.</p>
+<article class="card" id="MIK-17">
+<header class="card__h"><span class="chip"><b>MIK-17</b><span>Dział 6</span></span><span class="card__src">Zawodność rynku</span></header>
+<div class="card__b">
+<h3 class="card__t">Macierz dóbr: publiczne, prywatne, klubowe, wspólne</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th></th><th>Konkurencyjne w konsumpcji</th><th>Niekonkurencyjne</th></tr></thead>
+<tbody>
+<tr><th>Wykluczalne</th><td><b>Dobra prywatne</b> — chleb, samochód</td><td><b>Dobra klubowe</b> — spektakl w teatrze, płatna autostrada</td></tr>
+<tr><th>Niewykluczalne</th><td><b>Zasoby wspólne</b> — jezioro na wyspie, łowisko, parki narodowe</td><td><b>Dobra publiczne</b> — obrona narodowa, latarnia morska</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Mechanizm</h4>
+<p>Koszt krańcowy dostarczenia dobra publicznego kolejnemu konsumentowi jest bliski zeru — to ekonomiczna treść niekonkurencyjności. Niewykluczalność rodzi <strong>efekt gapowicza</strong> (nieopłacanie abonamentu RTV), przez co rynek dostarcza dobro publiczne w ilości mniejszej od społecznie optymalnej. Przy zasobach wspólnych działa odwrotny mechanizm — tragedia wspólnego pastwiska, czyli nadmierna eksploatacja.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Dobra publiczne nie mogą być wytwarzane przez sektor prywatny”</b> — mogą (prywatna latarnia, fundacja). Kryterium dotyczy cech konsumpcji, nie właściciela producenta.</li>
+<li><b>„Dobra publiczne są zużywane przez instytucje rządowe”</b> — podmiana konsumenta z finansującym.</li>
+<li><b>Parki narodowe to dobro mieszane</b>: niewykluczalne, ale <em>konkurencyjne</em> (zatłoczenie zmniejsza korzyść innych). OWE testuje tę parę cech dosłownie.</li>
+<li><b>Dobra społecznie niepożądane</b> to dobra, których na wolnym rynku konsumuje się <em>za dużo</em> — nie takie, na które popyt jest zbyt mały. Mogą być przez poszczególne osoby uznawane za pożądane; to właśnie źródło rozbieżności między oceną prywatną a społeczną.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-18">
+<header class="card__h"><span class="chip"><b>MIK-18</b><span>Dział 6</span></span><span class="card__src">Zawodność rynku</span></header>
+<div class="card__b">
+<h3 class="card__t">Efekty zewnętrzne, podatek Pigou i twierdzenie Coase'a</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Efekt zewnętrzny to koszt lub korzyść przenoszona na osoby trzecie bez odzwierciedlenia w cenie. Rynek zawodzi, bo koszt prywatny rozmija się ze społecznym.</p>
+<figure>
+<svg aria-label="Negatywny efekt zewnętrzny" role="img" viewbox="0 0 640 300">
+<line class="ax" x1="70" x2="600" y1="260" y2="260"></line>
+<line class="ax" x1="70" x2="70" y1="260" y2="30"></line>
+<line class="c-cyan" x1="90" x2="520" y1="50" y2="250"></line>
+<line class="c-gold" x1="90" x2="520" y1="250" y2="60"></line>
+<line class="c-red" x1="90" x2="500" y1="215" y2="40"></line>
+<circle cx="306" cy="152" fill="#e8b75d" r="4"></circle>
+<circle cx="262" cy="131" fill="#e8776d" r="4"></circle>
+<text class="lbl-cyan" x="527" y="256">D = korzyść społeczna</text>
+<text class="lbl-gold" x="527" y="62">S = koszt prywatny</text>
+<text class="lbl-red" x="470" y="34">koszt społeczny</text>
+<text x="290" y="282">Q rynkowe</text>
+<text class="lbl-red" x="150" y="110">podatek Pigou = wielkość efektu</text>
+</svg>
+<figcaption>Podatek korygujący przesuwa krzywą podaży do poziomu kosztu społecznego: równowaga rynkowa pokrywa się z optimum społecznym.</figcaption>
+</figure>
+<div class="mech">
+<h4>Dwa narzędzia korekty</h4>
+<ul>
+<li><b>Podatek Pigou</b> — internalizacja przez państwo; nakładany w celu skompensowania <em>negatywnych efektów zewnętrznych</em> (podatek cukrowy, opłaty emisyjne). Nie służy zwalczaniu monopoli ani asymetrii informacji.</li>
+<li><b>Twierdzenie Coase'a</b> — przy jasno zdefiniowanych prawach własności i <em>zerowych kosztach transakcyjnych</em> strony same wynegocjują efektywne rozwiązanie, niezależnie od tego, komu przyznano prawo.</li>
+</ul>
+</div>
+<div class="assume">
+<h4>Założenia Coase'a — kluczowe dla poprawnej odpowiedzi</h4>
+<ul><li>Koszty transakcyjne równe zeru (lub pomijalne).</li><li>Mała, zidentyfikowana liczba stron.</li><li>Pełna informacja i egzekwowalność umów.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Coase rozwiązuje problem kosztów transakcyjnych”</b> — odwrócenie logiki. Coase rozwiązuje problem <em>efektów zewnętrznych</em>, i to tylko przy założeniu, że kosztów transakcyjnych nie ma.</li>
+<li><b>„Przyczyną zawodności rynku jest polityka antymonopolowa / internalizacja efektów”</b> — to narzędzia <em>naprawy</em>. Przyczyną zawodności są m.in. monopole naturalne, dobra publiczne, efekty zewnętrzne i asymetria informacji.</li>
+<li><b>Poprawa w sensie Pareto</b> to polepszenie sytuacji co najmniej jednego podmiotu <em>bez pogorszenia</em> sytuacji innego — nie jest to redystrybucja ani podatek korygujący.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="MIK-19">
+<header class="card__h"><span class="chip"><b>MIK-19</b><span>Dział 6</span></span><span class="card__src">Zawodność rynku</span></header>
+<div class="card__b">
+<h3 class="card__t">Asymetria informacji: pryncypał–agent, selekcja negatywna, pokusa nadużycia</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Zjawisko</th><th>Kiedy powstaje</th><th>Przykład z OWE</th></tr></thead>
+<tbody>
+<tr><td><b>Problem pana i sługi</b> (pryncypał–agent)</td><td>Po zawarciu umowy; agent działa w interesie własnym, a pryncypał nie obserwuje jego wysiłku</td><td>Niania zaniedbująca dziecko; radca prawny niedbale przygotowany do procesu; rozdzielenie własności od zarządzania w spółce</td></tr>
+<tr><td><b>Selekcja negatywna</b></td><td>Przed zawarciem umowy; ukryta cecha</td><td>Rynek samochodów używanych; ubezpieczenia zdrowotne</td></tr>
+<tr><td><b>Pokusa nadużycia</b></td><td>Po zawarciu umowy; ukryte działanie przy przeniesionym ryzyku</td><td>Bank udzielający ryzykownych kredytów, licząc na pomoc rządu; „karne oprocentowanie” Bagehota ma jej zapobiegać</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mobbing nie jest problemem pana i sługi</b> — prześladowanie podwładnego przez szefa to patologia relacji pracowniczej, a nie konflikt interesów wynikający z asymetrii informacji. To ulubiony dystraktor edycji XXIII.</li>
+<li><b>Teoria agencji nie dotyczy</b> podwójnego opodatkowania dywidend, ograniczonej odpowiedzialności wspólników ani sporu akcjonariuszy z obligatariuszami — dotyczy konsekwencji <em>oddzielenia funkcji właścicielskich od menedżerskich</em>.</li>
+<li><b>Rozróżnienie selekcji negatywnej i pokusy nadużycia</b> sprowadza się do momentu: przed umową (cecha) czy po umowie (zachowanie).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<p class="empty" hidden="" id="empty">Brak haseł pasujących do wyszukiwania.</p>
+<footer class="foot"><span>Mikroekonomia · kompendium szkolne OWE</span><a href="#top">Na górę ↑</a></footer>
+</main></div></div>
+<a aria-label="Na górę strony" class="totop" href="#top">↑</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.renderMathInElement) renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],
+    throwOnError: false,
+    strict: false
+  });
+});
+</script>
+<script>/* Kompendium OWE — widok ciągły: wyszukiwarka, podświetlanie bieżącego działu, pomocnicze dla kalkulatorów */
+(function () {
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l')
+      .replace(/ń/g, 'n').replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ż/g, 'z').replace(/ź/g, 'z');
+  }
+  function plural(n) {
+    if (n === 1) return 'hasło';
+    var d = n % 10, h = n % 100;
+    return (d >= 2 && d <= 4 && (h < 12 || h > 14)) ? 'hasła' : 'haseł';
+  }
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var sections = $$('section.sec');
+  var cards = $$('article.card');
+  var chips = $$('.chipnav');
+  var tocItems = $$('.toc__list > li');
+  var tocCards = $$('.toc__list ul a');
+  var chipBox = document.querySelector('.chips');
+
+  /* --- wyszukiwarka --- */
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var empty = document.getElementById('empty');
+  cards.forEach(function (c) { c._hay = norm(c.textContent); });
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim());
+      var hits = 0;
+      cards.forEach(function (c) {
+        var ok = !q || c._hay.indexOf(q) > -1;
+        c.hidden = !ok;
+        if (ok) hits++;
+      });
+      sections.forEach(function (s) {
+        var any = $$('article.card', s).some(function (c) { return !c.hidden; });
+        s.hidden = !any;
+        chips.concat(tocItems).forEach(function (el) { if (el.dataset.sec === s.id) el.hidden = !any; });
+      });
+      tocCards.forEach(function (a) {
+        var c = document.getElementById(a.dataset.card);
+        a.parentNode.hidden = !!(c && c.hidden);
+      });
+      count.textContent = q ? (hits + ' / ' + cards.length) : (cards.length + ' ' + plural(cards.length));
+      if (empty) empty.hidden = hits > 0;
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+
+  /* --- bieżący dział i hasło (podświetlenie w nawigacji) --- */
+  var curSec = null, curCard = null;
+  function setSection(id) {
+    if (id === curSec) return;
+    curSec = id;
+    chips.forEach(function (a) { a.classList.toggle('on', a.dataset.sec === id); });
+    tocItems.forEach(function (li) { li.classList.toggle('on', li.dataset.sec === id); });
+    var on = chips.filter(function (a) { return a.dataset.sec === id; })[0];
+    if (on && chipBox && chipBox.offsetParent) {
+      var l = on.offsetLeft - chipBox.offsetLeft, r = l + on.offsetWidth;
+      if (l < chipBox.scrollLeft || r > chipBox.scrollLeft + chipBox.clientWidth) {
+        chipBox.scrollTo({ left: Math.max(0, l - 24), behavior: 'smooth' });
+      }
+    }
+  }
+  function setCard(id) {
+    if (id === curCard) return;
+    curCard = id;
+    tocCards.forEach(function (a) { a.classList.toggle('on', a.dataset.card === id); });
+  }
+  function spy() {
+    var line = 110;
+    var s = null, c = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].hidden) continue;
+      if (sections[i].getBoundingClientRect().top <= line) s = sections[i]; else break;
+    }
+    if (!s) s = sections.filter(function (x) { return !x.hidden; })[0];
+    if (s) {
+      setSection(s.id);
+      var cs = $$('article.card', s);
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j].hidden) continue;
+        if (cs[j].getBoundingClientRect().top <= line + 40) c = cs[j]; else break;
+      }
+      setCard(c ? c.id : (cs[0] && cs[0].id));
+    }
+    var tt = document.querySelector('.totop');
+    if (tt) tt.classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; spy(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+
+  /* --- pomocnicze dla kalkulatorów (bez zmian względem wersji z zakładkami) --- */
+  window.OWE = {
+    n: function (id) { var e = document.getElementById(id); return e ? parseFloat(String(e.value).replace(',', '.')) : NaN; },
+    f: function (x, d) { return isFinite(x) ? x.toLocaleString('pl-PL', { maximumFractionDigits: d === undefined ? 2 : d }) : '—'; },
+    bind: function (ids, fn) {
+      var run = function () { try { fn(); } catch (e) { } };
+      ids.forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener('input', run); });
+      run();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terminal Ekonomii i Bilansu OP</title>
+<meta name="description" content="Moduł 3 i bilans całości: ekonomia, marketing, psychologia i negocjacje, etyka i ESG, gospodarka cyfrowa, aktualności – Olimpiada Przedsiębiorczości, 999 pytań z 20 arkuszy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --abyss:#0b1120; --bg:#0f172a; --panel:#1e293b; --panel2:#162033; --line:#2a3854; --line2:#344563;
+  --text:#e5ebf3; --muted:#9aa8bd; --dim:#6b7a92;
+  --blue:#2563eb; --blue2:#3b82f6; --sky:#8cc8ff; --amber:#fbbf24; --good:#34d399; --bad:#f87171; --violet:#a78bfa;
+  --f-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px; --gut:clamp(16px,3vw,32px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:110px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15.5px/1.6 var(--f-sans);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1200px 500px at 85% 0,rgba(37,99,235,.16),transparent 60%);background-repeat:no-repeat}
+a{color:var(--sky)} a:hover{color:#fff}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--f-cond);letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.15}
+h2{font-size:clamp(1.55rem,2.6vw,2.1rem);font-weight:700}
+h3{font-size:1.2rem;font-weight:600;color:#fff}
+h4{font-size:1rem;font-weight:600;color:var(--sky);text-transform:uppercase;letter-spacing:.08em}
+p{margin:0}
+.mono{font-family:var(--f-mono)} .num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:var(--gut)}
+/* ticker + nav */
+.topbar{position:sticky;top:0;z-index:50;background:#0b1120;border-bottom:1px solid var(--line)}
+.ticker{overflow:hidden;border-bottom:1px solid var(--line);font:500 12px/1 var(--f-mono);color:var(--muted);white-space:nowrap}
+.ticker .belt{display:inline-flex;gap:28px;padding:7px 0;animation:belt 90s linear infinite;will-change:transform}
+.ticker b{color:var(--text);font-weight:600} .ticker .up{color:var(--good)} .ticker .hl{color:var(--amber)}
+@keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;text-decoration:none;color:var(--muted);font:600 13px/1 var(--f-cond);letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;border-radius:6px;border:1px solid transparent}
+.nav a:hover{color:#fff;background:var(--panel)}
+.nav a.on{color:#fff;background:rgba(37,99,235,.22);border-color:rgba(59,130,246,.5)}
+.nav a.xxii{color:var(--amber)}
+/* hero */
+header.hero{padding-block:44px 28px}
+.eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue2)}
+.hero h1{font-size:clamp(2.1rem,5.2vw,3.6rem);font-weight:700;margin-top:12px;max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--blue2)}
+.hero .lede{margin-top:16px;max-width:68ch;color:#c9d3e1;font-size:1.05rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:28px}
+.kpi{background:var(--panel2);padding:16px 18px}
+.kpi .v{font:600 clamp(1.6rem,3vw,2.2rem)/1 var(--f-mono);color:#fff}
+.kpi .v small{font-size:.5em;color:var(--muted);margin-left:4px}
+.kpi .l{margin-top:8px;font-size:12.5px;color:var(--muted);line-height:1.35}
+.kpi.acc .v{color:var(--amber)}
+/* sections */
+section.sec{padding-block:48px;border-top:1px solid var(--line)}
+.chart-box canvas{display:block}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:22px}
+.sec-head .tag{font:600 11.5px/1 var(--f-mono);color:var(--blue2);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:8px}
+.sec-head p{color:var(--muted);max-width:62ch}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.card{background:#1a2438;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.card.glass{background:#1a2438}
+.card h3+p,.card h3+ul,.card h4+p,.card h4+ul{margin-top:8px}
+.card p+p{margin-top:8px}
+.card .kicker{font:500 11.5px/1 var(--f-mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:block}
+ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+ul.clean li{padding-left:16px;position:relative}
+ul.clean li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:1px;background:var(--blue2)}
+ul.clean li.trap::before{background:var(--amber)}
+.muted{color:var(--muted)} .small{font-size:13.5px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--f-mono);padding:5px 8px;border-radius:5px;border:1px solid var(--line2);color:var(--muted);background:rgba(15,23,42,.6);white-space:nowrap}
+.chip.b{color:var(--sky);border-color:rgba(59,130,246,.45)} .chip.a{color:var(--amber);border-color:rgba(251,191,36,.45)} .chip.g{color:var(--good);border-color:rgba(52,211,153,.45)} .chip.r{color:var(--bad);border-color:rgba(248,113,113,.45)}
+.src{font:500 11.5px/1.3 var(--f-mono);color:var(--dim)}
+.chart-box{position:relative;height:320px;margin-top:12px}
+.chart-box.tall{height:380px} .chart-box.short{height:250px}
+.fallback{display:none;color:var(--muted);font-size:13px;padding:10px;border:1px dashed var(--line2);border-radius:8px}
+.no-chart .fallback{display:block}
+/* term tooltips */
+.term{border-bottom:1px dashed var(--blue2);cursor:help;position:relative;color:#fff}
+.term:focus{outline:none}
+.tip{position:absolute;z-index:80;max-width:320px;background:#0b1224;border:1px solid var(--blue);color:var(--text);font:400 13px/1.45 var(--f-sans);padding:10px 12px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:none}
+.tip b{color:var(--sky)}
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:14px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font:600 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sky);background:#131d31;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(59,130,246,.06)}
+td.nm{font-weight:600;color:#fff;white-space:nowrap}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.fbtn{font:600 12px/1 var(--f-cond);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel2);border:1px solid var(--line2);border-radius:6px;padding:8px 11px;cursor:pointer}
+.fbtn:hover{color:#fff}
+.fbtn[aria-pressed="true"]{color:#fff;background:var(--blue);border-color:var(--blue2)}
+input[type=search],input[type=number],select{min-width:0;max-width:100%;font:500 14px var(--f-sans);color:var(--text);background:var(--abyss);border:1px solid var(--line2);border-radius:6px;padding:8px 10px}
+input[type=range]{accent-color:var(--blue2);width:100%}
+label.fld{display:grid;gap:6px;font:600 12px/1.2 var(--f-mono);color:var(--muted);letter-spacing:.04em}
+/* accordion */
+details.acc{border:1px solid var(--line);border-radius:var(--r);background:var(--panel2);overflow:hidden}
+details.acc+details.acc{margin-top:8px}
+details.acc summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary .q{font-weight:600;color:#fff;min-width:0;overflow-wrap:anywhere}
+details.acc summary .pm{font:600 16px var(--f-mono);color:var(--blue2);transition:transform .2s}
+details.acc[open] summary .pm{transform:rotate(45deg)}
+details.acc .body{padding:0 16px 16px;display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.opts{display:grid;gap:4px;font-size:14px}
+.opt{padding:6px 10px;border-radius:6px;background:rgba(15,23,42,.6);border:1px solid var(--line)}
+.opt.ok{border-color:rgba(52,211,153,.6);color:#d1fae5}
+.opt.dx{border-color:rgba(251,191,36,.55)}
+.why{border-left:3px solid var(--amber);padding:4px 0 4px 12px;color:#e7dcc0}
+/* matrices */
+.mx{display:grid;grid-template-columns:minmax(48px,70px) minmax(0,1fr) minmax(0,1fr);grid-auto-rows:auto;gap:6px;margin-top:12px;font-size:13.5px}
+.mx-cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;margin-top:10px;font:600 11px/1.3 var(--f-mono);color:var(--sky);letter-spacing:.04em;text-transform:uppercase}
+.ax{font:600 10.5px/1.25 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px 2px}
+.ax.row{justify-content:flex-end;text-align:right;padding-right:4px;overflow-wrap:break-word}
+.mx .cell{border:1px solid var(--line2);border-radius:8px;padding:9px 10px;background:rgba(15,23,42,.55);min-height:78px;display:flex;flex-direction:column;justify-content:center;gap:2px;cursor:pointer;transition:border-color .15s,background .15s}
+.mx .cell:hover,.mx .cell.on{border-color:var(--blue2);background:rgba(37,99,235,.18)}
+.mx .cell b{display:block;color:#fff;font-family:var(--f-cond);font-size:14.5px;line-height:1.2;overflow-wrap:break-word}
+.mx .cell,.ax{min-width:0}
+#hjMx{grid-template-columns:44px minmax(0,1fr) minmax(0,1fr)} #hjMx .cell b{font-size:13.5px}
+.mx .cell.best{box-shadow:inset 0 0 0 1px rgba(52,211,153,.5)} .mx .cell.worst{box-shadow:inset 0 0 0 1px rgba(248,113,113,.5)}
+.readout{margin-top:12px;padding:12px 14px;border-radius:8px;background:rgba(37,99,235,.12);border:1px solid rgba(59,130,246,.35);font-size:14px}
+.readout b{color:#fff}
+/* timeline */
+.tl{display:grid;gap:0;margin-top:12px;border-left:2px solid var(--line2);margin-left:6px}
+.tl .it{position:relative;padding:0 0 18px 20px}
+.tl .it::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--blue2)}
+.tl .yr{font:600 12.5px var(--f-mono);color:var(--amber)}
+.tl .it[hidden]{display:none}
+/* xxii */
+.xxii-band{border:1px solid rgba(251,191,36,.45);background:linear-gradient(135deg,rgba(251,191,36,.10),rgba(37,99,235,.10));border-radius:14px;padding:22px}
+.xxii-band h2{color:#fff}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px;margin-top:16px}
+.pillar{background:rgba(11,17,32,.7);border:1px solid var(--line2);border-radius:10px;padding:14px}
+.pillar .n{font:600 12px var(--f-mono);color:var(--amber)}
+.pillar b{display:block;color:#fff;font-family:var(--f-cond);font-size:1.1rem;margin-top:4px}
+.calc{display:grid;gap:12px}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.big{font:600 1.6rem/1 var(--f-mono);color:#fff}
+.tuck{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+/* quiz */
+.qz{display:grid;gap:12px}
+.qz .qcard{border:1px solid var(--line);border-radius:var(--r);padding:16px;background:var(--panel2)}
+.qz .qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font:500 12px var(--f-mono);color:var(--dim)}
+.qz .qtext{margin-top:8px;font-weight:600;color:#fff}
+.qz .ans{display:grid;gap:6px;margin-top:10px}
+.qz button.a{text-align:left;font:400 14px var(--f-sans);color:var(--text);background:rgba(15,23,42,.7);border:1px solid var(--line2);border-radius:7px;padding:9px 11px;cursor:pointer}
+.qz button.a:hover{border-color:var(--blue2)}
+.qz button.a.ok{border-color:var(--good);background:rgba(52,211,153,.12)}
+.qz button.a.no{border-color:var(--bad);background:rgba(248,113,113,.12)}
+.qz button.a[disabled]{cursor:default}
+.score{position:sticky;bottom:12px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;background:rgba(11,17,32,.95);border:1px solid var(--blue);border-radius:10px;padding:12px 16px;margin-top:14px}
+.bar{height:8px;background:var(--abyss);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.prob{display:grid;grid-template-columns:1fr 110px 44px;gap:10px;align-items:center;font-size:14px}
+.prob+.prob{margin-top:8px}
+footer{padding-block:40px 60px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start}
+.note{font-size:13px;color:var(--muted);border-left:2px solid var(--line2);padding-left:10px}
+kbd{font:600 12px var(--f-mono);background:var(--abyss);border:1px solid var(--line2);border-radius:4px;padding:1px 5px}
+@media (max-width:560px){body{font-size:15px}details.acc summary{grid-template-columns:minmax(0,1fr) auto}details.acc summary .chip{grid-column:1/-1;justify-self:start}.mx{grid-template-columns:48px minmax(0,1fr) minmax(0,1fr)}.mx .cell b{font-size:13.5px}.ax{font-size:9.5px}.kpi{padding:14px}.chart-box{height:280px}}
+@media print{.topbar,.ticker{display:none}body{background:#fff;color:#000}}
+
+/* module 2 extras */
+.mod-band{border:1px solid var(--line2);border-radius:14px;padding:18px 22px;margin-bottom:22px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.mod-band.f{background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(15,23,42,0));border-color:rgba(52,211,153,.4)}
+.mod-band.r{background:linear-gradient(135deg,rgba(140,200,255,.12),rgba(15,23,42,0));border-color:rgba(140,200,255,.4)}
+.mod-band.p{background:linear-gradient(135deg,rgba(251,191,36,.10),rgba(15,23,42,0));border-color:rgba(251,191,36,.4)}
+.mod-band .big{font:600 1.9rem/1 var(--f-mono);color:#fff}
+.mod-band .lbl{font-size:13px;color:var(--muted)}
+.bs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.bs .col{display:flex;flex-direction:column;gap:4px;min-height:260px}
+.bs .blk{border-radius:6px;padding:8px 10px;font-size:13px;display:flex;flex-direction:column;justify-content:center;color:#fff;min-height:34px;transition:flex-grow .25s}
+.bs .h{font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sky);text-align:center}
+.bs .blk b{font-family:var(--f-cond);font-size:14px}
+.bs .blk span{font-size:12px;opacity:.85}
+.flag{display:inline-flex;align-items:center;gap:6px;font:600 12px var(--f-mono);padding:4px 8px;border-radius:5px}
+.flag.ok{color:var(--good);background:rgba(52,211,153,.12)} .flag.no{color:var(--bad);background:rgba(248,113,113,.12)} .flag.mid{color:var(--amber);background:rgba(251,191,36,.12)}
+.tree{display:grid;gap:8px;margin-top:10px;font-size:13.5px}
+.tree .lvl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+.tree .node{border:1px solid var(--line2);border-radius:8px;padding:8px 12px;background:rgba(15,23,42,.6);text-align:center;min-width:120px}
+.tree .node b{display:block;color:#fff;font-family:var(--f-cond)}
+.tree .node .mono{color:var(--amber)}
+.tree .op{font:700 18px var(--f-mono);color:var(--sky)}
+.steps{counter-reset:st;display:grid;gap:8px;margin-top:10px}
+.steps .st{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.steps .st::before{counter-increment:st;content:counter(st);font:700 14px var(--f-mono);color:#0b1120;background:var(--amber);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.upd td.old{color:#fca5a5} .upd td.new{color:#bbf7d0}
+.wiz{display:grid;gap:10px}
+.wiz .q{display:grid;gap:6px}
+.wiz .q .opts2{display:flex;flex-wrap:wrap;gap:6px}
+.res-card{border:1px solid var(--line2);border-radius:10px;padding:12px 14px;background:rgba(15,23,42,.6)}
+.res-card.top{border-color:var(--good);background:rgba(52,211,153,.08)}
+.res-card b{color:#fff;font-family:var(--f-cond);font-size:1.05rem}
+
+.mod-band.e{background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(15,23,42,0));border-color:rgba(167,139,250,.45)}
+.mod-band.m{background:linear-gradient(135deg,rgba(251,146,60,.10),rgba(15,23,42,0));border-color:rgba(251,146,60,.4)}
+.mod-band.s{background:linear-gradient(135deg,rgba(244,114,182,.10),rgba(15,23,42,0));border-color:rgba(244,114,182,.4)}
+.mod-band.c{background:linear-gradient(135deg,rgba(45,212,191,.10),rgba(15,23,42,0));border-color:rgba(45,212,191,.4)}
+.mod-band.d{background:linear-gradient(135deg,rgba(148,163,184,.12),rgba(15,23,42,0));border-color:rgba(148,163,184,.45)}
+.mod-band.a{background:linear-gradient(135deg,rgba(248,113,113,.10),rgba(15,23,42,0));border-color:rgba(248,113,113,.4)}
+.pyr{display:grid;gap:4px;justify-items:center;margin-top:10px}
+.pyr button{font:600 14px var(--f-cond);color:#fff;border:1px solid var(--line2);border-radius:6px;padding:10px 8px;cursor:pointer;text-align:center}
+.pyr button[aria-pressed="true"]{outline:2px solid #fff;outline-offset:1px}
+.ladder{display:grid;gap:6px;margin-top:10px}
+.ladder button{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;text-align:left;font:500 14px var(--f-sans);color:var(--text);background:rgba(15,23,42,.6);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;cursor:pointer}
+.ladder button .n{font:700 13px var(--f-mono);color:#0b1120;background:var(--sky);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.ladder button[aria-pressed="true"]{border-color:var(--sky);background:rgba(140,200,255,.12)}
+.chk{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(52,211,153,.18);color:var(--good);font:700 13px var(--f-mono)}
+.chk.warn{background:rgba(251,191,36,.18);color:var(--amber)}
+.bigbar{display:flex;height:44px;border-radius:10px;overflow:hidden;border:1px solid var(--line2);margin-top:12px}
+.bigbar div{display:flex;align-items:center;justify-content:center;font:600 13px var(--f-mono);color:#0b1120;min-width:0;white-space:nowrap;overflow:hidden}
+.bigbar .s{display:none}
+@media (max-width:560px){.bigbar .l{display:none}.bigbar .s{display:inline}.bigbar div{font-size:12px}}
+.eq{font:600 1.25rem var(--f-mono);color:#fff;text-align:center;margin-top:10px;overflow-wrap:anywhere}
+.eq .ok{color:var(--good)}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Okręg – reszta (Terminal Ekonomii i Bilansu OP)</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<div class="topbar">
+  <div class="ticker" aria-hidden="true"><div class="belt" id="belt"></div></div>
+  <nav class="wrap nav" id="nav" aria-label="Sekcje kompendium">
+    <a href="#bilans" class="xxii">Bilans 999</a>
+    <a href="#ekonomia">Ekonomia</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#psychologia">Psychologia</a>
+    <a href="#etyka">Etyka · ESG</a>
+    <a href="#cyfrowe">Cyfrowe</a>
+    <a href="#aktualnosci">Aktualności</a>
+    <a href="#dystraktory">Dystraktory</a>
+    <a href="#trening">Trening</a>
+    <a href="#finał">Plan całości</a>
+  </nav>
+</div>
+
+<main>
+<header class="hero wrap">
+  <span class="eyebrow">Olimpiada Przedsiębiorczości · Biznes i Zarządzanie · moduł 3 · domknięcie cyklu</span>
+  <h1>Ostatnie <em>34,5%</em> testu i bilans całości</h1>
+  <p class="lede">Moduł zamykający: <b>ekonomia</b>, <b>marketing</b>, <b>psychologia biznesu i negocjacje</b>, <b>etyka, CSR i ESG</b>, <b>gospodarka cyfrowa</b> oraz <b>aktualności</b>. Na start – rachunek sumienia całej analizy: czy każde z 999 pytań z 20 arkuszy trafiło dokładnie do jednej kategorii i jednego modułu. Na koniec – plan nauki dla całości.</p>
+  <div class="kpis" role="list">
+    <div class="kpi acc" role="listitem"><div class="v num">999</div><div class="l">pytań przeanalizowanych: 20 arkuszy × 50 minus jedno brakujące w pliku (VII/32)</div></div>
+    <div class="kpi" role="listitem"><div class="v num">345</div><div class="l">pytań w tym module (34,5% testu, 37,0% punktów)</div></div>
+    <div class="kpi" role="listitem"><div class="v num">1498</div><div class="l">punktów do zdobycia w 20 testach – wszystkie przypisane do kategorii</div></div>
+    <div class="kpi" role="listitem"><div class="v num">263</div><div class="l">pytania z tematów zmiennych (26,3%) – rozpisane na kategorie, nic nie wypadło</div></div>
+    <div class="kpi" role="listitem"><div class="v num">100<small>%</small></div><div class="l">pokrycia: moduły 1 + 2 + 3 = 371 + 283 + 345 pytań</div></div>
+  </div>
+</header>
+
+<!-- BILANS -->
+<section class="sec" id="bilans"><div class="wrap">
+  <div class="sec-head"><div><span class="tag">01 · Bilans analizy</span><h2>Czy wszystko się zgadza? Tak – co do pytania i co do punktu</h2></div>
+    <p>Trzy niezależne sumy: po arkuszach, po kategoriach i po punktach. Każda musi dać ten sam wynik.</p></div>
+  <div class="grid g3">
+    <div class="card"><span class="kicker">Sprawdzenie 1 · arkusze</span>
+      <div class="eq">20 × 50 = 1000</div>
+      <div class="eq">1000 − 1 <span class="small muted">(VII/32 brak w pliku)</span> = <span class="ok">999</span></div>
+      <p class="small muted" style="margin-top:10px">W 19 arkuszach suma kategorii = 50, w edycji VII = 49. Tabela niżej pokazuje każdy arkusz osobno.</p></div>
+    <div class="card"><span class="kicker">Sprawdzenie 2 · moduły</span>
+      <div class="eq">371 + 283 + 345 = <span class="ok">999</span></div>
+      <p class="small" style="margin-top:10px"><b>Moduł 1</b> zarządzanie 371 · <b>moduł 2</b> finanse 78 + rynek 122 + prawo 83 = 283 · <b>moduł 3</b> ekonomia 82 + marketing 35 + psychologia 48 + etyka i ESG 60 + cyfrowe 19 + aktualności 101 = 345.</p></div>
+    <div class="card"><span class="kicker">Sprawdzenie 3 · punkty</span>
+      <div class="eq">20 × 75 − 2 = <span class="ok">1498</span></div>
+      <p class="small" style="margin-top:10px">Brakujące VII/32 było pytaniem za 2 pkt. Suma punktów po kategoriach: 527 + 417 + 554 = 1498. Tematy zmienne: 263 pytania, wszystkie przypisane do którejś z 10 kategorii.</p></div>
+  </div>
+  <div class="bigbar" role="img" aria-label="Moduł 1: 37,1%, moduł 2: 28,3%, moduł 3: 34,5%">
+    <div style="flex:371;background:#3b82f6;color:#fff"><span class="l">Moduł 1 · 37,1%</span><span class="s">M1 37,1%</span></div>
+    <div style="flex:283;background:#34d399"><span class="l">Moduł 2 · 28,3%</span><span class="s">M2 28,3%</span></div>
+    <div style="flex:345;background:#a78bfa"><span class="l">Moduł 3 · 34,5%</span><span class="s">M3 34,5%</span></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><span class="kicker">10 kategorii · udział w pytaniach i w punktach</span>
+      <div class="chart-box tall"><canvas id="chPts" aria-label="Udział kategorii w pytaniach i punktach"></canvas></div>
+      <p class="fallback">Wykresy wymagają biblioteki Chart.js ładowanej z CDN. Wszystkie liczby są w tabelach.</p></div>
+    <div class="card"><span class="kicker">Struktura każdego arkusza (100%)</span>
+      <div class="chart-box tall"><canvas id="chEd" aria-label="Struktura kategorii w każdym arkuszu"></canvas></div></div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Edycja</th><th title="Zarządzanie">Zarz.</th><th title="Finanse firmy">Fin.</th><th title="Rynek finansowy">Rynek</th><th title="Prawo i podatki">Prawo</th><th title="Ekonomia">Ekon.</th><th title="Marketing">Mark.</th><th title="Psychologia i negocjacje">Psych.</th><th title="Etyka, CSR, ESG">Etyka</th><th title="Gospodarka cyfrowa">Cyfr.</th><th title="Aktualności">Aktual.</th><th>Suma</th><th>OK</th></tr></thead>
+    <tbody id="recTbl"></tbody></table></div>
+  <p class="note" style="margin-top:10px">Pytania za 2 punkty to 499 z 999 pytań (50%), ale 998 z 1498 punktów – dwie trzecie. Aktualności to tylko 10,1% pytań, lecz 12,3% punktów – 83 ze 101 pytań faktograficznych to te trudniejsze, za 2 pkt.</p>
+</div></section>
+
+<!-- EKONOMIA -->
+<section class="sec" id="ekonomia"><div class="wrap">
+  <div class="mod-band e"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:var(--violet);letter-spacing:.12em;text-transform:uppercase">02 · Moduł 3A</span><h2 style="margin-top:6px">Ekonomia – mikro, makro, polityka gospodarcza</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">82</div><div class="lbl">pytania · 8,2% testu</div></div><div><div class="big">0</div><div class="lbl">z tematów zmiennych – czysty blok stały</div></div></div></div>
+  <div class="two">
+    <div class="card"><span class="kicker">Laboratorium rynku · dane z XI/43–45</span>
+      <p class="small muted">Popyt Q<sub>D</sub> = a − b·P, podaż Q<sub>S</sub> = c + d·P. Ustaw cenę urzędową, by zobaczyć nadwyżkę albo niedobór.</p>
+      <div class="calc"><div class="row">
+        <label class="fld" for="sdA">a<input type="number" id="sdA" value="2500" step="50"></label>
+        <label class="fld" for="sdB">b<input type="number" id="sdB" value="4" step="0.5"></label>
+        <label class="fld" for="sdC">c<input type="number" id="sdC" value="500" step="50"></label>
+        <label class="fld" for="sdD">d<input type="number" id="sdD" value="4" step="0.5"></label>
+      </div><div class="row">
+        <label class="fld" for="sdP">Cena urzędowa (0 = brak)<input type="number" id="sdP" value="300" step="10"></label>
+      </div></div>
+      <div class="chart-box short"><canvas id="chSD" aria-label="Popyt i podaż"></canvas></div>
+      <div class="readout small" id="sdOut" aria-live="polite"></div></div>
+    <div class="card"><span class="kicker">Mikroekonomia – ściąga</span>
+      <ul class="clean small">
+        <li><b>Prawo popytu</b>: wyższa cena → mniej chętnych (XV/23). Moda zmienia <b>popyt</b>, a nie podaż (X/36). Potrzeby są <b>nieograniczone</b> (II/24). Koszt alternatywny – wartość najlepszej odrzuconej opcji (IX/21).</li>
+        <li><b>Elastyczność cenowa</b> = %ΔQ / %ΔP. Popyt −0,5 i cena +50% → popyt −25% (XV/45); podaż 4 i cena +20% → podaż +80%: z 200 do <b>360</b> (IX/45). Elastyczność mieszana dodatnia → <b>substytuty</b> (I/41).</li>
+        <li><b>Cena maksymalna</b> – górny limit narzucony przez państwo, powoduje niedobór (VIII/6); <b>minimalna</b> powyżej równowagi – nadwyżkę (XI/45).</li>
+        <li>Monopol maksymalizuje zysk, gdy <b>koszt krańcowy = utarg krańcowy</b> (I/39). Kartel – porozumienie ograniczające konkurencję (VII/38, XI/23); trust – fuzja w jedno przedsiębiorstwo; syndykat – wspólna sprzedaż; koncern – grupa pod wspólnym zarządem.</li>
+        <li>Dobra wg wykluczalności i rywalizacji: <b>prywatne</b> (oba – VIII/29), publiczne (żadne), klubowe (tylko wykluczalne), wspólne (tylko rywalizacyjne). <b>Paradoks Veblena</b> – wyższa cena luksusu zwiększa popyt (XIII/12). <b>Prawo Greshama</b> – gorszy pieniądz wypiera lepszy (I/42).</li>
+        <li>Pieniądz: środek wymiany (X/15), miernik wartości, środek płatniczy, tezauryzacji – <b>nie deprecjacji</b> (XIII/13). Pierwotnie pieniądz <b>kruszcowy</b> (XIX/19).</li>
+      </ul></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><span class="kicker">Makroekonomia</span>
+      <ul class="clean small">
+        <li><b>PKB</b> – wartość dóbr finalnych wytworzonych w kraju; <b>PNB</b> = PKB + saldo dochodów z własności za granicą (X/37–38); <b>PKN</b> = PKB − amortyzacja (XVI/10). Porównania między krajami – <b>PKB per capita wg parytetu siły nabywczej</b> (V/9).</li>
+        <li>Inflacja: <b>pełzająca</b> (do ok. 5% rocznie – VII/7, XIII/35), krocząca, galopująca, hiperinflacja. <b>Kosztowa</b> – np. płace rosnące szybciej niż wydajność (X/20); popytowa – nadmiar pieniądza.</li>
+        <li>Bezrobocie: <b>frykcyjne</b> – zmiana pracy i mobilność (VIII/24, XIII/20), strukturalne, koniunkturalne, sezonowe, <b>agrarne</b> (ukryte w rolnictwie – XIX/34). Aktywne formy: pośrednictwo, szkolenia, roboty publiczne, dotacje na firmę (XVI/2, V/8).</li>
+        <li>Równowaga na rynku pracy – popyt pracodawców = podaż chętnych (X/17). Wydatki w recesji najpierw tną się na <b>odzież</b> (XII/26).</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Płace realne</span>
+      <div class="calc"><div class="row">
+        <label class="fld" for="wOld">Płaca wcześniej<input type="number" id="wOld" value="5000" step="100"></label>
+        <label class="fld" for="wNew">Płaca teraz<input type="number" id="wNew" value="5250" step="100"></label>
+        <label class="fld" for="wInf">Inflacja %<input type="number" id="wInf" value="3" step="0.1"></label>
+      </div></div>
+      <div class="readout small" id="wrOut" aria-live="polite"></div>
+      <p class="note" style="margin-top:8px">Płaca realna = nominalna skorygowana o inflację (XV/4). 5000 → 5250 zł przy inflacji 3%: realnie ok. +2% (XVI/34). Podwyżka 10% przy inflacji 3% – płaca realna rośnie <b>mniej</b> niż nominalna (XII/9).</p></div>
+    <div class="card"><span class="kicker">Kurs walutowy – kto zyskuje?</span>
+      <div class="filters" id="fxBtns" role="group" aria-label="Kierunek zmiany kursu">
+        <button class="fbtn" aria-pressed="true" data-k="up">Złoty się umacnia</button>
+        <button class="fbtn" aria-pressed="false" data-k="down">Złoty słabnie</button>
+      </div>
+      <div class="readout small" id="fxOut" aria-live="polite"></div>
+      <p class="note" style="margin-top:8px">Klucze: umocnienie złotego wobec euro – zyskują polscy turyści i importerzy (XVI/37); osłabienie złotego wobec franka – zyskują szwajcarscy turyści w Polsce (XII/10); osłabienie dolara wobec euro – zyskują mieszkańcy strefy euro jadący do USA, a nie amerykańscy turyści w Europie (XV/43).</p></div>
+  </div>
+  <div class="two" style="margin-top:16px">
+    <div class="card"><span class="kicker">Polityka pieniężna i fiskalna</span>
+      <ul class="clean small">
+        <li>Polityka pieniężna – bank centralny, nie rząd (XI/4). <b>RPP</b>: Prezes NBP + 9 członków (po 3 od Prezydenta, Sejmu i Senatu), kadencja <b>6 lat</b> (I/38). „Jastrzębie” chcą wyższych stóp, „gołębie” – niższych (II/29, VIII/15).</li>
+        <li><b>Ekspansywna</b>: obniżka stopy rezerwy obowiązkowej, stóp, skup papierów (VIII/34, X/39, XIII/21). Wzrost stóp → mniej kredytów i niższy popyt (XXI/29).</li>
+        <li>Instrumenty NBP: <b>pośrednie</b> (stopy, operacje otwartego rynku, rezerwa obowiązkowa, depozytowo-kredytowe), <b>bezpośrednie</b> (np. kwotowe limity kredytu – XVII/17), <b>perswazyjne</b> (XX/14).</li>
+        <li>Polityka <b>fiskalna</b> – dochody i wydatki państwa (XX/23); restrykcyjna – zmniejszanie deficytu (XV/39). Ustawy budżetowej przyjętej przez Sejm i Senat prezydent nie może zawetować (I/5).</li>
+        <li><b>Krzywa Laffera</b> – wpływy podatkowe a stawka (I/40, XVI/9): wzrost stawki <b>może</b> zmniejszyć dochody budżetu (X/16).</li>
+      </ul>
+      <div class="chart-box short"><canvas id="chLaffer" aria-label="Krzywa Laffera"></canvas></div></div>
+    <div class="card"><span class="kicker">Integracja i gospodarka światowa – kliknij etap</span>
+      <div class="ladder" id="ladder"></div>
+      <div class="readout small" id="ladOut" aria-live="polite"></div>
+      <ul class="clean small" style="margin-top:10px">
+        <li><b>WTO</b> (1995) – liberalizacja handlu (VIII/9). <b>MFW</b> i <b>Bank Światowy</b> – Bretton Woods, 1944: MFW – stabilność kursów i płatności, BŚ – odbudowa po wojnie (XIX/36, XX/32, XX/36).</li>
+        <li><b>Dumping</b> – eksport poniżej kosztów, zakazany w UE (I/6); <b>subsydiowanie eksportu</b> – dopłaty dla eksporterów (X/40, XV/18). Polityka regionalna UE zmniejsza różnice rozwojowe (V/41). Najwięcej państw przyjęto w <b>2004</b> r. (XVIII/9).</li>
+        <li><b>Fale Kondratiewa/Schumpetera</b>: 1 – mechanizacja i tekstylia, 2 – para i kolej, 3 – elektryczność i chemia, <b>4 – petrochemia</b> i elektronika (XX/26), 5 – sieci cyfrowe.</li>
+        <li><b>Etatyzm</b> – ingerencja państwa, przedsiębiorstwa państwowe (I/43, XX/27). Alterglobaliści – przeciw globalizacji pogłębiającej nierówności (III/3). I filar emerytalny – repartycyjny (XX/34); waloryzacja – inflacja + min. 20% realnego wzrostu płac (XX/40).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- MARKETING -->
+<section class="sec" id="marketing"><div class="wrap">
+  <div class="mod-band m"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:#fb923c;letter-spacing:.12em;text-transform:uppercase">03 · Moduł 3B</span><h2 style="margin-top:6px">Marketing i sprzedaż</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">35</div><div class="lbl">pytań · 3,5% testu</div></div><div><div class="big">18</div><div class="lbl">z tematów zmiennych (V, IX, XI, XIII)</div></div></div></div>
+  <div class="grid g3">
+    <div class="card"><span class="kicker">Marketing mix</span>
+      <div class="tbl-wrap" style="margin-top:6px"><table style="min-width:300px">
+        <thead><tr><th>4P</th><th>+3P usług</th><th>4C (klient)</th></tr></thead>
+        <tbody>
+          <tr><td>produkt</td><td>ludzie</td><td>wartość dla klienta</td></tr>
+          <tr><td>cena</td><td>procesy</td><td>koszt</td></tr>
+          <tr><td>dystrybucja</td><td>świadectwa materialne</td><td>wygoda</td></tr>
+          <tr><td>promocja</td><td></td><td>komunikacja</td></tr>
+        </tbody></table></div>
+      <p class="small" style="margin-top:10px">Dystraktory, które już padły: „proces” w 4P (XVII/1), „wartość dla klienta” (V/3), „nabywca usługi” (VII/9), „potrzeby” (XII/15), „rodzaj płatności” (XIX/24) w 7P. 4C – XVII/7.</p></div>
+    <div class="card"><span class="kicker">Strategie wprowadzania produktu · kliknij</span>
+      <div class="mx-cap" aria-hidden="true"><span>↑ cena</span><span>→ nakłady na promocję</span></div>
+      <div class="mx" id="piMx">
+        <div></div><div class="ax">promocja niska</div><div class="ax">promocja wysoka</div>
+        <div class="ax row">cena wysoka</div>
+        <div class="cell" data-i="0" tabindex="0"><b>Powolne zbieranie śmietanki</b></div>
+        <div class="cell" data-i="1" tabindex="0"><b>Szybkie zbieranie śmietanki</b></div>
+        <div class="ax row">cena niska</div>
+        <div class="cell" data-i="2" tabindex="0"><b>Powolna penetracja</b></div>
+        <div class="cell" data-i="3" tabindex="0"><b>Szybka penetracja</b></div>
+      </div>
+      <div class="readout small" id="piOut" aria-live="polite">Wybierz strategię.</div></div>
+    <div class="card"><span class="kicker">Kalkulator skuteczności reklamy</span>
+      <div class="calc"><div class="row">
+        <label class="fld" for="adV">Wyświetlenia<input type="number" id="adV" value="50000" step="1000"></label>
+        <label class="fld" for="adC">Kliknięcia<input type="number" id="adC" value="1200" step="10"></label>
+        <label class="fld" for="adA">Akcje (np. zakupy)<input type="number" id="adA" value="60" step="1"></label>
+      </div></div>
+      <div class="readout small" id="adOut" aria-live="polite"></div>
+      <p class="note" style="margin-top:8px"><b>CR</b> (konwersja) – akcje / kliknięcia lub wyświetlenia (XIII/26); <b>CTR</b> – kliknięcia / wyświetlenia. Test A/B – wersje różniące się jednym elementem (XXI/28).</p></div>
+  </div>
+  <div class="two" style="margin-top:16px">
+    <div class="card"><span class="kicker">Marka, reklama, komunikacja</span>
+      <ul class="clean small">
+        <li>Budowanie marki zaczyna się od <b>tożsamości</b> (VIII/11), potem świadomość, wizerunek, lojalność. Kapitał marki: lojalność, jakość postrzegana, skojarzenia, świadomość, patenty i znaki – <b>nie wrażliwość cenowa</b> (VI/24).</li>
+        <li>Marki wg gestora: producenta, pośrednika, mieszana – „zbiorowa” to podział według liczby produktów (V/46). <b>Co-branding</b> – wspólna linia dwóch marek (XIII/27). <b>TOM</b> – marka wymieniana jako pierwsza (XIII/29).</li>
+        <li><b>AIDA</b>: uwaga, zainteresowanie, pożądanie, działanie – bez „wzmocnienia” (XIII/19). <b>Ambient</b> – niestandardowe, zaskakujące nośniki (XI/24); ATL – media masowe, BTL – działania bezpośrednie.</li>
+        <li>Efekt <b>czystej ekspozycji</b> – co widzimy częściej, lubimy bardziej (XXI/26). Cena <b>psychologiczna</b> 49,99 zł (XXI/32). <b>Up-selling</b> – droższa wersja (XI/32); cross-selling – produkt dodatkowy.</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Rynek, klient, badania</span>
+      <ul class="clean small">
+        <li>Orientacje firmy: produkcyjna → produktowa → <b>sprzedażowa</b> („klienci sami nie kupią, trzeba ich przekonać” – XVII/3) → marketingowa → społeczna.</li>
+        <li>Marketing relacji – utrzymanie klienta, długi horyzont, nie szybki wzrost sprzedaży (VI/22). Kotler: naśladowcy – klon, imitator, usprawniacz; <b>specjalista</b> to strategia niszowa (I/48).</li>
+        <li>„Sugerowana cena detaliczna” – sklep może ustalić dowolną cenę (V/22). Upust na suszarkę przy zakupie golarki – <b>kupon odsyłający</b> (V/36).</li>
+        <li>Badania <b>panelowe</b> – te same osoby w kolejnych odstępach czasu (XVII/26). Analiza danych: walidacja → edycja → kodowanie → tabulacja → analiza (XIX/37). Najdroższy test produktu – <b>rynki próbne</b> (V/44).</li>
+        <li>Blank i Dorf: szczyt piramidy klientów – decydenci; <b>klienci mainstreamowi</b> chcą kompleksowego, standardowego rozwiązania (IX/26–27).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- PSYCHOLOGIA -->
+<section class="sec" id="psychologia"><div class="wrap">
+  <div class="mod-band s"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:#f472b6;letter-spacing:.12em;text-transform:uppercase">04 · Moduł 3C</span><h2 style="margin-top:6px">Psychologia biznesu, komunikacja, negocjacje</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">48</div><div class="lbl">pytań · 4,8% testu</div></div><div><div class="big">18</div><div class="lbl">pytań o negocjacje</div></div></div></div>
+  <div class="two">
+    <div class="card"><span class="kicker">Symulator ZOPA i BATNA</span>
+      <p class="small muted">Sprzedający ma cenę minimalną (punkt oporu), kupujący – maksymalną. Pierwsza oferta działa jak kotwica.</p>
+      <div class="calc"><div class="row">
+        <label class="fld" for="zS">Minimum sprzedającego<input type="number" id="zS" value="40000" step="1000"></label>
+        <label class="fld" for="zB">Maksimum kupującego<input type="number" id="zB" value="48000" step="1000"></label>
+        <label class="fld" for="zO">Pierwsza oferta sprzedającego<input type="number" id="zO" value="55000" step="1000"></label>
+      </div></div>
+      <div id="zBar" style="position:relative;height:56px;margin-top:14px;border-radius:8px;background:var(--abyss);border:1px solid var(--line2)"></div>
+      <div class="readout small" id="zOut" aria-live="polite"></div></div>
+    <div class="card"><span class="kicker">Negocjacje – zasady z kluczy</span>
+      <ul class="clean small">
+        <li><b>BATNA</b> – najlepsza alternatywa dla negocjowanego porozumienia (III/30, IV/12): dla pracownika – oferta innego pracodawcy (VII/16). Najlepszą pozycję daje <b>silna BATNA</b> (XXI/3).</li>
+        <li>Negocjacje <b>integracyjne (win-win)</b> – rozwiązanie korzystne dla obu stron, nie kompromis (IV/13, VI/2, XXI/7). Styl <b>rzeczowy</b> – koncentracja na problemie, bez emocji (X/24).</li>
+        <li><b>Ustępstwa</b>: powoli (IV/35, X/45, XII/20), malejąco, warunkowo; pierwsze ustępstwo <b>nie</b> „jak najszybciej” (III/24); nie każde trzeba odwzajemniać.</li>
+        <li><b>Kotwiczenie</b> – pierwsza oferta wyznacza punkt odniesienia (XXI/31). Technika <b>kontrastu</b> – najpierw gorsza, potem lepsza propozycja (III/27, XV/40); drogi laptop i „tanie” akcesoria (XVII/27).</li>
+        <li>Dobry negocjator: argumentacja, kreatywność, asertywność – <b>nie nieustępliwość</b> (III/12). Kontakt wzrokowy: <b>30–60%</b> rozmowy (V/20). <b>Szyk nestoriański</b> – mocne argumenty na początku i na końcu (VI/33).</li>
+      </ul></div>
+  </div>
+  <div class="tbl-wrap" style="margin-top:16px"><table>
+    <thead><tr><th>Reguła wpływu (Cialdini)</th><th>Mechanizm</th><th>Technika / przykład z testu</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">Wzajemność</td><td>czujemy dług wobec darczyńcy</td><td>upominek akwizytora na początku wizyty (V/47, XII/13); „drzwiami w twarz” – ustępstwo za ustępstwo (VII/3)</td></tr>
+      <tr><td class="nm">Zaangażowanie i konsekwencja</td><td>chcemy być spójni z wcześniejszymi decyzjami</td><td>„stopa w drzwiach” – coraz większe prośby (X/35); niska piłka</td></tr>
+      <tr><td class="nm">Społeczny dowód słuszności</td><td>robimy to, co inni</td><td>„najczęściej wybierany”, opinie klientów</td></tr>
+      <tr><td class="nm">Lubienie i sympatia</td><td>ulegamy tym, których lubimy</td><td>podobieństwo, komplementy, atrakcyjność</td></tr>
+      <tr><td class="nm">Autorytet</td><td>ufamy ekspertom i symbolom statusu</td><td>„polecane przez lekarzy”, uniform</td></tr>
+      <tr><td class="nm">Niedostępność</td><td>rzadkie = cenniejsze</td><td>dobra reglamentowane są bardziej atrakcyjne (XIII/5); „ostatnie sztuki”</td></tr>
+    </tbody></table></div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><span class="kicker">Osobowość i emocje</span>
+      <ul class="clean small">
+        <li>Temperamenty: <b>sangwinik</b> – pogodny, towarzyski (XVI/11); <b>choleryk</b> – porywczy; <b>melancholik</b> – wrażliwy; <b>flegmatyk</b> – powolny, zadowolony z tego, co ma (X/11).</li>
+        <li><b>Wielka piątka</b>: neurotyczność, ekstrawersja (towarzyskość, asertywność, aktywność – XIII/31), otwartość, ugodowość, sumienność.</li>
+        <li><b>Inteligencja emocjonalna</b> (Goleman): samoświadomość, samokontrola, świadomość społeczna, zarządzanie relacjami – <b>nie zarządzanie czasem</b> (XIII/2). Empatia – wczucie się w innych (I/9).</li>
+        <li><b>Poczucie koherencji</b> (Antonovsky): zrozumiałość, zaradność, sensowność (XI/39).</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Stres i komunikacja</span>
+      <ul class="clean small">
+        <li>Radzenie sobie ze stresem: <b>zadaniowe</b> (konfrontacja), emocjonalne (dystans, przewartościowanie, wsparcie) (III/41), unikowe. Wypalenie: wyczerpanie, brak satysfakcji, brak motywacji (III/23).</li>
+        <li>Mechanizmy obronne: <b>represja</b> – usunięcie z pamięci (XIII/32), racjonalizacja, projekcja, sublimacja.</li>
+        <li>Komunikaty niewerbalne – <b>bardziej wiarygodne</b> niż werbalne (III/2). <b>Parafraza</b>: „O ile cię dobrze zrozumiałem…” (XI/6). Asertywna osoba potrafi przyznać się do błędu (VIII/5).</li>
+        <li>Prezentacja: język dopasowany do odbiorcy i język korzyści, krótkie zdania, <b>bez skrótów</b> (V/21). Motywy ubiegania się o pracę – w liście motywacyjnym (V/13).</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Psychologia ekonomiczna</span>
+      <ul class="clean small">
+        <li><b>Złudzenie pieniądza</b> – te same ceny realne postrzegane różnie w zależności od waluty (III/37).</li>
+        <li><b>Subiektywna stopa dyskonta</b> – tym wyższa, im krótszy czas oczekiwania (III/6).</li>
+        <li>Dobra wspólne tłumaczą: gapowicz (wolna jazda), tragedia wspólnego pastwiska, efekt Ringelmanna – <b>nie dylemat więźnia</b> (III/38).</li>
+        <li>Strategia <b>leksykograficzna</b> – najpierw najważniejsza cecha, potem następne (III/39). Grupa odniesienia przy produktach publicznych i powszechnych – słaby wpływ na zakup, silny na markę (III/36).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- ETYKA -->
+<section class="sec" id="etyka"><div class="wrap">
+  <div class="mod-band c"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:#2dd4bf;letter-spacing:.12em;text-transform:uppercase">05 · Moduł 3D</span><h2 style="margin-top:6px">Etyka biznesu, CSR i ESG</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">60</div><div class="lbl">pytań · 6,0% testu</div></div><div><div class="big">53</div><div class="lbl">z tematów zmiennych (I, VII, XVI, XIX)</div></div></div></div>
+  <div class="two">
+    <div class="card"><span class="kicker">Piramida Carrolla – kliknij poziom</span>
+      <div class="pyr" id="pyr"></div>
+      <div class="readout small" id="pyrOut" aria-live="polite"></div></div>
+    <div class="card"><span class="kicker">Etyka biznesu – ujęcie z kluczy (edycja I)</span>
+      <ul class="clean small">
+        <li><b>Deontologia</b> – wypełnianie obowiązków moralnych (I/34); <b>utylitaryzm</b> – maksymalizacja użyteczności (I/33); <b>hedonizm</b> nie jest zapleczem etyki biznesu (I/32).</li>
+        <li><b>Etos</b> – wartości, które ludzie biznesu przyjęli i realizują (I/20). Dobra praktyka – przede wszystkim <b>unikanie</b> działań nagannych (I/18). Etyka obejmuje <b>wszystkich</b> pracowników (I/16).</li>
+        <li>Reklama ujawniająca prawdziwe słabości konkurencji – w ujęciu klucza <b>nieetyczna</b> (I/17). Zakaz dodatkowej pracy dziennikarzy – obiektywizm przekazu (I/24).</li>
+        <li>„Ethics pays” – uczciwość opłaca się całemu biznesowi (I/30). Szczególne zagrożenie dla moralności – <b>konkurencyjność</b> (I/31). Wolność gospodarcza nie może zagrażać innym wolnościom (I/35).</li>
+        <li>Patologie: łapówkarstwo, protekcja, nepotyzm, defraudacja (XIII/16). „Kapitan opuszcza statek ostatni” – etyka <b>zawodowa</b> (XIX/41).</li>
+      </ul></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><span class="kicker">CSR – koncepcje i standardy</span>
+      <ul class="clean small">
+        <li>Stanowisko <b>prospołeczne</b> – dobrowolne zaangażowanie w cele społeczne (I/14); klasyczne (Friedman) – odpowiedzialność = zysk w granicach prawa.</li>
+        <li><b>Triple bottom line</b>: społeczne, ekonomiczne, środowiskowe (VII/22). <b>Żelazne prawo odpowiedzialności</b> – kto nie używa władzy odpowiedzialnie, traci ją (XVIII/33).</li>
+        <li><b>Global Compact</b> – K. Annan, 1999 (VII/43); definicja CSR – <b>Zielona Księga</b> KE, 2001 (VII/45). Raport społeczny nie opisuje promocji produktów (VII/21).</li>
+        <li>Standardy: <b>SA 8000</b> – prawa pracownicze (VII/46, XVI/31, XVI/50); ISO 26000 – wytyczne CSR; AA 1000 – dialog z interesariuszami; ISO 14001 – środowisko; <b>ISO 9000 – jakość</b>, nie CSR (XVI/25). Wskaźniki GRI (VII/48).</li>
+        <li>Indeksy: pierwszy – <b>Dow Jones Sustainability Index</b> (VII/44); w Polsce Respect Index (2009), od 2019 r. <b>WIG-ESG</b>.</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Klimat i gospodarka o obiegu zamkniętym</span>
+      <ul class="clean small">
+        <li><b>Porozumienie paryskie</b> (2015): wzrost temperatury poniżej 2°C, docelowo 1,5°C (XIX/45, XIX/47). Cel UE na 2050 r. – <b>neutralność klimatyczna</b> (XIX/46); na 2030 r. – co najmniej −55% emisji względem <b>1990</b> r. (dystraktor w XIX/47 podaje 1900 r.).</li>
+        <li><b>Europejski Zielony Ład</b> – m.in. przejście na gospodarkę o obiegu zamkniętym (XIX/50). Hierarchia <b>3R</b>: najpierw reduce, potem reuse, na końcu recycle (XIX/44, XVI/49).</li>
+        <li>Finanse zrównoważone: taksonomia UE; <b>SFDR</b> – fundusze „ciemnozielone” (art. 9) deklarują mierzalny cel niefinansowy, „jasnozielone” (art. 8) promują cechy ESG (XIX/49); <b>sustainability-linked</b> – koszt finansowania zależy od realizacji celu ESG (XIX/48).</li>
+      </ul></div>
+    <div class="card"><span class="kicker">Godna praca i raportowanie ESG w 2026 r.</span>
+      <ul class="clean small">
+        <li><b>Godna praca</b> (MOP): uczciwe wynagrodzenie, bezpieczeństwo, szacunek, brak dyskryminacji, rozwój, work-life balance – nie „rozwiązania wielochmurowe” ani elastyczne godziny jako wymóg (XIX/3–8, XIX/26). Główny cel strategii UE – eliminacja pracy dzieci i przymusowej (XIX/27).</li>
+        <li><b>CSRD po pakiecie Omnibus I</b>: dyrektywa (UE) 2026/470 w mocy od 18.03.2026 zawęża obowiązek raportowania do firm powyżej ok. <b>1000 pracowników</b> i <b>450 mln euro</b> obrotu – ok. 80% dotychczas objętych firm wypada z obowiązku.</li>
+        <li><b>Podwójna istotność</b> – raportujemy wpływ firmy na ludzi i środowisko oraz wpływ kwestii ESG na firmę.</li>
+        <li>Przedsiębiorczość ekologiczna i innowacja ekologiczna – nowe produkty i technologie korzystne dla środowiska (XVI/20–21).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- CYFROWE -->
+<section class="sec" id="cyfrowe"><div class="wrap">
+  <div class="mod-band d"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:#94a3b8;letter-spacing:.12em;text-transform:uppercase">06 · Moduł 3E</span><h2 style="margin-top:6px">Gospodarka cyfrowa i technologie</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">19</div><div class="lbl">pytań · 1,9% testu</div></div><div><div class="big">10</div><div class="lbl">w edycji XX (transformacja cyfrowa)</div></div></div></div>
+  <div class="two">
+    <div class="card"><span class="kicker">Rewolucje przemysłowe</span>
+      <div class="tl">
+        <div class="it"><div class="yr">XVIII w. · 1.0</div><div class="small">maszyna parowa, mechanizacja, przemysł tekstylny</div></div>
+        <div class="it"><div class="yr">XIX/XX w. · 2.0</div><div class="small">elektryczność, taśma produkcyjna, produkcja masowa</div></div>
+        <div class="it"><div class="yr">od lat 60. XX w. · 3.0</div><div class="small"><b>elektronika, automatyzacja produkcji, informatyka</b> (XV/1)</div></div>
+        <div class="it"><div class="yr">XXI w. · 4.0</div><div class="small">systemy cyberfizyczne, internet rzeczy, sztuczna inteligencja, dane w czasie rzeczywistym</div></div>
+      </div>
+      <p class="small">Pierwsze zdalne logowanie w sieci ARPANET – <b>1969</b> (XX/38). Test Turinga – czy maszyna „myśli” jak człowiek (XX/50).</p></div>
+    <div class="card"><span class="kicker">Pojęcia, o które pytano</span>
+      <ul class="clean small">
+        <li><b>Transformacja cyfrowa</b> – nadrzędnie zmiana sposobu zaspokajania potrzeb klientów i tworzenia wartości (XX/1); w ekosystemach cyfrowych umożliwia współtworzenie wartości (XX/2). Etapy cyfryzacji procesów: centralizacja → standaryzacja → optymalizacja → cyfrowe unarzędziowienie → cyfryzacja (XX/48).</li>
+        <li><b>Chmura</b> – zasoby IT jako usługa przez sieć (XXI/9); modele <b>IaaS, PaaS, SaaS</b> (XXI/36). <b>IoT</b> – przedmioty z czujnikami wymieniające dane (XX/16). <b>IPA</b> – robotyka + uczenie maszynowe w procesach (XXI/39).</li>
+        <li><b>Blockchain</b>: sieć peer-to-peer, kryptografia, program (XX/37). <b>Big Data</b> – najmniej przydatny arkusz kalkulacyjny (XI/34). Platformy analityczne – dane i wnioski w czasie rzeczywistym (XX/49).</li>
+        <li><b>Rzeczywistość rozszerzona</b> łączy świat realny z wirtualnym (XI/27); <b>długi ogon</b> – zarabianie na wielu niszach (XI/29); rewolucja cyfrowa zmniejsza rolę pośredników (XI/31). <b>RFID</b> – identyfikacja radiowa towarów (II/45).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- AKTUALNOSCI -->
+<section class="sec" id="aktualnosci"><div class="wrap">
+  <div class="mod-band a"><div><span class="tag" style="font:600 11.5px var(--f-mono);color:var(--bad);letter-spacing:.12em;text-transform:uppercase">07 · Moduł 3F</span><h2 style="margin-top:6px">Aktualności i faktografia</h2></div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap"><div><div class="big">101</div><div class="lbl">pytań · 10,1% testu</div></div><div><div class="big">12,3%</div><div class="lbl">punktów – 83 pytania za 2 pkt</div></div></div></div>
+  <div class="grid g2">
+    <div class="card"><span class="kicker">Udział aktualności w arkuszu – wyraźny spadek</span>
+      <div class="chart-box"><canvas id="chAkt" aria-label="Udział aktualności w kolejnych edycjach"></canvas></div>
+      <p class="small muted">Od edycji XVII (2022) – 1–2 pytania na test zamiast 5–11. Mniej punktów do stracenia, ale nadal ok. 2–4% testu.</p></div>
+    <div class="card"><span class="kicker">O co pytano (101 pytań)</span>
+      <div class="chart-box"><canvas id="chAktType" aria-label="Rodzaje pytań faktograficznych"></canvas></div></div>
+  </div>
+  <div class="two" style="margin-top:16px">
+    <div class="card"><span class="kicker">Panel liczb na wrzesień 2026 (sprawdzone 11.09.2026)</span>
+      <div class="tbl-wrap" style="margin-top:6px"><table style="min-width:480px">
+        <thead><tr><th>Wskaźnik</th><th>Wartość</th><th>Źródło, data</th></tr></thead>
+        <tbody id="nowTbl"></tbody></table></div>
+      <p class="note" style="margin-top:8px">Test okręgowy odbywa się zwykle na początku marca – przed nim zaktualizuj te wartości (inflacja za styczeń–luty, decyzje RPP, PKB za IV kwartał).</p></div>
+    <div class="card"><span class="kicker">Jak przygotować się do pytań faktograficznych</span>
+      <div class="steps">
+        <div class="st"><div><b>Raz w tygodniu – 10 liczb.</b> <span class="small muted">Inflacja (GUS), stopy NBP, PKB, bezrobocie, płaca minimalna i przeciętna, kurs EUR i USD, WIG20, cena ropy, deficyt.</span></div></div>
+        <div class="st"><div><b>Kto jest kim.</b> <span class="small muted">Prezes NBP, przewodniczący KNF, prezes GPW, minister finansów, szefowie największych firm; najbogatsi Polacy (Forbes).</span></div></div>
+        <div class="st"><div><b>Rankingi i transakcje.</b> <span class="small muted">Największe firmy w Polsce, najbardziej podziwiane na świecie (Fortune), największe fuzje, debiuty na GPW.</span></div></div>
+        <div class="st"><div><b>UE i instytucje.</b> <span class="small muted">Nowe państwa strefy euro, prezydencja w Radzie UE, nowe przepisy (KSeF, CSRD, POLSTR).</span></div></div>
+        <div class="st"><div><b>Strategia na teście.</b> <span class="small muted">Pytanie za 2 pkt z liczbą, której nie znasz – przy 4 opcjach strzał ma wartość oczekiwaną −0,25 pkt; gdy odrzucisz 2 opcje, rośnie do +0,5. Bez eliminacji – wybierz E.</span></div></div>
+      </div></div>
+  </div>
+</div></section>
+
+<!-- DYSTRAKTORY -->
+<section class="sec" id="dystraktory"><div class="wrap">
+  <div class="sec-head"><div><span class="tag">08 · Inżynieria dystraktorów</span><h2>Haczyki w ekonomii, marketingu, psychologii i ESG</h2></div>
+    <p>Bez powtórek z modułów 1 i 2. Filtruj po kategorii albo szukaj po słowie.</p></div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+    <input type="search" id="dxSearch" placeholder="Szukaj: elastyczność, marka, Carroll…" aria-label="Szukaj w dystraktorach" style="flex:1 1 220px">
+    <span class="src" id="dxCount"></span>
+  </div>
+  <div class="filters" id="dxFilter" role="group" aria-label="Kategoria"></div>
+  <div id="dxList" style="margin-top:14px"></div>
+  <div class="card" style="margin-top:16px"><span class="kicker">Klucze vs stan na 2026 w tych kategoriach</span>
+    <div class="tbl-wrap upd"><table>
+      <thead><tr><th>Edycja</th><th>Temat</th><th>Klucz wtedy</th><th>Stan na 2026</th></tr></thead>
+      <tbody>
+        <tr><td class="nm mono">I/45</td><td>Dialog społeczny</td><td class="old">Komisja Trójstronna (prezydent nie jest członkiem)</td><td class="new">od 2015 r. Rada Dialogu Społecznego: rząd, pracodawcy, związki zawodowe – prezydent nadal nie</td></tr>
+        <tr><td class="nm mono">XIII/41</td><td>Ostatnie państwo strefy euro</td><td class="old">Litwa (2015)</td><td class="new">Chorwacja (2023), Bułgaria (2026) – 21 państw</td></tr>
+        <tr><td class="nm mono">V/23, VII/35</td><td>Indeks CSR na GPW</td><td class="old">Respect Index</td><td class="new">WIG-ESG (od 2019 r.)</td></tr>
+        <tr><td class="nm mono">XVIII/9</td><td>Największe rozszerzenie UE</td><td class="old">2004</td><td class="new">bez zmian – 10 państw w 2004 r.</td></tr>
+        <tr><td class="nm mono">XIX/49</td><td>Raportowanie ESG firm</td><td class="old">CSRD dla dużych firm (od 250 osób)</td><td class="new">po Omnibus I (2026/470) – progi ok. 1000 pracowników i 450 mln euro obrotu</td></tr>
+      </tbody></table></div></div>
+</div></section>
+
+<!-- TRENING -->
+<section class="sec" id="trening"><div class="wrap">
+  <div class="sec-head"><div><span class="tag">09 · Trening z punktacją OP</span><h2>Mini-test z prawdziwych pytań</h2></div>
+    <p>Łatwiejsze +1 / −0,5, trudniejsze +2 / −1, „nie udzielam odpowiedzi” 0.</p></div>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"><div><b id="scPts" class="mono">0</b> <span class="muted small">pkt z <span id="scMax" class="mono">0</span> możliwych · odpowiedzi: <span id="scDone" class="mono">0</span></span></div>
+    <div style="flex:1 1 200px" class="bar"><i id="scBar" style="width:0%"></i></div>
+    <button class="fbtn" id="qReset" type="button">Zacznij od nowa</button></div>
+</div></section>
+
+<!-- FINAŁ -->
+<section class="sec" id="finał"><div class="wrap">
+  <div class="sec-head"><div><span class="tag">10 · Całość cyklu</span><h2>Plan nauki na podstawie 999 pytań</h2></div>
+    <p>Kolejność według punktów możliwych do zdobycia i stabilności kategorii. Hasło XXII edycji („Przywództwo w projektach”) podbija zarządzanie – przy menedżerskim haśle (edycje IV, XV, XVIII, XXI) zajmowało ono 54–74% testu.</p></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Kategoria</th><th>Moduł</th><th>Pytania</th><th>Punkty</th><th>Stabilność</th><th>Priorytet na XXII</th></tr></thead>
+    <tbody id="planTbl"></tbody></table></div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><span class="kicker">Moduł 1 · Zarządzanie</span><p class="small">371 pytań (37,1%), 527 pkt (35,2%). Strategia, organizacja, ludzie, decyzje, jakość i procesy, projekty. Zawiera pełny moduł XXII edycji: zespół projektowy, zaangażowanie, wyzwania projektowe.</p></div>
+    <div class="card"><span class="kicker">Moduł 2 · Finanse, rynek, prawo</span><p class="small">283 pytania (28,3%), 417 pkt (27,8%). Bilans, wskaźniki, próg rentowności, NPV; bankowość, GPW, obligacje; spółki, podatki, zakładanie firmy; 14 nieaktualnych kluczy.</p></div>
+    <div class="card"><span class="kicker">Moduł 3 · Ekonomia i reszta</span><p class="small">345 pytań (34,5%), 554 pkt (37,0%). Ekonomia 82, marketing 35, psychologia i negocjacje 48, etyka i ESG 60, cyfrowe 19, aktualności 101 – oraz ten bilans.</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p>Kompendium do samodzielnej nauki. Pytania i klucze pochodzą z testów Olimpiady Przedsiębiorczości (Fundacja Promocji i Akredytacji Kierunków Ekonomicznych); cytowane w celach edukacyjnych. Dane bieżące sprawdzone 11.09.2026 r. Moduł 3 – domknięcie cyklu.</p>
+</div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"><\/script>');}
+</script>
+<script>
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=(x,d=1)=>Number(x).toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d});
+const zl=x=>Math.round(x).toLocaleString('pl-PL')+' zł';
+const C={text:'#9aa8bd',grid:'rgba(52,69,99,.55)',blue:'#2563eb',blue2:'#3b82f6',sky:'#8cc8ff',amber:'#fbbf24',good:'#34d399',bad:'#f87171',violet:'#a78bfa',white:'#e5ebf3',dim:'#6b7a92'};
+const hasChart=!!window.Chart;
+if(!hasChart) document.body.classList.add('no-chart');
+const charts={};
+function mk(id,cfg){ if(!hasChart) return null; const el=document.getElementById(id); if(!el) return null; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg); return charts[id]; }
+if(hasChart){
+  Chart.defaults.color=C.text; Chart.defaults.borderColor=C.grid;
+  Chart.defaults.font.family='"IBM Plex Sans",system-ui,sans-serif'; Chart.defaults.font.size=12;
+  Chart.defaults.plugins.legend.labels.boxWidth=12; Chart.defaults.plugins.legend.labels.boxHeight=12;
+  Chart.defaults.plugins.tooltip.backgroundColor='#0b1224'; Chart.defaults.plugins.tooltip.borderColor=C.blue; Chart.defaults.plugins.tooltip.borderWidth=1;
+  Chart.defaults.plugins.tooltip.titleFont={family:'"IBM Plex Mono",monospace',weight:'600'};
+  Chart.defaults.maintainAspectRatio=false; if(Chart.defaults.animation) Chart.defaults.animation.duration=300; Chart.defaults.resizeDelay=150;
+}
+const num=id=>{ const v=parseFloat(String($('#'+id).value).replace(',','.')); return isFinite(v)?v:0; };
+const onInput=(ids,fn)=>ids.forEach(i=>{ const el=$('#'+i); if(el){ el.addEventListener('input',fn); el.addEventListener('change',fn);} });
+
+/* ===== DATA ===== */
+const EDS=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XV","XVI","XVII","XVIII","XIX","XX","XXI"];
+const SY=["2005/06","2006/07","2007/08","2008/09","2009/10","2010/11","2011/12","2012/13","2013/14","2014/15","2015/16","2016/17","2017/18","2019/20","2020/21","2021/22","2022/23","2023/24","2024/25","2025/26"];
+const N=[50,50,50,50,50,50,49,50,50,50,50,50,50,50,50,50,50,50,50,50];
+const HS=["Etyka w działalności biznesowej","Tworzenie wartości przedsiębiorstwa","Psychologia biznesu","Współczesne zarządzanie – koncepcje i metody","Marketing w przedsiębiorstwie","Inwestor na rynku – giełda, prywatyzacje, fuzje i przejęcia","Społeczna odpowiedzialność biznesu","Ludzie w przedsiębiorstwie","Własna firma","Zarządzanie zmianą","Nowe przewagi konkurencyjne","Przywództwo w biznesie","Sukces w biznesie – ludzie, wizerunek, strategia","Zarządzanie różnorodnością w organizacji","Biznes w uwarunkowaniach zrównoważonego rozwoju","Strategie inwestowania na rynku kapitałowym","Biznes i zarządzanie","Zrównoważone przedsiębiorstwo","Transformacja cyfrowa przedsiębiorstwa","Przedsiębiorstwo wobec wyzwań otoczenia"];
+const CAT=[
+ {k:'Z',n:'Zarządzanie',m:1,c:C.blue2,pts:527,two:156,th:104,d:[3,15,17,34,10,11,20,22,18,21,11,24,18,29,17,8,37,16,13,27]},
+ {k:'F',n:'Finanse firmy',m:2,c:C.good,pts:121,two:43,th:5,d:[2,1,2,2,6,5,2,5,7,4,6,6,3,3,5,4,0,7,0,8]},
+ {k:'R',n:'Rynek finansowy',m:2,c:C.sky,pts:189,two:67,th:41,d:[7,6,8,3,5,15,1,5,4,2,5,4,3,0,6,30,2,1,13,2]},
+ {k:'P',n:'Prawo i podatki',m:2,c:C.amber,pts:107,two:24,th:4,d:[6,12,1,3,6,6,4,2,7,7,5,3,4,4,1,1,7,2,2,0]},
+ {k:'E',n:'Ekonomia',m:3,c:C.violet,pts:119,two:37,th:0,d:[12,4,1,0,3,1,2,6,2,9,5,3,4,7,6,1,1,3,10,2]},
+ {k:'M',n:'Marketing',m:3,c:'#fb923c',pts:57,two:22,th:18,d:[1,0,0,0,9,2,1,1,2,0,4,1,5,0,0,4,0,2,0,3]},
+ {k:'S',n:'Psychologia i negocjacje',m:3,c:'#f472b6',pts:66,two:18,th:19,d:[1,0,15,3,4,2,2,1,0,4,2,3,5,1,1,1,0,0,0,3]},
+ {k:'C',n:'Etyka, CSR, ESG',m:3,c:'#2dd4bf',pts:95,two:35,th:53,d:[16,0,0,0,2,0,13,0,0,0,0,0,1,0,8,0,2,17,0,1]},
+ {k:'D',n:'Gospodarka cyfrowa',m:3,c:'#94a3b8',pts:33,two:14,th:14,d:[0,1,0,0,0,0,0,0,0,0,4,0,0,1,0,0,0,0,10,3]},
+ {k:'A',n:'Aktualności',m:3,c:C.bad,pts:184,two:83,th:5,d:[2,11,6,5,5,8,4,8,10,3,8,6,7,5,6,1,1,2,2,1]}];
+const sum=a=>a.reduce((x,y)=>x+y,0);
+CAT.forEach(c=>{ c.q=sum(c.d); });
+const TOTQ=sum(CAT.map(c=>c.q)), TOTP=sum(CAT.map(c=>c.pts)), TOT2=sum(CAT.map(c=>c.two)), TOTTH=sum(CAT.map(c=>c.th));
+const pl=(n,a,b,c)=>n===1?a:(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20))?b:c;
+
+/* ticker */
+(function(){ const items=[['BILANS','999 pytań ✓','up'],['PUNKTY','1498 ✓','up'],['MODUŁ 3','34,5% testu','hl'],['EKONOMIA','82',''],['AKTUALNOŚCI','12,3% pkt',''],['CPI VIII 2026','3,4%','hl'],['PKB II KW.','+3,8% r/r',''],['BEZROBOCIE VII','5,9%',''],['NBP REF.','3,75%',''],['STREFA EURO','21 państw',''],['CSRD','Omnibus I',''],['XXII EDYCJA','Przywództwo w projektach','hl']];
+ const h=items.map(i=>`<span><b>${i[0]}</b> <span class="${i[2]}">${i[1]}</span></span>`).join(''); $('#belt').innerHTML=h+h; })();
+
+/* scrollspy + nav */
+(function(){ const links=$$('#nav a'); const map=new Map(links.map(a=>[decodeURIComponent(a.getAttribute('href').slice(1)),a])); const nav=$('#nav');
+ if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{es.forEach(e=>{ if(!e.isIntersecting) return; const a=map.get(e.target.id); if(!a||a.classList.contains('on')) return; links.forEach(l=>l.classList.remove('on')); a.classList.add('on'); nav.scrollLeft=Math.max(0,a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2); });},{rootMargin:'-45% 0px -50% 0px'}); $$('section.sec').forEach(s=>io.observe(s)); }
+ nav.addEventListener('click',e=>{ const a=e.target.closest('a'); if(!a) return; const t=document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1))); if(!t) return; e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-($('.topbar').offsetHeight+8),behavior:'auto'}); history.replaceState(null,'','#'+t.id); }); })();
+
+/* ===== BILANS ===== */
+(function(){ const t=$('#recTbl'); const M=['','M1','M2','M2','M2','M3','M3','M3','M3','M3','M3'];
+ const rows=EDS.map((e,i)=>{ const s=sum(CAT.map(c=>c.d[i])); const ok=s===N[i]&&(N[i]===50);
+  return `<tr><td class="nm mono" title="${esc(SY[i]+' · '+HS[i])}">${e}</td>${CAT.map(c=>`<td class="mono num">${c.d[i]||'<span class="muted">·</span>'}</td>`).join('')}<td class="mono num"><b>${s}</b></td><td>${ok?'<span class="chk" title="50 pytań – zgadza się">✓</span>':`<span class="chk warn" title="${s} z 50 – brak VII/32 w pliku źródłowym">!</span>`}</td></tr>`; });
+ const tot=(lbl,arr,all,exp,style)=>`<tr style="${style}"><td class="nm">${lbl}</td>${arr.map(v=>`<td class="mono num"><b>${v}</b></td>`).join('')}<td class="mono num"><b>${all}</b></td><td>${all===exp?'<span class="chk">✓</span>':'<span class="chk warn">!</span>'}</td></tr>`;
+ t.innerHTML=rows.join('')+
+  tot('Σ pytań',CAT.map(c=>c.q),TOTQ,999,'background:rgba(37,99,235,.14)')+
+  tot('Σ punktów',CAT.map(c=>c.pts),TOTP,1498,'background:rgba(37,99,235,.08)')+
+  tot('w tym za 2 pkt',CAT.map(c=>c.two),TOT2,499,'')+
+  tot('z tematów zmiennych',CAT.map(c=>c.th),TOTTH,263,'')+
+  `<tr><td class="nm">Moduł</td>${CAT.map(c=>`<td class="mono small">M${c.m}</td>`).join('')}<td></td><td></td></tr>`;
+ // cross-check: points = 1-pt questions + 2 × 2-pt questions
+ const bad=CAT.filter(c=>(c.q-c.two)+2*c.two!==c.pts); if(bad.length) console.warn('Niezgodność punktów:',bad.map(c=>c.k));
+ const mods=[1,2,3].map(m=>CAT.filter(c=>c.m===m)); const mq=mods.map(a=>sum(a.map(c=>c.q))), mp=mods.map(a=>sum(a.map(c=>c.pts)));
+ if(mq.join()!=='371,283,345'||mp.join()!=='527,417,554') console.warn('Niezgodność modułów',mq,mp);
+})();
+mk('chPts',{type:'bar',data:{labels:CAT.map(c=>c.n),datasets:[
+  {label:'% pytań',data:CAT.map(c=>Math.round(1000*c.q/TOTQ)/10),backgroundColor:CAT.map(c=>c.c),borderRadius:2},
+  {label:'% punktów',data:CAT.map(c=>Math.round(1000*c.pts/TOTP)/10),backgroundColor:CAT.map(c=>c.c+'66'),borderColor:CAT.map(c=>c.c),borderWidth:1,borderRadius:2}]},
+ options:{indexAxis:'y',scales:{x:{beginAtZero:true,ticks:{callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:11}}}},
+  plugins:{legend:{position:'bottom',labels:{generateLabels:()=>[{text:'% pytań (pełny kolor)',fillStyle:C.blue2,strokeStyle:C.blue2,lineWidth:0,fontColor:C.text},{text:'% punktów (jasny)',fillStyle:C.blue2+'66',strokeStyle:C.blue2,lineWidth:1,fontColor:C.text}]}},
+   tooltip:{callbacks:{label:c=>{const k=CAT[c.dataIndex]; return c.datasetIndex===0?` ${k.q} pytań = ${fmt(100*k.q/TOTQ)}%`:` ${k.pts} pkt = ${fmt(100*k.pts/TOTP)}%`;}}}}}});
+mk('chEd',{type:'bar',data:{labels:EDS,datasets:CAT.map(c=>({label:c.n,data:c.d.map((v,i)=>Math.round(1000*v/N[i])/10),backgroundColor:c.c,stack:'s',borderWidth:0}))},
+ options:{interaction:{mode:'index',intersect:false},scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:'"IBM Plex Mono",monospace',size:10},autoSkip:false,maxRotation:0}},y:{stacked:true,min:0,max:100,ticks:{callback:v=>v+'%'}}},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,font:{size:10.5}}},tooltip:{itemSort:(a,b)=>b.raw-a.raw,filter:it=>it.raw>0,callbacks:{title:it=>'Edycja '+EDS[it[0].dataIndex]+' · '+SY[it[0].dataIndex],afterTitle:it=>HS[it[0].dataIndex],label:c=>` ${c.dataset.label}: ${CAT[c.datasetIndex].d[c.dataIndex]} (${fmt(c.raw)}%)`}}}}});
+
+/* ===== EKONOMIA: popyt i podaż ===== */
+(function(){ const ids=['sdA','sdB','sdC','sdD','sdP'];
+ function upd(){ const a=num('sdA'),b=num('sdB'),c=num('sdC'),d=num('sdD'),P0=num('sdP'); const out=$('#sdOut');
+  if(!(b>0)||!(d>0)){ out.innerHTML='<span style="color:var(--bad)">Współczynniki b i d muszą być dodatnie (popyt opada, podaż rośnie wraz z ceną).</span>'; return; }
+  const Ps=(a-c)/(b+d), Qs=a-b*Ps; const Pmax=Math.max(a/b, Ps*1.6, P0*1.15, 1); const Pmin=Math.max(0,-c/d);
+  const dem=[{x:Math.max(0,a),y:0},{x:0,y:a/b}], sup=[{x:c+d*Pmin,y:Pmin},{x:c+d*Pmax,y:Pmax}];
+  const ds=[{label:'Popyt Q_D',data:dem,borderColor:C.sky,borderWidth:2,pointRadius:0,showLine:true},{label:'Podaż Q_S',data:sup,borderColor:C.good,borderWidth:2,pointRadius:0,showLine:true}];
+  if(Ps>0&&Qs>0) ds.push({label:'Równowaga',data:[{x:Qs,y:Ps}],backgroundColor:C.white,borderColor:C.white,pointRadius:6,showLine:false});
+  let txt=Ps>0&&Qs>0?`Równowaga: <b class="mono">P* = ${fmt(Ps,2)}</b>, <b class="mono">Q* = ${fmt(Qs,0)}</b>. `:'<span style="color:var(--bad)">Przy tych parametrach brak dodatniej równowagi. </span>';
+  if(P0>0){ const qd=Math.max(0,a-b*P0), qs=Math.max(0,c+d*P0); const xmax=Math.max(a,c+d*Pmax);
+   ds.push({label:'Cena urzędowa',data:[{x:0,y:P0},{x:xmax,y:P0}],borderColor:C.amber,borderDash:[6,4],borderWidth:1.5,pointRadius:0,showLine:true});
+   ds.push({label:'Q przy cenie urzędowej',data:[{x:qd,y:P0},{x:qs,y:P0}],backgroundColor:[C.sky,C.good],borderColor:'#0b1120',borderWidth:2,pointRadius:6,showLine:false});
+   if(Math.abs(P0-Ps)<1e-9) txt+=`Cena urzędowa równa cenie równowagi – nic się nie zmienia.`;
+   else if(P0>Ps) txt+=`Cena ${fmt(P0,0)} &gt; P* działa jak <b>cena minimalna</b>: Q<sub>D</sub> = ${fmt(qd,0)}, Q<sub>S</sub> = ${fmt(qs,0)} → <b style="color:var(--amber)">nadwyżka ${fmt(qs-qd,0)}</b>. Ta sama cena jako maksymalna nic by nie zmieniła.`;
+   else txt+=`Cena ${fmt(P0,0)} &lt; P* działa jak <b>cena maksymalna</b>: Q<sub>D</sub> = ${fmt(qd,0)}, Q<sub>S</sub> = ${fmt(qs,0)} → <b style="color:var(--bad)">niedobór ${fmt(qd-qs,0)}</b> (kolejki, czarny rynek). Ta sama cena jako minimalna nic by nie zmieniła.`; }
+  out.innerHTML=txt;
+  mk('chSD',{type:'scatter',data:{datasets:ds},options:{animation:false,parsing:false,scales:{x:{type:'linear',min:0,title:{display:true,text:'ilość Q'},ticks:{callback:v=>Number(v).toLocaleString('pl-PL')}},y:{type:'linear',min:0,max:Math.ceil(Pmax),title:{display:true,text:'cena P'}}},
+   plugins:{legend:{position:'bottom',labels:{filter:it=>it.text!=='Q przy cenie urzędowej'}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: Q = ${fmt(c.raw.x,0)}, P = ${fmt(c.raw.y,1)}`}}}}}); }
+ onInput(ids,upd); upd(); })();
+
+/* płace realne */
+(function(){ function upd(){ const o=num('wOld'),n=num('wNew'),i=num('wInf')/100; if(!(o>0)){ $('#wrOut').textContent='Podaj płacę wcześniejszą większą od zera.'; return; }
+  const nom=n/o-1, real=(1+nom)/(1+i)-1;
+  $('#wrOut').innerHTML=`Nominalnie: <b class="mono">${nom>=0?'+':''}${fmt(100*nom,2)}%</b> · realnie: <b class="mono" style="color:${real>=0?'var(--good)':'var(--bad)'}">${real>=0?'+':''}${fmt(100*real,2)}%</b><br>Siła nabywcza nowej płacy w cenach sprzed roku: <span class="mono">${zl(n/(1+i))}</span>. Przybliżenie „nominalna − inflacja” daje ${fmt(100*(nom-i),1)}%.`; }
+ onInput(['wOld','wNew','wInf'],upd); upd(); })();
+
+/* kurs walutowy */
+(function(){ const T={up:'<b>Złoty się umacnia</b> – za 1 euro płacimy mniej złotych.<br><span style="color:var(--good)">Zyskują:</span> polscy turyści za granicą, importerzy, spłacający kredyty walutowe, firmy kupujące surowce za dolary.<br><span style="color:var(--bad)">Tracą:</span> eksporterzy (przychody w euro są warte mniej złotych), zagraniczni turyści w Polsce, polska branża turystyczna obsługująca cudzoziemców.',
+  down:'<b>Złoty słabnie</b> – za 1 euro płacimy więcej złotych.<br><span style="color:var(--good)">Zyskują:</span> eksporterzy, zagraniczni turyści w Polsce, firmy z kosztami w złotych i przychodami w walutach.<br><span style="color:var(--bad)">Tracą:</span> importerzy, polscy turyści za granicą, kredytobiorcy walutowi; drożeje paliwo i importowane towary, co podbija inflację.'};
+ const box=$('#fxBtns'); const set=k=>{ $$('.fbtn',box).forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k)); $('#fxOut').innerHTML=T[k]; };
+ box.addEventListener('click',e=>{ const b=e.target.closest('.fbtn'); if(b) set(b.dataset.k); }); set('up'); })();
+
+/* Laffer */
+(function(){ const xs=[...Array(21).keys()].map(k=>k*5); const R=t=>4*t/100*(1-t/100)*100;
+ mk('chLaffer',{type:'line',data:{labels:xs,datasets:[{label:'Wpływy podatkowe',data:xs.map(R),borderColor:C.violet,backgroundColor:'rgba(167,139,250,.12)',fill:'origin',pointRadius:xs.map(x=>x===50?5:0),pointBackgroundColor:C.amber,borderWidth:2,tension:.35}]},
+  options:{scales:{x:{title:{display:true,text:'stawka podatku (%)'},ticks:{callback:function(v){ const l=this.getLabelForValue(v); return l%20===0?l+'%':''; },autoSkip:false,maxRotation:0}},y:{min:0,max:110,ticks:{display:false},title:{display:true,text:'wpływy budżetu'}}},
+   plugins:{legend:{display:false},tooltip:{callbacks:{title:it=>'stawka '+it[0].label+'%',label:c=>c.label==50?' maksimum wpływów (t*) – położenie sporne':c.label<50?' podwyżka stawki zwiększa wpływy':' podwyżka stawki zmniejsza wpływy'}}}}}); })();
+
+/* drabina integracji */
+(function(){ const L=[['Strefa preferencyjna','Obniżone cła na wybrane towary między państwami – najluźniejsza forma.'],
+  ['Strefa wolnego handlu','Zniesienie ceł i kontyngentów między członkami; każdy prowadzi <b>własną</b> politykę celną wobec państw trzecich (np. EFTA).'],
+  ['Unia celna','Strefa wolnego handlu + <b>wspólna zewnętrzna taryfa celna</b>. Unia celna EWG – od 1968 r.'],
+  ['Wspólny (jednolity) rynek','Unia celna + swobodny przepływ <b>towarów, usług, kapitału i osób</b>. Rynek wewnętrzny UE – od 1993 r.'],
+  ['Unia gospodarcza i walutowa','Wspólny rynek + koordynacja polityk gospodarczych i wspólna waluta. Euro – 1999 (bezgotówkowo), 2002 (gotówka); dziś 21 państw, ostatnia dołączyła Bułgaria (1.01.2026).'],
+  ['Unia polityczna','Wspólne instytucje ponadnarodowe i polityka zagraniczna – stadium, którego UE w pełni nie osiągnęła.']];
+ const box=$('#ladder'); box.innerHTML=L.map((l,i)=>`<button type="button" aria-pressed="false" data-i="${i}"><span class="n">${i+1}</span><span>${l[0]}</span></button>`).join('');
+ const set=i=>{ $$('button',box).forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===i)); $('#ladOut').innerHTML=`<b>Etap ${i+1}: ${L[i][0]}.</b> ${L[i][1]} Każdy wyższy etap zawiera wszystkie niższe.`; };
+ box.addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) set(+b.dataset.i); }); set(2); })();
+
+/* ===== MARKETING ===== */
+function mx(id,out,txt){ const box=$(id); const pick=c=>{ $$('.cell',box).forEach(x=>x.classList.remove('on')); c.classList.add('on'); $(out).innerHTML=txt[+c.dataset.i]; };
+ box.addEventListener('click',e=>{ const c=e.target.closest('.cell'); if(c) pick(c); });
+ box.addEventListener('keydown',e=>{ if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('cell')){ e.preventDefault(); pick(e.target);} }); }
+mx('#piMx','#piOut',['<b>Powolne zbieranie śmietanki</b> – wysoka cena, mała promocja. Rynek niewielki, klienci znają produkt i gotowi są dużo zapłacić, konkurencja potencjalna słaba. Maksymalny zysk jednostkowy przy niskich kosztach.',
+ '<b>Szybkie zbieranie śmietanki</b> – wysoka cena, intensywna promocja. Większość rynku nie zna produktu, ale ci, którzy go poznają, zapłacą dużo; firma chce zbudować preferencję marki, zanim wejdą konkurenci.',
+ '<b>Powolna penetracja</b> – niska cena, mała promocja. Rynek duży, świadomy produktu i wrażliwy na cenę; niskie wydatki na promocję pozwalają utrzymać niską cenę.',
+ '<b>Szybka penetracja</b> – niska cena, wysokie wydatki na promocję (klucz V/33). Rynek duży, nieznający produktu, wrażliwy na cenę, groźna konkurencja; koszty jednostkowe spadają wraz ze skalą. Daje najszybszy wzrost udziału w rynku.']);
+(function(){ function upd(){ const v=num('adV'),c=num('adC'),a=num('adA');
+  const pct=(x,y)=>y>0?fmt(100*x/y,2)+'%':'–';
+  $('#adOut').innerHTML=`CTR = kliknięcia / wyświetlenia = <b class="mono">${pct(c,v)}</b><br>CR (od kliknięć) = akcje / kliknięcia = <b class="mono">${pct(a,c)}</b> · CR (od wyświetleń) = <b class="mono">${pct(a,v)}</b>${c>v&&v>0?'<br><span style="color:var(--bad)">Kliknięć nie może być więcej niż wyświetleń.</span>':''}`; }
+ onInput(['adV','adC','adA'],upd); upd(); })();
+
+/* ===== PSYCHOLOGIA: ZOPA ===== */
+(function(){ const bar=$('#zBar'); bar.style.overflow='hidden';
+ function upd(){ const S=num('zS'),B=num('zB'),O=num('zO'); const lo=Math.min(S,B,O)*0.85, hi=Math.max(S,B,O)*1.08; const p=x=>hi>lo?100*(x-lo)/(hi-lo):50;
+  const lab=(x,t,pos,col)=>`<div style="position:absolute;left:${p(x)}%;top:0;bottom:0;border-left:2px solid ${col}"></div><span style="position:absolute;${pos};left:${p(x)}%;transform:translateX(${p(x)>70?'-100%':'0'});padding:0 4px;font:600 10.5px var(--f-mono);color:${col};white-space:nowrap">${t}</span>`;
+  const z=B>=S?`<div style="position:absolute;left:${p(S)}%;width:${p(B)-p(S)}%;top:18px;height:20px;background:rgba(52,211,153,.28);border:1px solid var(--good);border-radius:4px;display:flex;align-items:center;justify-content:center;font:600 10.5px var(--f-mono);color:var(--good);overflow:hidden">ZOPA</div>`
+   :`<div style="position:absolute;left:${p(B)}%;width:${p(S)-p(B)}%;top:18px;height:20px;background:rgba(248,113,113,.2);border:1px dashed var(--bad);border-radius:4px"></div>`;
+  bar.innerHTML=z+lab(S,'min S '+fmt(S/1000,0)+'k','top:2px',C.sky)+lab(B,'max K '+fmt(B/1000,0)+'k','top:2px',C.good)+lab(O,'oferta '+fmt(O/1000,0)+'k','bottom:2px',C.amber);
+  let t;
+  if(B<S) t=`<b style="color:var(--bad)">Brak ZOPA</b> – kupujący nie zapłaci nawet minimum sprzedającego (${fmt(B,0)} &lt; ${fmt(S,0)}). Obie strony powinny sięgnąć po swoją <b>BATNA</b> albo poszerzyć przedmiot rozmów (terminy, gwarancja, raty) – to ruch integracyjny.`;
+  else { t=`ZOPA: <b class="mono">${fmt(S,0)} – ${fmt(B,0)}</b> (szerokość ${fmt(B-S,0)}), środek <span class="mono">${fmt((S+B)/2,0)}</span>. `;
+   if(O>B) t+=`Pierwsza oferta ${fmt(O,0)} leży <b>powyżej</b> maksimum kupującego – działa jak <b>kotwica</b> (XXI/31): przesuwa punkt odniesienia w górę, więc końcowa cena zwykle ląduje bliżej górnej granicy ZOPA. Zbyt odległa kotwica grozi zerwaniem rozmów.`;
+   else if(O>=S) t+=`Pierwsza oferta mieści się w ZOPA – sprzedający oddaje część pola, które mógłby wynegocjować.`;
+   else t+=`Pierwsza oferta jest poniżej własnego minimum sprzedającego – błąd: nigdy nie otwieraj poniżej punktu oporu.`; }
+  $('#zOut').innerHTML=t+'<br><span class="muted">Minimum sprzedającego wyznacza jego BATNA – im lepsza alternatywa, tym wyżej punkt oporu i silniejsza pozycja (XXI/3).</span>'; }
+ onInput(['zS','zB','zO'],upd); upd(); })();
+
+/* ===== ETYKA: piramida Carrolla ===== */
+(function(){ const L=[['Filantropijna','pożądana','#2dd4bf','Bądź dobrym obywatelem korporacyjnym: darowizny, wolontariat, wsparcie społeczności. Społeczeństwo jej <b>pragnie</b>, ale nie wymaga – klucz VII/41.'],
+  ['Etyczna','oczekiwana','#0ea5a4','Postępuj słusznie i uczciwie także tam, gdzie prawo milczy. Społeczeństwo tego <b>oczekuje</b>.'],
+  ['Prawna','wymagana','#0f766e','Przestrzegaj prawa – to „skodyfikowana etyka” społeczeństwa. <b>Wymagana</b>.'],
+  ['Ekonomiczna','wymagana','#115e59','Bądź rentowny: wytwarzaj dobra, dawaj pracę, płać podatki. Fundament piramidy – bez niej nie ma pozostałych. <b>Wymagana</b>.']];
+ const box=$('#pyr'); box.innerHTML=L.map((l,i)=>`<button type="button" aria-pressed="false" data-i="${i}" style="width:${[52,68,84,100][i]}%;background:${l[2]}">${l[0]} <span style="font-weight:400;opacity:.85">· ${l[1]}</span></button>`).join('');
+ const set=i=>{ $$('button',box).forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===i)); $('#pyrOut').innerHTML=`<b>Odpowiedzialność ${L[i][0].toLowerCase()}</b> – ${L[i][3]}`; };
+ box.addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) set(+b.dataset.i); }); set(0); })();
+
+/* ===== AKTUALNOŚCI ===== */
+(function(){ const A=CAT.find(c=>c.k==='A').d;
+ mk('chAkt',{type:'bar',data:{labels:EDS,datasets:[{label:'Pytania z aktualności',data:A,backgroundColor:EDS.map((_,i)=>i>=15?C.bad:'rgba(248,113,113,.45)'),borderRadius:2}]},
+  options:{scales:{x:{grid:{display:false},ticks:{font:{family:'"IBM Plex Mono",monospace',size:10},autoSkip:false,maxRotation:0}},y:{beginAtZero:true,max:12,title:{display:true,text:'pytań z 50'}}},
+   plugins:{legend:{display:false},tooltip:{callbacks:{title:it=>'Edycja '+EDS[it[0].dataIndex]+' · '+SY[it[0].dataIndex],label:c=>` ${c.raw} ${pl(c.raw,'pytanie','pytania','pytań')} (${fmt(100*c.raw/N[c.dataIndex])}% testu)`}}}}});
+ const T=[['Dane makro (inflacja, PKB, stopy)',37],['Rynki i notowania',30],['Firmy i rankingi',15],['Osoby',13],['Instytucje i UE',6]];
+ mk('chAktType',{type:'doughnut',data:{labels:T.map(t=>t[0]),datasets:[{data:T.map(t=>t[1]),backgroundColor:[C.bad,C.amber,C.sky,C.violet,C.dim],borderColor:'#0f172a',borderWidth:2}]},
+  options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${fmt(100*c.raw/101)}%)`}}}}});
+ const NOW=[['Inflacja CPI, sierpień 2026 (r/r)','3,4%','GUS, szybki szacunek'],
+  ['Stopa referencyjna NBP','3,75%','RPP, decyzja 9.09.2026 – bez zmian od marca 2026'],
+  ['Stopy lombardowa / depozytowa','4,25% / 3,25%','NBP'],
+  ['Cel inflacyjny NBP','2,5% ± 1 pkt proc.','NBP'],
+  ['Maksymalne odsetki umowne','14,5%','2 × (3,75% + 3,5 pkt proc.)'],
+  ['PKB, II kwartał 2026 (r/r)','+3,8%','GUS (I kw.: +3,5%)'],
+  ['Stopa bezrobocia rejestrowanego, lipiec 2026','5,9%','GUS'],
+  ['Płaca minimalna 2026','4806 zł brutto','rozporządzenie RM'],
+  ['Strefa euro','21 państw','Bułgaria od 1.01.2026'],
+  ['KSeF – obowiązkowe e-faktury','od 1.02.2026 / 1.04.2026','duże firmy / pozostali'],
+  ['Raportowanie ESG (CSRD)','progi ok. 1000 pracowników i 450 mln € obrotu','dyrektywa Omnibus I (UE) 2026/470'],
+  ['Wskaźnik referencyjny kredytów','WIBOR → POLSTR','harmonogram: wygaszenie WIBOR O/N od 1.10.2026']];
+ $('#nowTbl').innerHTML=NOW.map(r=>`<tr><td class="nm" style="white-space:normal">${r[0]}</td><td class="mono"><b>${r[1]}</b></td><td class="small">${r[2]}</td></tr>`).join(''); })();
+
+/* ===== DYSTRAKTORY ===== */
+const DXT={e:'Ekonomia',m:'Marketing',s:'Psychologia',c:'Etyka · ESG',d:'Cyfrowe'};
+const DXC={e:'v',m:'o',s:'k',c:'t',d:'s'};
+const DX=[
+ {t:'e',e:'IX/45',q:'Cena kiwi 100 jp, podaż 200 szt., elastyczność cenowa podaży = 4. Podaż przy cenie 120 jp:',o:['50','240','360','800'],k:2,w:'240 to wynik dla elastyczności równej 1 (+20% ceny → +20% ilości). 800 to pomnożenie poziomu przez 4 zamiast zmiany procentowej.',r:'%ΔQ = E × %ΔP = 4 × 20% = 80% → 200 × 1,8 = 360.'},
+ {t:'e',e:'XV/45',q:'Cenowa elastyczność popytu = −0,5. Wzrost ceny o 50% spowoduje spadek popytu o:',o:['50%','25%','100%','25 jednostek'],k:1,w:'„25 jednostek” ma dobrą liczbę, ale złą miarę – elastyczność działa na procentach. 100% to dzielenie zamiast mnożenia.',r:'%ΔQ = E × %ΔP = −0,5 × 50% = −25%.'},
+ {t:'e',e:'XI/45',q:'Rynek dobra A: Q<sub>D</sub> = 2500 − 4P, Q<sub>S</sub> = 500 + 4P. Państwo wprowadza cenę minimalną 300. Skutek:',o:['brak zmian popytu i podaży','deficyt 400','nadwyżka 400','równowaga przy większej ilości'],k:2,w:'Liczba 400 jest i w b, i w c – decyduje kierunek. Cena minimalna powyżej równowagi (250): producenci chcą sprzedać 1700, klienci kupić 1300.',r:'Minimalna nad równowagą → nadwyżka. Maksymalna pod równowagą → niedobór.'},
+ {t:'e',e:'X/36',q:'Który czynnik nie wpłynie bezpośrednio na zwiększenie podaży tabletów?',o:['nasilająca się moda na tablety','walka cenowa dostawców procesorów','wydajniejsza technologia produkcji','spadek ceł na elektronikę'],k:0,w:'Moda zwiększa sprzedaż, więc „na rynku jest więcej tabletów”. To jednak przesunięcie krzywej popytu, nie podaży.',r:'Gusty, dochody, ceny substytutów – popyt. Koszty, technologia, cła, liczba firm – podaż.'},
+ {t:'e',e:'XIII/13',q:'Funkcją pieniądza nie jest funkcja:',o:['tezauryzacji','miernika wartości','środka wymiany','deprecjacji'],k:3,w:'„Tezauryzacja” brzmi obco, więc kusi jako fałsz – a to funkcja gromadzenia oszczędności. Deprecjacja to spadek wartości waluty.',r:'Funkcje: środek wymiany, miernik wartości, środek płatniczy, tezauryzacja.'},
+ {t:'e',e:'X/37',q:'PKB w cenach rynkowych nie uwzględnia:',o:['amortyzacji','podatków pośrednich','salda dochodów z własności za granicą','wartości dóbr finalnych wytworzonych w kraju'],k:2,w:'Amortyzacja kusi, bo odejmuje się ją przy PKN – ale PKB to produkt brutto, więc ją zawiera. Saldo dochodów z zagranicy odróżnia PKB od PNB.',r:'PKB + saldo dochodów z zagranicy = PNB; PKB − amortyzacja = PKN.'},
+ {t:'e',e:'XII/9',q:'Pracownik dostał 10% podwyżki przy inflacji 3%. Prawdą jest, że:',o:['płaca realna wzrośnie bardziej niż nominalna','płaca realna wzrośnie mniej niż nominalna','płaca realna zmniejszy się o 3%','płaca nominalna się nie zmieni'],k:1,w:'Wariant c myli poziom inflacji ze zmianą płacy realnej: ta rośnie o ok. 6,8%, tylko wolniej niż nominalna.',r:'Realna = (1 + nominalna) / (1 + inflacja) − 1.'},
+ {t:'e',e:'XV/43',q:'Na osłabieniu dolara wobec euro zyskają:',o:['pożyczkobiorcy z pożyczką w euro','amerykańscy turyści w Europie','europejscy eksporterzy do USA','mieszkańcy strefy euro odwiedzający USA'],k:3,w:'Trzy dystraktory to osoby, które płacą w euro albo zarabiają w dolarach – słabszy dolar im szkodzi. Zyskuje ten, kto wymienia euro na tańsze dolary.',r:'Słabnie waluta X → zyskuje ten, kto ją kupuje (import z kraju X, wyjazd do X).'},
+ {t:'e',e:'X/16',q:'Z koncepcji krzywej Laffera wynika, że wzrost stawki podatkowej:',o:['może zmniejszyć dochody budżetu','zawsze zmniejsza dochody budżetu','zawsze zwiększa dochody budżetu','zwiększa deficyt budżetowy'],k:0,w:'„Zawsze” w obu kierunkach jest fałszywe – krzywa ma maksimum. Na lewo od niego podwyżka zwiększa wpływy, na prawo – zmniejsza.',r:'„Zawsze” i „nigdy” w ekonomii to zwykle dystraktor.'},
+ {t:'e',e:'XVII/17',q:'Do pośrednich instrumentów polityki pieniężnej nie zalicza się:',o:['transakcji depozytowo-kredytowych','kwotowych ograniczeń kredytu','operacji otwartego rynku','stopy rezerwy obowiązkowej'],k:1,w:'Rezerwa obowiązkowa działa „twardo”, więc wydaje się bezpośrednia – ale wpływa na płynność banków, czyli pośrednio. Limity kwotowe narzucają wprost wielkość kredytu.',r:'Bezpośrednie = limity administracyjne. Pośrednie = cena i ilość pieniądza.'},
+ {t:'e',e:'XIX/34',q:'Bezrobocie na wsi, gdy członków rodziny zdolnych do pracy jest za dużo dla małego gospodarstwa:',o:['frykcyjne','strukturalne','chroniczne','agrarne'],k:3,w:'„Strukturalne” brzmi sensownie (niedopasowanie), ale ukryty nadmiar rąk do pracy w rolnictwie ma własną nazwę.',r:'Agrarne = ukryte bezrobocie na wsi.'},
+ {t:'e',e:'VIII/29',q:'Dobra wykluczalne i rywalizacyjne (kolejny konsument zmniejsza użyteczność innych) to dobra:',o:['klubowe','prywatne','publiczne','wolne'],k:1,w:'Klubowe też są wykluczalne (bilet, abonament), ale do limitu pojemności nierywalizacyjne.',r:'Tabela 2 × 2: wykluczalność × rywalizacja.'},
+ {t:'e',e:'I/39',q:'Punkt równowagi monopolu jest osiągnięty zawsze, gdy:',o:['firma osiąga maksymalną produkcję','koszty zmienne są najniższe','koszt krańcowy = utarg krańcowy','firma uzyskuje najwyższą możliwą cenę'],k:2,w:'Monopolista nie ustala „najwyższej możliwej ceny” – przy za wysokiej cenie traci sprzedaż. Zysk maksymalizuje przy MC = MR, jak każda firma.',r:'MC = MR – warunek maksymalizacji zysku w każdej strukturze rynku.'},
+ {t:'m',e:'V/33',q:'Niskie ceny i wysokie wydatki promocyjne w fazie wprowadzania produktu to strategia:',o:['szybkiego zbierania śmietanki','powolnego zbierania śmietanki','szybkiej penetracji','powolnej penetracji'],k:2,w:'„Szybka” dotyczy promocji (dużo), „penetracja” – ceny (niska). Pomylenie osi daje odpowiedź a.',r:'Śmietanka = wysoka cena; penetracja = niska. Szybka = dużo promocji.'},
+ {t:'m',e:'XIX/24',q:'Marketing mix 7P nie zawiera instrumentu:',o:['rodzaj płatności (payment)','ludzie (people)','materialne świadectwo (physical evidence)','procesy (processes)'],k:0,w:'„Payment” zaczyna się na P i brzmi jak część ceny – celowo zbudowana pułapka.',r:'7P = 4P + people, processes, physical evidence.'},
+ {t:'m',e:'VIII/11',q:'Pierwszym etapem budowania i umacniania marki jest:',o:['budowanie świadomości marki','kreowanie skłonności do zakupu','określenie tożsamości marki','wykreowanie wizerunku marki'],k:2,w:'Świadomość kojarzy się z pierwszym krokiem klienta – ale firma musi najpierw określić, czym marka ma być.',r:'Tożsamość (firma) → świadomość → wizerunek (klient) → lojalność.'},
+ {t:'m',e:'XIII/19',q:'W modelu oddziaływania reklamy AIDA nie występuje faza:',o:['świadomości','zainteresowania','pragnienia posiadania','wzmocnienia'],k:3,w:'„Attention” tłumaczy się jako uwaga lub świadomość, więc a wygląda na obce. Wzmocnienie należy do rozszerzonych modeli, nie do AIDA.',r:'AIDA: Attention, Interest, Desire, Action.'},
+ {t:'m',e:'VI/24',q:'Składową kapitału marki nie jest:',o:['lojalność wobec marki','postrzegana jakość','patenty, znaki handlowe','wrażliwość cenowa konsumentów'],k:3,w:'Patenty wydają się „prawne, nie marketingowe”, ale w modelu Aakera są składową kapitału marki. Wrażliwość cenowa to skutek – silna marka ją obniża.',r:'Aaker: lojalność, świadomość, postrzegana jakość, skojarzenia, inne aktywa (patenty, znaki).'},
+ {t:'m',e:'XI/32',q:'Oferowanie klientowi droższej wersji z większą liczbą funkcji to:',o:['cross-selling','marketing mix','technika maksymalizacji korzyści','up-selling'],k:3,w:'Cross-selling to sprzedaż uzupełniająca (etui do telefonu). „Technika maksymalizacji korzyści” to wymyślona nazwa brzmiąca fachowo.',r:'Up – w górę (droższe), cross – w bok (dodatki).'},
+ {t:'m',e:'XIII/26',q:'Liczba wykonanych akcji w stosunku do liczby kliknięć lub wyświetleń reklamy to:',o:['wskaźnik konwersji (CR)','wskaźnik atrakcyjności przekazu','wskaźnik klikalności','współczynnik efektywności reklamy'],k:0,w:'Klikalność (CTR) liczy kliknięcia do wyświetleń. Tu liczymy akcje, czyli konwersję.',r:'CTR = kliknięcia / wyświetlenia. CR = akcje / kliknięcia (lub wyświetlenia).'},
+ {t:'m',e:'I/48',q:'Która firma nie stosuje strategii naśladowcy rynkowego wg Kotlera?',o:['klon','specjalista','imitator','usprawniacz'],k:1,w:'Wszystkie nazwy brzmią jak typy konkurentów. Specjalista to strategia niszowa (tzw. niszowiec), nie naśladowcza.',r:'Naśladowcy: klon, imitator, usprawniacz (adaptator).'},
+ {t:'s',e:'X/35',q:'„Stopa w drzwiach” – coraz większe prośby – bazuje na zasadzie:',o:['niedostępności','społecznego dowodu słuszności','sympatii','zaangażowania i konsekwencji'],k:3,w:'Wszystkie reguły są prawdziwe – trzeba dopasować mechanizm. Zgoda na małą prośbę tworzy potrzebę spójności.',r:'Stopa w drzwiach – konsekwencja. Drzwiami w twarz – wzajemność.'},
+ {t:'s',e:'III/24',q:'Która zasada nie jest zasadą ustępstw?',o:['ustępstwa powinny być malejące','liczy się fakt ustępstwa, a nie wielkość','pierwsze ustępstwo jak najszybciej i w sprawie istotnej dla partnera','nie każde ustępstwo trzeba odwzajemniać'],k:2,w:'Wariant c brzmi „pro-relacyjnie”, więc wydaje się dobry. Zasady mówią odwrotnie: ustępuj powoli i nie zaczynaj od spraw kluczowych.',r:'Ustępstwa: powoli, malejąco, warunkowo.'},
+ {t:'s',e:'XIII/2',q:'Elementem inteligencji emocjonalnej nie jest:',o:['samoświadomość','zarządzanie czasem','samokontrola','świadomość społeczna'],k:1,w:'Zarządzanie czasem to cenna kompetencja menedżera, więc pasuje „do listy”. Goleman opisuje jednak emocje własne i cudze, nie organizację pracy.',r:'IE: samoświadomość, samokontrola, motywacja, empatia (świadomość społeczna), umiejętności społeczne.'},
+ {t:'s',e:'IV/13',q:'Celem negocjacji nastawionych na współpracę jest:',o:['realizacja interesów obu stron','osiągnięcie kompromisu','rywalizacja między stronami','osiągnięcie celów za wszelką cenę'],k:0,w:'Kompromis wydaje się celem współpracy, ale oznacza, że każdy coś traci. Negocjacje integracyjne szukają rozwiązania realizującego interesy obu stron.',r:'Win-win ≠ kompromis.'},
+ {t:'s',e:'III/38',q:'Zachowań związanych z korzystaniem z dóbr wspólnych nie tłumaczy:',o:['dylemat wolnej jazdy','dylemat więźnia','dylemat wspólnej łąki','efekt Ringelmanna'],k:1,w:'Dylemat więźnia też dotyczy współpracy, więc kusi. Klucz OP traktuje go jako ogólny model teorii gier (dwóch graczy), a nie mechanizm dobra wspólnego.',r:'Dobra wspólne: gapowicz, tragedia wspólnego pastwiska, efekt Ringelmanna.'},
+ {t:'s',e:'V/20',q:'Optymalny kontakt wzrokowy w negocjacjach:',o:['ok. 1/4 czasu rozmowy','30–60% czasu rozmowy','80% czasu rozmowy','blisko 100% czasu rozmowy'],k:1,w:'„Blisko 100%” brzmi jak pewność siebie – w praktyce to wpatrywanie się, odbierane jako presja.',r:'Umiarkowanie: 30–60%.'},
+ {t:'s',e:'III/27 · XV/40',q:'Negocjator proponuje najpierw rozwiązanie mniej korzystne, potem bardziej korzystne. To technika:',o:['kontrastu','niedostępności','zaangażowania i konsekwencji','prośby'],k:0,w:'Sekwencja przypomina też „drzwiami w twarz” (wzajemność), ale tej opcji nie ma. Druga propozycja wypada lepiej na tle pierwszej – to kontrast.',r:'Porównanie z gorszym punktem odniesienia = kontrast.'},
+ {t:'c',e:'VII/41',q:'Wg modelu Carrolla pożądana przez społeczeństwo jest odpowiedzialność:',o:['etyczna','prawna','filantropijna','ekonomiczna'],k:2,w:'Etyczna jest „oczekiwana”, prawna i ekonomiczna – „wymagane”. Pożądana jest tylko filantropijna.',r:'Od dołu: ekonomiczna, prawna (wymagane), etyczna (oczekiwana), filantropijna (pożądana).'},
+ {t:'c',e:'XVI/25',q:'Standard w najmniejszym stopniu opisujący odpowiedzialność społeczną organizacji:',o:['ISO 26000','SA 8000','ISO 9000','AA 1000'],k:2,w:'Wszystkie to „normy”, a ISO kojarzy się z ISO 26000. ISO 9000 dotyczy zarządzania jakością.',r:'ISO 26000 – CSR; SA 8000 – prawa pracownicze; AA 1000 – interesariusze; ISO 9000 – jakość; ISO 14001 – środowisko.'},
+ {t:'c',e:'XIX/47',q:'Celem porozumienia paryskiego jest:',o:['ograniczenie wzrostu temperatury do 2°C, docelowo 1,5°C','zbudowanie taksonomii działalności zrównoważonej','strategia dekarbonizacji UE','redukcja emisji w Europie o 55% do 2030 r. względem 1900 r.'],k:0,w:'Wariant d wygląda jak prawdziwy cel UE – ale to cel unijny, nie paryski, a rok bazowy to 1990, nie 1900.',r:'Paryż – temperatura. UE – −55% do 2030 r. (względem 1990), neutralność w 2050 r.'},
+ {t:'c',e:'XIX/49',q:'Wg SFDR fundusze „ciemnozielone” (art. 9):',o:['inwestują tylko w firmy z celem społecznym z taksonomii','obok celu finansowego deklarują mierzalny cel niefinansowy','deklarują promowanie cech ESG','nie muszą uwzględniać ESG w zarządzaniu ryzykiem'],k:1,w:'„Promowanie cech ESG” to definicja funduszy jasnozielonych (art. 8) – różnica jednego słowa.',r:'Art. 8 – promuje cechy ESG. Art. 9 – ma cel zrównoważony.'},
+ {t:'c',e:'XIX/44',q:'Pierwsze miejsce w hierarchii 3R zajmuje:',o:['recykling','ponowne wykorzystanie','redukcja','reorganizacja'],k:2,w:'Recykling jest najbardziej rozpoznawalny, ale stoi na końcu hierarchii. „Reorganizacja” zaczyna się na R i udaje czwarty element.',r:'Reduce → reuse → recycle.'},
+ {t:'c',e:'I/32',q:'Które stanowisko nie jest właściwym zapleczem teoretycznym etyki biznesu?',o:['deontologia','hedonizm','etyka sumienia i odpowiedzialności','prakseologia'],k:1,w:'Prakseologia (nauka o sprawnym działaniu) brzmi najmniej „etycznie”, więc kusi. Hedonizm – przyjemność jako cel – nie uzasadnia norm biznesu.',r:'Zaplecze: deontologia, utylitaryzm, etyka odpowiedzialności, prakseologia.'},
+ {t:'c',e:'XVIII/33',q:'„Kto w długim okresie nie korzysta z władzy odpowiedzialnie, ten ją utraci”. To:',o:['społeczna etyka biznesu','naturalna odpowiedzialność przedsiębiorstwa','równanie siła – odpowiedzialność','żelazne prawo odpowiedzialności'],k:3,w:'„Równanie siła – odpowiedzialność” to prawdziwa zasada (Davis), więc bardzo kusi. Sentencja o utracie władzy to jego konsekwencja nazwana żelaznym prawem.',r:'Davis: siła = odpowiedzialność; kto jej nie udźwignie – traci władzę (żelazne prawo).'},
+ {t:'c',e:'XIX/41',q:'„Kapitan opuszcza statek jako ostatni” to przykład:',o:['etyki biznesu','etyki zarządzania','etyki zawodowej','mikroetyki'],k:2,w:'Kapitan „zarządza” statkiem, więc b kusi. Chodzi jednak o normę przypisaną do zawodu.',r:'Normy konkretnego zawodu = etyka zawodowa.'},
+ {t:'d',e:'XV/1',q:'Automatyzacja produkcji i elektronika to podstawy rewolucji przemysłowej:',o:['pierwszej','drugiej','trzeciej','czwartej'],k:2,w:'Automatyzacja kojarzy się z „przemysłem 4.0”. Czwarta to jednak systemy cyberfizyczne, IoT i AI; elektronika i automatyzacja – trzecia.',r:'1 – para; 2 – elektryczność; 3 – elektronika i automatyzacja; 4 – cyberfizyczne.'},
+ {t:'d',e:'XX/26',q:'Czwartą falę rozwoju gospodarczego wg Schumpetera charakteryzowała:',o:['kolej','petrochemia','chemikalia','sieci cyfrowe'],k:1,w:'Chemikalia należą do trzeciej fali (z elektrycznością), sieci cyfrowe – do piątej, kolej – do drugiej.',r:'Fale: tekstylia → para i kolej → elektryczność i chemia → petrochemia i elektronika → sieci cyfrowe.'},
+ {t:'d',e:'XI/34',q:'Najmniej przydatne w przetwarzaniu Big Data narzędzie to:',o:['arkusz kalkulacyjny','bazy danych NoSQL','chmura obliczeniowa','platforma Hadoop'],k:0,w:'Arkusz to narzędzie analityczne, więc pasuje „do danych”. Big Data to wolumeny, których arkusz nie obsłuży.',r:'Big Data: rozproszone przetwarzanie (Hadoop), NoSQL, chmura.'},
+ {t:'d',e:'XXI/36',q:'Podstawowe modele chmury obliczeniowej to:',o:['IaaS, PaaS, SaaS','infrastruktura jako system, proces jako usługa, system jako aplikacja','internet jako usługa, proces jako usługa, system jako aplikacja','IaaS, proces jako usługa, system jako aplikacja'],k:0,w:'Dystraktor d zaczyna się od poprawnego IaaS – kto czyta tylko pierwsze słowo, wybierze go.',r:'Infrastruktura, platforma, oprogramowanie – jako usługa.'},
+ {t:'d',e:'XX/48',q:'Kolejność etapów cyfryzacji procesów (centrum usług wspólnych):',o:['centralizacja, standaryzacja, optymalizacja, unarzędziowienie, cyfryzacja','standaryzacja, optymalizacja, unarzędziowienie, centralizacja, cyfryzacja','optymalizacja, unarzędziowienie, centralizacja, cyfryzacja, standaryzacja','centralizacja, standaryzacja, cyfryzacja, optymalizacja, unarzędziowienie'],k:0,w:'Wariant d zaczyna się poprawnie, ale cyfryzuje proces przed jego optymalizacją – czyli utrwala bałagan w systemie.',r:'Najpierw zbierz i uporządkuj proces, dopiero potem go cyfryzuj.'}];
+(function(){ const f=$('#dxFilter'); f.innerHTML='<button class="fbtn" aria-pressed="true" data-k="all">Wszystkie</button>'+Object.entries(DXT).map(([k,v])=>`<button class="fbtn" aria-pressed="false" data-k="${k}">${v}</button>`).join('');
+ const col={e:C.violet,m:'#fb923c',s:'#f472b6',c:'#2dd4bf',d:'#94a3b8'};
+ const L=$('#dxList'); L.innerHTML=DX.map(d=>`<details class="acc" data-t="${d.t}" data-s="${esc((d.q+' '+d.o.join(' ')+' '+d.w+' '+d.e+' '+DXT[d.t]).toLowerCase())}"><summary><span class="chip" style="color:${col[d.t]};border-color:${col[d.t]}66;background:${col[d.t]}1f">${DXT[d.t]}</span><span class="q">${d.q}</span><span class="pm" aria-hidden="true">+</span></summary><div class="body"><span class="src">Źródło: edycja ${d.e}</span><div class="opts">${d.o.map((o,j)=>`<div class="opt ${j===d.k?'ok':''}">${'abcd'[j]}) ${o}${j===d.k?' <span class="chip g" style="margin-left:6px">klucz</span>':''}</div>`).join('')}</div><p class="why"><b>Mechanizm pułapki.</b> ${d.w}</p><p class="small"><span class="chip g">Reguła</span> ${d.r}</p></div></details>`).join('');
+ let k='all'; function apply(){ const q=$('#dxSearch').value.trim().toLowerCase(); let n=0; $$('details.acc',L).forEach(d=>{ const ok=(k==='all'||d.dataset.t===k)&&(!q||d.dataset.s.includes(q)); d.hidden=!ok; if(ok) n++; }); $('#dxCount').textContent=`${n} z ${DX.length} pułapek`; }
+ f.addEventListener('click',e=>{ const b=e.target.closest('.fbtn'); if(!b) return; $$('.fbtn',f).forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); k=b.dataset.k; apply(); });
+ $('#dxSearch').addEventListener('input',apply); apply(); })();
+
+/* ===== QUIZ ===== */
+const QZ=[
+ {e:'XVI/34',p:2,q:'Pracownik zarabiał 5000 zł, teraz 5250 zł. Inflacja wyniosła 3%. Jego wynagrodzenie realne:',o:['wzrosło o ok. 8%','wzrosło o ok. 5%','wzrosło o ok. 3%','wzrosło o ok. 2%'],k:3},
+ {e:'X/38',p:2,q:'Aby obliczyć PNB, należy skorygować PKB o:',o:['amortyzację','dochody netto z własności za granicą','podatki pośrednie i subsydia','rozporządzalne dochody osobiste'],k:1},
+ {e:'V/9',p:1,q:'Najbardziej obiektywne porównanie wyników różnych gospodarek umożliwia:',o:['PKB','PKB per capita','liczba zatrudnionych w przemyśle','PKB per capita wg parytetu siły nabywczej'],k:3},
+ {e:'XIII/12',p:1,q:'Paradoks Veblena polega na tym, że:',o:['im wyższa cena i unikatowość dobra, tym więcej chętnych na jego zakup','przy spadku dochodów ludzie kupują więcej luksusu','najbogatsi dostają najlepsze rabaty','najdroższe dobra mają zawsze najwyższą jakość'],k:0},
+ {e:'I/42',p:2,q:'Prawo Greshama mówi, że:',o:['gdy w obiegu są dwa rodzaje pieniądza, gorszy wypiera lepszy','powstało w XIX-wiecznej Wielkiej Brytanii dla liberalizacji gospodarki','zwiększanie nakładów zawsze zwiększa produkcję','zwiększanie nakładów zwiększa popyt'],k:0},
+ {e:'XII/10',p:1,q:'Na osłabieniu złotego wobec franka szwajcarskiego zyskają:',o:['kredytobiorcy z kredytem we frankach','polscy turyści jadący na narty do Szwajcarii','producenci szwajcarskich zegarków','szwajcarscy turyści odwiedzający Polskę'],k:3},
+ {e:'XVII/3',p:1,q:'„Nabywcy pozostawieni sami sobie nie kupią tylu produktów, ile producent chce zaoferować” – to orientacja:',o:['produkcyjna','rynkowa','produktowa','sprzedażowa'],k:3},
+ {e:'XIII/29',p:2,q:'Wskaźnik TOM (top of mind) pozwala określić:',o:['odsetek respondentów wskazujących markę jako pierwszą','odsetek rozpoznających markę po logo','odsetek regularnie używających marki','odsetek uznających markę za najbardziej prestiżową'],k:0},
+ {e:'XIII/27',p:2,q:'Przykładem co-brandingu jest:',o:['linia smartfonów producenta telefonów z logo znanego domu mody','umowa sponsorska koncernu z domem dziecka','jedna marka dla wielu rodzajów produktu','marka złożona z nazw spółek po fuzji'],k:0},
+ {e:'XXI/3',p:1,q:'Najlepszą pozycję negocjacyjną daje stronom:',o:['emocjonalne argumentowanie','silna BATNA','wysoka gotowość do kompromisu','zaczynanie od niskich oczekiwań'],k:1},
+ {e:'XIII/5',p:1,q:'Zgodnie z zasadą niedostępności dobra reglamentowane w porównaniu z normalnie dostępnymi mają:',o:['wyższą atrakcyjność','taką samą atrakcyjność','niższą atrakcyjność','reglamentacja nie wpływa na atrakcyjność'],k:0},
+ {e:'XI/39',p:2,q:'Orientacja życiowa złożona z poczucia zrozumiałości, zaradności i sensowności to:',o:['empatia','inteligencja emocjonalna','poczucie koherencji','zdolność antycypacyjna'],k:2},
+ {e:'VII/43',p:2,q:'Inicjatywa CSR zaproponowana w 1999 r. przez Sekretarza Generalnego ONZ Kofiego Annana to:',o:['Global Reporting Initiative','Global Compact','Agenda 21','Deklaracja Polityczna na rzecz Zrównoważonego Rozwoju'],k:1},
+ {e:'XIX/48',p:2,q:'Cechą charakterystyczną finansowania typu sustainability-linked jest:',o:['finansowanie wyłącznie farm wiatrowych i fotowoltaiki','finansowanie wyłącznie projektów społecznych','finansowanie wyłącznie projektów z taksonomii','uzależnienie kosztu finansowania od realizacji celu zrównoważonego rozwoju'],k:3},
+ {e:'XX/37',p:2,q:'Fundament systemu blockchain stanowią:',o:['sieć peer-to-peer, kryptografia, program komputerowy','sieć komputerowa, mikroprocesory, podpisy cyfrowe','platformy kryptowalutowe, smartfony, AI','wyłącznie algorytmy szyfrowania i wirtualne portfele'],k:0},
+ {e:'XXI/39',p:2,q:'Zestaw technologii przeprojektowujących procesy z użyciem robotyki i uczenia maszynowego to:',o:['inteligentna automatyzacja procesów (IPA)','zaawansowana analityka','outsourcing procesów biznesowych (BPO)','cyfryzacja'],k:0}];
+(function(){ const box=$('#quiz'); const st=QZ.map(()=>null);
+ function draw(){ box.innerHTML=QZ.map((q,i)=>`<div class="qcard"><div class="qhead"><span>Pytanie ${i+1} · edycja ${q.e}</span><span class="chip ${q.p===2?'a':'b'}">${q.p===1?'+1 / −0,5':'+2 / −1'}</span></div><div class="qtext">${esc(q.q)}</div><div class="ans">${q.o.map((o,j)=>`<button type="button" class="a" data-i="${i}" data-j="${j}">${'abcd'[j]}) ${esc(o)}</button>`).join('')}<button type="button" class="a" data-i="${i}" data-j="-1" style="color:var(--muted)">E) nie udzielam odpowiedzi (0 pkt)</button></div></div>`).join(''); score(); }
+ function score(){ let p=0,mx=0,done=0; QZ.forEach((q,i)=>{ mx+=q.p; if(st[i]!==null){ done++; if(st[i]===q.k) p+=q.p; else if(st[i]!==-1) p-=q.p/2; } }); $('#scPts').textContent=fmt(p,1); $('#scMax').textContent=mx; $('#scDone').textContent=done+'/'+QZ.length; $('#scBar').style.width=Math.max(0,100*p/mx)+'%'; }
+ box.addEventListener('click',e=>{ const b=e.target.closest('button.a'); if(!b||b.disabled) return; const i=+b.dataset.i,j=+b.dataset.j; if(st[i]!==null) return; st[i]=j; const q=QZ[i];
+  $$(`button.a[data-i="${i}"]`,box).forEach(x=>{ x.disabled=true; const jj=+x.dataset.j; if(jj===q.k) x.classList.add('ok'); else if(jj===j) x.classList.add('no'); }); score(); });
+ $('#qReset').addEventListener('click',()=>{ st.fill(null); draw(); }); draw(); })();
+
+/* ===== PLAN CAŁOŚCI ===== */
+(function(){ const PR={Z:['Najwyższy','hasło XXII: przywództwo, zespół projektowy, zaangażowanie, wyzwania projektowe'],R:['Wysoki','bywa blokiem 13–30 pytań przy haśle inwestycyjnym'],A:['Średni','10 liczb tygodniowo; od XVII tylko 1–2 pytania'],F:['Wysoki','zadania obliczeniowe za 2 pkt – pewne punkty'],E:['Wysoki','stały blok bez tematów zmiennych'],P:['Średni','spółki i podatki – aktualizuj klucze'],C:['Średni','ESG i interesariusze w otoczeniu projektu'],S:['Wysoki','negocjacje, komunikacja i konflikty w zespole projektowym'],M:['Niski','rzadko poza hasłami marketingowymi'],D:['Średni','AI i narzędzia cyfrowe w projektach']};
+ const rows=[...CAT].sort((a,b)=>b.pts-a.pts).map((c,i)=>{ const mn=Math.min(...c.d), mxv=Math.max(...c.d); const pr=PR[c.k]; const col=pr[0]==='Najwyższy'?'var(--good)':pr[0]==='Wysoki'?'var(--sky)':pr[0]==='Średni'?'var(--amber)':'var(--muted)';
+  return `<tr><td class="mono">${i+1}</td><td class="nm" style="white-space:normal"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${c.c};margin-right:6px"></span>${c.n}</td><td class="mono">M${c.m}</td><td class="mono num">${c.q} <span class="muted small">(${fmt(100*c.q/TOTQ)}%)</span></td><td class="mono num">${c.pts} <span class="muted small">(${fmt(100*c.pts/TOTP)}%)</span></td><td class="small">${mn}–${mxv} ${pl(mxv,'pytanie','pytania','pytań')} na test</td><td class="small"><b style="color:${col}">${pr[0]}</b> – ${pr[1]}</td></tr>`; });
+ $('#planTbl').innerHTML=rows.join('')+`<tr style="background:rgba(37,99,235,.12)"><td></td><td class="nm">Razem</td><td class="mono">M1–M3</td><td class="mono num"><b>${TOTQ}</b></td><td class="mono num"><b>${TOTP}</b></td><td class="small">20 arkuszy</td><td class="small">${TOTQ===999&&TOTP===1498?'<span class="chk">✓</span> zgodne z bilansem':'<span class="chk warn">!</span> sprawdź'}</td></tr>`; })();
+})();
+</script>
+</body>
+</html>

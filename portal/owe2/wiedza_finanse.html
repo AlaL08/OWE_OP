@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pl" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Finanse — Kompendium OWE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+
+/* =========================================================
+   Kompendium OWE — widok ciągły (jeden plik, bez zakładek)
+   ========================================================= */
+:root{
+  color-scheme:dark;
+  --bg:#0f1628;
+  --bg-top:#1b2236;
+  --card:#151d31;
+  --card-2:#18213a;
+  --inset:#121a2d;
+  --deep:#0d1424;
+  --line:#26314b;
+  --line-2:#33405f;
+  --gold:#e8c46f;
+  --gold-2:#cfa956;
+  --gold-dim:#8b7444;
+  --orange:#d99158;
+  --ink:#e9edf5;
+  --ink-2:#c5ccda;
+  --muted:#8f99b0;
+  --faint:#6a7590;
+  --cyan:#6cc6e6;
+  --red:#ee8678;
+  --green:#78d4a8;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Source Serif 4",Charter,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --r-lg:18px;
+  --r-md:14px;
+  --r-sm:10px;
+  --gutter:clamp(16px,3.2vw,56px);
+  --topbar-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:var(--bg) linear-gradient(180deg,var(--bg-top) 0,#141b2f 380px,var(--bg) 900px) no-repeat;
+  font-feature-settings:"cv11","ss01";
+}
+[hidden]{display:none!important}
+::selection{background:rgba(232,196,111,.3)}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+b,strong{font-weight:650;color:#f4f6fa}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:#1a1405;padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+
+.wrap{max-width:1760px;margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,7vw,88px) 0 34px;max-width:1180px}
+.eyebrow{
+  margin:0 0 18px;color:var(--orange);font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;
+}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(44px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;color:var(--gold);
+}
+.desc{margin:0 0 26px;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;font-size:19px;color:var(--muted);margin-bottom:16px}
+.stats b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.srcline{margin:0 0 30px;color:var(--faint);font-size:15.5px;max-width:80ch}
+.pills{display:flex;flex-wrap:wrap;gap:12px}
+.pill{
+  display:inline-flex;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:17px;font-weight:500;background:rgba(255,255,255,.015);transition:border-color .15s,background .15s,color .15s;
+}
+.pill:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.pill.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:700}
+
+/* ---------- intro ---------- */
+.intro{
+  max-width:1180px;margin:8px 0 42px;padding:24px 28px;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.015));
+}
+.intro__lead{margin:0;font-size:18.5px;line-height:1.7;color:var(--ink)}
+.intro__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+/* ---------- sticky topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;margin:0 calc(var(--gutter)*-1);padding:0 var(--gutter);
+  background:rgba(14,21,38,.86);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line);
+}
+.topbar__in{display:flex;align-items:center;gap:18px;min-height:var(--topbar-h)}
+.topbar__name{font-weight:800;color:var(--gold);font-size:17px;white-space:nowrap;letter-spacing:-.01em}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;padding:10px 0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chipnav{
+  flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:14.5px;font-weight:500;white-space:nowrap;transition:all .15s;
+}
+.chipnav i{font-style:normal;color:var(--gold-2);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.chipnav:hover{text-decoration:none;border-color:var(--gold-dim);color:var(--ink)}
+.chipnav.on{background:var(--gold);border-color:var(--gold);color:#1d1606;font-weight:650}
+.chipnav.on i{color:#4a3a10}
+.filter{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.filter input{
+  width:280px;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font:inherit;font-size:15px;
+  padding:9px 16px;border-radius:999px;transition:border-color .15s,width .2s;
+}
+.filter input::placeholder{color:var(--faint)}
+.filter input:focus{outline:none;border-color:var(--gold-2)}
+.filter output{font-size:13.5px;color:var(--muted);min-width:76px;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.layout{display:block;padding-top:8px}
+.toc{display:none}
+.content{min-width:0}
+
+@media (min-width:1680px){
+  .layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:48px}
+  .toc{display:block}
+  .chips{display:none}
+  .topbar__in{justify-content:space-between}
+}
+.toc__in{position:sticky;top:calc(var(--topbar-h) + 28px);max-height:calc(100vh - var(--topbar-h) - 48px);overflow:auto;padding:4px 6px 24px 0;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.toc__h{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.toc__list{list-style:none;margin:0;padding:0}
+.toc__list>li{margin:0 0 4px}
+.toc__sec{
+  display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;color:var(--ink-2);font-weight:600;font-size:15px;
+}
+.toc__sec i{font-style:normal;color:var(--gold-2);font-size:13px;min-width:14px}
+.toc__sec:hover{text-decoration:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.toc__list>li.on>.toc__sec{background:rgba(232,196,111,.1);color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.toc__list ul{list-style:none;margin:2px 0 8px;padding:0 0 0 22px;display:none}
+.toc__list>li.on ul{display:block}
+.toc__list ul a{display:block;padding:4px 10px;font-size:13.5px;line-height:1.4;color:var(--muted);border-radius:8px}
+.toc__list ul a i{font-style:normal;display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.toc__list ul a:hover{text-decoration:none;color:var(--ink);background:rgba(255,255,255,.03)}
+.toc__list ul a.on{color:var(--ink)}
+.toc__list ul a.on i{color:var(--gold-2)}
+
+/* ---------- sekcje ---------- */
+.sec{scroll-margin-top:calc(var(--topbar-h) + 12px)}
+.sec__head{margin:56px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line-2)}
+.sec:first-child .sec__head{margin-top:36px}
+.sec__eyebrow{margin:0 0 8px;font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.6}
+.sec__eyebrow b{color:var(--orange);font-weight:700}
+.sec__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec>p.sub{margin:-6px 0 22px;color:var(--muted);font-size:16px;max-width:90ch}
+
+/* ---------- karty ---------- */
+.card{
+  scroll-margin-top:calc(var(--topbar-h) + 16px);
+  background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 24px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -28px rgba(0,0,0,.6);
+}
+.card:target{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(232,196,111,.12)}
+.card__h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 28px;border-bottom:1px solid var(--line)}
+.chip{
+  display:inline-flex;align-items:center;border:1px solid var(--gold-dim);border-radius:999px;overflow:hidden;
+  background:rgba(232,196,111,.06);font-size:15px;line-height:1;
+}
+.chip b{color:var(--gold);font-weight:700;padding:8px 14px;letter-spacing:.02em}
+.chip span{color:var(--gold-2);padding:8px 14px 8px 13px;border-left:1px solid var(--gold-dim);font-weight:500}
+.card__src{color:var(--muted);font-size:14.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.card__b{padding:24px 28px 28px}
+.card__t{
+  margin:0 0 18px;font-family:var(--serif);font-size:clamp(23px,1.9vw,29px);line-height:1.28;font-weight:700;letter-spacing:-.005em;
+  color:#f2f4f8;text-wrap:balance;
+}
+.card__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1240px){
+  .card__grid{grid-template-columns:minmax(0,1fr) minmax(330px,34%);gap:30px;align-items:start}
+}
+.card__main>*:first-child{margin-top:0}
+.card__main>*:last-child{margin-bottom:0}
+.card__main p{max-width:84ch}
+.card__main>p{margin:0 0 14px}
+p.lead{font-size:18.5px;line-height:1.7;color:var(--ink)}
+.card__aside{display:flex;flex-direction:column;gap:18px;min-width:0}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+/* bloki „mechanizm / założenia” */
+.mech,.assume{
+  margin:16px 0;padding:16px 20px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset);
+}
+.mech>*:last-child,.assume>*:last-child{margin-bottom:0}
+.mech h4,.assume h4,.worked h4,.calc h4{
+  margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.mech p,.assume p{margin:0 0 10px}
+.assume{border-color:rgba(232,196,111,.3);background:linear-gradient(180deg,rgba(232,196,111,.06),rgba(232,196,111,.02))}
+.assume h4{color:var(--gold)}
+
+code.k{font-family:var(--mono);font-size:14px;background:var(--deep);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- pułapki ---------- */
+.trap{
+  border:1px solid rgba(238,134,120,.28);border-radius:var(--r-md);padding:16px 16px 14px;
+  background:linear-gradient(180deg,rgba(238,134,120,.07),rgba(238,134,120,.02));
+}
+.trap__h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);line-height:1.4}
+.trap__ic{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--red);color:#2a0f0b;font-size:14px;font-weight:800;letter-spacing:0}
+.trap ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.trap li{
+  margin:0;padding:10px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(13,20,36,.65);
+  font-size:15.5px;line-height:1.55;color:var(--ink-2);
+}
+.trap li b{color:#f6d7d2;font-weight:600}
+.trap li em{color:var(--green);font-style:normal}
+
+/* ---------- tabele ---------- */
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--inset)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th+th,td+td{border-left:1px solid rgba(38,49,75,.6)}
+tbody tr:last-child td{border-bottom:0}
+thead th{background:#18213a;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);white-space:nowrap}
+tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+tbody tr:hover{background:rgba(232,196,111,.035)}
+td b{color:var(--gold)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.game{width:auto;margin:0 auto}
+table.game td,table.game th{text-align:center;font-variant-numeric:tabular-nums}
+table.game td.ne{background:rgba(232,196,111,.14);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+
+/* ---------- rysunki ---------- */
+figure{margin:18px 0;padding:20px;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-md);overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figcaption{margin:14px auto 0;font-size:14.5px;color:var(--muted);line-height:1.6;text-align:center;max-width:78ch}
+figcaption b{color:var(--ink-2)}
+figure text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.ax{stroke:#4d6290;stroke-width:1.4}
+.gr{stroke:#26314b;stroke-width:1}
+.c-gold{stroke:var(--gold);stroke-width:2.3;fill:none}
+.c-cyan{stroke:var(--cyan);stroke-width:2.3;fill:none}
+.c-red{stroke:var(--red);stroke-width:2.1;fill:none}
+.c-green{stroke:var(--green);stroke-width:2.1;fill:none}
+.dash{stroke-dasharray:4 4;stroke-width:1.2;stroke:#617aa8;fill:none}
+.fill-gold{fill:rgba(232,196,111,.16)}
+.fill-cyan{fill:rgba(108,198,230,.14)}
+.fill-red{fill:rgba(238,134,120,.2)}
+.fill-green{fill:rgba(120,212,168,.16)}
+.lbl-gold{fill:var(--gold)}
+.lbl-cyan{fill:var(--cyan)}
+.lbl-red{fill:var(--red)}
+.lbl-green{fill:var(--green)}
+.lbl-mut{fill:var(--muted)}
+
+/* ---------- wzory ---------- */
+.fx{
+  margin:16px 0;padding:16px 22px;border:1px solid rgba(108,198,230,.28);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(108,198,230,.06),rgba(108,198,230,.015));overflow-x:auto;
+}
+.fx .katex-display{margin:.4em 0}
+.fx .katex{color:var(--ink);font-size:1.12em}
+.katex{color:inherit}
+.fx .note{display:block;font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* ---------- rozwiązania krok po kroku ---------- */
+.worked{margin:16px 0;padding:16px 20px 18px;border:1px solid rgba(120,212,168,.25);border-radius:var(--r-md);background:var(--inset);overflow-x:auto}
+.worked h4{color:var(--green)}
+.worked ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:8px}
+.worked li{
+  counter-increment:step;position:relative;margin:0;padding:10px 14px 10px 52px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:rgba(13,20,36,.55);font-size:16px;line-height:1.65;
+}
+.worked li::before{
+  content:counter(step);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:var(--gold);color:#1d1606;font-weight:800;font-size:14px;line-height:1;
+}
+.worked li[data-l]::before{content:attr(data-l)}
+
+/* ---------- kalkulatory ---------- */
+.calc{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,#19233c,#141c31)}
+.calc h4{color:var(--gold);margin-bottom:12px;letter-spacing:.1em}
+.calc .row{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}
+.calc label{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;line-height:1.35}
+.calc input{
+  width:100%;background:var(--deep);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14.5px;
+  padding:8px 10px;border-radius:9px;
+}
+.calc input:focus{outline:none;border-color:var(--gold-2)}
+.calc .out{
+  margin-top:14px;padding:12px 14px;border-radius:var(--r-sm);background:var(--deep);border:1px solid var(--line);
+  font-family:var(--mono);font-size:13.5px;color:var(--green);white-space:pre-wrap;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.calc svg{display:block;width:100%;height:auto;max-width:560px;margin:14px auto 0}
+.calc svg text{font-family:var(--sans);font-size:11.5px;fill:var(--ink-2)}
+.calc .note{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------- odsyłacze ---------- */
+a.xref{color:var(--cyan);font-weight:600;border-bottom:1px dotted rgba(108,198,230,.5)}
+a.xref:hover{text-decoration:none;border-bottom-style:solid}
+
+/* ---------- stopka / na górę ---------- */
+.empty{margin:48px 0;padding:28px;text-align:center;border:1px dashed var(--line-2);border-radius:var(--r-lg);color:var(--muted)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:14.5px}
+.totop{
+  position:fixed;right:22px;bottom:22px;z-index:50;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card-2);border:1px solid var(--line-2);color:var(--gold);font-size:20px;font-weight:700;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.7);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;
+}
+.totop:hover{text-decoration:none;border-color:var(--gold-dim)}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+
+/* ---------- węższe ekrany ---------- */
+@media (max-width:900px){
+  body{font-size:16px}
+  .topbar__name{display:none}
+  .topbar__in{flex-wrap:wrap;gap:0 12px;padding:4px 0}
+  .chips{order:2;flex-basis:100%;padding:4px 0 10px}
+  .filter{order:1;width:100%;margin:8px 0 0}
+  .filter input{flex:1;width:auto}
+  .card__h,.card__b{padding-left:18px;padding-right:18px}
+  .intro{padding:18px 20px}
+  .sec{scroll-margin-top:130px}
+  .card{scroll-margin-top:130px}
+  .worked li{padding-left:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  .topbar,.toc,.totop,.pills,.skip{display:none!important}
+  .layout{display:block}
+  .card{break-inside:avoid-page}
+}
+</style>
+</head>
+<body><style>.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 14px;background:#0b1220;color:#94a3b8;font:13px/1.4 "Segoe UI",system-ui,sans-serif;border-bottom:1px solid #2c3a52}.pbar a{color:#e3b861;text-decoration:none;padding:2px 8px;border-radius:999px}.pbar a:hover{background:#1e293b}.pbar .sp{flex:1}.pbar b{color:#e2e8f0;font-weight:600}</style><div class="pbar" id="pbar"><a href="../index.php">🏠 Strona główna</a>›<a href="../index.php?tab=owe2">OWE II</a>›<b>Kompendium: Finanse</b><span class="sp"></span><a href="../index.php?tab=op">Olimpiada Przedsiębiorczości →</a></div>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<div class="wrap">
+<header class="hero">
+<p class="eyebrow">Olimpiada Wiedzy Ekonomicznej · Etap okręgowy · Kompendium wiedzy</p>
+<h1>Finanse</h1>
+<p class="desc">Rynki, instrumenty, instytucje, sprawozdania.</p>
+<div class="stats"><span><b>14</b> haseł</span><span><b>6</b> działów</span><span>synteza edycji <b>XXI–XXXIX</b></span></div>
+<p class="srcline">Zawody II stopnia — etap okręgowy.</p>
+<nav aria-label="Moduły kompendium" class="pills">
+<a class="pill" href="wiedza_mikroekonomia.html">Mikroekonomia · 19</a>
+<a class="pill" href="wiedza_makroekonomia.html">Makroekonomia · 16</a>
+<a aria-current="page" class="pill on" href="wiedza_finanse.html">Finanse · 14</a>
+<a class="pill" href="wiedza_zarzadzanie.html">Zarządzanie · 13</a>
+<a class="pill" href="wiedza_obliczeniowe.html">Obliczeniowe · 18</a>
+</nav><nav aria-label="Banki zadań" class="pills" style="margin-top:12px"><span style="color:#94a3b8;font-size:13px;align-self:center">Bank zadań z edycji XXI–XXXIX:</span><a class="pill" href="Zarzadzanie.html">Zarządzanie</a><a class="pill" href="Obliczeniowe.html">Zadania obliczeniowe</a><a class="pill" href="Mikroekonomia.html">Mikroekonomia</a><a class="pill" href="Makroekonomia.html">Makroekonomia</a><a class="pill" href="Finanse.html">★ Finanse</a><a class="pill" href="Analiza_finansowa.html">Analiza finansowa</a></nav>
+</header>
+<section aria-label="O module" class="intro">
+<p class="intro__lead">Blok finansowy to w OWE najbardziej „słownikowa” część testu: punkty zdobywa się za <strong>precyzyjne rozróżnienia</strong> między instrumentami o zbliżonych nazwach i funkcjach. Wszystkie wskaźniki liczone na danych (płynność, rentowność, dźwignia, koszt kapitału) znajdują się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a>.</p>
+<p class="intro__note">Zasada MECE: każde zagadnienie występuje w dokładnie jednym module. Wszystko, co wymaga rachunku na liczbach, znajduje się w module <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a> — także wtedy, gdy pochodzi z mikro- lub makroekonomii.</p>
+</section>
+<div class="topbar" id="topbar"><div class="topbar__in">
+<span class="topbar__name">Finanse</span>
+<nav aria-label="Działy" class="chips">
+<a class="chipnav" data-sec="f1" href="#f1"><i>1</i>Rynek i instrumenty</a>
+<a class="chipnav" data-sec="f2" href="#f2"><i>2</i>Giełda i inwestowanie</a>
+<a class="chipnav" data-sec="f3" href="#f3"><i>3</i>Bankowość</a>
+<a class="chipnav" data-sec="f4" href="#f4"><i>4</i>Rozliczenia i finansowanie firm</a>
+<a class="chipnav" data-sec="f5" href="#f5"><i>5</i>Ubezpieczenia i emerytury</a>
+<a class="chipnav" data-sec="f6" href="#f6"><i>6</i>Rachunkowość</a>
+</nav>
+<label class="filter"><span class="sr">Filtruj hasła</span><input autocomplete="off" id="q" placeholder="Szukaj w module…" type="search"/><output id="qcount">14 haseł</output></label>
+</div></div>
+<div class="layout">
+<aside aria-label="Spis treści" class="toc"><div class="toc__in">
+<p class="toc__h">Spis treści</p><ol class="toc__list">
+<li data-sec="f1"><a class="toc__sec" href="#f1"><i>1</i>Rynek i instrumenty</a><ul>
+<li><a data-card="FIN-01" href="#FIN-01"><i>FIN-01</i>Segmenty rynku i przypisanie instrumentów</a></li>
+<li><a data-card="FIN-02" href="#FIN-02"><i>FIN-02</i>Obligacje i instrumenty dłużne</a></li>
+<li><a data-card="FIN-03" href="#FIN-03"><i>FIN-03</i>Instrumenty pochodne i cel transakcji</a></li>
+</ul></li>
+<li data-sec="f2"><a class="toc__sec" href="#f2"><i>2</i>Giełda i inwestowanie</a><ul>
+<li><a data-card="FIN-04" href="#FIN-04"><i>FIN-04</i>GPW: indeksy, rynki, zlecenia, krótka sprzedaż</a></li>
+<li><a data-card="FIN-05" href="#FIN-05"><i>FIN-05</i>Analiza fundamentalna, techniczna i hipoteza rynków efektywnych</a></li>
+<li><a data-card="FIN-06" href="#FIN-06"><i>FIN-06</i>Fundusze inwestycyjne i zbiorowe formy lokowania</a></li>
+</ul></li>
+<li data-sec="f3"><a class="toc__sec" href="#f3"><i>3</i>Bankowość</a><ul>
+<li><a data-card="FIN-07" href="#FIN-07"><i>FIN-07</i>Czynności bankowe, bilans banku i zdolność kredytowa</a></li>
+<li><a data-card="FIN-08" href="#FIN-08"><i>FIN-08</i>Modyfikacje umowy kredytowej — słownik rozróżnień</a></li>
+</ul></li>
+<li data-sec="f4"><a class="toc__sec" href="#f4"><i>4</i>Rozliczenia i finansowanie firm</a><ul>
+<li><a data-card="FIN-09" href="#FIN-09"><i>FIN-09</i>Formy rozliczeń bezgotówkowych</a></li>
+<li><a data-card="FIN-10" href="#FIN-10"><i>FIN-10</i>Faktoring, forfaiting, dyskonto weksla, leasing</a></li>
+</ul></li>
+<li data-sec="f5"><a class="toc__sec" href="#f5"><i>5</i>Ubezpieczenia i emerytury</a><ul>
+<li><a data-card="FIN-11" href="#FIN-11"><i>FIN-11</i>Działy ubezpieczeń, reasekuracja, UFG</a></li>
+<li><a data-card="FIN-12" href="#FIN-12"><i>FIN-12</i>System emerytalny: OFE, KRUS, rodzaje systemów</a></li>
+</ul></li>
+<li data-sec="f6"><a class="toc__sec" href="#f6"><i>6</i>Rachunkowość</a><ul>
+<li><a data-card="FIN-13" href="#FIN-13"><i>FIN-13</i>Bilans: aktywa, pasywa i zasada równowagi</a></li>
+<li><a data-card="FIN-14" href="#FIN-14"><i>FIN-14</i>Rachunek zysków i strat oraz rachunek przepływów</a></li>
+</ul></li>
+</ol></div></aside>
+<main class="content" id="tresc">
+<section class="sec" id="f1">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 1</b> · STRUKTURA RYNKU FINANSOWEGO</p><h2>Rynek i instrumenty</h2></header>
+<article class="card" id="FIN-01">
+<header class="card__h"><span class="chip"><b>FIN-01</b><span>Dział 1</span></span><span class="card__src">Rynek i instrumenty</span></header>
+<div class="card__b">
+<h3 class="card__t">Segmenty rynku i przypisanie instrumentów</h3>
+<div class="card__grid">
+<div class="card__main"><p class="lead">Podział na rynek pieniężny i kapitałowy przebiega według <strong>pierwotnego terminu zapadalności</strong>: do roku włącznie — rynek pieniężny, powyżej roku — rynek kapitałowy.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Rynek pieniężny</th><th>Rynek kapitałowy</th><th>Rynek instrumentów pochodnych</th></tr></thead>
+<tbody>
+<tr><td>Bony skarbowe (do 52 tygodni), bony pieniężne NBP, certyfikaty depozytowe, akcepty bankowe, transakcje O/N</td><td>Akcje, obligacje, <b>listy zastawne</b>, certyfikaty inwestycyjne, kwity depozytowe</td><td>Futures, forward, opcje, swapy, FRA, CDS, warranty</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Rynek pierwotny i wtórny</h4>
+<p>Pierwotny — sprzedaż papierów nowo wyemitowanych przez uprawniony podmiot; wpływy trafiają do emitenta. Wtórny — obrót między inwestorami; emitent nie otrzymuje środków, ale zyskuje wycenę i płynność, bez których rynek pierwotny nie mógłby działać.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Listy zastawne trafiają na rynek kapitałowy</b>, mimo bankowego rodowodu — długi termin zapadalności rozstrzyga.</li>
+<li><b>Bony skarbowe to nie instrument pochodny</b> i emituje je <em>Minister Finansów</em>, nie Ministerstwo Skarbu ani NBP. Sprzedawane są <b>z dyskontem</b>, a ich pierwotny termin nie przekracza 52 tygodni.</li>
+<li><b>Bony pieniężne emituje NBP</b> i służą regulowaniu płynności sektora bankowego, a nie finansowaniu deficytu.</li>
+<li><b>Odsetek nie przynoszą</b> bony skarbowe i obligacje zerokuponowe — dochodem inwestora jest wyłącznie dyskonto, czyli różnica między ceną zakupu a wartością nominalną.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-02">
+<header class="card__h"><span class="chip"><b>FIN-02</b><span>Dział 1</span></span><span class="card__src">Rynek i instrumenty</span></header>
+<div class="card__b">
+<h3 class="card__t">Obligacje i instrumenty dłużne</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Rodzaj</th><th>Cecha wyróżniająca</th></tr></thead>
+<tbody>
+<tr><td>Zerokuponowa</td><td>Brak kuponów; zysk = wartość nominalna − cena zakupu</td></tr>
+<tr><td>Indeksowana inflacją</td><td>Oprocentowanie powiązane ze wskaźnikiem CPI (np. czteroletnie obligacje detaliczne)</td></tr>
+<tr><td><b>Junk bonds</b></td><td>Wysokie ryzyko kredytowe, rating spekulacyjny, wysoka rentowność</td></tr>
+<tr><td>TIPS</td><td>Amerykańskie obligacje z definicji chroniące przed inflacją</td></tr>
+<tr><td>Obligacje wieczyste (konsole)</td><td>Brak terminu wykupu, nieskończony strumień kuponów</td></tr>
+<tr><td>ABS / MBS</td><td>Papiery powstające w procesie <b>sekurytyzacji</b>, zabezpieczone pulą wierzytelności</td></tr>
+<tr><td>CDS</td><td>Kontrakt zabezpieczający przed niewypłacalnością emitenta; spread wyraża postrzegane ryzyko kredytowe</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Kto może być emitentem obligacji w Polsce</h4>
+<p>Osoby prawne, spółki komandytowo-akcyjne, jednostki samorządu terytorialnego, SKOK-i. <strong>Nie może</strong> spółka jawna — jako spółka osobowa bez osobowości prawnej i bez zdolności emisyjnej.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Obligacje zerokuponowe emitują państwa zagrożone bankructwem”</b> — mylenie zerokuponowości z ratingiem śmieciowym. To niezależne wymiary.</li>
+<li><b>„Rentowności obligacji zerokuponowej nie da się wyliczyć”</b> — da się; wynika wprost z ceny i wartości nominalnej.</li>
+<li><b>Wzrost spreadu między rentownością obligacji rządowych a korporacyjnych</b> jest sygnałem nadchodzącego kryzysu, bo oznacza gwałtowny wzrost awersji do ryzyka kredytowego.</li>
+<li><b>Catalyst</b> to rynek instrumentów <em>dłużnych</em>: notowane są obligacje korporacyjne, komunalne i listy zastawne, a nie akcje spółek technologicznych.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-03">
+<header class="card__h"><span class="chip"><b>FIN-03</b><span>Dział 1</span></span><span class="card__src">Rynek i instrumenty</span></header>
+<div class="card__b">
+<h3 class="card__t">Instrumenty pochodne i cel transakcji</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Cel</th><th>Istota</th><th>Przykład</th></tr></thead>
+<tbody>
+<tr><td><b>Hedging</b></td><td>Zabezpieczenie istniejącej ekspozycji; zamknięcie ryzyka</td><td>Eksporter zaciąga kredyt w walucie, w której rozlicza swoje należności</td></tr>
+<tr><td><b>Arbitraż</b></td><td>Jednoczesny zakup i sprzedaż na dwóch rynkach dla wykorzystania różnicy cen; <b>zysk bez ryzyka</b></td><td>Kupno EUR w Londynie i sprzedaż w Nowym Jorku po korzystniejszym kursie</td></tr>
+<tr><td><b>Spekulacja</b></td><td>Świadome otwarcie pozycji w oczekiwaniu na zmianę ceny</td><td>Zakup kontraktu futures na WIG20 — legalna i dozwolona na giełdzie</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Opcje — kto czego oczekuje</h4>
+<ul>
+<li><b>Nabywca opcji kupna (call)</b> — oczekuje wzrostu ceny instrumentu bazowego.</li>
+<li><b>Nabywca opcji sprzedaży (put)</b> — oczekuje spadku. Kupno put z ceną wykonania 100 zł przy oczekiwanym spadku do 40 zł maksymalizuje dochód.</li>
+<li><b>Wystawca opcji sprzedaży</b> — oczekuje <em>wzrostu</em> (albo stabilizacji) ceny, bo wtedy opcja wygasa bez wykonania i zatrzymuje premię.</li>
+<li><b>Opcja amerykańska</b> — wykonanie w dowolnym dniu do wygaśnięcia; <b>europejska</b> — wyłącznie w dniu wygaśnięcia. Nie ma to związku z rynkiem geograficznym.</li>
+<li>Podstawowy model wyceny: <b>Black–Scholes–Merton</b>.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Każdy zakup futures, opcji lub swapa jest hedgingiem”</b> — o klasyfikacji decyduje <em>cel i istniejąca ekspozycja</em>, a nie rodzaj instrumentu.</li>
+<li><b>Sprzedaż owsa przez wytwórcę pasz w oczekiwaniu spadku ceny</b> to spekulacja — wytwórca pasz owies <em>kupuje</em>, więc sprzedaż nie zabezpiecza jego naturalnej pozycji.</li>
+<li><b>Główne ryzyko futures na WIG20</b> to <em>dźwignia finansowa</em> (depozyt zabezpieczający to ułamek wartości kontraktu), a nie „niefizyczny charakter indeksu” ani niska płynność.</li>
+<li><b>Kontrakt gwarantujący nabywcy prawo (nie obowiązek) sprzedaży</b> instrumentu bazowego po ustalonej cenie to <em>opcja</em>, nie forward ani futures — te ostatnie tworzą obowiązek po obu stronach.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="f2">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 2</b> · GIEŁDA, ANALIZA I FUNDUSZE</p><h2>Giełda i inwestowanie</h2></header>
+<article class="card" id="FIN-04">
+<header class="card__h"><span class="chip"><b>FIN-04</b><span>Dział 2</span></span><span class="card__src">Giełda i inwestowanie</span></header>
+<div class="card__b">
+<h3 class="card__t">GPW: indeksy, rynki, zlecenia, krótka sprzedaż</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Pojęcie</th><th>Treść</th></tr></thead>
+<tbody>
+<tr><td>WIG20 / mWIG40 / sWIG80</td><td>Indeksy największych, średnich i małych spółek. mWIG40 <b>zastąpił MIDWIG</b></td></tr>
+<tr><td>Indeks sektorowy</td><td>np. WIG-nieruchomości. WIGdiv jest indeksem <b>dywidendowym</b>, nie sektorowym</td></tr>
+<tr><td>NewConnect</td><td><b>Alternatywny system obrotu</b> (nie rynek regulowany) dla młodych spółek o wysokim potencjale wzrostu</td></tr>
+<tr><td>Catalyst</td><td>Rynek instrumentów dłużnych, uruchomiony 30 września 2009 r.</td></tr>
+<tr><td>Spółka publiczna</td><td>Spółka, w której <b>co najmniej jedna akcja jest zdematerializowana</b> — niekoniecznie notowana na GPW</td></tr>
+<tr><td><b>IPO</b></td><td>Pierwsza oferta publiczna</td></tr>
+<tr><td><b>Krótka sprzedaż</b></td><td>Pożyczenie papierów wartościowych w celu ich sprzedaży i późniejszego odkupu po niższej cenie</td></tr>
+<tr><td>Zlecenie z limitem ceny (sprzedaż)</td><td><b>Minimalna</b> cena, po której inwestor zgadza się sprzedać akcje</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Spółka publiczna to spółka z udziałem Skarbu Państwa”</b> — mylenie własności państwowej z dematerializacją akcji.</li>
+<li><b>Krótka sprzedaż mylona z day tradingiem</b> („zakup i sprzedaż w ciągu jednej sesji”) lub z zamknięciem pozycji w kontrakcie.</li>
+<li><b>Spekulacja giełdowa jest dozwolona.</b> Zakazane są: manipulacja kursem, wykorzystanie informacji poufnej (insider trading) i nabywanie znacznych pakietów bez wymaganych zgód.</li>
+<li><b>Window dressing</b> to „upiększanie” portfela funduszu na koniec okresu sprawozdawczego: sprzedaż walorów ze stratą i zakup tych, które ostatnio rosły.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-05">
+<header class="card__h"><span class="chip"><b>FIN-05</b><span>Dział 2</span></span><span class="card__src">Giełda i inwestowanie</span></header>
+<div class="card__b">
+<h3 class="card__t">Analiza fundamentalna, techniczna i hipoteza rynków efektywnych</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Podejście</th><th>Podstawa prognozy</th><th>Założenie</th></tr></thead>
+<tbody>
+<tr><td>Fundamentalna</td><td>Sprawozdania finansowe, otoczenie makro i sektorowe</td><td>Cena rynkowa może odbiegać od wartości wewnętrznej</td></tr>
+<tr><td>Techniczna</td><td><b>Historyczne kursy i obroty</b></td><td>Bieżąca cena odzwierciedla wszystkie czynniki, wystarczy analizować ceny i wolumen</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Hipoteza rynków efektywnych (E. Fama)</h4>
+<ul>
+<li><b>Słaba forma</b> — ceny odzwierciedlają wszystkie informacje historyczne; analiza techniczna traci sens.</li>
+<li><b>Półsilna (średnia)</b> — ceny odzwierciedlają wszystkie informacje <em>publicznie dostępne</em>; analiza fundamentalna nie daje trwałej przewagi.</li>
+<li><b>Silna</b> — ceny odzwierciedlają także informacje poufne.</li>
+</ul>
+<p>Rodzaje efektywności rynku kapitałowego: alokacyjna (kapitał trafia do najlepszych projektów), transakcyjna (niskie koszty zawierania transakcji) i informacyjna (odzwierciedlanie informacji w cenach).</p>
+</div>
+<div class="assume">
+<h4>Założenia hipotezy</h4>
+<ul><li>Wielu racjonalnych inwestorów, swobodny dostęp do informacji, niskie koszty transakcyjne.</li><li>Zysk ekonomiczny z przewagi informacyjnej jest możliwy, ale <b>chwilowy</b> — to sedno rynku efektywnego.</li></ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Na rynku efektywnym każda firma osiąga zysk ekonomiczny”</b> albo „zyski występują tylko w długim okresie” — odwrócenie: możliwość zysku ekonomicznego ma charakter <em>chwilowy</em>.</li>
+<li><b>Mylenie analizy technicznej z fundamentalną</b> przy opisie „bieżąca cena odzwierciedla wszystkie czynniki” — to założenie <em>techniczne</em>, mimo że brzmi jak hipoteza rynków efektywnych.</li>
+<li><b>Formacje techniczne</b>: podwójny szczyt i głowa z ramionami to sygnały sprzedaży; spodek i odwrócona głowa z ramionami — sygnały kupna.</li>
+<li><b>Wysoka wartość wskaźnika korzystna dla inwestora</b>: spośród P/E, P/CF, P/BV i DY tylko <b>stopa dywidendy (DY)</b> jest pożądana w wysokiej wartości; pozostałe to mierniki „drogości” akcji.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-06">
+<header class="card__h"><span class="chip"><b>FIN-06</b><span>Dział 2</span></span><span class="card__src">Giełda i inwestowanie</span></header>
+<div class="card__b">
+<h3 class="card__t">Fundusze inwestycyjne i zbiorowe formy lokowania</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Typ</th><th>Cecha</th></tr></thead>
+<tbody>
+<tr><td><b>No load</b></td><td>Nie pobiera prowizji od sprzedaży jednostek uczestnictwa; opłatę za zarządzanie pobiera nadal</td></tr>
+<tr><td>ETF</td><td>Fundusz notowany na giełdzie, odwzorowujący indeks</td></tr>
+<tr><td><b>REIT</b></td><td>Fundusz koncentrujący działalność na rynku <b>nieruchomości</b></td></tr>
+<tr><td>Hedge fund</td><td>Agresywne strategie, dźwignia, ograniczony krąg inwestorów</td></tr>
+<tr><td>Vulture fund</td><td>Skup wierzytelności zagrożonych</td></tr>
+<tr><td>Jednostki uczestnictwa</td><td>Podlegają <b>dziedziczeniu</b>; nie są objęte gwarancjami BFG</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Fundusz no load nie pobiera opłat za zarządzanie”</b> — pobiera; rezygnuje jedynie z prowizji dystrybucyjnej.</li>
+<li><b>„Fundusze rynku pieniężnego są objęte ochroną BFG”</b> — gwarancje BFG obejmują depozyty bankowe, nie jednostki funduszy.</li>
+<li><b>„Fundusz benchmarkowy gwarantuje stały zysk”</b> — benchmark to punkt odniesienia oceny, nie gwarancja.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="f3">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 3</b> · BANKOWOŚĆ I NADZÓR</p><h2>Bankowość</h2></header>
+<article class="card" id="FIN-07">
+<header class="card__h"><span class="chip"><b>FIN-07</b><span>Dział 3</span></span><span class="card__src">Bankowość</span></header>
+<div class="card__b">
+<h3 class="card__t">Czynności bankowe, bilans banku i zdolność kredytowa</h3>
+<div class="card__grid">
+<div class="card__main"><div class="mech">
+<h4>Czynności bankowe <em>sensu stricto</em></h4>
+<p>Zastrzeżone wyłącznie dla banków: przyjmowanie wkładów płatnych na żądanie i terminowych, prowadzenie rachunków, udzielanie kredytów, emitowanie bankowych papierów wartościowych, wydawanie instrumentu pieniądza elektronicznego, rozliczenia pieniężne. <strong>Wydawanie kart płatniczych</strong> jest czynnością bankową <em>sensu largo</em> — mogą ją wykonywać także inne podmioty.</p>
+</div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Bilans banku komercyjnego</th><th>Pozycje</th></tr></thead>
+<tbody>
+<tr><td><b>Aktywa</b></td><td>Udzielone kredyty (także gotówkowe dla gospodarstw domowych), papiery wartościowe, rezerwy w banku centralnym, gotówka</td></tr>
+<tr><td><b>Pasywa</b></td><td>Depozyty klientów, wyemitowane obligacje, kapitały własne</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Instytucje i regulacje</h4>
+<ul>
+<li><b>Bankowy Fundusz Gwarancyjny</b> — chroni depozyty złotowe i walutowe osób fizycznych, osób prawnych, SKO. <em>Nie chroni</em> depozytów funduszy emerytalnych ani środków innych instytucji finansowych.</li>
+<li><b>Rekomendacja S</b> — nakazuje badanie zdolności kredytowej przy kredytach walutowych przy założeniu stopy nie niższej niż złotowa i kapitału wyższego o 20%. Rekomendacja T dotyczy zarządzania ryzykiem detalicznym.</li>
+<li><b>Bazylea II</b> — reguluje pomiar ryzyka aktywów, minimalny współczynnik wypłacalności i wytyczne dla nadzorców. <em>Nie reguluje</em> minimalnej różnicy między stopami kredytów i depozytów.</li>
+<li><b>Pożyczkodawca ostatniej instancji</b> (W. Bagehot) — bank centralny powinien pożyczać swobodnie, ale po „karnym oprocentowaniu”, aby ograniczyć <em>pokusę nadużycia</em>.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Bank nigdy nie udzieli kredytu podmiotowi bez zdolności kredytowej”</b> — może to zrobić w szczególnych przypadkach (np. przy programie naprawczym lub szczególnym zabezpieczeniu), samodzielnie, bez zgody KNF.</li>
+<li><b>SKOK-i</b>: wymagają członkostwa, prowadzą działalność <em>niezarobkową</em> (nie nastawioną na zysk); ich depozyty są dziś objęte BFG, ale rezerwy obowiązkowej do NBP nie odprowadzają.</li>
+<li><b>Kredyt a wydatek</b>: spłata raty kredytu obrotowego <em>nie jest kosztem</em> dla przedsiębiorstwa (kosztem są odsetki), podobnie jak zakup gruntu.</li>
+<li><b>Credit crunch</b> to zjawisko po stronie <em>podaży</em> kredytu — przesunięcie krzywej podaży w lewo wskutek wzrostu awersji banków do ryzyka, a nie spadek popytu na kredyt.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-08">
+<header class="card__h"><span class="chip"><b>FIN-08</b><span>Dział 3</span></span><span class="card__src">Bankowość</span></header>
+<div class="card__b">
+<h3 class="card__t">Modyfikacje umowy kredytowej — słownik rozróżnień</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Termin</th><th>Znaczenie</th></tr></thead>
+<tbody>
+<tr><td><b>Promesa</b></td><td>Przyrzeczenie udzielenia kredytu przez bank</td></tr>
+<tr><td><b>Karencja</b></td><td>Przejściowe <b>zawieszenie spłaty</b> (np. kapitału) na wniosek kredytobiorcy</td></tr>
+<tr><td><b>Prolongata</b></td><td>Wydłużenie terminu spłaty</td></tr>
+<tr><td><b>Konwersja</b></td><td>Zmiana warunków pożyczki</td></tr>
+<tr><td><b>Raty annuitetowe</b></td><td>Raty <b>stałe</b> co do wysokości (przy niezmienionej stopie); nie są ratami malejącymi</td></tr>
+<tr><td><b>Kredyt balonowy</b></td><td>Spłacany jednorazowo na koniec okresu kredytowania</td></tr>
+<tr><td><b>Kredyt rewolwingowy</b></td><td>Odnawialna linia kredytowa</td></tr>
+<tr><td><b>Kredyt lombardowy</b></td><td>Zabezpieczony zastawem na papierach wartościowych lub rzeczach</td></tr>
+<tr><td><b>Cash back</b></td><td>Wypłata gotówki w sklepie przy płatności kartą</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Karencja mylona z prolongatą</b> — karencja zawiesza spłatę w trakcie, prolongata przesuwa termin końcowy.</li>
+<li><b>„Raty annuitetowe są stałe niezależnie od stopy referencyjnej”</b> — są stałe przy <em>danej</em> stopie; zmiana WIBOR-u zmienia ich wysokość.</li>
+<li><b>Skradziona karta bez ujawnienia PIN</b>: bank odpowiada za transakcje powyżej równowartości 150 euro dokonane <em>przed</em> zgłoszeniem utraty oraz za wszystkie po zgłoszeniu.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="f4">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 4</b> · ROZLICZENIA I FINANSOWANIE PRZEDSIĘBIORSTW</p><h2>Rozliczenia i finansowanie firm</h2></header>
+<article class="card" id="FIN-09">
+<header class="card__h"><span class="chip"><b>FIN-09</b><span>Dział 4</span></span><span class="card__src">Rozliczenia i finansowanie firm</span></header>
+<div class="card__b">
+<h3 class="card__t">Formy rozliczeń bezgotówkowych</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Instrument</th><th>Konstrukcja</th><th>Funkcja</th></tr></thead>
+<tbody>
+<tr><td><b>Akredytywa</b></td><td>Bank importera zobowiązuje się zapłacić po przedstawieniu dokumentów</td><td>Bezgotówkowe rozliczenie między firmami; zabezpiecza <b>eksportera</b></td></tr>
+<tr><td><b>Inkaso</b></td><td>Bank sprzedawcy pobiera należność w zamian za wydanie dokumentów handlowych</td><td>Warunkowa forma płatności, tańsza i mniej bezpieczna niż akredytywa</td></tr>
+<tr><td><b>Weksel</b></td><td>Bezwarunkowe zobowiązanie do zapłaty</td><td>Kredyt kupiecki, zabezpieczenie, obieg</td></tr>
+<tr><td><b>Akcept bankowy</b></td><td>Weksel przyjęty (zaakceptowany) przez bank</td><td>Instrument rynku pieniężnego podlegający obrotowi wtórnemu</td></tr>
+<tr><td><b>Czek</b></td><td>Polecenie wypłaty skierowane do banku (trasata)</td><td>Można go poręczyć (awal); nie można zastrzec oprocentowania</td></tr>
+</tbody>
+</table>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Za zapłatę czeku odpowiada tylko bank”</b> — odpowiada przede wszystkim wystawca; bank jest trasatem. Czek można też realizować po upływie terminu przedstawienia, o ile nie został odwołany.</li>
+<li><b>Akredytywa mylona z formą zabezpieczenia kredytu</b> lub z dokumentem zdolności kredytowej — to forma <em>rozliczeń</em>.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-10">
+<header class="card__h"><span class="chip"><b>FIN-10</b><span>Dział 4</span></span><span class="card__src">Rozliczenia i finansowanie firm</span></header>
+<div class="card__b">
+<h3 class="card__t">Faktoring, forfaiting, dyskonto weksla, leasing</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Forma</th><th>Przedmiot</th><th>Ryzyko niewypłacalności dłużnika</th><th>Horyzont</th></tr></thead>
+<tbody>
+<tr><td><b>Faktoring właściwy (pełny)</b></td><td>Nieprzeterminowane wierzytelności handlowe</td><td>Przejmuje <b>faktor</b></td><td>Krótki (do 90–180 dni)</td></tr>
+<tr><td>Faktoring niewłaściwy</td><td>jw.</td><td>Pozostaje u faktoranta</td><td>Krótki</td></tr>
+<tr><td><b>Forfaiting (bez regresu)</b></td><td>Wierzytelności eksportowe, zwykle wekslowe</td><td>Przejmuje <b>forfaiter</b> w pełni</td><td>Średnio- i długoterminowy</td></tr>
+<tr><td>Dyskonto weksla</td><td>Weksel przed terminem wykupu</td><td>Zależnie od umowy (zwykle regres)</td><td>Do daty wykupu</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Skutki bilansowe i wskaźnikowe</h4>
+<p>Faktoring pełny skraca cykl środków pieniężnych, bo obniża <strong>wskaźnik inkasa należności w dniach</strong> — nie wpływa bezpośrednio na cykl zapasów ani zobowiązań. Forfaiting weksla otrzymanego od kontrahenta zmniejsza pozycję <em>„krótkoterminowe aktywa finansowe — inne aktywa pieniężne”</em>. Obie formy poprawiają płynność i przenoszą ryzyko kredytowe na instytucję finansową.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Faktoring obejmuje wierzytelności <em>nieprzeterminowane</em></b> — skup długów przeterminowanych to windykacja, nie faktoring.</li>
+<li><b>Mylenie faktoringu z forfaitingiem</b> — rozstrzyga horyzont (krótki vs średnio-/długoterminowy) i charakter transakcji (krajowa vs handel zagraniczny).</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="f5">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 5</b> · UBEZPIECZENIA I SYSTEM EMERYTALNY</p><h2>Ubezpieczenia i emerytury</h2></header>
+<article class="card" id="FIN-11">
+<header class="card__h"><span class="chip"><b>FIN-11</b><span>Dział 5</span></span><span class="card__src">Ubezpieczenia i emerytury</span></header>
+<div class="card__b">
+<h3 class="card__t">Działy ubezpieczeń, reasekuracja, UFG</h3>
+<div class="card__grid">
+<div class="card__main"><div class="mech">
+<h4>Podział ustawowy</h4>
+<p><b>Dział I</b> — ubezpieczenia na życie (w tym posagowe, zaopatrzenia dzieci, ubezpieczenia z UFK). <b>Dział II</b> — pozostałe ubezpieczenia osobowe i majątkowe (choroba, wypadek, przewóz osób, OC, mienie).</p>
+</div>
+<div class="mech">
+<h4>Reasekuracja</h4>
+<p>Ubezpieczenie ubezpieczyciela. Pozwala na <strong>terytorialną i rodzajową dywersyfikację</strong> przyjętego ryzyka oraz zwiększa pojemność zakładu. Odpowiedzialność wobec ubezpieczającego pozostaje po stronie zakładu ubezpieczeń — nie jest przenoszona na klienta.</p>
+</div>
+<div class="mech">
+<h4>Ubezpieczeniowy Fundusz Gwarancyjny</h4>
+<p>Zaspokaja roszczenia za szkody <strong>na osobie</strong>, gdy nie ustalono tożsamości sprawcy wypadku, oraz szkody na osobie i mieniu, gdy sprawca nie miał obowiązkowego OC lub gdy upadł zakład ubezpieczeń.</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Reasekuracja przenosi odpowiedzialność na ubezpieczonego”</b> — przeciwnie, chroni ubezpieczyciela, a relacja z klientem pozostaje niezmieniona.</li>
+<li><b>OC deliktowa</b> obejmuje szkody wyrządzone osobom trzecim <em>czynem niedozwolonym</em> (spadające wiadro z tynkiem uszkadza samochód mieszkańca), a nie niewykonanie umowy — to odpowiedzialność <em>kontraktowa</em>.</li>
+<li><b>Ryzyko inwestycyjne w polisie z UFK ponosi ubezpieczony</b> — w pełni, niezależnie od rodzaju wybranego funduszu.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-12">
+<header class="card__h"><span class="chip"><b>FIN-12</b><span>Dział 5</span></span><span class="card__src">Ubezpieczenia i emerytury</span></header>
+<div class="card__b">
+<h3 class="card__t">System emerytalny: OFE, KRUS, rodzaje systemów</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Kryterium</th><th>Wariant</th><th>Przykład</th></tr></thead>
+<tbody>
+<tr><td>Sposób finansowania</td><td>Repartycyjny vs kapitałowy</td><td>ZUS (repartycja) vs OFE (kapitał)</td></tr>
+<tr><td>Formuła świadczenia</td><td>Zdefiniowana składka vs <b>zdefiniowane świadczenie</b></td><td>Część kapitałowa vs <b>KRUS</b></td></tr>
+<tr><td>Zakres podmiotowy</td><td>Powszechny vs branżowy</td><td>ZUS vs KRUS (branżowy, nie powszechny)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Opłaty w OFE i struktura portfela</h4>
+<p>Przed przeliczeniem składki na jednostki rozrachunkowe potrącana jest <strong>opłata dystrybucyjna (od składki)</strong>. Opłata za zarządzanie, koszty depozytariusza i koszty transakcyjne obciążają aktywa już po przeliczeniu. W strukturze portfela OFE historycznie dominowały <strong>skarbowe instrumenty dłużne</strong> (do czasu reformy z 2014 r.).</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Uznanie KRUS za system powszechny lub o zdefiniowanej składce</b> — to system branżowy o zdefiniowanym świadczeniu, w przeważającej części finansowany dotacją budżetową.</li>
+<li><b>Mylenie opłaty dystrybucyjnej z opłatą za zarządzanie</b> — decyduje moment poboru względem przeliczenia na jednostki.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<section class="sec" id="f6">
+<header class="sec__head"><p class="sec__eyebrow"><b>Dział 6</b> · RACHUNKOWOŚĆ JAKO JĘZYK SPRAWOZDAŃ</p><h2>Rachunkowość</h2></header>
+<p class="sub">Definicje i logika zapisu. Liczenie wskaźników na tych sprawozdaniach — moduł <a class="xref" href="wiedza_obliczeniowe.html">Obliczeniowe</a>.</p>
+<article class="card" id="FIN-13">
+<header class="card__h"><span class="chip"><b>FIN-13</b><span>Dział 6</span></span><span class="card__src">Rachunkowość</span></header>
+<div class="card__b">
+<h3 class="card__t">Bilans: aktywa, pasywa i zasada równowagi</h3>
+<div class="card__grid">
+<div class="card__main"><figure>
+<svg aria-label="Struktura bilansu" role="img" viewbox="0 0 640 250">
+<rect fill="none" height="190" stroke="#1c3057" width="250" x="60" y="30"></rect>
+<rect fill="none" height="190" stroke="#1c3057" width="250" x="330" y="30"></rect>
+<rect class="fill-cyan" height="95" width="250" x="60" y="30"></rect>
+<rect class="fill-gold" height="110" width="250" x="330" y="30"></rect>
+<text class="lbl-cyan" x="60" y="22">AKTYWA</text>
+<text class="lbl-gold" x="330" y="22">PASYWA</text>
+<text x="74" y="66">Aktywa trwałe</text>
+<text fill="#7e97bd" x="74" y="86">rzeczowe, WNiP, finansowe</text>
+<text x="74" y="160">Aktywa obrotowe</text>
+<text fill="#7e97bd" x="74" y="180">zapasy, należności, środki pieniężne</text>
+<text x="344" y="66">Kapitał własny</text>
+<text fill="#7e97bd" x="344" y="86">podstawowy, zapasowy, wynik</text>
+<text x="344" y="122">Zobowiązania długoterminowe</text>
+<text x="344" y="178">Zobowiązania krótkoterminowe</text>
+<text fill="#7e97bd" x="344" y="200">kapitał stały = własny + zob. długoterminowe</text>
+</svg>
+<figcaption>Suma bilansowa po obu stronach jest zawsze równa. Wystawienie faktury zwiększa jednocześnie aktywa (należności) i pasywa (wynik finansowy).</figcaption>
+</figure>
+<div class="mech">
+<h4>Kluczowe reguły</h4>
+<ul>
+<li><b>Złota zasada bilansowa</b> — majątek trwały powinien być w całości finansowany <em>kapitałem własnym</em>. (Srebrna, złagodzona wersja dopuszcza kapitał stały.)</li>
+<li><b>Goodwill (wartość firmy)</b> — nadwyżka ceny nabycia przedsiębiorstwa ponad wartość godziwą jego aktywów netto; zwiększa <em>wartości niematerialne i prawne</em> u przejmującego.</li>
+<li><b>Ujemna wartość firmy</b> prezentowana jest w <em>pasywach</em>.</li>
+<li><b>Rozliczenia międzyokresowe kosztów czynnych</b> — wydatki już poniesione, dotyczące przyszłych okresów; wynikają z zasady współmierności przychodów i kosztów.</li>
+<li><b>Rok obrotowy</b> nie musi pokrywać się z kalendarzowym i w szczególnych przypadkach może być dłuższy niż 12 miesięcy.</li>
+</ul>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>„Metoda wyceny aktywów i pasywów jest przedstawiona w bilansie”</b> — jest ujawniana w <em>informacji dodatkowej</em> (i we wprowadzeniu do sprawozdania), stąd w edycji XXV poprawną odpowiedzią było „żadna z powyższych”.</li>
+<li><b>Zaksięgowanie po stronie „Ma” konta „Należności od odbiorców”</b> oznacza <em>zmniejszenie</em> należności — czyli wpływ zapłaty potwierdzony wyciągiem, a nie wystawienie faktury (to strona „Winien”).</li>
+<li><b>FIFO</b> — rozchód wyceniany po cenach składników nabytych <em>najwcześniej</em>.</li>
+<li><b>Strata brutto a podatek</b>: spółka może wykazać stratę bilansową i mimo to zapłacić podatek, bo prawo bilansowe i podatkowe różnie definiują koszty i przychody.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+<article class="card" id="FIN-14">
+<header class="card__h"><span class="chip"><b>FIN-14</b><span>Dział 6</span></span><span class="card__src">Rachunkowość</span></header>
+<div class="card__b">
+<h3 class="card__t">Rachunek zysków i strat oraz rachunek przepływów</h3>
+<div class="card__grid">
+<div class="card__main"><div class="tablewrap">
+<table>
+<thead><tr><th>Poziom wyniku</th><th>Konstrukcja</th></tr></thead>
+<tbody>
+<tr><td>Zysk ze sprzedaży</td><td>Przychody netto ze sprzedaży − koszt własny sprzedaży</td></tr>
+<tr><td>Zysk z działalności operacyjnej (EBIT)</td><td>Zysk ze sprzedaży + pozostałe przychody operacyjne − pozostałe koszty operacyjne</td></tr>
+<tr><td>Zysk brutto</td><td>EBIT + przychody finansowe − koszty finansowe</td></tr>
+<tr><td>Zysk netto</td><td>Zysk brutto − podatek dochodowy</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mech">
+<h4>Układ rodzajowy a kalkulacyjny</h4>
+<p>Koszty rodzajowe: amortyzacja, zużycie materiałów i energii, usługi obce, podatki i opłaty, wynagrodzenia, ubezpieczenia społeczne i inne świadczenia, pozostałe koszty rodzajowe. W układzie kalkulacyjnym <strong>koszt własny sprzedaży = zakładowy koszt wytworzenia + koszty sprzedaży</strong> (a wraz z kosztami zarządu tworzy pełny koszt własny).</p>
+</div>
+<div class="mech">
+<h4>Rachunek przepływów — odczytywanie profilu firmy</h4>
+<p>Firma szybko rozwijająca się, finansowana środkami własnymi i obcymi: przepływy operacyjne <b>dodatnie</b>, inwestycyjne <b>ujemne</b> (kupuje majątek), finansowe <b>dodatnie</b> (pozyskuje kapitał).</p>
+</div></div>
+<aside class="card__aside"><div class="trap"><div class="trap__h"><span aria-hidden="true" class="trap__ic">!</span>Inżynieria błędów — dystraktory OWE</div><div class="trap__b"><ul>
+<li><b>Mylenie amortyzacji z kosztem gotówkowym</b> — to koszt niepieniężny, korygowany w rachunku przepływów; stąd EBITDA = EBIT + amortyzacja.</li>
+<li><b>„EBITDA to wolne przepływy pieniężne”</b> — nie uwzględnia nakładów inwestycyjnych ani zmian kapitału obrotowego netto, więc systematycznie zawyża zdolność generowania gotówki.</li>
+<li><b>Sposoby pokrycia straty</b>: niepodzielony zysk z lat ubiegłych, kapitał zapasowy lub rezerwowy, zysk lat przyszłych, obniżenie kapitału zakładowego.</li>
+</ul></div></div></aside>
+</div>
+</div></article>
+</section>
+<p class="empty" hidden="" id="empty">Brak haseł pasujących do wyszukiwania.</p>
+<footer class="foot"><span>Finanse · kompendium szkolne OWE</span><a href="#top">Na górę ↑</a></footer>
+</main></div></div>
+<a aria-label="Na górę strony" class="totop" href="#top">↑</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.renderMathInElement) renderMathInElement(document.body, {
+    delimiters: [{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],
+    throwOnError: false,
+    strict: false
+  });
+});
+</script>
+<script>/* Kompendium OWE — widok ciągły: wyszukiwarka, podświetlanie bieżącego działu, pomocnicze dla kalkulatorów */
+(function () {
+  function norm(s) {
+    return s.toLowerCase()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l')
+      .replace(/ń/g, 'n').replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ż/g, 'z').replace(/ź/g, 'z');
+  }
+  function plural(n) {
+    if (n === 1) return 'hasło';
+    var d = n % 10, h = n % 100;
+    return (d >= 2 && d <= 4 && (h < 12 || h > 14)) ? 'hasła' : 'haseł';
+  }
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var sections = $$('section.sec');
+  var cards = $$('article.card');
+  var chips = $$('.chipnav');
+  var tocItems = $$('.toc__list > li');
+  var tocCards = $$('.toc__list ul a');
+  var chipBox = document.querySelector('.chips');
+
+  /* --- wyszukiwarka --- */
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var empty = document.getElementById('empty');
+  cards.forEach(function (c) { c._hay = norm(c.textContent); });
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = norm(input.value.trim());
+      var hits = 0;
+      cards.forEach(function (c) {
+        var ok = !q || c._hay.indexOf(q) > -1;
+        c.hidden = !ok;
+        if (ok) hits++;
+      });
+      sections.forEach(function (s) {
+        var any = $$('article.card', s).some(function (c) { return !c.hidden; });
+        s.hidden = !any;
+        chips.concat(tocItems).forEach(function (el) { if (el.dataset.sec === s.id) el.hidden = !any; });
+      });
+      tocCards.forEach(function (a) {
+        var c = document.getElementById(a.dataset.card);
+        a.parentNode.hidden = !!(c && c.hidden);
+      });
+      count.textContent = q ? (hits + ' / ' + cards.length) : (cards.length + ' ' + plural(cards.length));
+      if (empty) empty.hidden = hits > 0;
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; input.dispatchEvent(new Event('input')); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+
+  /* --- bieżący dział i hasło (podświetlenie w nawigacji) --- */
+  var curSec = null, curCard = null;
+  function setSection(id) {
+    if (id === curSec) return;
+    curSec = id;
+    chips.forEach(function (a) { a.classList.toggle('on', a.dataset.sec === id); });
+    tocItems.forEach(function (li) { li.classList.toggle('on', li.dataset.sec === id); });
+    var on = chips.filter(function (a) { return a.dataset.sec === id; })[0];
+    if (on && chipBox && chipBox.offsetParent) {
+      var l = on.offsetLeft - chipBox.offsetLeft, r = l + on.offsetWidth;
+      if (l < chipBox.scrollLeft || r > chipBox.scrollLeft + chipBox.clientWidth) {
+        chipBox.scrollTo({ left: Math.max(0, l - 24), behavior: 'smooth' });
+      }
+    }
+  }
+  function setCard(id) {
+    if (id === curCard) return;
+    curCard = id;
+    tocCards.forEach(function (a) { a.classList.toggle('on', a.dataset.card === id); });
+  }
+  function spy() {
+    var line = 110;
+    var s = null, c = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].hidden) continue;
+      if (sections[i].getBoundingClientRect().top <= line) s = sections[i]; else break;
+    }
+    if (!s) s = sections.filter(function (x) { return !x.hidden; })[0];
+    if (s) {
+      setSection(s.id);
+      var cs = $$('article.card', s);
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j].hidden) continue;
+        if (cs[j].getBoundingClientRect().top <= line + 40) c = cs[j]; else break;
+      }
+      setCard(c ? c.id : (cs[0] && cs[0].id));
+    }
+    var tt = document.querySelector('.totop');
+    if (tt) tt.classList.toggle('show', window.scrollY > 900);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; spy(); }); }
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+
+  /* --- pomocnicze dla kalkulatorów (bez zmian względem wersji z zakładkami) --- */
+  window.OWE = {
+    n: function (id) { var e = document.getElementById(id); return e ? parseFloat(String(e.value).replace(',', '.')) : NaN; },
+    f: function (x, d) { return isFinite(x) ? x.toLocaleString('pl-PL', { maximumFractionDigits: d === undefined ? 2 : d }) : '—'; },
+    bind: function (ids, fn) {
+      var run = function () { try { fn(); } catch (e) { } };
+      ids.forEach(function (id) { var e = document.getElementById(id); if (e) e.addEventListener('input', run); });
+      run();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
